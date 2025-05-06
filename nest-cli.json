@@ -1,0 +1,23 @@
+{
+	"monorepo": true,
+	"projects": {
+		"gateway": {
+			"type": "application",
+			"root": "apps/gateway",
+			"entryFile": "main",
+			"sourceRoot": "apps/gateway/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/gateway/tsconfig.json"
+			}
+		},
+		"community-service": {
+			"type": "application",
+			"root": "apps/community-service",
+			"entryFile": "main",
+			"sourceRoot": "apps/community-service/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/community-service/tsconfig.json"
+			}
+		}
+	}
+}
