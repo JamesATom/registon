@@ -1,1 +1,7 @@
 builds/
+*.log
+node_modules/
+dist/
+.env
+coverage/
+.DS_Store
