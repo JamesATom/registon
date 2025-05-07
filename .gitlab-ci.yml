@@ -1,18 +1,40 @@
-image: docker:latest
+# image: docker:latest
 
-services:
-  - docker:dind
+# services:
+#   - docker:dind
 
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_TLS_CERTDIR: ""
+# variables:
+#   DOCKER_HOST: tcp://docker:2375/
+#   DOCKER_TLS_CERTDIR: ""
+
+# stages:
+#   - build
+
+# build_gateway:
+#   stage: build
+#   script:
+#     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+#     - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH/gateway ./gateway
+#     - docker push $CI_REGISTRY/$CI_PROJECT_PATH/gateway
+
+image: node:18-alpine
 
 stages:
+  - install
   - build
+  - test
+
+install_dependencies:
+  stage: install
+  script:
+    - yarn install
 
 build_gateway:
   stage: build
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/$CI_PROJECT_PATH/gateway ./gateway
-    - docker push $CI_REGISTRY/$CI_PROJECT_PATH/gateway
+    - yarn --cwd apps/gateway build
+
+# test_gateway:
+#   stage: test
+#   script:
+#     - yarn --cwd apps/gateway test
