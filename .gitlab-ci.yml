@@ -20,19 +20,21 @@
 image: node:18-alpine
 
 stages:
-  - install
-  - build
-  - test
+    - install
+    - build
+    - test
 
 install_dependencies:
-  stage: install
-  script:
-    - yarn install
+    stage: install
+    script:
+        - yarn install
 
 build_gateway:
-  stage: build
-  script:
-    - yarn --cwd apps/gateway build
+    stage: build
+    tags: 
+        - nestjs
+    script:
+        - yarn --cwd apps/gateway build
 
 # test_gateway:
 #   stage: test
