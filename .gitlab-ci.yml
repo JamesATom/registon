@@ -18,7 +18,4 @@ build_gateway:
     script:
         - yarn --cwd apps/gateway build
 
-# test_gateway:
-#   stage: test
-#   script:
-#     - yarn --cwd apps/gateway test
+
