@@ -8,7 +8,6 @@ install_dependencies:
         - nestjs
     script:
         - cd apps/gateway
-        - export PATH="/opt/homebrew/bin:$PATH"
         - yarn install
 
 build_gateway:
@@ -17,5 +16,4 @@ build_gateway:
         - nestjs
     script:
         - cd apps/gateway
-        - export PATH="/opt/homebrew/bin:$PATH"
-        - yarn --cwd apps/gateway build
+        - yarn build
