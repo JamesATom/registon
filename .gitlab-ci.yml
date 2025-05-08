@@ -1,21 +1,19 @@
-image: node:18-alpine
-
 stages:
     - install
     - build
-    - test
 
 install_dependencies:
     stage: install
+    tags:
+        - nestjs
     script:
-        - npm install -g yarn
-        - export PATH="$PATH:/opt/homebrew/bin"
+        - export PATH="/opt/homebrew/bin:$PATH"
         - yarn install
 
 build_gateway:
     stage: build
-    tags: 
+    tags:
         - nestjs
     script:
-        - npm install -g yarn  
+        - export PATH="/opt/homebrew/bin:$PATH"
         - yarn --cwd apps/gateway build
