@@ -16,6 +16,4 @@ build_gateway:
     tags: 
         - nestjs
     script:
-        - yarn --cwd apps/gateway build
-
-
+        - /opt/homebrew/bin/yarn --cwd apps/gateway build
