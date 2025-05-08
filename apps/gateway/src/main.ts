@@ -1,21 +1,29 @@
 // main.ts
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     
+    app.enableVersioning({
+        type: VersioningType.URI,
+        prefix: 'api/',
+        defaultVersion: '1',
+    });
+
     const config = new DocumentBuilder()
-        .setTitle('[App Name] API')
-        .setDescription('The [App Name] API description')
+        .setTitle(`${process.env.APP_NAME_1} API`)
+        .setDescription(`The ${process.env.APP_NAME_1} API description`)
         .setVersion('1.0')
-        .addTag('[App Name]')
+        .addTag(`${process.env.APP_NAME_1}`)
         .addBearerAuth()
         .build();
 
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
+
 
     app.enableCors({
         origin: '*',
@@ -26,7 +34,7 @@ async function bootstrap() {
 
     const PORT = process.env.PORT;
     await app.listen(PORT, '0.0.0.0', () => {
-        console.log(`[App Name] server is running on port => ${PORT}`);
+        console.log(`${process.env.APP_NAME_1 + ' ' + process.env.APP_NAME_2} server is running on port => ${PORT}`);
     });
 }
 

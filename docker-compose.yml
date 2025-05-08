@@ -8,8 +8,28 @@ services:
         environment:
             PORT: 8000
             RABBITMQ_URL: amqp://rabbitmq:5672
+            RABBITMQ_COMMUNITY_SERVICE_QUEUE: community_service_queue
+            APP_NAME_1: Registon
+            APP_NAME_2: Gateway
         depends_on:
-            - rabbitmq
+            rabbitmq:
+                condition: service_healthy
+        restart: on-failure
+
+    community-service:
+        build:
+            context: .
+            dockerfile: apps/community-service/Dockerfile
+        ports:
+            - "8001:8001"
+        environment:
+            PORT: 8001
+            RABBITMQ_URL: amqp://rabbitmq:5672
+            RABBITMQ_COMMUNITY_SERVICE_QUEUE: community_service_queue
+        depends_on:
+            rabbitmq:
+                condition: service_healthy
+        restart: on-failure
 
     rabbitmq:
         image: rabbitmq:3-management
@@ -21,6 +41,12 @@ services:
             RABBITMQ_DEFAULT_PASS: guest
         volumes:
             - rabbitmq_data:/var/lib/rabbitmq
+        healthcheck:
+            test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+            interval: 5s
+            timeout: 15s
+            retries: 5
+            start_period: 10s
 
 volumes:
     rabbitmq_data:

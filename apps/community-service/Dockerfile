@@ -1,20 +1,23 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Faqat package.json va yarn.lock ni ko'chirish bilan dependencies ni o'rnatamiz
-# Bu image build qilishda keshdan foydalanishni optimallashtiradi
-COPY package.json yarn.lock* ./
+RUN corepack enable
+
+COPY apps/community-service/package.json apps/community-service/yarn.lock ./
+
 RUN yarn install
 
-# Dastur kodini ko'chirish
 COPY . .
 
-# TypeScript kodini kompilyatsiya qilish
-RUN yarn build
+RUN yarn --cwd apps/community-service build
 
-# Ishga tushirish porti
-EXPOSE 3000
+FROM node:18-alpine
 
-# Dasturni ishga tushirish
-CMD ["yarn", "start:prod"]
+WORKDIR /app
+
+COPY --from=builder /app/apps/community-service/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+
+EXPOSE 8001
+CMD ["node", "dist/main.js"]

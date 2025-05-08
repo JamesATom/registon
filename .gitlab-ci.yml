@@ -14,3 +14,17 @@ build_gateway:
         paths:
             - apps/gateway/dist/
         expire_in: 3 day
+
+build_community_service:
+    stage: build
+    tags:
+        - nestjs
+    script:
+        - export PATH="/opt/homebrew/bin:$PATH"
+        - cd apps/community-service
+        - yarn install
+        - yarn build
+    artifacts:
+        paths:
+            - apps/community-service/dist/
+        expire_in: 3 day
