@@ -7,13 +7,15 @@ install_dependencies:
     tags:
         - nestjs
     script:
-        - cd apps/gateway
+        - export PATH="/opt/homebrew/bin:$PATH"
         - yarn install
+        - cd apps/gateway && yarn install
+        - cd ../..
 
 build_gateway:
     stage: build
     tags:
         - nestjs
     script:
-        - cd apps/gateway
-        - yarn build
+        - export PATH="/opt/homebrew/bin:$PATH"
+        - cd apps/gateway && yarn build
