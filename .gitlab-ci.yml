@@ -1,16 +1,5 @@
 stages:
-    - install
     - build
-
-install_dependencies:
-    stage: install
-    tags:
-        - nestjs
-    script:
-        - export PATH="/opt/homebrew/bin:$PATH"
-        - yarn install
-        - cd apps/gateway && yarn install
-        - cd ../..
 
 build_gateway:
     stage: build
@@ -18,4 +7,10 @@ build_gateway:
         - nestjs
     script:
         - export PATH="/opt/homebrew/bin:$PATH"
-        - cd apps/gateway && yarn build
+        - cd apps/gateway 
+        - yarn install
+        - yarn build
+    artifacts:
+        paths:
+            - apps/gateway/dist/
+        expire_in: 1 day
