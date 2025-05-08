@@ -8,6 +8,7 @@ stages:
 install_dependencies:
     stage: install
     script:
+        - npm install -g yarn
         - export PATH="$PATH:/opt/homebrew/bin"
         - yarn install
 
@@ -16,4 +17,5 @@ build_gateway:
     tags: 
         - nestjs
     script:
-        - /opt/homebrew/bin/yarn --cwd apps/gateway build
+        - npm install -g yarn  
+        - yarn --cwd apps/gateway build
