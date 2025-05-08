@@ -13,4 +13,4 @@ build_gateway:
     artifacts:
         paths:
             - apps/gateway/dist/
-        expire_in: 1 day
+        expire_in: 3 day
