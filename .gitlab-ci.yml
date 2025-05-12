@@ -26,7 +26,7 @@ build_community_service:
 deploy:
     stage: deploy
     tags:
-        - remote
+        - remote-dev
     script:
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
