@@ -2,13 +2,13 @@ stages:
     - build
     - deploy
 
-variables:
-    NODE_IMAGE: node:20
+# variables:
+#     NODE_IMAGE: node:20
 #     DOCKER_HOST: tcp://docker:2375
 #     DOCKER_TLS_CERTDIR: ""
 
 build_gateway:
-    image: ${NODE_IMAGE}
+    # image: ${NODE_IMAGE}
     stage: build
     tags:
         - remote-shell-dev
@@ -19,7 +19,7 @@ build_gateway:
         - yarn build
 
 build_community_service:
-    image: ${NODE_IMAGE}
+    # image: ${NODE_IMAGE}
     stage: build
     tags:
         - remote-shell-dev
