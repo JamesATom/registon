@@ -30,7 +30,7 @@ build_community_service:
         - yarn build
 
 deploy:
-    image: docker:latest
+    # image: docker:latest
     stage: deploy
     tags:
         - remote-shell-dev
