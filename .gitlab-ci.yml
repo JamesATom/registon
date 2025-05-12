@@ -3,6 +3,7 @@ stages:
     - deploy
 
 build_gateway:
+    image: node:20
     stage: build
     tags:
         - remote-dev
