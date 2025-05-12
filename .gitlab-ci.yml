@@ -2,8 +2,8 @@ stages:
     - build
     - deploy
 
-# variables:
-#     NODE_IMAGE: node:20
+variables:
+    NODE_IMAGE: node:20
 #     DOCKER_HOST: tcp://docker:2375
 #     DOCKER_TLS_CERTDIR: ""
 
