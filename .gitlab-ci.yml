@@ -22,7 +22,7 @@ build_community_service:
     # image: ${NODE_IMAGE}
     stage: build
     tags:
-        - remote-shell-dev
+        - remote-shell-community-service-dev
     script:
         - echo "Building Community Service"
         - cd apps/community-service
