@@ -2,16 +2,30 @@ stages:
     - build
     - deploy
 
-# variables:
+variables:
+    YARN_CACHE_FOLDER: .yarn-cache
 #     NODE_IMAGE: node:20
-#     DOCKER_HOST: tcp://docker:2375
-#     DOCKER_TLS_CERTDIR: ""
+
+cache: &global_cache
+    key:
+        files:
+            - yarn.lock
+    paths:
+        - .yarn-cache
+        - apps/gateway/node_modules
+        - apps/community-service/node_modules
+    policy: pull-push
 
 build_gateway:
     # image: ${NODE_IMAGE}
     stage: build
     tags:
         - remote-shell-dev
+    cache:
+        <<: *global_cache
+        paths:
+            - apps/gateway/node_modules
+            - .yarn-cache
     script:
         - echo "Building Gateway"
         - cd apps/gateway
@@ -23,6 +37,11 @@ build_community_service:
     stage: build
     tags:
         - remote-shell-community-service-dev
+    cache:
+        <<: *global_cache
+        paths:
+            - apps/community-service/node_modules
+            - .yarn-cache
     script:
         - echo "Building Community Service"
         - cd apps/community-service
