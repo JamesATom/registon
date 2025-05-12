@@ -1,16 +1,26 @@
 // main.ts
 import { NestFactory } from '@nestjs/core';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { VersioningType, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    
+    const app = await NestFactory.create<NestFastifyApplication>(
+        AppModule,
+        new FastifyAdapter(),
+    );
+
     app.enableVersioning({
         type: VersioningType.URI,
         prefix: 'api/',
         defaultVersion: '1',
+    });
+
+    app.enableCors({
+        origin: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        credentials: true,
     });
 
     const config = new DocumentBuilder()
@@ -22,14 +32,7 @@ async function bootstrap() {
         .build();
 
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
-
-    app.enableCors({
-        origin: '*',
-        methods: '*',
-        allowedHeaders: '*',
-        credentials: true,
-    });
+    SwaggerModule.setup('api', app as any, document);   
 
     const PORT = process.env.PORT;
     await app.listen(PORT, '0.0.0.0', () => {
