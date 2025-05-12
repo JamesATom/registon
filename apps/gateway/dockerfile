@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN corepack enable
 
-COPY apps/gateway/package.json apps/gateway/yarn.lock ./
+COPY apps/gateway/package.json apps/gateway/yarn.lock 
 
 RUN yarn global add @nestjs/cli
 RUN yarn install --frozen-lockfile
