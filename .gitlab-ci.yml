@@ -9,8 +9,15 @@ variables:
 workflow:
     rules:
         - if: $CI_COMMIT_BRANCH == "main"
+          when: always
+
+          variables:
+            GIT_STRATEGY: fetch
         - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
           when: always
+
+          variables:
+            GIT_STRATEGY: fetch
         - when: never
 
 cache: &global_cache
@@ -23,12 +30,16 @@ cache: &global_cache
         - apps/community-service/node_modules
     policy: pull-push
 
+auto_cancel:
+    interruptible: true
+
 build_gateway:
     # image: ${NODE_IMAGE}
     stage: build
-    interruptible: true    
     tags:
         - remote-shell-dev
+
+    interruptible: true
     cache:
         <<: *global_cache
         paths:
@@ -43,9 +54,10 @@ build_gateway:
 build_community_service:
     # image: ${NODE_IMAGE}
     stage: build
-    interruptible: true    
     tags:
         - remote-shell-community-service-dev
+
+    interruptible: true
     cache:
         <<: *global_cache
         paths:
@@ -59,10 +71,10 @@ build_community_service:
 
 deploy:
     stage: deploy
-    interruptible: true   
-    resource_group: remote_deploy 
     tags:
         - remote-shell-dev
+
+    interruptible: true
     script:
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
