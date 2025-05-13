@@ -4,6 +4,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StoryModule } from './modules/v1/story/story.module';
+import { FileModule } from './file/file.module';
 
 @Module({
     imports: [
@@ -11,14 +12,15 @@ import { StoryModule } from './modules/v1/story/story.module';
             isGlobal: true,
             envFilePath: '.env',
         }),
-        // MongooseModule.forRootAsync({
-        //     useFactory: () => ({
-        //         uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/registan',
-        //         useNewUrlParser: true,
-        //         useUnifiedTopology: true,
-        //     }),
-        // }),
+        MongooseModule.forRootAsync({
+            useFactory: () => ({
+                uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/registan',
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            }),
+        }),
         StoryModule,
+        FileModule,
     ],
     controllers: [],
     providers: [],

@@ -1,68 +1,85 @@
 // story.event.ts
-import { Controller } from '@nestjs/common';
+import { Controller, Logger, NotFoundException } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
-// import { StoriesService } from './stories.service';
-// import { CreateStoryDto } from './dto/create-story.dto';
-// import { UpdateStoryDto } from './dto/update-story.dto';
-// import { CreateStoryItemDto } from './dto/create-story-item.dto';
-// import { UpdateStoryItemDto } from './dto/update-story-item.dto';
-// import { StoryStatus } from '../../shared/models/story.schema';
-// import { Types } from 'mongoose';
+import { StoryService } from './story.service';
+import { Types } from 'mongoose';
 
 @Controller()
 export class StoryEvents {
-    // private readonly systemUserId = '000000000000000000000000';
-    // constructor(private readonly storiesService: StoriesService) {}
+    private readonly logger = new Logger(StoryEvents.name);
+
+    constructor(private readonly storyService: StoryService) {
+        this.logger.log('StoryEvents initialized');
+    }
 
     @MessagePattern(MessagePatterns.Story.V1.GET_ALL)
     async findAllStories() {
-        return { status: 'success', message: 'Stories fetched successfully' };
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.GET_ALL}`);
+        return this.storyService.findAllStories();
     }
 
-    // @MessagePattern('stories.find.one')
-    // async findStoryById(@Payload() id: string) {
-    //     return this.storiesService.findStoryById(id);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.FIND_ONE)
+    async findStoryById(@Payload() id: string) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.FIND_ONE} with ID: ${id}`);
+        return this.storyService.findStoryById(id);
+    }
 
-    // @MessagePattern('stories.create')
-    // async createStory(@Payload() createStoryDto: CreateStoryDto) {
-    //     return this.storiesService.createStory(createStoryDto, this.systemUserId);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.CREATE)
+    async createStory(@Payload() payload: { createStoryDto: any; userId: string }) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.CREATE}`);
+        return this.storyService.createStory(payload.createStoryDto, payload.userId);
+    }
 
-    // @MessagePattern('stories.update')
-    // async updateStory(@Payload() payload: { id: string; updateData: UpdateStoryDto }) {
-    //     return this.storiesService.updateStory(payload.id, payload.updateData, this.systemUserId);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.UPDATE)
+    async updateStory(
+        @Payload() payload: { id: string; updateData: any; userId: string },
+    ) {
+        this.logger.log(
+            `Received message: ${MessagePatterns.Story.V1.UPDATE} for ID: ${payload.id}`,
+        );
+        return this.storyService.updateStory(payload.id, payload.updateData, payload.userId);
+    }
 
-    // @MessagePattern('stories.delete')
-    // async removeStory(@Payload() id: string) {
-    //     return this.storiesService.removeStory(id);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.DELETE)
+    async removeStory(@Payload() id: string) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.DELETE} for ID: ${id}`);
+        return this.storyService.removeStory(id);
+    }
 
-    // // Publish story functionality has been removed
-    // // @MessagePattern('stories.publish')
-    // // async publishStory(@Payload() id: string) {
-    // //   return this.storiesService.publishStory(id);
-    // // }
+    // Story Item message patterns
+    @MessagePattern(MessagePatterns.Story.V1.CREATE_ITEM)
+    async createStoryItem(@Payload() createStoryItemDto: any) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.CREATE_ITEM}`);
+        return this.storyService.createStoryItem(createStoryItemDto);
+    }
 
-    // @MessagePattern('stories.items.find.one')
-    // async findStoryItemById(@Payload() id: string) {
-    //     return this.storiesService.findStoryItemById(id);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.FIND_ONE_ITEM)
+    async findStoryItemById(@Payload() id: string) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.FIND_ONE_ITEM} with ID: ${id}`);
+        return this.storyService.findStoryItemById(id);
+    }
 
-    // @MessagePattern('stories.items.create')
-    // async createStoryItem(@Payload() createStoryItemDto: CreateStoryItemDto) {
-    //     return this.storiesService.createStoryItem(createStoryItemDto);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.UPDATE_ITEM)
+    async updateStoryItem(@Payload() payload: { id: string; updateData: any }) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.UPDATE_ITEM} for ID: ${payload.id}`);
+        return this.storyService.updateStoryItem(payload.id, payload.updateData);
+    }
 
-    // @MessagePattern('stories.items.update')
-    // async updateStoryItem(@Payload() payload: { id: string; updateData: UpdateStoryItemDto }) {
-    //     return this.storiesService.updateStoryItem(payload.id, payload.updateData);
-    // }
-
-    // @MessagePattern('stories.items.delete')
-    // async removeStoryItem(@Payload() id: string) {
-    //     return this.storiesService.removeStoryItem(id);
-    // }
+    @MessagePattern(MessagePatterns.Story.V1.DELETE_ITEM)
+    async removeStoryItem(@Payload() id: string) {
+        this.logger.log(`Received message: ${MessagePatterns.Story.V1.DELETE_ITEM} for ID: ${id}`);
+        try {
+            return await this.storyService.removeStoryItem(id);
+        } catch (error) {
+            if (error instanceof NotFoundException) {
+                const errorMessage = typeof error === 'object' && error !== null
+                    ? (error as Error).message || 'Unknown error'
+                    : 'Unknown error';
+                throw new Error(`Failed to delete story item: ${errorMessage}`);
+            }
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Failed to delete story item: ${errorMessage}`);
+        }
+    }
 }

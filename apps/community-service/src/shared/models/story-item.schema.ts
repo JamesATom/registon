@@ -1,32 +1,30 @@
-// import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
-// export type StoryItemDocument = StoryItem & Document;
+export type StoryItemDocument = StoryItem & Document;
 
-// @Schema({
-//     timestamps: true,
-//     versionKey: false,
-// })
-// export class StoryItem {
-//     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Story', required: true })
-//     storyId: MongooseSchema.Types.ObjectId;
+@Schema({
+    timestamps: true,
+    versionKey: false,
+})
+export class StoryItem {
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Story', required: true })
+    storyId: MongooseSchema.Types.ObjectId;
+    @Prop({ maxlength: 100 })
+    title: string;
 
-//     @Prop({ maxlength: 100 })
-//     title: string;
+    @Prop({ maxlength: 250 })
+    description?: string;
+    @Prop({ required: true })
+    image: string;
 
-//     @Prop({ maxlength: 250 })
-//     description?: string;
+    @Prop({ default: 0 })
+    orderNumber: number;
+}
 
-//     @Prop({ required: true })
-//     image: string;
+export const StoryItemSchema = SchemaFactory.createForClass(StoryItem);
 
-//     @Prop({ default: 0 })
-//     orderNumber: number;
-// }
+// Index for improved query performance, but without the unique constraint
+StoryItemSchema.index({ storyId: 1 });
 
-// export const StoryItemSchema = SchemaFactory.createForClass(StoryItem);
-
-// // Index for improved query performance, but without the unique constraint
-// StoryItemSchema.index({ storyId: 1 });
-
-// StoryItemSchema.plugin(require('mongoose-paginate-v2'));
+StoryItemSchema.plugin(require('mongoose-paginate-v2'));

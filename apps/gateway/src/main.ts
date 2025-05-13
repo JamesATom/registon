@@ -2,14 +2,25 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { VersioningType } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestFastifyApplication>(
-        AppModule,
-        new FastifyAdapter(),
-    );
+    // Create fastify adapter with custom configuration
+    const fastifyAdapter = new FastifyAdapter({
+        bodyLimit: 10 * 1024 * 1024, // 10MB limit for request body
+    });
+
+    // Register multipart parser for Fastify 4.x
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const fastifyMultipart = require('@fastify/multipart');
+    fastifyAdapter.register(fastifyMultipart, {
+        limits: {
+            fileSize: 10 * 1024 * 1024, // 10MB
+        },
+    });
+
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
 
     app.enableVersioning({
         type: VersioningType.URI,
@@ -32,15 +43,17 @@ async function bootstrap() {
         .build();
 
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app as any, document);   
+    SwaggerModule.setup('api', app as any, document);
 
     const PORT = process.env.PORT;
     await app.listen(PORT, '0.0.0.0', () => {
-        console.log(`${process.env.APP_NAME_1 + ' ' + process.env.APP_NAME_2} server is running on port => ${PORT}`);
+        console.log(
+            `${process.env.APP_NAME_1 + ' ' + process.env.APP_NAME_2} server is running on port => ${PORT}`,
+        );
     });
 }
 
-bootstrap().catch((error) => {
+bootstrap().catch(error => {
     console.error('Failed to start the application:', error);
     process.exit(1);
 });

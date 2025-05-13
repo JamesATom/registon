@@ -33,12 +33,12 @@ async function bootstrap() {
 
     const PORT = process.env.PORT;
     await app.listen(PORT, '0.0.0.0', () => {
-        console.log(`Microservice is running on port => ${PORT}`);
+        console.log(`Community service is running on port => ${PORT}`);
         console.log(`RabbitMQ connected to queue: ${process.env.RABBITMQ_COMMUNITY_SERVICE_QUEUE}`);
     });
 }
 
-bootstrap().catch((error) => {
+bootstrap().catch(error => {
     console.error('Failed to start the application:', error);
     process.exit(1);
 });
