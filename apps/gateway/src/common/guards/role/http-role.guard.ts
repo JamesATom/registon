@@ -7,7 +7,7 @@ import {
     HttpStatus,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserRole, RoleLevel } from '../../enums/roles.enum';
+import { UserRole, RoleLevel } from 'src/common/enums/roles.enum';
 import { ROLES_KEY } from '../../decorators/role.decorator';
 import { JwtPayload } from '../../types/types';
 
