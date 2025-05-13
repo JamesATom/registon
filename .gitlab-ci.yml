@@ -6,7 +6,6 @@ variables:
     YARN_CACHE_FOLDER: .yarn-cache
 #     NODE_IMAGE: node:20
 
-# Set auto-cancel at the top level as a workflow attribute, not as a job
 workflow:
     rules:
         - if: $CI_COMMIT_BRANCH == "main"
@@ -18,7 +17,6 @@ workflow:
           variables:
             GIT_STRATEGY: fetch
         - when: never
-    # Add auto-cancel as part of the workflow configuration
     auto_cancel:
         on_new_commit: interruptible
 
@@ -38,6 +36,7 @@ build_gateway:
     tags:
         - remote-shell-dev
     interruptible: true
+    parallel: 2
     cache:
         <<: *global_cache
         paths:
@@ -55,6 +54,7 @@ build_community_service:
     tags:
         - remote-shell-community-service-dev
     interruptible: true
+    parallel: 2
     cache:
         <<: *global_cache
         paths:
