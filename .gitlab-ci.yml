@@ -26,8 +26,6 @@ cache: &global_cache
             - yarn.lock
     paths:
         - .yarn-cache
-        - apps/gateway/node_modules
-        - apps/community-service/node_modules
     policy: pull-push
 
 build_gateway:
@@ -37,11 +35,7 @@ build_gateway:
         - remote-shell-dev
     interruptible: true
     parallel: 1
-    cache:
-        <<: *global_cache
-        paths:
-            - apps/gateway/node_modules
-            - .yarn-cache
+
     script:
         - echo "Building Gateway"
         - cd apps/gateway
@@ -55,11 +49,7 @@ build_community_service:
         - remote-shell-dev
     interruptible: true
     parallel: 1
-    cache:
-        <<: *global_cache
-        paths:
-            - apps/community-service/node_modules
-            - .yarn-cache
+ 
     script:
         - echo "Building Community Service"
         - cd apps/community-service
