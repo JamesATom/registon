@@ -36,7 +36,7 @@ build_gateway:
     tags:
         - remote-shell-dev
     interruptible: true
-    parallel: 2
+    parallel: 1
     cache:
         <<: *global_cache
         paths:
@@ -54,7 +54,7 @@ build_community_service:
     tags:
         - remote-shell-community-service-dev
     interruptible: true
-    parallel: 2
+    parallel: 1
     cache:
         <<: *global_cache
         paths:
