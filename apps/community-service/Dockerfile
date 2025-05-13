@@ -1,23 +1,28 @@
 FROM node:20-alpine AS builder
 
-WORKDIR /app
+WORKDIR /app/apps/community-service
 
 RUN corepack enable
 
-COPY apps/community-service/package.json apps/community-service/yarn.lock ./
+# Copy only the necessary files for dependency installation
+COPY apps/community-service/package.json .
+COPY apps/community-service/yarn.lock .
 
-RUN yarn install
+# Install dependencies
+RUN yarn install --frozen-lockfile
 
-COPY . .
+# Copy the rest of the code
+COPY apps/community-service .
 
-RUN yarn --cwd apps/community-service build
+# Build the app
+RUN yarn build
 
 FROM node:20-alpine
 
 WORKDIR /app
 
 COPY --from=builder /app/apps/community-service/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/apps/community-service/node_modules ./node_modules
 
 EXPOSE 8001
 CMD ["node", "dist/main.js"]

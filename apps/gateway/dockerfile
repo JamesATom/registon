@@ -1,23 +1,24 @@
 FROM node:20-alpine AS builder
 
-WORKDIR /app
+WORKDIR /app/apps/gateway
 
 RUN corepack enable
 
-COPY apps/gateway/package.json apps/gateway/yarn.lock ./
+COPY apps/gateway/package.json .
+COPY apps/gateway/yarn.lock .
 
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
-COPY . .
+COPY apps/gateway .
 
-RUN yarn --cwd apps/gateway build
+RUN yarn build
 
 FROM node:20-alpine
 
 WORKDIR /app
 
 COPY --from=builder /app/apps/gateway/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/apps/gateway/node_modules ./node_modules
 
 EXPOSE 8000
 CMD ["node", "dist/main.js"]

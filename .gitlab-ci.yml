@@ -2,16 +2,40 @@ stages:
     - build
     - deploy
 
-# variables:
+variables:
+    YARN_CACHE_FOLDER: .yarn-cache
 #     NODE_IMAGE: node:20
-#     DOCKER_HOST: tcp://docker:2375
-#     DOCKER_TLS_CERTDIR: ""
+
+workflow:
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+          when: always
+          variables:
+            GIT_STRATEGY: fetch
+        - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+          when: always
+          variables:
+            GIT_STRATEGY: fetch
+        - when: never
+    auto_cancel:
+        on_new_commit: interruptible
+
+cache: &global_cache
+    key:
+        files:
+            - yarn.lock
+    paths:
+        - .yarn-cache
+    policy: pull-push
 
 build_gateway:
     # image: ${NODE_IMAGE}
     stage: build
     tags:
         - remote-shell-dev
+    interruptible: true
+    parallel: 1
+
     script:
         - echo "Building Gateway"
         - cd apps/gateway
@@ -22,7 +46,10 @@ build_community_service:
     # image: ${NODE_IMAGE}
     stage: build
     tags:
-        - remote-shell-community-service-dev
+        - remote-shell-dev
+    interruptible: true
+    parallel: 1
+ 
     script:
         - echo "Building Community Service"
         - cd apps/community-service
@@ -30,12 +57,10 @@ build_community_service:
         - yarn build
 
 deploy:
-    # image: docker:latest
     stage: deploy
     tags:
         - remote-shell-dev
-    # before_script:
-    #     - apk add --no-cache docker-compose
+    interruptible: true
     script:
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
