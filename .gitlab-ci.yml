@@ -52,7 +52,7 @@ build_community_service:
     # image: ${NODE_IMAGE}
     stage: build
     tags:
-        - remote-shell-community-service-dev
+        - remote-shell-dev
     interruptible: true
     parallel: 1
     cache:
