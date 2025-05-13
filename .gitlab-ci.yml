@@ -6,6 +6,13 @@ variables:
     YARN_CACHE_FOLDER: .yarn-cache
 #     NODE_IMAGE: node:20
 
+workflow:
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+          when: always
+        - when: never
+
 cache: &global_cache
     key:
         files:
@@ -19,6 +26,7 @@ cache: &global_cache
 build_gateway:
     # image: ${NODE_IMAGE}
     stage: build
+    interruptible: true    
     tags:
         - remote-shell-dev
     cache:
@@ -35,6 +43,7 @@ build_gateway:
 build_community_service:
     # image: ${NODE_IMAGE}
     stage: build
+    interruptible: true    
     tags:
         - remote-shell-community-service-dev
     cache:
@@ -50,6 +59,8 @@ build_community_service:
 
 deploy:
     stage: deploy
+    interruptible: true   
+    resource_group: remote_deploy 
     tags:
         - remote-shell-dev
     script:
