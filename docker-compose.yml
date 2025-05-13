@@ -11,6 +11,8 @@ services:
             RABBITMQ_COMMUNITY_SERVICE_QUEUE: community_service_queue
             APP_NAME_1: Registon
             APP_NAME_2: Gateway
+            REGISTON_BACKEND_URL_FRONT_WEB: https://backend.edutizim.uz/moderator-web-api
+            MONGODB_URI: mongodb://mongodb:27017/registon
         depends_on:
             rabbitmq:
                 condition: service_healthy
@@ -48,5 +50,23 @@ services:
             retries: 5
             start_period: 10s
 
+    mongodb:
+        image: mongo:6.0
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: password
+        volumes:
+            - mongodb_data:/data/db
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
+        restart: always
+
 volumes:
     rabbitmq_data:
+    mongodb_data:
