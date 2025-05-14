@@ -2,17 +2,15 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType } from '@nestjs/common';
+import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    // Create fastify adapter with custom configuration
     const fastifyAdapter = new FastifyAdapter({
-        bodyLimit: 10 * 1024 * 1024, // 10MB limit for request body
+        bodyLimit: 10 * 1024 * 1024,
     });
 
-    // Register multipart parser for Fastify 4.x
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fastifyMultipart = require('@fastify/multipart');
     fastifyAdapter.register(fastifyMultipart, {
         limits: {
@@ -33,6 +31,9 @@ async function bootstrap() {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
     });
+
+    app.useGlobalInterceptors(new RpcErrorInterceptor());
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
     const config = new DocumentBuilder()
         .setTitle(`${process.env.APP_NAME_1} API`)

@@ -1,9 +1,7 @@
-// story.event.ts
 import { Controller, Logger, NotFoundException } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { StoryService } from './story.service';
-import { Types } from 'mongoose';
 
 @Controller()
 export class StoryEvents {
@@ -20,7 +18,8 @@ export class StoryEvents {
     }
 
     @MessagePattern(MessagePatterns.Story.V1.FIND_ONE)
-    async findStoryById(@Payload() id: string) {
+    async findStoryById(@Payload() payload: { id: string }) {
+        const id = payload.id;
         this.logger.log(`Received message: ${MessagePatterns.Story.V1.FIND_ONE} with ID: ${id}`);
         return this.storyService.findStoryById(id);
     }
@@ -32,9 +31,7 @@ export class StoryEvents {
     }
 
     @MessagePattern(MessagePatterns.Story.V1.UPDATE)
-    async updateStory(
-        @Payload() payload: { id: string; updateData: any; userId: string },
-    ) {
+    async updateStory(@Payload() payload: { id: string; updateData: any; userId: string }) {
         this.logger.log(
             `Received message: ${MessagePatterns.Story.V1.UPDATE} for ID: ${payload.id}`,
         );
@@ -49,20 +46,24 @@ export class StoryEvents {
 
     // Story Item message patterns
     @MessagePattern(MessagePatterns.Story.V1.CREATE_ITEM)
-    async createStoryItem(@Payload() createStoryItemDto: any) {
+    async createStoryItem(@Payload() payload: { createStoryItemDto: any; userId: string }) {
         this.logger.log(`Received message: ${MessagePatterns.Story.V1.CREATE_ITEM}`);
-        return this.storyService.createStoryItem(createStoryItemDto);
+        return this.storyService.createStoryItem(payload.createStoryItemDto, payload.userId);
     }
 
     @MessagePattern(MessagePatterns.Story.V1.FIND_ONE_ITEM)
     async findStoryItemById(@Payload() id: string) {
-        this.logger.log(`Received message: ${MessagePatterns.Story.V1.FIND_ONE_ITEM} with ID: ${id}`);
+        this.logger.log(
+            `Received message: ${MessagePatterns.Story.V1.FIND_ONE_ITEM} with ID: ${id}`,
+        );
         return this.storyService.findStoryItemById(id);
     }
 
     @MessagePattern(MessagePatterns.Story.V1.UPDATE_ITEM)
     async updateStoryItem(@Payload() payload: { id: string; updateData: any }) {
-        this.logger.log(`Received message: ${MessagePatterns.Story.V1.UPDATE_ITEM} for ID: ${payload.id}`);
+        this.logger.log(
+            `Received message: ${MessagePatterns.Story.V1.UPDATE_ITEM} for ID: ${payload.id}`,
+        );
         return this.storyService.updateStoryItem(payload.id, payload.updateData);
     }
 
@@ -73,9 +74,10 @@ export class StoryEvents {
             return await this.storyService.removeStoryItem(id);
         } catch (error) {
             if (error instanceof NotFoundException) {
-                const errorMessage = typeof error === 'object' && error !== null
-                    ? (error as Error).message || 'Unknown error'
-                    : 'Unknown error';
+                const errorMessage =
+                    typeof error === 'object' && error !== null
+                        ? (error as Error).message || 'Unknown error'
+                        : 'Unknown error';
                 throw new Error(`Failed to delete story item: ${errorMessage}`);
             }
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';

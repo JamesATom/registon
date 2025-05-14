@@ -11,9 +11,11 @@ import {
     BadRequestException,
     NotFoundException,
     Req,
-    UseInterceptors,
+    UseGuards,
+    HttpCode,
 } from '@nestjs/common';
-import { ApiTags, ApiConsumes } from '@nestjs/swagger';
+import { ApiTags, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '../auth/guards/auth.guard';
 import { StoryService } from './story.service';
 import { FileService } from '../../../file/file.service';
 import { FastifyRequest } from 'fastify';
@@ -35,7 +37,8 @@ import {
 } from './decorators/api-docs.decorators';
 
 @ApiTags('stories')
-@Controller('api/v1/stories')
+@ApiBearerAuth()
+@Controller('v1/stories')
 export class StoryController {
     private readonly logger = new Logger(StoryController.name);
 
@@ -48,6 +51,7 @@ export class StoryController {
 
     @Post('filter')
     @ApiFilterStories()
+    @UseGuards(AuthGuard)
     async filterStories(@Body() filterDto: FilterStoriesDto) {
         this.logger.log('POST /api/v1/stories/filter - Filter stories');
         return this.storyService.getAllStories(filterDto);
@@ -55,6 +59,7 @@ export class StoryController {
 
     @Get(':id')
     @ApiGetStoryById()
+    // @UseGuards(AuthGuard)
     async findStoryById(@Param('id') id: string) {
         this.logger.log(`GET /api/v1/stories/${id} - Get story by ID`);
         return this.storyService.getStoryById(id);
@@ -63,6 +68,7 @@ export class StoryController {
     @Post()
     @ApiCreateStory()
     @ApiConsumes('multipart/form-data')
+    @UseGuards(AuthGuard)
     async createStory(@Req() request: FastifyRequest, @Request() req: any) {
         this.logger.log('POST /api/v1/stories - Create new story');
         try {
@@ -92,7 +98,7 @@ export class StoryController {
                     branches = JSON.parse(fields.branches.value);
                 } catch (e) {
                     // If not JSON, treat as a comma-separated string
-                    branches = fields.branches.value.split(',').map(branch => branch.trim());
+                    branches = fields.branches.value.split(',').map((branch: any) => branch.trim());
                 }
             }
 
@@ -124,22 +130,19 @@ export class StoryController {
                 title,
                 description,
                 status: status || 'draft',
-                mainImage: uploadResult.url, // Use the URL returned from file upload
+                mainImage: uploadResult.url,
                 link,
                 buttonText,
                 startDate,
                 endDate,
                 commentAdmin,
                 branches,
-                createdBy: '', // Will be set by the service
-                updatedBy: '', // Will be set by the service
+                createdBy: '',
+                updatedBy: '',
             };
 
-            // Create the story
-            const result = await this.storyService.createStory(
-                createStoryDto,
-                req.user?.userId || '000000000000000000000000',
-            );
+            console.log('req.user   ', req.user);
+            const result = await this.storyService.createStory(createStoryDto, req.user?.userId);
             return result;
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -151,6 +154,7 @@ export class StoryController {
     @Put(':id')
     @ApiUpdateStory()
     @ApiConsumes('multipart/form-data')
+    @UseGuards(AuthGuard)
     async updateStory(
         @Param('id') id: string,
         @Req() request: FastifyRequest,
@@ -158,18 +162,15 @@ export class StoryController {
     ) {
         this.logger.log(`PUT /api/v1/stories/${id} - Update story`);
         try {
-            // Process multipart form data
             let updateStoryDto: any = {};
             let fileUploaded = false;
-            console.log('req.body', request.body);
+
             try {
                 const data = await (request as any).file();
                 if (data) {
                     fileUploaded = true;
-                    // Extract form fields
                     const fields = data.fields || {};
 
-                    // Extract all possible fields
                     if (fields.title?.value) updateStoryDto.title = fields.title.value;
                     if (fields.description?.value)
                         updateStoryDto.description = fields.description.value;
@@ -184,23 +185,18 @@ export class StoryController {
                     if (fields.commentAdmin?.value)
                         updateStoryDto.commentAdmin = fields.commentAdmin.value;
 
-                    // Handle branches array
                     if (fields.branches?.value) {
                         try {
-                            // Check if it's a JSON array
                             updateStoryDto.branches = JSON.parse(fields.branches.value);
                         } catch (e) {
-                            // If not JSON, treat as a comma-separated string
                             updateStoryDto.branches = fields.branches.value
                                 .split(',')
                                 .map(branch => branch.trim());
                         }
                     }
 
-                    // Convert file to buffer
                     const buffer = await data.toBuffer();
 
-                    // Create a file object
                     const file = {
                         fieldname: data.fieldname,
                         originalname: data.filename,
@@ -210,36 +206,28 @@ export class StoryController {
                         buffer: buffer,
                     };
 
-                    // Upload file to storage via FileService
                     const uploadResult = await this.fileService.uploadFile(file, {
                         folder: 'stories',
                         filename: data.filename,
                     });
-
-                    // Add the new image URL to the update DTO
                     updateStoryDto.mainImage = uploadResult.url;
                 }
             } catch (parseError) {
-                // If no file was uploaded, or there was an error parsing the multipart form,
-                // we'll fall back to the regular JSON body if it exists
                 if (!fileUploaded) {
                     this.logger.log('No file uploaded, using regular request body');
-                    // We should try to get the body from the request
+
                     const body = await request.body;
                     if (body && typeof body === 'object') {
                         updateStoryDto = body;
                     }
                 } else {
-                    throw parseError; // Re-throw if file was uploaded but processing failed
+                    throw parseError;
                 }
             }
 
-            // If we have an empty update object, nothing to do
             if (Object.keys(updateStoryDto).length === 0) {
                 throw new BadRequestException('No update data provided');
             }
-
-            console.log('updateStoryDto', updateStoryDto);
             // Send update to service
             const result = await this.storyService.updateStory(
                 id,
@@ -259,6 +247,7 @@ export class StoryController {
 
     @Delete(':id')
     @ApiRemoveStory()
+    @UseGuards(AuthGuard)
     async removeStory(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/${id} - Delete story`);
         try {
@@ -275,6 +264,7 @@ export class StoryController {
     @Post('items')
     @ApiCreateStoryItem()
     @ApiConsumes('multipart/form-data')
+    @UseGuards(AuthGuard)
     async createStoryItem(@Req() request: FastifyRequest, @Request() req: any) {
         this.logger.log('POST /api/v1/stories/items - Create story items');
         try {
@@ -283,7 +273,7 @@ export class StoryController {
             if (!data) {
                 throw new BadRequestException('File is required');
             }
-
+            console.log('data.fields', data.fields);
             // Extract form fields
             const fields = data.fields || {};
             const storyId = fields.storyId?.value;
@@ -321,17 +311,14 @@ export class StoryController {
                     {
                         title,
                         description,
-                        image: uploadResult.data.url, // Use the URL returned from file upload
+                        image: uploadResult.url, // Use the URL returned from file upload
                         orderNumber,
                     },
                 ],
             };
 
-            // Create story item
-            return await this.storyService.createStoryItem(
-                createStoryItemDto,
-                req.user?.userId || '000000000000000000000000',
-            );
+            // Create story ite
+            return await this.storyService.createStoryItem(createStoryItemDto, req.user?.userId);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Failed to create story item: ${errorMessage}`, error);
@@ -341,6 +328,7 @@ export class StoryController {
 
     @Get('items/:id')
     @ApiGetStoryItemById()
+    @UseGuards(AuthGuard)
     async findStoryItemById(@Param('id') id: string) {
         this.logger.log(`GET /api/v1/stories/items/${id} - Get story item`);
         try {
@@ -352,9 +340,63 @@ export class StoryController {
 
     @Put('items/:id')
     @ApiUpdateStoryItem()
-    async updateStoryItem(@Param('id') id: string, @Body() updateStoryItemDto: UpdateStoryItemDto) {
+    @ApiConsumes('multipart/form-data')
+    @UseGuards(AuthGuard)
+    async updateStoryItem(@Param('id') id: string, @Req() request: FastifyRequest) {
         this.logger.log(`PUT /api/v1/stories/items/${id} - Update story item`);
         try {
+            // Process multipart form data
+            const data = await (request as any).file();
+            if (!data) {
+                throw new BadRequestException('No form data received');
+            }
+            
+            // Extract form fields
+            const fields = data.fields || {};
+            const title = fields.title?.value;
+            const description = fields.description?.value;
+            const orderNumber = fields.orderNumber?.value ? Number(fields.orderNumber.value) : undefined;
+            
+            // Create update DTO
+            const updateStoryItemDto: UpdateStoryItemDto = {
+                storyItem: {}
+            };
+            
+            // Add fields only if they exist
+            if (title) updateStoryItemDto.storyItem.title = title;
+            if (description !== undefined) updateStoryItemDto.storyItem.description = description;
+            if (orderNumber !== undefined) updateStoryItemDto.storyItem.orderNumber = orderNumber;
+            
+            // Process file upload if a file was provided
+            if (data.file) {
+                // Convert file to buffer
+                const buffer = await data.toBuffer();
+                
+                // Create a file object
+                const file = {
+                    fieldname: data.fieldname,
+                    originalname: data.filename,
+                    encoding: data.encoding,
+                    mimetype: data.mimetype,
+                    size: buffer.length,
+                    buffer: buffer,
+                };
+                
+                // Upload file to storage via FileService
+                const uploadResult = await this.fileService.uploadFile(file, {
+                    folder: 'story-items',
+                    filename: data.filename,
+                });
+                
+                // Add image URL to update DTO
+                updateStoryItemDto.storyItem.image = uploadResult.url;
+            }
+            
+            // If no updates provided, throw error
+            if (Object.keys(updateStoryItemDto.storyItem).length === 0) {
+                throw new BadRequestException('No update data provided');
+            }
+            
             return await this.storyService.updateStoryItem(id, updateStoryItemDto);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -367,6 +409,7 @@ export class StoryController {
 
     @Delete('items/:id')
     @ApiDeleteStoryItem()
+    @UseGuards(AuthGuard)
     async removeStoryItem(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/items/${id} - Delete story item`);
         try {

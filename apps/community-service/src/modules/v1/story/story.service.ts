@@ -1,11 +1,11 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Types, ObjectId } from 'mongoose';
 import { Story, StoryDocument, StoryStatus } from '../../../shared/models/story.schema';
 import { StoryItem, StoryItemDocument } from '../../../shared/models/story-item.schema';
 import { FileService } from '../../../file/file.service';
+import { ServiceResponse } from '../../../common/interfaces/service-response.interface';
 
-// Define interfaces to match DTOs
 interface CreateStoryItemRequest {
     storyId: string;
     storyItems: {
@@ -37,10 +37,7 @@ export class StoryService {
         this.logger.log('StoryService initialized with database connection');
     }
 
-    async createStory(
-        storyData: any,
-        userId: string,
-    ): Promise<{ status: string; data?: any; message: string }> {
+    async createStory(storyData: any, userId: string): Promise<ServiceResponse<any>> {
         this.logger.log('Creating new story in database');
         try {
             const newStory = new this.storyModel({
@@ -51,11 +48,8 @@ export class StoryService {
                 datePublished: storyData.datePublished,
                 link: storyData.link,
                 buttonText: storyData.buttonText,
-                createdBy:
-                    userId && Types.ObjectId.isValid(userId)
-                        ? new Types.ObjectId(userId)
-                        : new Types.ObjectId('000000000000000000000000'),
-                branches: storyData.branches?.map(branch => new Types.ObjectId(branch)) || [],
+                createdBy: userId,
+                branches: storyData.branches?.map((branch: any) => branch),
                 startDate: storyData.startDate,
                 endDate: storyData.endDate,
                 commentAdmin: storyData.commentAdmin,
@@ -65,6 +59,7 @@ export class StoryService {
 
             return {
                 status: 'success',
+                statusCode: HttpStatus.CREATED,
                 data: savedStory,
                 message: 'Story created successfully',
             };
@@ -73,12 +68,13 @@ export class StoryService {
             this.logger.error(`Error creating story: ${errorMessage}`);
             return {
                 status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to create story: ${errorMessage}`,
             };
         }
     }
 
-    async findAllStories(filter?: any): Promise<{ status: string; data: any[]; message: string }> {
+    async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
         this.logger.log('Finding all stories from database');
         try {
             const query = {};
@@ -91,6 +87,7 @@ export class StoryService {
 
             return {
                 status: 'success',
+                statusCode: HttpStatus.OK,
                 data: stories,
                 message: 'Stories fetched successfully',
             };
@@ -99,56 +96,87 @@ export class StoryService {
             this.logger.error(`Error fetching stories: ${errorMessage}`);
             return {
                 status: 'error',
-                data: [],
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to fetch stories: ${errorMessage}`,
+                data: [],
             };
         }
     }
 
-    async findStoryById(id: string): Promise<{ status: string; data?: any; message: string }> {
-        this.logger.log(`Finding story with ID: ${id}`);
+    async findStoryById(
+        id: string,
+    ): Promise<{ status: string; data?: any; message: string; statusCode: number }> {
         try {
-            const story = await this.storyModel.findById(id).exec();
+            // Use aggregation with $lookup to get story and its items in one query
+            const result = await this.storyModel.aggregate([
+                { $match: { _id: new Types.ObjectId(id) } },
+                {
+                    $lookup: {
+                        from: 'storyitems', // The collection name (lowercase and pluralized)
+                        localField: '_id',
+                        foreignField: 'storyId',
+                        as: 'items'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$items',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $sort: { 'items.orderNumber': 1 }
+                },
+                {
+                    $group: {
+                        _id: '$_id',
+                        root: { $first: '$$ROOT' },
+                        items: { $push: '$items' }
+                    }
+                },
+                {
+                    $replaceRoot: {
+                        newRoot: {
+                            $mergeObjects: [
+                                '$root',
+                                { items: '$items' }
+                            ]
+                        }
+                    }
+                }
+            ]).exec();
 
-            if (!story) {
+            // Check if story was found
+            if (!result || result.length === 0) {
                 return {
                     status: 'error',
+                    statusCode: 404,
                     message: `Story with ID ${id} not found`,
+                    data: null,
                 };
             }
 
-            // Get associated story items
-            const storyItems = await this.storyItemModel
-                .find({ storyId: new Types.ObjectId(id) })
-                .sort({ orderNumber: 1 })
-                .exec();
-
-            // Create response with story and items
-            const storyWithItems = {
-                ...story.toObject(),
-                items: storyItems,
-            };
+            // The first item in the result array is our story with items
+            const storyWithItems = result[0];
 
             return {
                 status: 'success',
                 data: storyWithItems,
                 message: 'Story found successfully',
+                statusCode: 200,
             };
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            this.logger.error(`Error finding story: ${errorMessage}`);
+        } catch (error: any) {
+            this.logger.error(`Error finding story: ${error.message}`);
             return {
                 status: 'error',
-                message: `Failed to find story: ${errorMessage}`,
+                statusCode: 500,
+                message: `Failed to find story: ${error.message}`,
+                data: null,
             };
         }
     }
 
-    async updateStory(
-        id: string,
-        storyData: any,
-        userId: string,
-    ): Promise<{ status: string; data?: any; message: string }> {
+    async updateStory(id: string, storyData: any, userId: string): Promise<ServiceResponse<any>> {
         this.logger.log(`Updating story with ID: ${id}`);
         try {
             // Find the story first
@@ -157,6 +185,7 @@ export class StoryService {
             if (!story) {
                 return {
                     status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
                     message: `Story with ID ${id} not found`,
                 };
             }
@@ -173,11 +202,10 @@ export class StoryService {
                         oldImagePathParts.shift();
                         const oldImageKey = oldImagePathParts.join('/');
 
-                        console.log('story', story);
                         // Delete the old image file
                         this.logger.log(`Deleting old main image file with key: ${oldImageKey}`);
                         await this.fileService.deleteFile(oldImageKey);
-                        console.log('3');
+                        this.logger.log(`Successfully deleted old main image: ${oldImageKey}`);
                     } catch (fileError) {
                         // Log the error but continue with update
                         const errorMessage =
@@ -232,6 +260,7 @@ export class StoryService {
 
             return {
                 status: 'success',
+                statusCode: HttpStatus.OK,
                 data: updatedStory,
                 message: 'Story updated successfully',
             };
@@ -240,21 +269,24 @@ export class StoryService {
             this.logger.error(`Error updating story: ${errorMessage}`);
             return {
                 status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to update story: ${errorMessage}`,
             };
         }
     }
 
     // Story Item methods
-    async createStoryItem(createStoryItemDto: CreateStoryItemRequest): Promise<any[]> {
+    async createStoryItem(
+        createStoryItemDto: CreateStoryItemRequest,
+        userId: string,
+    ): Promise<ServiceResponse<any[]>> {
         this.logger.log(`Creating story items for story ID: ${createStoryItemDto.storyId}`);
 
         try {
-            // Check if story exists
-            const storyExists = await this.storyModel.exists({
-                _id: createStoryItemDto.storyId,
-            });
-
+            console.log('createStoryItemDto', createStoryItemDto);
+            console.log('userId', userId);
+            const storyExists = await this.storyModel.findById(createStoryItemDto.storyId).exec();
+            console.log('storyExists', storyExists);
             if (!storyExists) {
                 throw new NotFoundException(
                     `Story with ID ${createStoryItemDto.storyId} not found`,
@@ -278,45 +310,79 @@ export class StoryService {
             }
 
             // Return created items sorted by orderNumber for consistency
-            return createdItems.sort((a, b) => a.orderNumber - b.orderNumber);
+            return {
+                status: 'success',
+                statusCode: HttpStatus.CREATED,
+                data: createdItems.sort((a, b) => a.orderNumber - b.orderNumber),
+                message: 'Story items created successfully',
+            };
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error creating story items: ${errorMessage}`);
-            throw error instanceof Error ? error : new Error(errorMessage);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to create story items: ${errorMessage}`,
+            };
         }
     }
 
-    async findStoryItemById(id: string): Promise<any> {
+    async findStoryItemById(id: string): Promise<ServiceResponse<any>> {
         this.logger.log(`Finding story item with ID: ${id}`);
 
         try {
             const storyItem = await this.storyItemModel.findById(id).exec();
 
             if (!storyItem) {
-                throw new NotFoundException(`Story item with ID ${id} not found`);
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
+                    message: `Story item with ID ${id} not found`,
+                };
             }
 
-            return storyItem;
+            return {
+                status: 'success',
+                statusCode: HttpStatus.OK,
+                data: storyItem,
+                message: 'Story item found successfully',
+            };
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error finding story item: ${errorMessage}`);
-            throw error instanceof Error ? error : new Error(errorMessage);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to find story item: ${errorMessage}`,
+            };
         }
     }
 
-    async updateStoryItem(id: string, updateData: UpdateStoryItemRequest): Promise<any> {
+    async updateStoryItem(
+        id: string,
+        updateData: UpdateStoryItemRequest,
+    ): Promise<ServiceResponse<any>> {
         this.logger.log(`Updating story item with ID: ${id}`);
 
         try {
             // Find the current item
             const currentItem = await this.storyItemModel.findById(id).exec();
             if (!currentItem) {
-                throw new NotFoundException(`Story item with ID ${id} not found`);
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
+                    message: `Story item with ID ${id} not found`,
+                };
             }
 
             // Check if we have storyItem data to update
             if (!updateData.storyItem) {
-                return currentItem; // Nothing to update
+                return {
+                    status: 'success',
+                    statusCode: HttpStatus.OK,
+                    data: currentItem,
+                    message: 'No updates provided',
+                };
             }
 
             // Extract values from the nested DTO
@@ -326,7 +392,42 @@ export class StoryService {
             const updateObject: any = {};
             if (title !== undefined) updateObject.title = title;
             if (description !== undefined) updateObject.description = description;
-            if (image !== undefined) updateObject.image = image;
+
+            // Handle image replacement if a new image is provided
+            if (image !== undefined && image !== currentItem.image) {
+                updateObject.image = image;
+
+                // If a story item already has an image, we should delete the old file
+                if (currentItem.image) {
+                    try {
+                        // Extract the key from the URL
+                        const oldImageUrl = new URL(currentItem.image);
+                        const oldImagePathParts = oldImageUrl.pathname.split('/');
+                        // Remove the first empty string
+                        oldImagePathParts.shift();
+                        const oldImageKey = oldImagePathParts.join('/');
+
+                        // Delete the old image file
+                        this.logger.log(
+                            `Deleting old story item image file with key: ${oldImageKey}`,
+                        );
+                        await this.fileService.deleteFile(oldImageKey);
+                        this.logger.log(
+                            `Successfully deleted old story item image: ${oldImageKey}`,
+                        );
+                    } catch (fileError) {
+                        // Log the error but continue with update
+                        const errorMessage =
+                            fileError instanceof Error ? fileError.message : 'Unknown error';
+                        this.logger.warn(
+                            `Error deleting old story item image file: ${errorMessage}`,
+                        );
+                    }
+                }
+            } else if (image !== undefined) {
+                updateObject.image = image;
+            }
+
             if (orderNumber !== undefined) updateObject.orderNumber = orderNumber;
 
             const updatedStoryItem = await this.storyItemModel
@@ -337,15 +438,26 @@ export class StoryService {
                 throw new Error(`Story item with ID ${id} could not be updated`);
             }
 
-            return updatedStoryItem;
+            return {
+                status: 'success',
+                statusCode: HttpStatus.OK,
+                data: updatedStoryItem,
+                message: 'Story item updated successfully',
+            };
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error updating story item: ${errorMessage}`);
-            throw error instanceof Error ? error : new Error(errorMessage);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to update story item: ${errorMessage}`,
+            };
         }
     }
 
-    async removeStoryItem(id: string): Promise<{ deleted: any; reordered: number }> {
+    async removeStoryItem(
+        id: string,
+    ): Promise<ServiceResponse<{ deleted: any; reordered: number }>> {
         this.logger.log(`Removing story item with ID: ${id}`);
 
         try {
@@ -353,7 +465,11 @@ export class StoryService {
             const storyItem = await this.storyItemModel.findById(id).exec();
 
             if (!storyItem) {
-                throw new NotFoundException(`Story item with ID ${id} not found`);
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
+                    message: `Story item with ID ${id} not found`,
+                };
             }
 
             // If the story item has an image URL, extract the image key and delete it
@@ -384,7 +500,11 @@ export class StoryService {
             const deletedStoryItem = await this.storyItemModel.findByIdAndDelete(id).exec();
 
             if (!deletedStoryItem) {
-                throw new Error(`Failed to delete story item with ID ${id}`);
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                    message: `Failed to delete story item with ID ${id}`,
+                };
             }
 
             // Count how many items will be reordered
@@ -400,13 +520,22 @@ export class StoryService {
 
             // Return both the deleted item and count of reordered items
             return {
-                deleted: deletedStoryItem,
-                reordered: itemsToReorder,
+                status: 'success',
+                statusCode: HttpStatus.OK,
+                data: {
+                    deleted: deletedStoryItem,
+                    reordered: itemsToReorder,
+                },
+                message: 'Story item removed successfully',
             };
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error removing story item: ${errorMessage}`);
-            throw error instanceof Error ? error : new Error(errorMessage);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to remove story item: ${errorMessage}`,
+            };
         }
     }
 
@@ -424,7 +553,7 @@ export class StoryService {
             .exec();
     }
 
-    async removeStory(id: string): Promise<{ status: string; message: string; data?: any }> {
+    async removeStory(id: string): Promise<ServiceResponse<any>> {
         this.logger.log(`Removing story with ID: ${id}`);
 
         try {
@@ -434,6 +563,7 @@ export class StoryService {
             if (!story) {
                 return {
                     status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
                     message: `Story with ID ${id} not found`,
                 };
             }
@@ -495,6 +625,7 @@ export class StoryService {
 
             return {
                 status: 'success',
+                statusCode: HttpStatus.OK,
                 message: 'Story removed successfully',
                 data: deletedStory,
             };
@@ -503,6 +634,7 @@ export class StoryService {
             this.logger.error(`Error removing story: ${errorMessage}`);
             return {
                 status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to remove story: ${errorMessage}`,
             };
         }

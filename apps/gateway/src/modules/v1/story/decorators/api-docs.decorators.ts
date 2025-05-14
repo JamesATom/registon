@@ -17,6 +17,10 @@ export const ApiCreateStory = () =>
             status: 400,
             description: 'File upload failed or invalid data',
         }),
+        ApiResponse({
+            status: 500,
+            description: 'Internal server error',
+        }),
         ApiBody({
             schema: {
                 type: 'object',
@@ -204,11 +208,6 @@ export const ApiCreateStoryItem = () =>
             schema: {
                 type: 'object',
                 properties: {
-                    file: {
-                        type: 'string',
-                        format: 'binary',
-                        description: 'Image file to upload',
-                    },
                     storyId: {
                         type: 'string',
                         description: 'ID of the parent story',
@@ -224,6 +223,11 @@ export const ApiCreateStoryItem = () =>
                     orderNumber: {
                         type: 'number',
                         description: 'Order number for sorting (optional)',
+                    },
+                    file: {
+                        type: 'string',
+                        format: 'binary',
+                        description: 'Image file to upload',
                     },
                 },
                 required: ['file', 'storyId', 'title'],
@@ -251,7 +255,7 @@ export const ApiGetStoryItemById = () =>
 
 export const ApiUpdateStoryItem = () =>
     applyDecorators(
-        ApiOperation({ summary: 'Update a story item' }),
+        ApiOperation({ summary: 'Update a story item with optional file upload' }),
         ApiParam({ name: 'id', description: 'Story item ID' }),
         ApiResponse({
             status: 200,
@@ -260,6 +264,34 @@ export const ApiUpdateStoryItem = () =>
         ApiResponse({
             status: 404,
             description: 'Story item not found',
+        }),
+        ApiResponse({
+            status: 400,
+            description: 'File upload failed or invalid data',
+        }),
+        ApiBody({
+            schema: {
+                type: 'object',
+                properties: {
+                    title: {
+                        type: 'string',
+                        description: 'New title of the story item (optional)',
+                    },
+                    description: {
+                        type: 'string',
+                        description: 'New description of the story item (optional)',
+                    },
+                    orderNumber: {
+                        type: 'number',
+                        description: 'New order number for sorting (optional)',
+                    },
+                    file: {
+                        type: 'string',
+                        format: 'binary',
+                        description: 'New image file to upload (optional)',
+                    },
+                },
+            },
         }),
     );
 

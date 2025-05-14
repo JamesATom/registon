@@ -5,8 +5,8 @@ import { AuthService } from './service/auth.service';
 import { RedisModule } from 'src/modules/v1/redis/redis.module';
 
 @Module({
-	imports: [RedisModule],
-	controllers: [AuthController],
-	providers: [AuthService],
+    imports: [RedisModule],
+    controllers: [AuthController],
+    providers: [AuthService],
 })
 export class AuthModule {}

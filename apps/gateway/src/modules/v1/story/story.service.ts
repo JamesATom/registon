@@ -1,14 +1,20 @@
-// story.service.ts
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import {
+    GatewayTimeoutException,
+    HttpException,
+    Inject,
+    Injectable,
+    InternalServerErrorException,
+    Logger,
+    NotFoundException,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { firstValueFrom, timeout } from 'rxjs';
+import { firstValueFrom, timeout, TimeoutError } from 'rxjs';
 import { CreateStoryDto } from './dto/create-story.dto';
 import { UpdateStoryDto } from './dto/update-story.dto';
 import { CreateStoryItemDto } from './dto/create-story-item.dto';
 import { UpdateStoryItemDto } from './dto/update-story-item.dto';
 import { FilterStoriesDto } from './dto/filter-stories.dto';
-import { MessagePatterns } from '../../../../../community-service/src/common/constants/message-pattern';
+import { MessagePatterns } from '../../../common/constants/message-pattern';
 
 @Injectable()
 export class StoryService {
@@ -26,10 +32,32 @@ export class StoryService {
     }
 
     async getStoryById(id: string) {
-        this.logger.log(`Getting story with ID: ${id}`);
-        return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.FIND_ONE, { id }).pipe(timeout(5000)),
-        );
+        try {
+            const response = await firstValueFrom(
+                this.client.send(MessagePatterns.Story.V1.FIND_ONE, { id }).pipe(timeout(5000)),
+            );
+
+            if (response.status === 'error') {
+                // Xatolik bo'lsa, mos HTTP exceptionni tashlang
+                const statusCode = response.statusCode || 500;
+                if (statusCode === 404) {
+                    throw new NotFoundException(response.message);
+                } else {
+                    throw new HttpException(response.message, statusCode);
+                }
+            }
+
+            return response.data;
+        } catch (error) {
+            if (error instanceof TimeoutError) {
+                throw new GatewayTimeoutException('Service timeout');
+            }
+            if (error instanceof HttpException) {
+                throw error;
+            }
+
+            throw new InternalServerErrorException(`Failed to get story: ${error.message}`);
+        }
     }
 
     async createStory(createStoryDto: CreateStoryDto, userId: string) {
