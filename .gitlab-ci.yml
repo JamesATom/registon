@@ -64,4 +64,10 @@ deploy:
     script:
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
+
+        - docker rm -f $(docker ps -a -q --filter name=rabbitmq) || true
+        - docker rmi $(docker images rabbitmq:3-management -q) || true
+        
+        - docker compose -f docker-compose.yml pull
+        
         - docker compose -f docker-compose.yml up -d --build
