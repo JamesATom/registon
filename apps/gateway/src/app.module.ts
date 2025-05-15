@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './modules/v1/auth/auth.module';
 import { StoryModule } from './modules/v1/story/story.module';
+import { MobileModule } from './modules/v1/mobile/mobile.module';
 import { FileModule } from './file/file.module';
 //
 @Module({
@@ -13,6 +14,7 @@ import { FileModule } from './file/file.module';
         }),
         AuthModule,
         StoryModule,
+        MobileModule,
         FileModule,
     ],
     controllers: [],

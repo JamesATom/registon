@@ -27,14 +27,14 @@ export class StoryService {
     async getAllStories(filters?: FilterStoriesDto) {
         this.logger.log('Getting all stories');
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.GET_ALL, filters || {}).pipe(timeout(5000)),
+            this.client.send(MessagePatterns.Story.V1.GET_ALL, filters || {}).pipe(timeout(10000)),
         );
     }
 
     async getStoryById(id: string) {
         try {
             const response = await firstValueFrom(
-                this.client.send(MessagePatterns.Story.V1.FIND_ONE, { id }).pipe(timeout(5000)),
+                this.client.send(MessagePatterns.Story.V1.FIND_ONE, { id }).pipe(timeout(10000)),
             );
 
             if (response.status === 'error') {
@@ -81,7 +81,7 @@ export class StoryService {
     async deleteStory(id: string) {
         this.logger.log(`Deleting story with ID: ${id}`);
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.DELETE, id).pipe(timeout(5000)),
+            this.client.send(MessagePatterns.Story.V1.DELETE, id).pipe(timeout(10000)),
         );
     }
 
@@ -98,7 +98,7 @@ export class StoryService {
     async findStoryItemById(id: string) {
         this.logger.log(`Finding story item with ID: ${id}`);
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.FIND_ONE_ITEM, id).pipe(timeout(5000)),
+            this.client.send(MessagePatterns.Story.V1.FIND_ONE_ITEM, id).pipe(timeout(10000)),
         );
     }
 
@@ -114,7 +114,7 @@ export class StoryService {
     async removeStoryItem(id: string) {
         this.logger.log(`Removing story item with ID: ${id}`);
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.DELETE_ITEM, id).pipe(timeout(5000)),
+            this.client.send(MessagePatterns.Story.V1.DELETE_ITEM, id).pipe(timeout(10000)),
         );
     }
 }

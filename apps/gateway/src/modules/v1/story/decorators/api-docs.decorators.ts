@@ -1,7 +1,11 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { FilterStoriesDto } from '../dto/filter-stories.dto';
-import { StoryResponseEntity, StoryListResponseEntity, StoryItemResponseEntity } from '../story-response.entity';
+import {
+    StoryResponseEntity,
+    StoryListResponseEntity,
+    StoryItemResponseEntity,
+} from '../story-response.entity';
 
 export const ApiCreateStory = () =>
     applyDecorators(
@@ -34,11 +38,11 @@ export const ApiCreateStory = () =>
                             updatedBy: '60a7c8b9e4b0c1234567892',
                             createdAt: '2025-05-15T13:00:00Z',
                             updatedAt: '2025-05-15T13:00:00Z',
-                            storyItems: []
-                        }
-                    }
-                }
-            }
+                            storyItems: [],
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 400,
@@ -49,10 +53,10 @@ export const ApiCreateStory = () =>
                         status: 'error',
                         statusCode: 400,
                         message: 'Main image file is required',
-                        error: 'Bad Request'
-                    }
-                }
-            }
+                        error: 'Bad Request',
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 500,
@@ -146,18 +150,18 @@ export const ApiFilterStories = () =>
                                 updatedBy: '60a7c8b9e4b0c1234567892',
                                 createdAt: '2025-05-15T09:00:00Z',
                                 updatedAt: '2025-05-15T09:30:00Z',
-                                storyItems: []
-                            }
+                                storyItems: [],
+                            },
                         ],
                         pagination: {
                             total: 1,
                             page: 1,
                             limit: 10,
-                            totalPages: 1
-                        }
-                    }
-                }
-            }
+                            totalPages: 1,
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 400,
@@ -168,10 +172,10 @@ export const ApiFilterStories = () =>
                         status: 'error',
                         statusCode: 400,
                         message: 'Invalid filter parameters',
-                        error: 'Bad Request'
-                    }
-                }
-            }
+                        error: 'Bad Request',
+                    },
+                },
+            },
         }),
         ApiBody({ type: FilterStoriesDto }),
     );
@@ -207,11 +211,11 @@ export const ApiGetStoryById = () =>
                             updatedBy: '60a7c8b9e4b0c1234567892',
                             createdAt: '2025-05-15T09:00:00Z',
                             updatedAt: '2025-05-15T09:30:00Z',
-                            storyItems: []
-                        }
-                    }
-                }
-            }
+                            storyItems: [],
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -222,10 +226,10 @@ export const ApiGetStoryById = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
     );
 
@@ -257,11 +261,11 @@ export const ApiUpdateStory = () =>
                             endDate: '2025-06-15T23:59:59Z',
                             commentAdmin: 'Story has been updated',
                             updatedBy: '60a7c8b9e4b0c1234567892',
-                            updatedAt: '2025-05-15T13:30:00Z'
-                        }
-                    }
-                }
-            }
+                            updatedAt: '2025-05-15T13:30:00Z',
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -272,10 +276,10 @@ export const ApiUpdateStory = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 400,
@@ -286,10 +290,10 @@ export const ApiUpdateStory = () =>
                         status: 'error',
                         statusCode: 400,
                         message: 'Main image file is required',
-                        error: 'Bad Request'
-                    }
-                }
-            }
+                        error: 'Bad Request',
+                    },
+                },
+            },
         }),
         ApiBody({
             schema: {
@@ -360,9 +364,9 @@ export const ApiRemoveStory = () =>
                         status: 'success',
                         statusCode: 200,
                         message: 'Story deleted successfully',
-                    }
-                }
-            }
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -373,10 +377,10 @@ export const ApiRemoveStory = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
     );
 
@@ -393,9 +397,9 @@ export const ApiPublishStory = () =>
                         status: 'success',
                         statusCode: 200,
                         message: 'Story published successfully',
-                    }
-                }
-            }
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -406,10 +410,10 @@ export const ApiPublishStory = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
     );
 
@@ -436,11 +440,11 @@ export const ApiCreateStoryItem = () =>
                             image: 'https://example.com/item-image.jpg',
                             orderNumber: 1,
                             createdAt: '2025-05-15T13:00:00Z',
-                            updatedAt: '2025-05-15T13:00:00Z'
-                        }
-                    }
-                }
-            }
+                            updatedAt: '2025-05-15T13:00:00Z',
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 400,
@@ -451,10 +455,10 @@ export const ApiCreateStoryItem = () =>
                         status: 'error',
                         statusCode: 400,
                         message: 'Story item image is required',
-                        error: 'Bad Request'
-                    }
-                }
-            }
+                        error: 'Bad Request',
+                    },
+                },
+            },
         }),
         ApiBody({
             schema: {
@@ -509,11 +513,11 @@ export const ApiGetStoryItemById = () =>
                             image: 'https://example.com/item-image.jpg',
                             orderNumber: 1,
                             createdAt: '2025-05-15T13:00:00Z',
-                            updatedAt: '2025-05-15T13:00:00Z'
-                        }
-                    }
-                }
-            }
+                            updatedAt: '2025-05-15T13:00:00Z',
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -524,10 +528,10 @@ export const ApiGetStoryItemById = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story item with ID 60a7c8b9e4b0c1234567894 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
     );
 
@@ -552,11 +556,11 @@ export const ApiUpdateStoryItem = () =>
                             description: 'This is an updated story item',
                             image: 'https://example.com/updated-item-image.jpg',
                             orderNumber: 1,
-                            updatedAt: '2025-05-15T13:30:00Z'
-                        }
-                    }
-                }
-            }
+                            updatedAt: '2025-05-15T13:30:00Z',
+                        },
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -567,10 +571,10 @@ export const ApiUpdateStoryItem = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'Story item with ID 60a7c8b9e4b0c1234567894 not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
         ApiBody({
             schema: {
@@ -611,9 +615,9 @@ export const ApiUpdateStoryItems = () =>
                             type: 'object',
                             properties: {
                                 id: { type: 'string', example: '60a7c8b9e4b0c1234567894' },
-                                orderNumber: { type: 'number', example: 1 }
+                                orderNumber: { type: 'number', example: 1 },
                             },
-                            required: ['id', 'orderNumber']
+                            required: ['id', 'orderNumber'],
                         },
                     },
                 },
@@ -632,16 +636,16 @@ export const ApiUpdateStoryItems = () =>
                         data: [
                             {
                                 id: '60a7c8b9e4b0c1234567894',
-                                orderNumber: 1
+                                orderNumber: 1,
                             },
                             {
                                 id: '60a7c8b9e4b0c1234567895',
-                                orderNumber: 2
-                            }
-                        ]
-                    }
-                }
-            }
+                                orderNumber: 2,
+                            },
+                        ],
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 404,
@@ -652,10 +656,10 @@ export const ApiUpdateStoryItems = () =>
                         status: 'error',
                         statusCode: 404,
                         message: 'One or more story items not found',
-                        error: 'Not Found'
-                    }
-                }
-            }
+                        error: 'Not Found',
+                    },
+                },
+            },
         }),
     );
 

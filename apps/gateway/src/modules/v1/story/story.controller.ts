@@ -32,16 +32,11 @@ import {
     ApiUpdateStoryItem,
     ApiDeleteStoryItem,
 } from './decorators/api-docs.decorators';
-import {
-    StoryResponseEntity,
-    StoryListResponseEntity,
-    StoryItemResponseEntity,
-} from './story-response.entity';
 import { UpdateStoryItemDto } from './dto/update-story-item.dto';
 
 @ApiTags('stories')
 @ApiBearerAuth()
-@Controller('v1/stories')
+@Controller('stories')
 export class StoryController {
     private readonly logger = new Logger(StoryController.name);
 
@@ -53,7 +48,6 @@ export class StoryController {
     }
     @Post()
     @ApiCreateStory()
-    @ApiResponse({ status: 201, type: StoryResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async createStory(@Req() request: FastifyRequest, @Request() req: any) {
@@ -139,7 +133,6 @@ export class StoryController {
     }
     @Get(':id')
     @ApiGetStoryById()
-    @ApiResponse({ status: 200, type: StoryResponseEntity })
     @UseGuards(AuthGuard)
     async findStoryById(@Param('id') id: string) {
         this.logger.log(`GET /api/v1/stories/${id} - Get story by ID`);
@@ -148,7 +141,6 @@ export class StoryController {
 
     @Put(':id')
     @ApiUpdateStory()
-    @ApiResponse({ status: 200, type: StoryResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async updateStory(
@@ -243,7 +235,6 @@ export class StoryController {
 
     @Delete(':id')
     @ApiRemoveStory()
-    @ApiResponse({ status: 200, type: StoryResponseEntity })
     @UseGuards(AuthGuard)
     async removeStory(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/${id} - Delete story`);
@@ -260,7 +251,6 @@ export class StoryController {
 
     @Post('filter')
     @ApiFilterStories()
-    @ApiResponse({ status: 200, type: StoryListResponseEntity })
     @UseGuards(AuthGuard)
     async filterStories(@Body() filterDto: FilterStoriesDto) {
         this.logger.log('POST /api/v1/stories/filter - Filter stories');
@@ -269,7 +259,6 @@ export class StoryController {
 
     @Post('items')
     @ApiCreateStoryItem()
-    @ApiResponse({ status: 201, type: StoryItemResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async createStoryItem(@Req() request: FastifyRequest, @Request() req: any) {
@@ -347,7 +336,6 @@ export class StoryController {
 
     @Put('items/:id')
     @ApiUpdateStoryItem()
-    @ApiResponse({ status: 200, type: StoryItemResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async updateStoryItem(@Param('id') id: string, @Req() request: FastifyRequest) {
@@ -419,7 +407,6 @@ export class StoryController {
 
     @Delete('items/:id')
     @ApiDeleteStoryItem()
-    @ApiResponse({ status: 200, type: StoryItemResponseEntity })
     @UseGuards(AuthGuard)
     async removeStoryItem(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/items/${id} - Delete story item`);
