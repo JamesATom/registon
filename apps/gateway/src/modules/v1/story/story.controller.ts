@@ -4,25 +4,22 @@ import {
     Post,
     Put,
     Delete,
-    Body,
     Param,
-    Logger,
+    Body,
     Request,
-    BadRequestException,
-    NotFoundException,
     Req,
     UseGuards,
-    HttpCode,
+    BadRequestException,
+    NotFoundException,
+    Logger,
 } from '@nestjs/common';
-import { ApiTags, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiConsumes, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { StoryService } from './story.service';
 import { FileService } from '../../../file/file.service';
 import { FastifyRequest } from 'fastify';
 import { CreateStoryDto } from './dto/create-story.dto';
-import { UpdateStoryDto } from './dto/update-story.dto';
 import { CreateStoryItemDto } from './dto/create-story-item.dto';
-import { UpdateStoryItemDto } from './dto/update-story-item.dto';
 import { FilterStoriesDto } from './dto/filter-stories.dto';
 import {
     ApiCreateStory,
@@ -35,6 +32,12 @@ import {
     ApiUpdateStoryItem,
     ApiDeleteStoryItem,
 } from './decorators/api-docs.decorators';
+import {
+    StoryResponseEntity,
+    StoryListResponseEntity,
+    StoryItemResponseEntity,
+} from './story-response.entity';
+import { UpdateStoryItemDto } from './dto/update-story-item.dto';
 
 @ApiTags('stories')
 @ApiBearerAuth()
@@ -48,25 +51,9 @@ export class StoryController {
     ) {
         this.logger.log('StoryController initialized');
     }
-
-    @Post('filter')
-    @ApiFilterStories()
-    @UseGuards(AuthGuard)
-    async filterStories(@Body() filterDto: FilterStoriesDto) {
-        this.logger.log('POST /api/v1/stories/filter - Filter stories');
-        return this.storyService.getAllStories(filterDto);
-    }
-
-    @Get(':id')
-    @ApiGetStoryById()
-    // @UseGuards(AuthGuard)
-    async findStoryById(@Param('id') id: string) {
-        this.logger.log(`GET /api/v1/stories/${id} - Get story by ID`);
-        return this.storyService.getStoryById(id);
-    }
-
     @Post()
     @ApiCreateStory()
+    @ApiResponse({ status: 201, type: StoryResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async createStory(@Req() request: FastifyRequest, @Request() req: any) {
@@ -150,9 +137,18 @@ export class StoryController {
             throw new BadRequestException(`Failed to create story: ${errorMessage}`);
         }
     }
+    @Get(':id')
+    @ApiGetStoryById()
+    @ApiResponse({ status: 200, type: StoryResponseEntity })
+    @UseGuards(AuthGuard)
+    async findStoryById(@Param('id') id: string) {
+        this.logger.log(`GET /api/v1/stories/${id} - Get story by ID`);
+        return this.storyService.getStoryById(id);
+    }
 
     @Put(':id')
     @ApiUpdateStory()
+    @ApiResponse({ status: 200, type: StoryResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async updateStory(
@@ -247,6 +243,7 @@ export class StoryController {
 
     @Delete(':id')
     @ApiRemoveStory()
+    @ApiResponse({ status: 200, type: StoryResponseEntity })
     @UseGuards(AuthGuard)
     async removeStory(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/${id} - Delete story`);
@@ -261,8 +258,18 @@ export class StoryController {
         }
     }
 
+    @Post('filter')
+    @ApiFilterStories()
+    @ApiResponse({ status: 200, type: StoryListResponseEntity })
+    @UseGuards(AuthGuard)
+    async filterStories(@Body() filterDto: FilterStoriesDto) {
+        this.logger.log('POST /api/v1/stories/filter - Filter stories');
+        return this.storyService.getAllStories(filterDto);
+    }
+
     @Post('items')
     @ApiCreateStoryItem()
+    @ApiResponse({ status: 201, type: StoryItemResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async createStoryItem(@Req() request: FastifyRequest, @Request() req: any) {
@@ -340,6 +347,7 @@ export class StoryController {
 
     @Put('items/:id')
     @ApiUpdateStoryItem()
+    @ApiResponse({ status: 200, type: StoryItemResponseEntity })
     @ApiConsumes('multipart/form-data')
     @UseGuards(AuthGuard)
     async updateStoryItem(@Param('id') id: string, @Req() request: FastifyRequest) {
@@ -350,28 +358,30 @@ export class StoryController {
             if (!data) {
                 throw new BadRequestException('No form data received');
             }
-            
+
             // Extract form fields
             const fields = data.fields || {};
             const title = fields.title?.value;
             const description = fields.description?.value;
-            const orderNumber = fields.orderNumber?.value ? Number(fields.orderNumber.value) : undefined;
-            
+            const orderNumber = fields.orderNumber?.value
+                ? Number(fields.orderNumber.value)
+                : undefined;
+
             // Create update DTO
             const updateStoryItemDto: UpdateStoryItemDto = {
-                storyItem: {}
+                storyItem: {},
             };
-            
+
             // Add fields only if they exist
             if (title) updateStoryItemDto.storyItem.title = title;
             if (description !== undefined) updateStoryItemDto.storyItem.description = description;
             if (orderNumber !== undefined) updateStoryItemDto.storyItem.orderNumber = orderNumber;
-            
+
             // Process file upload if a file was provided
             if (data.file) {
                 // Convert file to buffer
                 const buffer = await data.toBuffer();
-                
+
                 // Create a file object
                 const file = {
                     fieldname: data.fieldname,
@@ -381,22 +391,22 @@ export class StoryController {
                     size: buffer.length,
                     buffer: buffer,
                 };
-                
+
                 // Upload file to storage via FileService
                 const uploadResult = await this.fileService.uploadFile(file, {
                     folder: 'story-items',
                     filename: data.filename,
                 });
-                
+
                 // Add image URL to update DTO
                 updateStoryItemDto.storyItem.image = uploadResult.url;
             }
-            
+
             // If no updates provided, throw error
             if (Object.keys(updateStoryItemDto.storyItem).length === 0) {
                 throw new BadRequestException('No update data provided');
             }
-            
+
             return await this.storyService.updateStoryItem(id, updateStoryItemDto);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -409,6 +419,7 @@ export class StoryController {
 
     @Delete('items/:id')
     @ApiDeleteStoryItem()
+    @ApiResponse({ status: 200, type: StoryItemResponseEntity })
     @UseGuards(AuthGuard)
     async removeStoryItem(@Param('id') id: string) {
         this.logger.log(`DELETE /api/v1/stories/items/${id} - Delete story item`);
