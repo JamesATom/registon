@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CommunityService } from 'src/microservices';
 import { StoryController } from './story.controller';
 import { StoryService } from './story.service';
-import { FileService } from '../../../file/file.service';
+import { FileService } from '../file/file.service';
 import { RedisService } from '../redis/redis.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
 

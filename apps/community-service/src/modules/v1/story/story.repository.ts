@@ -1,9 +1,10 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Story, StoryDocument, StoryStatus } from '../../../shared/models/story.schema';
 import { StoryItem, StoryItemDocument } from '../../../shared/models/story-item.schema';
 import { ServiceResponse } from '../../../common/interfaces/service-response.interface';
+import { FileService } from '../../../file/file.service';
 
 @Injectable()
 export class StoryRepository {
@@ -12,10 +13,14 @@ export class StoryRepository {
     constructor(
         @InjectModel(Story.name) private storyModel: Model<StoryDocument>,
         @InjectModel(StoryItem.name) private storyItemModel: Model<StoryItemDocument>,
+        private readonly fileService: FileService,
     ) {
         this.logger.log('StoryRepository initialized with database connection');
     }
 
+    /**
+     * Creates a new story with the given data
+     */
     async createStory(storyData: any, userId: string): Promise<ServiceResponse<any>> {
         this.logger.log('Creating new story in database');
         try {
@@ -28,7 +33,7 @@ export class StoryRepository {
                 link: storyData.link,
                 buttonText: storyData.buttonText,
                 createdBy: userId,
-                branches: storyData.branches?.map((branch: any) => branch),
+                branches: storyData.branches,
                 startDate: storyData.startDate,
                 endDate: storyData.endDate,
                 commentAdmin: storyData.commentAdmin,
@@ -53,6 +58,58 @@ export class StoryRepository {
         }
     }
 
+    async createStoryWithFileInfo(
+        file: any,
+        fields: any,
+        userId: string,
+    ): Promise<ServiceResponse<any>> {
+        const uploadedFile = await this.fileService.uploadFile(file);
+        try {
+            const storyData = {
+                title: fields.title,
+                description: fields.description || '',
+                status: fields.status || StoryStatus.DRAFT,
+                branches: fields.branches,
+                startDate: fields.startDate || null,
+                endDate: fields.endDate || null,
+                commentAdmin: fields.commentAdmin || '',
+                buttonText: fields.buttonText || '',
+                link: fields.link || '',
+            };
+
+            const newStory = new this.storyModel({
+                title: fields.title,
+                description: storyData.description,
+                status: storyData.status || StoryStatus.DRAFT,
+                mainImage: uploadedFile.url,
+                link: storyData.link,
+                buttonText: storyData.buttonText,
+                createdBy: userId,
+                branches: storyData.branches,
+                startDate: storyData.startDate,
+                endDate: storyData.endDate,
+                commentAdmin: storyData.commentAdmin,
+            });
+
+            const savedStory = await newStory.save();
+
+            return {
+                status: 'success',
+                statusCode: HttpStatus.CREATED,
+                data: savedStory,
+                message: 'Story created successfully',
+            };
+        } catch (error) {
+            this.logger.error('Database operation failed, cleaning up the uploaded file');
+            await this.fileService.deleteFile(uploadedFile.key);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to create story error`,
+            };
+        }
+    }
+
     async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
         this.logger.log('Finding all stories from database');
         try {
@@ -71,12 +128,10 @@ export class StoryRepository {
                 message: 'Stories fetched successfully',
             };
         } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            this.logger.error(`Error fetching stories: ${errorMessage}`);
             return {
                 status: 'error',
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-                message: `Failed to fetch stories: ${errorMessage}`,
+                message: `Failed to fetch stories error`,
                 data: [],
             };
         }
@@ -84,7 +139,6 @@ export class StoryRepository {
 
     async findStoryById(id: string): Promise<ServiceResponse<any>> {
         try {
-            // Use aggregation with $lookup to get story and its items in one query
             const result = await this.storyModel
                 .aggregate([
                     { $match: { _id: new Types.ObjectId(id) } },

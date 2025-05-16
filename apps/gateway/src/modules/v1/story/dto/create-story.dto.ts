@@ -15,6 +15,7 @@ export class CreateStoryDto {
         description: 'Title of the story',
         minLength: 3,
         maxLength: 100,
+        required: true,
     })
     @IsNotEmpty()
     @IsString()
@@ -38,7 +39,10 @@ export class CreateStoryDto {
     @IsEnum(StoryStatus)
     status?: StoryStatus = StoryStatus.DRAFT;
 
-    @ApiProperty({ description: 'Main image' })
+    @ApiProperty({
+        description: 'Main image URL or path',
+        required: true,
+    })
     @IsNotEmpty()
     @IsString()
     mainImage: string;

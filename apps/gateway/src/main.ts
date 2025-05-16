@@ -2,8 +2,9 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { VersioningType, ValidationPipe, Logger } from '@nestjs/common';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
+import { LoggingInterceptor, ErrorInterceptor } from './common/interceptors';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -32,7 +33,14 @@ async function bootstrap() {
         credentials: true,
     });
 
-    app.useGlobalInterceptors(new RpcErrorInterceptor());
+    app.useGlobalInterceptors(
+        new LoggingInterceptor(),
+        new ErrorInterceptor(),
+        new RpcErrorInterceptor()
+    );
+    
+    // Configure global logger
+    Logger.log('Application starting up...', 'Bootstrap');
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
     const config = new DocumentBuilder()

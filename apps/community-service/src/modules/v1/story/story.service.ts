@@ -37,6 +37,14 @@ export class StoryService {
         return this.storyRepository.createStory(storyData, userId);
     }
 
+    async createStoryWithFileInfo(
+        file: any,
+        fields: any,
+        userId: string,
+    ): Promise<ServiceResponse<any>> {
+        return this.storyRepository.createStoryWithFileInfo(file, fields, userId);
+    }
+
     async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
         return this.storyRepository.findAllStories(filter);
     }

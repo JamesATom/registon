@@ -54,30 +54,33 @@ export class FileService {
         );
     }
 
-    async uploadFile(fileData: FileUploadData): Promise<FileMetadata> {
+    async uploadFile(fileData: any): Promise<FileMetadata> {
         try {
-            // Decode the base64 buffer
-            const buffer = Buffer.from(fileData.buffer, 'base64');
+            const fileUploadData = {
+                originalname: fileData.originalname || 'unknown-file.jpg',
+                mimetype: fileData.mimetype || 'image/jpeg',
+                size: fileData.size || 0,
+                buffer: fileData.buffer,
+                folder: 'stories',
+            };
 
-            // Generate a unique filename if none provided
+            const buffer = Buffer.from(fileUploadData.buffer, 'base64');
+
             const filename =
                 fileData.filename || `${uuidv4()}-${fileData.originalname.replace(/\s+/g, '-')}`;
 
-            // Create the object key (path in the bucket)
-            const key = join(fileData.folder, filename);
+            const key = join(fileUploadData.folder, filename);
 
-            // Upload the file to DigitalOcean Spaces
             const uploadParams = {
                 Bucket: this.bucketName,
                 Key: key,
                 Body: buffer,
                 ContentType: fileData.mimetype,
-                ACL: ObjectCannedACL.public_read, // Make the file publicly accessible
+                ACL: ObjectCannedACL.public_read,
             };
 
             await this.s3Client.send(new PutObjectCommand(uploadParams));
 
-            // Return the file metadata
             return {
                 url: `${this.baseUrl}/${key}`,
                 key,
@@ -86,10 +89,8 @@ export class FileService {
                 originalname: fileData.originalname,
             };
         } catch (error: unknown) {
-            // Type guard to safely access error properties
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             const errorStack = error instanceof Error ? error.stack : undefined;
-
             this.logger.error(`Error uploading file: ${errorMessage}`, errorStack);
             throw new Error(`Failed to upload file: ${errorMessage}`);
         }
