@@ -37,10 +37,14 @@ build_gateway:
     parallel: 1
 
     script:
+        - echo "🧹 Freeing up disk space..."
+        - docker system prune -af || true
+        - docker volume prune -f || true
         - echo "Building Gateway"
         - cd apps/gateway
         - yarn install
         - yarn build
+
 
 build_community_service:
     # image: ${NODE_IMAGE}
@@ -51,10 +55,14 @@ build_community_service:
     parallel: 1
  
     script:
+        - echo "🧹 Freeing up disk space..."
+        - docker system prune -af || true
+        - docker volume prune -f || true
         - echo "Building Community Service"
         - cd apps/community-service
         - yarn install
         - yarn build
+
 
 deploy:
     stage: deploy
@@ -62,6 +70,9 @@ deploy:
         - remote-shell-dev
     interruptible: true
     script:
+        - echo "Cleaning up Docker to free space..."
+        - docker system prune -af
+        - docker volume prune -f
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
 
