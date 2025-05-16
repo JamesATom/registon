@@ -14,9 +14,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                     transport: Transport.RMQ,
                     options: {
                         urls: [configService.get<string>('RABBITMQ_URL', 'amqp://localhost:5672')],
-                        queue: configService.get<string>('RABBITMQ_COMMUNITY_SERVICE_QUEUE', 'community_service_queue'),
+                        queue: configService.get<string>(
+                            'RABBITMQ_COMMUNITY_SERVICE_QUEUE',
+                            'community_service_queue',
+                        ),
                         queueOptions: {
-                            durable: true
+                            durable: true,
                         },
                     },
                 }),

@@ -9,7 +9,7 @@
     "build": "nest build",
     "build:swc": "npx swc --out-dir dist -w src",
     "start:swc": "nodemon dist/main",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "yarn build && node dist/main",
     "start:dev": "concurrently \"yarn build:swc\" \"yarn start:swc\"",
     "start:debug": "nest start --debug --watch",

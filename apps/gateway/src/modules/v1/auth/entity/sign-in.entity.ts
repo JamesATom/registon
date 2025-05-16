@@ -11,8 +11,8 @@ export class SignInEntity {
     @ApiProperty({
         example: {
             _id: '61dbe38be35f52c9ef27886e',
-            hasPassword: false
-        }
+            hasPassword: false,
+        },
     })
     data: {
         _id: string;

@@ -22,9 +22,6 @@ export class AuthController {
     @ApiOperation({ summary: 'Verify OTP code' })
     @ApiResponse({ status: 200, type: SignVerifyEntity })
     async signVerify(@Body() signVerifyDto: SignVerifyDto): Promise<any> {
-        return this.authService.signVerify(
-            signVerifyDto.phoneNumber,
-            signVerifyDto.otp
-        );
+        return this.authService.signVerify(signVerifyDto.phoneNumber, signVerifyDto.otp);
     }
 }

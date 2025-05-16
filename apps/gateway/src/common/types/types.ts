@@ -40,5 +40,5 @@ export interface User {
 }
 
 export interface AuthenticatedSocket extends Socket {
-    user: JwtPayload; 
+    user: JwtPayload;
 }

@@ -16,10 +16,7 @@ export class HttpRoleGuard implements CanActivate {
     constructor(private reflector: Reflector) {}
 
     canActivate(context: ExecutionContext): boolean {
-        const requiredRole = this.reflector.get<UserRole>(
-            ROLES_KEY,
-            context.getHandler(),
-        );
+        const requiredRole = this.reflector.get<UserRole>(ROLES_KEY, context.getHandler());
 
         if (!requiredRole) {
             return true;

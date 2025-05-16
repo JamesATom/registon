@@ -15,8 +15,8 @@ export class SignVerifyEntity {
             phoneNumber: '+998900590103',
             fullName: 'Iqboljon',
             token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-            hasPassword: false
-        }
+            hasPassword: false,
+        },
     })
     data: {
         _id: string;

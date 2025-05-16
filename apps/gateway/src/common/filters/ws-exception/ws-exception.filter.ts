@@ -15,7 +15,7 @@
 //             timestamp: new Date().toISOString(),
 //             details: typeof error === 'object' ? error : undefined,
 //         });
-        
+
 //         client.disconnect(true);
 //     }
 // }

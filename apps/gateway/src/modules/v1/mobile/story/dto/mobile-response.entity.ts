@@ -55,13 +55,13 @@ export class MobileStoryEntity {
 
     @ApiProperty({ required: false })
     link?: string;
-    
+
     @ApiProperty({ required: false })
     buttonText?: string;
 
     @ApiProperty()
     createdBy: string;
-    
+
     @ApiProperty({ required: false })
     updatedBy?: string;
 

@@ -4,9 +4,7 @@ import { RedisService } from './redis.service';
 // import { Redis } from 'ioredis';
 
 @Module({
-    providers: [
-        RedisService,
-    ],
+    providers: [RedisService],
     exports: [RedisService],
 })
 export class RedisModule {}

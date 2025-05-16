@@ -1,6 +1,9 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { MobileStoryListResponseEntity, MobileStoryWithItemsEntity } from '../dto/mobile-response.entity';
+import {
+    MobileStoryListResponseEntity,
+    MobileStoryWithItemsEntity,
+} from '../dto/mobile-response.entity';
 
 export function ApiGetAllMobileStories() {
     return applyDecorators(

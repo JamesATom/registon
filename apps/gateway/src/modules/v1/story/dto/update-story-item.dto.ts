@@ -7,13 +7,13 @@ import { StoryItemContent } from './create-story-item.dto';
 export class UpdateStoryItemContent extends PartialType(StoryItemContent) {}
 
 export class UpdateStoryItemDto {
-  @ApiPropertyOptional({
-    description: 'Story item content to update',
-    type: UpdateStoryItemContent
-  })
-  @IsOptional()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => UpdateStoryItemContent)
-  storyItem?: UpdateStoryItemContent;
+    @ApiPropertyOptional({
+        description: 'Story item content to update',
+        type: UpdateStoryItemContent,
+    })
+    @IsOptional()
+    @IsObject()
+    @ValidateNested()
+    @Type(() => UpdateStoryItemContent)
+    storyItem?: UpdateStoryItemContent;
 }
