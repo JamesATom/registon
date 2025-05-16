@@ -54,6 +54,10 @@ export class FileService {
         );
     }
 
+    getBaseUrl(): string {
+        return this.baseUrl;
+    }
+
     async uploadFile(fileData: any): Promise<FileMetadata> {
         try {
             const fileUploadData = {
@@ -102,7 +106,6 @@ export class FileService {
                 Bucket: this.bucketName,
                 Key: key,
             };
-
             await this.s3Client.send(new DeleteObjectCommand(deleteParams));
         } catch (error: unknown) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';

@@ -41,7 +41,6 @@ export class StoryController {
     @UseGuards(AuthGuard)
     async createStory(@Req() request: FastifyRequest, @Request() req: any) {
         const data = await (request as any).file();
-
         const serializedData = await FileSerializer.serializeMultipartData(data);
         return this.storyService.createStoryWithFile(serializedData, req.user?.userId);
     }
@@ -62,17 +61,13 @@ export class StoryController {
         @Req() request: FastifyRequest,
         @Request() req: any,
     ) {
-        try {
-            const data = await (request as any).file();
-            if (data) {
-                const serializedData = await FileSerializer.serializeMultipartData(data);
-                return this.storyService.updateStoryWithFile(id, serializedData, req.user?.userId);
-            }
-            const body = await request.body;
-            return this.storyService.updateStory(id, body, req.user?.userId);
-        } catch (error) {
-            throw new BadRequestException(`Failed to process request: ${error.message}`);
+        const data = await (request as any).file();
+        if (data) {
+            const serializedData = await FileSerializer.serializeMultipartData(data);
+            return this.storyService.updateStoryWithFile(id, serializedData, req.user?.userId);
         }
+        const body = await request.body;
+        return this.storyService.updateStory(id, body, req.user?.userId);
     }
 
     @Delete(':id')
@@ -95,10 +90,6 @@ export class StoryController {
     @UseGuards(AuthGuard)
     async createStoryItem(@Req() request: FastifyRequest, @Request() req: any) {
         const data = await (request as any).file();
-        if (!data) {
-            throw new BadRequestException('File is required');
-        }
-
         const serializedData = await FileSerializer.serializeMultipartData(data);
         return this.storyService.createStoryItemWithFile(serializedData, req.user?.userId);
     }

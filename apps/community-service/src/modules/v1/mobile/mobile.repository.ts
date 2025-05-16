@@ -12,35 +12,19 @@ export class MobileRepository {
     constructor(
         @InjectModel(Story.name) private storyModel: Model<StoryDocument>,
         @InjectModel(StoryItem.name) private storyItemModel: Model<StoryItemDocument>,
-    ) {
-        this.logger.log('MobileRepository initialized with database connection');
-    }
+    ) {}
 
     async findAllStoriesForMobile(filter?: any): Promise<ServiceResponse<any[]>> {
-        this.logger.log('Finding all stories for mobile from database');
         try {
             const query = {};
-
-            if (filter?.status) {
-                query['status'] = filter.status;
-            }
 
             // For mobile, only return published stories by default if not specified
             if (!filter?.status) {
                 query['status'] = StoryStatus.PUBLISHED;
             }
 
-            // For mobile, include date filters if provided
-            if (filter?.startDate) {
-                query['startDate'] = { $lte: new Date() };
-            }
-            
-            if (filter?.endDate) {
-                query['endDate'] = { $gte: new Date() };
-            }
-
-            // Get all stories without pagination
-            const stories = await this.storyModel.find(query)
+            const stories = await this.storyModel
+                .find(query)
                 .sort({ createdAt: -1 }) // Latest first
                 .exec();
 
@@ -63,9 +47,7 @@ export class MobileRepository {
     }
 
     async findStoryWithItemsById(id: string): Promise<ServiceResponse<any>> {
-        this.logger.log(`Finding story with items by ID: ${id} for mobile`);
         try {
-            // Use aggregation with $lookup to get story and its items in one query
             const result = await this.storyModel
                 .aggregate([
                     { $match: { _id: new Types.ObjectId(id) } },
@@ -77,17 +59,17 @@ export class MobileRepository {
                             as: 'items',
                         },
                     },
-                    // Sort items by order number
+
                     {
                         $addFields: {
                             items: {
                                 $sortArray: {
                                     input: '$items',
-                                    sortBy: { orderNumber: 1 } // Sort by ascending order number
-                                }
-                            }
-                        }
-                    }
+                                    sortBy: { orderNumber: 1 }, // Sort by ascending order number
+                                },
+                            },
+                        },
+                    },
                 ])
                 .exec();
 

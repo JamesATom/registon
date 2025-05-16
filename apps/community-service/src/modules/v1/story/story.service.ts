@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { FileService } from '../../../file/file.service';
 import { ServiceResponse } from '../../../common/interfaces/service-response.interface';
 import { StoryRepository } from './story.repository';
@@ -43,6 +43,15 @@ export class StoryService {
         userId: string,
     ): Promise<ServiceResponse<any>> {
         return this.storyRepository.createStoryWithFileInfo(file, fields, userId);
+    }
+
+    async updateStoryWithFileInfo(
+        id: string,
+        file: any,
+        fields: any,
+        userId: string,
+    ): Promise<ServiceResponse<any>> {
+        return this.storyRepository.updateStoryWithFileInfo(id, file, fields, userId);
     }
 
     async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
@@ -95,6 +104,107 @@ export class StoryService {
         return this.storyRepository.createStoryItem(createStoryItemDto, userId);
     }
 
+    async createStoryItemWithFileInfo(
+        file: any,
+        fields: any,
+        userId: string,
+    ): Promise<ServiceResponse<any>> {
+        try {
+            const uploadedFile = await this.fileService.uploadFile(file);
+
+            const itemData = {
+                storyId: fields.storyId,
+                storyItems: [
+                    {
+                        title: fields.title,
+                        description: fields.description || '',
+                        image: uploadedFile.url,
+                        orderNumber: fields.order || 0,
+                    },
+                ],
+            };
+
+            return this.storyRepository.createStoryItem(itemData, userId);
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            this.logger.error(`Error creating story item with file: ${errorMessage}`);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to create story item with file: ${errorMessage}`,
+            };
+        }
+    }
+
+    async updateStoryItemWithFileInfo(
+        id: string,
+        file: any,
+        fields: any,
+    ): Promise<ServiceResponse<any>> {
+        try {
+            const currentItemResult = await this.storyRepository.findStoryItemById(id);
+            if (currentItemResult.status === 'error') {
+                return currentItemResult;
+            }
+
+            const uploadedFile = await this.fileService.uploadFile(file);
+
+            let oldImageKey = '';
+            if (currentItemResult.data.image) {
+                try {
+                    const oldImageUrl = new URL(currentItemResult.data.image);
+                    const oldImagePathParts = oldImageUrl.pathname.split('/');
+                    oldImagePathParts.shift();
+                    oldImageKey = oldImagePathParts.join('/');
+                } catch (urlError) {
+                    this.logger.warn(
+                        `Failed to parse old image URL: ${currentItemResult.data.image}`,
+                    );
+                }
+            }
+
+            const updateData = {
+                storyItem: {
+                    title:
+                        fields.title !== undefined && fields.title !== ''
+                            ? fields.title
+                            : undefined,
+                    description:
+                        fields.description !== undefined && fields.description !== ''
+                            ? fields.description
+                            : undefined,
+                    image: uploadedFile.url,
+                    order:
+                        fields.order !== undefined && fields.order !== ''
+                            ? Number(fields.order)
+                            : undefined,
+                },
+            };
+
+            const updateResult = await this.storyRepository.updateStoryItem(id, updateData);
+
+            if (updateResult.status === 'success' && oldImageKey) {
+                try {
+                    await this.fileService.deleteFile(oldImageKey);
+                } catch (deleteError) {
+                    const errorMessage =
+                        deleteError instanceof Error ? deleteError.message : 'Unknown error';
+                    this.logger.warn(`Failed to delete old image ${oldImageKey}: ${errorMessage}`);
+                }
+            }
+
+            return updateResult;
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            this.logger.error(`Error updating story item with file: ${errorMessage}`);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to update story item with file: ${errorMessage}`,
+            };
+        }
+    }
+
     async findStoryItemById(id: string): Promise<ServiceResponse<any>> {
         return this.storyRepository.findStoryItemById(id);
     }
@@ -120,9 +230,7 @@ export class StoryService {
                     oldImagePathParts.shift();
                     const oldImageKey = oldImagePathParts.join('/');
 
-                    this.logger.log(`Deleting old story item image file with key: ${oldImageKey}`);
                     await this.fileService.deleteFile(oldImageKey);
-                    this.logger.log(`Successfully deleted old story item image: ${oldImageKey}`);
                 } catch (fileError) {
                     const errorMessage =
                         fileError instanceof Error ? fileError.message : 'Unknown error';

@@ -15,7 +15,7 @@ async function bootstrap() {
     const fastifyMultipart = require('@fastify/multipart');
     fastifyAdapter.register(fastifyMultipart, {
         limits: {
-            fileSize: 10 * 1024 * 1024, // 10MB
+            fileSize: 100 * 1024 * 1024, // 10MB
         },
     });
 
@@ -36,9 +36,9 @@ async function bootstrap() {
     app.useGlobalInterceptors(
         new LoggingInterceptor(),
         new ErrorInterceptor(),
-        new RpcErrorInterceptor()
+        new RpcErrorInterceptor(),
     );
-    
+
     // Configure global logger
     Logger.log('Application starting up...', 'Bootstrap');
     app.useGlobalPipes(new ValidationPipe({ transform: true }));

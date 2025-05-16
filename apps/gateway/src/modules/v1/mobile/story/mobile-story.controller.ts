@@ -24,27 +24,13 @@ export class MobileStoryController {
     @ApiGetAllMobileStories()
     @UseGuards(AuthGuard)
     async getAllStoriesForMobile() {
-        try {
-            return await this.mobileService.getAllStoriesForMobile();
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            throw new BadRequestException(`Failed to get mobile stories: ${errorMessage}`);
-        }
+        return await this.mobileService.getAllStoriesForMobile();
     }
 
     @Get('stories/:id')
     @ApiGetMobileStoryWithItems()
     @UseGuards(AuthGuard)
     async getStoryWithItemsById(@Param('id') id: string) {
-        try {
-            return await this.mobileService.getStoryWithItemsById(id);
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-
-            if (errorMessage.includes('not found')) {
-                throw new NotFoundException(`Story with ID ${id} not found`);
-            }
-            throw new BadRequestException(`Failed to get story with items: ${errorMessage}`);
-        }
+        return await this.mobileService.getStoryWithItemsById(id);
     }
 }

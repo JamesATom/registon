@@ -45,25 +45,6 @@ export class StoryEvents {
         try {
             const { file, fields } = payload.data;
             const userId = payload.userId;
-            const uploadedFile = await this.fileService.uploadFile(file);
-
-            const storyData = {
-                title: fields.title,
-                description: fields.description || '',
-                status: fields.status || StoryStatus.DRAFT,
-                branches: fields.branches,
-                startDate: fields.startDate || null,
-                endDate: fields.endDate || null,
-                commentAdmin: fields.commentAdmin || '',
-                buttonText: fields.buttonText || '',
-                link: fields.link || '',
-            };
-
-            // return await this.storyService.createStoryWithFileInfo(
-            //     storyData,
-            //     { url: uploadedFile.url, key: uploadedFile.key },
-            //     payload.userId,
-            // );
 
             return await this.storyService.createStoryWithFileInfo(file, fields, userId);
         } catch (error) {
@@ -74,9 +55,41 @@ export class StoryEvents {
         }
     }
 
-    @MessagePattern(MessagePatterns.Story.V1.CREATE_ITEM)
-    async createStoryItem(@Payload() payload: { createStoryItemDto: any; userId: string }) {
-        return this.storyService.createStoryItem(payload.createStoryItemDto, payload.userId);
+    @MessagePattern(MessagePatterns.Story.V1.UPDATE_WITH_FILE)
+    async updateStoryWithFile(@Payload() payload: { id: string; data: any; userId: string }) {
+        try {
+            const { id, data, userId } = payload;
+            const { file, fields } = data;
+
+            return await this.storyService.updateStoryWithFileInfo(id, file, fields, userId);
+        } catch (error) {
+            this.logger.error(
+                `Error updating story with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            );
+            throw new BadRequestException({
+                message: error instanceof Error ? error.message : 'Error processing story update',
+                statusCode: 400,
+            });
+        }
+    }
+
+    @MessagePattern(MessagePatterns.Story.V1.CREATE_ITEM_WITH_FILE)
+    async createStoryItemWithFile(@Payload() payload: { data: any; userId: string }) {
+        try {
+            const { file, fields } = payload.data;
+            const userId = payload.userId;
+
+            return await this.storyService.createStoryItemWithFileInfo(file, fields, userId);
+        } catch (error) {
+            this.logger.error(
+                `Error creating story item with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            );
+            throw new BadRequestException({
+                message:
+                    error instanceof Error ? error.message : 'Error processing story item data',
+                statusCode: 400,
+            });
+        }
     }
 
     @MessagePattern(MessagePatterns.Story.V1.FIND_ONE_ITEM)
@@ -87,6 +100,25 @@ export class StoryEvents {
     @MessagePattern(MessagePatterns.Story.V1.UPDATE_ITEM)
     async updateStoryItem(@Payload() payload: { id: string; updateData: any }) {
         return this.storyService.updateStoryItem(payload.id, payload.updateData);
+    }
+
+    @MessagePattern(MessagePatterns.Story.V1.UPDATE_ITEM_WITH_FILE)
+    async updateStoryItemWithFile(@Payload() payload: { id: string; data: any }) {
+        try {
+            const { id, data } = payload;
+            const { file, fields } = data;
+
+            return await this.storyService.updateStoryItemWithFileInfo(id, file, fields);
+        } catch (error) {
+            this.logger.error(
+                `Error updating story item with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            );
+            throw new BadRequestException({
+                message:
+                    error instanceof Error ? error.message : 'Error processing story item update',
+                statusCode: 400,
+            });
+        }
     }
 
     @MessagePattern(MessagePatterns.Story.V1.DELETE_ITEM)

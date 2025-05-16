@@ -1,6 +1,7 @@
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Types, PaginateModel } from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 import { Story, StoryDocument, StoryStatus } from '../../../shared/models/story.schema';
 import { StoryItem, StoryItemDocument } from '../../../shared/models/story-item.schema';
 import { ServiceResponse } from '../../../common/interfaces/service-response.interface';
@@ -11,8 +12,8 @@ export class StoryRepository {
     private readonly logger = new Logger(StoryRepository.name);
 
     constructor(
-        @InjectModel(Story.name) private storyModel: Model<StoryDocument>,
-        @InjectModel(StoryItem.name) private storyItemModel: Model<StoryItemDocument>,
+        @InjectModel(Story.name) private readonly storyModel: PaginateModel<StoryDocument>,
+        @InjectModel(StoryItem.name) private readonly storyItemModel: Model<StoryItemDocument>,
         private readonly fileService: FileService,
     ) {
         this.logger.log('StoryRepository initialized with database connection');
@@ -110,6 +111,115 @@ export class StoryRepository {
         }
     }
 
+    async updateStoryWithFileInfo(
+        id: string,
+        file: any,
+        fields: any,
+        userId: string,
+    ): Promise<ServiceResponse<any>> {
+        try {
+            const existingStory = await this.storyModel.findById(id).exec();
+
+            if (!existingStory) {
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.NOT_FOUND,
+                    message: 'Story not found',
+                };
+            }
+
+            // Upload the new file
+            const uploadedFile = await this.fileService.uploadFile(file);
+
+            // Extract old image key for cleanup
+            let oldImageKey = '';
+            if (existingStory.mainImage) {
+                const url = existingStory.mainImage;
+                const baseUrl = this.fileService.getBaseUrl();
+                if (url.startsWith(baseUrl)) {
+                    oldImageKey = url.substring(baseUrl.length + 1); // +1 for the slash
+                    this.logger.log(`Found old image key for cleanup: ${oldImageKey}`);
+                }
+            }
+
+            // Prepare update data with careful null/undefined handling
+            const updateData: any = {
+                mainImage: uploadedFile.url, // Always set the new image
+                updatedBy: userId,
+                updatedAt: new Date(),
+            };
+
+            // Only add fields that are provided and not empty
+            if (fields.title !== undefined && fields.title !== '') updateData.title = fields.title;
+            if (fields.description !== undefined && fields.description !== '')
+                updateData.description = fields.description;
+            if (fields.status !== undefined && fields.status !== '')
+                updateData.status = fields.status;
+            if (fields.link !== undefined && fields.link !== '') updateData.link = fields.link;
+            if (fields.buttonText !== undefined && fields.buttonText !== '')
+                updateData.buttonText = fields.buttonText;
+            if (
+                fields.branches !== undefined &&
+                fields.branches !== '' &&
+                fields.branches !== 'string'
+            )
+                updateData.branches = fields.branches;
+            if (fields.startDate !== undefined && fields.startDate !== '')
+                updateData.startDate = fields.startDate;
+            if (fields.endDate !== undefined && fields.endDate !== '')
+                updateData.endDate = fields.endDate;
+            if (fields.commentAdmin !== undefined && fields.commentAdmin !== '')
+                updateData.commentAdmin = fields.commentAdmin;
+
+            console.log('updateData', updateData);
+
+            // Perform the update
+            const updatedStory = await this.storyModel
+                .findByIdAndUpdate(id, { $set: updateData }, { new: true })
+                .exec();
+
+            // Handle the case where update fails
+            if (!updatedStory) {
+                await this.fileService.deleteFile(uploadedFile.key);
+                return {
+                    status: 'error',
+                    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                    message: 'Story update failed',
+                };
+            }
+
+            // Delete old image if there was one
+            if (oldImageKey) {
+                try {
+                    this.logger.log(`Attempting to delete old image: ${oldImageKey}`);
+                    await this.fileService.deleteFile(oldImageKey);
+                    this.logger.log(`Successfully deleted old image: ${oldImageKey}`);
+                } catch (deleteError) {
+                    const errorMessage =
+                        deleteError instanceof Error ? deleteError.message : 'Unknown error';
+                    this.logger.warn(`Failed to delete old image ${oldImageKey}: ${errorMessage}`);
+                }
+            } else {
+                this.logger.log('No old image key found for cleanup');
+            }
+
+            return {
+                status: 'success',
+                statusCode: HttpStatus.OK,
+                data: updatedStory,
+                message: 'Story updated successfully',
+            };
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            this.logger.error(`Error updating story: ${errorMessage}`);
+            return {
+                status: 'error',
+                statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: `Failed to update story: ${errorMessage}`,
+            };
+        }
+    }
+
     async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
         this.logger.log('Finding all stories from database');
         try {
@@ -119,12 +229,41 @@ export class StoryRepository {
                 query['status'] = filter.status;
             }
 
-            const stories = await this.storyModel.find(query).exec();
+            if (filter?.branches) {
+                query['branches'] = { $in: filter.branches };
+            }
+
+            if (filter?.startDateFrom) {
+                query['startDate'] = { $gte: filter.startDateFrom };
+            }
+
+            if (filter?.startDateTo) {
+                query['startDate'] = { $lte: filter.startDateTo };
+            }
+
+            if (filter?.createdBy) {
+                query['createdBy'] = filter.createdBy;
+            }
+
+            if (filter?.search) {
+                const searchRegex = new RegExp(filter.search, 'i');
+                query['$or'] = [
+                    { title: { $regex: searchRegex } },
+                    { description: { $regex: searchRegex } },
+                ];
+            }
+            const options = {
+                page: filter?.page || 1,
+                limit: filter?.limit || 10,
+                sort: { createdAt: -1 },
+            };
+
+            const stories = await this.storyModel.paginate(query, options);
 
             return {
                 status: 'success',
                 statusCode: HttpStatus.OK,
-                data: stories,
+                data: stories.docs,
                 message: 'Stories fetched successfully',
             };
         } catch (error) {
@@ -276,8 +415,6 @@ export class StoryRepository {
         createStoryItemDto: any,
         userId: string,
     ): Promise<ServiceResponse<any[]>> {
-        this.logger.log(`Creating story items for story ID: ${createStoryItemDto.storyId}`);
-
         try {
             const storyExists = await this.storyModel.findById(createStoryItemDto.storyId).exec();
             if (!storyExists) {

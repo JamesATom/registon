@@ -3,8 +3,9 @@ import { BadRequestException } from '@nestjs/common';
 export class FileSerializer {
     static async serializeMultipartData(data: any): Promise<any> {
         if (!data) {
-            throw new BadRequestException('Main image file is required');
+            throw new BadRequestException('File is required');
         }
+
         if (!data) return null;
 
         const fields = {};

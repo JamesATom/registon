@@ -81,8 +81,8 @@ export const ApiCreateStory = () =>
                     },
                     status: {
                         type: 'string',
-                        description: 'Status of the story (draft, published, archived)',
-                        enum: ['DRAFT', 'PUBLISHED', 'ARCHIVED'],
+                        description: 'Status of the story (draft, published)',
+                        enum: ['DRAFT', 'PUBLISHED'],
                     },
                     branches: {
                         type: 'array',
@@ -314,8 +314,8 @@ export const ApiUpdateStory = () =>
                     },
                     status: {
                         type: 'string',
-                        description: 'Status of the story (draft, published, archived) (optional)',
-                        enum: ['draft', 'published', 'archived'],
+                        description: 'Status of the story (draft, published) (optional)',
+                        enum: ['DRAFT', 'PUBLISHED'],
                     },
                     branches: {
                         type: 'array',
