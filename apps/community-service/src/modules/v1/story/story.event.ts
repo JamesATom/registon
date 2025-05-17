@@ -1,3 +1,4 @@
+// story.event.ts
 import { Controller, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';

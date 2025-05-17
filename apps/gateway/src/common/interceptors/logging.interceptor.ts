@@ -1,10 +1,4 @@
-import {
-    Injectable,
-    NestInterceptor,
-    ExecutionContext,
-    CallHandler,
-    Logger,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FastifyRequest } from 'fastify';
@@ -27,15 +21,15 @@ export class LoggingInterceptor implements NestInterceptor {
         const now = Date.now();
         return next.handle().pipe(
             tap({
-                next: (data) => {
+                next: data => {
                     const response = context.switchToHttp().getResponse();
                     const statusCode = response.statusCode;
                     const responseTime = Date.now() - now;
-                    
+
                     this.logger.log(
                         `[${controllerName}] ${method} ${url} - ${statusCode} - ${responseTime}ms`,
                     );
-                    
+
                     if (process.env.NODE_ENV === 'development') {
                         // Log detailed response data in development only
                         this.logger.debug(
@@ -45,10 +39,10 @@ export class LoggingInterceptor implements NestInterceptor {
                         );
                     }
                 },
-                error: (error) => {
+                error: error => {
                     const statusCode = error.status || 500;
                     const responseTime = Date.now() - now;
-                    
+
                     this.logger.error(
                         `[${controllerName}] ${method} ${url} - ${statusCode} - ${responseTime}ms - ${error.message}`,
                         error.stack,
