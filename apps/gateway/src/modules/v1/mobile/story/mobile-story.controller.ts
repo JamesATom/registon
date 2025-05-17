@@ -14,7 +14,7 @@ import {
     ApiGetMobileStoryWithItems,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('mobile')
+@ApiTags('Mobile')
 @ApiBearerAuth()
 @Controller('mobile')
 export class MobileStoryController {

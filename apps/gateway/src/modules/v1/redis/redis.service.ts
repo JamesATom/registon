@@ -50,7 +50,7 @@ export class RedisService implements OnModuleDestroy {
                 },
                 ttl,
             );
-        } 
+        }
     }
 
     async getUserData(phoneNumber: string): Promise<any | null> {
@@ -59,12 +59,18 @@ export class RedisService implements OnModuleDestroy {
 
     async getUserByToken(token: string): Promise<any | null> {
         const key = `token:${token}`;
-
-        const result = this.getWithExpiry(key);
-        return result;
+        return this.getWithExpiry(key);
     }
 
     async validateToken(token: string): Promise<boolean> {
-        return this.getUserByToken(token) !== null;
+        return await this.getUserByToken(token) !== null;
+    }
+
+    async setAllBranchData(data: any, ttl: number = 86400): Promise<void> {
+        this.setWithExpiry(`branch`, data, ttl);
+    }
+    
+    async getAllBranchData(): Promise<any | null> {
+        return this.getWithExpiry(`branch`);
     }
 }

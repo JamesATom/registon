@@ -2,13 +2,13 @@
 import { Socket } from 'socket.io';
 import { FastifyRequest } from 'fastify';
 
-export interface JwtPayload {
-    userId: string;
-    role: string;
-    roleId: number;
-    iat: number;
-    exp: number;
-}
+// export interface JwtPayload {
+//     userId: string;
+//     role: string;
+//     roleId: number;
+//     iat: number;
+//     exp: number;
+// }
 
 export interface IJwtPayloadForAgent {
     id: string;
@@ -21,7 +21,7 @@ export interface IJwtPayloadForAgent {
 }
 
 export interface CustomRequest extends FastifyRequest {
-    user?: JwtPayload;
+    user?: string;
 }
 
 export interface User {
@@ -40,5 +40,5 @@ export interface User {
 }
 
 export interface AuthenticatedSocket extends Socket {
-    user: JwtPayload;
+    user: string;
 }

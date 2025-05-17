@@ -35,12 +35,10 @@ async function bootstrap() {
 
     app.useGlobalInterceptors(
         new LoggingInterceptor(),
-        new ErrorInterceptor(),
-        new RpcErrorInterceptor(),
+        // new ErrorInterceptor(),
+        // new RpcErrorInterceptor(),
     );
 
-    // Configure global logger
-    Logger.log('Application starting up...', 'Bootstrap');
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
     const config = new DocumentBuilder()
@@ -48,7 +46,15 @@ async function bootstrap() {
         .setDescription(`The ${process.env.APP_NAME_1} API description`)
         .setVersion('1.0')
         .addTag(`${process.env.APP_NAME_1}`)
-        .addBearerAuth()
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                in: 'header',
+            },
+            'JWT',
+        )
         .build();
 
     const document = SwaggerModule.createDocument(app, config);

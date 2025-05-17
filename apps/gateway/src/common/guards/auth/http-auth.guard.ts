@@ -1,18 +1,16 @@
 // http-auth.guard.ts
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 import { FastifyRequest } from 'fastify';
-import { CustomRequest, JwtPayload } from 'src/common/types/types';
+import { RedisService } from 'src/modules/v1/redis/redis.service';
+import { CustomRequest } from 'src/common/types/types';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/common/decorators/public.decorator';
 
 @Injectable()
 export class JwtHttpAuthGuard implements CanActivate {
     constructor(
-        private jwtService: JwtService,
-        private configService: ConfigService,
         private reflector: Reflector,
+        private redisService: RedisService,
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -32,15 +30,12 @@ export class JwtHttpAuthGuard implements CanActivate {
             throw new UnauthorizedException('Token not found');
         }
 
-        try {
-            const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
-                secret: this.configService.get<string>('JWT_SECRET'),
-            });
-
-            request.user = payload;
-        } catch {
-            throw new UnauthorizedException('Invalid token');
+        const isTokenValid = await this.redisService.validateToken(token);
+        if (isTokenValid) {
+            throw new UnauthorizedException('Invalid or Expired Token!');
         }
+
+        request.user = token;
         return true;
     }
 

@@ -29,7 +29,7 @@ import {
     ApiDeleteStoryItem,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('stories')
+@ApiTags('Story')
 @ApiBearerAuth()
 @Controller('stories')
 export class StoryController {
