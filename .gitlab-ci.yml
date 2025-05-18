@@ -28,40 +28,40 @@ cache: &global_cache
         - .yarn-cache
     policy: pull-push
 
-build_gateway:
-    # image: ${NODE_IMAGE}
-    stage: build
-    tags:
-        - remote-shell-dev
-    interruptible: true
-    parallel: 1
+# build_gateway:
+#     # image: ${NODE_IMAGE}
+#     stage: build
+#     tags:
+#         - remote-shell-dev
+#     interruptible: true
+#     parallel: 1
 
-    script:
-        - echo "🧹 Freeing up disk space..."
-        - docker system prune -af || true
-        - docker volume prune -f || true
-        - echo "Building Gateway"
-        - cd apps/gateway
-        - yarn install
-        - yarn build
+#     script:
+#         - echo "🧹 Freeing up disk space..."
+#         - docker system prune -af || true
+#         - docker volume prune -f || true
+#         - echo "Building Gateway"
+#         - cd apps/gateway
+#         - yarn install
+#         - yarn build
 
 
-build_community_service:
-    # image: ${NODE_IMAGE}
-    stage: build
-    tags:
-        - remote-shell-dev
-    interruptible: true
-    parallel: 1
+# build_community_service:
+#     # image: ${NODE_IMAGE}
+#     stage: build
+#     tags:
+#         - remote-shell-dev
+#     interruptible: true
+#     parallel: 1
  
-    script:
-        - echo "🧹 Freeing up disk space..."
-        - docker system prune -af || true
-        - docker volume prune -f || true
-        - echo "Building Community Service"
-        - cd apps/community-service
-        - yarn install
-        - yarn build
+#     script:
+#         - echo "🧹 Freeing up disk space..."
+#         - docker system prune -af || true
+#         - docker volume prune -f || true
+#         - echo "Building Community Service"
+#         - cd apps/community-service
+#         - yarn install
+#         - yarn build
 
 
 deploy:
