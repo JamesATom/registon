@@ -3,6 +3,9 @@ services:
         build: 
             context: .
             dockerfile: apps/gateway/Dockerfile
+            cache_from:
+                - gateway:latest
+        image: gateway:latest
         ports:
             - "8000:8000"
         environment:
@@ -28,6 +31,9 @@ services:
         build:
             context: .
             dockerfile: apps/community-service/Dockerfile
+            cache_from:
+                - community-service:latest
+        image: community-service:latest
         ports:
             - "8001:8001"
         environment:
