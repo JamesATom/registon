@@ -6,7 +6,7 @@ import { ApiAuth, ApiGetAll } from 'src/common/swagger/common-swagger';
 import { BranchService } from './branch.service';
 import { BranchResponseEntity } from './entity/branch-response.entity';
 
-@UseGuards(JwtHttpAuthGuard)
+// @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
 @Controller({ path: 'branch', version: '1' })
 export class BranchController {

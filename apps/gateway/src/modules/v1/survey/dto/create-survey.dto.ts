@@ -7,12 +7,14 @@ export class CreateSurveyPresignedUploadDto {
         description: 'The filename of the file to be uploaded',
         example: 'survey-image.jpg',
     })
+    @IsString()
     filename: string;
 
     @ApiProperty({
         description: 'The content type of the file to be uploaded',
         example: 'image/jpeg',
     })
+    @IsString()
     contentType: string;
 }
 
