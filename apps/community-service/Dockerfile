@@ -2,29 +2,27 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app/apps/community-service
 
-COPY apps/community-service/package.json apps/community-service/yarn.lock ./
+RUN corepack enable
 
-ENV NODE_ENV=production
+# Copy only the necessary files for dependency installation
+COPY apps/community-service/package.json .
+COPY apps/community-service/yarn.lock .
 
-RUN corepack enable && \
-    yarn install --frozen-lockfile --production=false
+# Install dependencies
+RUN yarn install --frozen-lockfile
 
+# Copy the rest of the code
 COPY apps/community-service .
 
+# Build the app
 RUN yarn build
 
-FROM node:20-alpine AS production
+FROM node:20-alpine
 
 WORKDIR /app
 
-ENV NODE_ENV=production
-
 COPY --from=builder /app/apps/community-service/dist ./dist
-COPY apps/community-service/package.json apps/community-service/yarn.lock ./
-RUN corepack enable && \
-    yarn install --frozen-lockfile --production=true
-
-USER node
+COPY --from=builder /app/apps/community-service/node_modules ./node_modules
 
 EXPOSE 8001
 CMD ["node", "dist/main.js"]

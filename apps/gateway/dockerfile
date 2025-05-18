@@ -1,38 +1,24 @@
 FROM node:20-alpine AS builder
 
-# Set working directory
 WORKDIR /app/apps/gateway
 
-# Install dependencies first (better caching)
-COPY apps/gateway/package.json apps/gateway/yarn.lock ./
+RUN corepack enable
 
-# Set NODE_ENV to reduce installed packages
-ENV NODE_ENV=production
+COPY apps/gateway/package.json .
+COPY apps/gateway/yarn.lock .
 
-RUN corepack enable && \
-    yarn install --frozen-lockfile --production=false
+RUN yarn install --frozen-lockfile
 
-# Copy source code
 COPY apps/gateway .
 
-# Build the application
 RUN yarn build
 
-# Production image
-FROM node:20-alpine AS production
+FROM node:20-alpine
 
 WORKDIR /app
 
-ENV NODE_ENV=production
-
-# Copy only production dependencies and built code
 COPY --from=builder /app/apps/gateway/dist ./dist
-COPY apps/gateway/package.json apps/gateway/yarn.lock ./
-RUN corepack enable && \
-    yarn install --frozen-lockfile --production=true
-
-# Non-root user for security
-USER node
+COPY --from=builder /app/apps/gateway/node_modules ./node_modules
 
 EXPOSE 8000
 CMD ["node", "dist/main.js"]
