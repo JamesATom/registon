@@ -5,7 +5,7 @@ import {
     StoryResponseEntity,
     StoryListResponseEntity,
     StoryItemResponseEntity,
-} from '../story-response.entity';
+} from '../entity/story-response.entity';
 
 export const ApiCreateStory = () =>
     applyDecorators(

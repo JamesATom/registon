@@ -2,9 +2,10 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType, ValidationPipe, Logger } from '@nestjs/common';
+import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
-import { LoggingInterceptor, ErrorInterceptor } from './common/interceptors';
+import { ErrorInterceptor } from './common/interceptors';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
