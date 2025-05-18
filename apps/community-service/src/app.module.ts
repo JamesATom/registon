@@ -13,11 +13,14 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
             envFilePath: '.env',
         }),
         MongooseModule.forRootAsync({
-            useFactory: () => ({
-                uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/registan',
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            }),
+            useFactory: () => {
+                const isProduction = process.env.NODE_ENV === 'production';
+                return {
+                uri: isProduction
+                    ? process.env.MONGODB_URI 
+                    : 'mongodb://localhost:27017/registan', 
+                };
+            },
         }),
         // StoryModule,
         MobileModule,
