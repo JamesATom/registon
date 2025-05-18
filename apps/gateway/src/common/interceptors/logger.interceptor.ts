@@ -14,8 +14,8 @@ export class LoggingInterceptor implements NestInterceptor {
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const req = context.switchToHttp().getRequest();
-        const { method, url, body, params, query } = req;
-        const userAgent = req.get('user-agent') || '';
+        const { method, url, body, params, query, headers } = req;
+        const userAgent = headers['user-agent'] || '';
         const timestamp = new Date().toISOString();
         const handler = context.getHandler().name;
 
@@ -26,7 +26,6 @@ export class LoggingInterceptor implements NestInterceptor {
             \t|📆 Timestamp: ${timestamp} 
             \t|🎯 Endpoint: ${handler}    
             \t|📍 ${method} ${url}        
-            \t|📦 Body: ${JSON.stringify(body, null, 4)} 
             \t|🔑 Params: ${JSON.stringify(params, null, 4)} 
             \t|❓ Query: ${JSON.stringify(query, null, 4)} 
             \t|🌐 User-Agent: ${userAgent} 

@@ -4,9 +4,11 @@ import { ClientProxy } from '@nestjs/microservices';
 import { S3Client, PutObjectCommand, ObjectCannedACL } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
+import { CommonEntity } from 'src/common/libs/common.entity';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
-import { CreateSurveyDto } from './dto/create-survey.dto';
-import { UpdateSurveyDto } from './dto/update-survey.dto';
+import { CreateSurveyDto, CreateSurveyPresignedUploadDto } from '../dto/create-survey.dto';
+import { CreateSurveyPresignedUploadEntity } from '../entity/create-survey.entity';
+import { UpdateSurveyDto } from '../dto/update-survey.dto';
 
 @Injectable()
 export class SurveyService {
@@ -24,11 +26,18 @@ export class SurveyService {
         });
     }
 
-    create(createSurveyDto: CreateSurveyDto) {
-        return this.client.send(MessagePatterns.Survey.V1.CREATE, {}).toPromise();
+    create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
+        const userId = user?.userId || user?.userData?._id;
+
+        const updatedDto = createSurveyDtoList.map(dto => ({
+            ...dto,
+            createdBy: userId,
+        }));
+
+        return this.client.send(MessagePatterns.Survey.V1.CREATE, updatedDto).toPromise();
     }
 
-    async generatePresignedUploadUrl(filename: string, contentType: string) {
+    async generatePresignedUploadUrl({ filename, contentType }: CreateSurveyPresignedUploadDto): Promise<CreateSurveyPresignedUploadEntity> {
         const uniqueKey = `survey/${uuidv4()}-${filename}`;
 
         const command = new PutObjectCommand({

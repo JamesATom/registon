@@ -1,7 +1,7 @@
 // survey.module.ts
 import { Module } from '@nestjs/common';
 import { CommunityService } from 'src/microservices';
-import { SurveyService } from './survey.service';
+import { SurveyService } from './service/survey.service';
 import { SurveyController } from './survey.controller';
 
 @Module({

@@ -1,23 +1,19 @@
 // community-service.main.ts
 import { NestFactory } from '@nestjs/core';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ValidationPipe } from '@nestjs/common';
 import { RpcExceptionFilter } from './common/filters/rpc-exception.filter';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, {
-        logger: ['error', 'warn', 'log', 'debug', 'verbose'],
-    });
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
     app.enableCors({
-        origin: '*',
-        methods: '*',
-        allowedHeaders: '*',
+        origin: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
     });
 
-    app.useGlobalPipes(new ValidationPipe({ transform: true }));
     app.useGlobalFilters(new RpcExceptionFilter());
 
     app.connectMicroservice<MicroserviceOptions>({

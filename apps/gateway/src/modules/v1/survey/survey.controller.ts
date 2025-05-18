@@ -1,34 +1,26 @@
 // survey.controller.ts
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req, Delete } from '@nestjs/common';
 import { ApiOperation, ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { SurveyService } from './survey.service';
-import { CreateSurveyDto } from './dto/create-survey.dto';
+import { CommonEntity } from 'src/common/libs/common.entity';
+import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate } from 'src/common/swagger/common-swagger';
+import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
+import { CustomRequest } from 'src/common/types/types';
+import { SurveyService } from './service/survey.service';
+import { 
+    CreateSurveyDto,
+    CreateSurveyPresignedUploadDto } from './dto/create-survey.dto';
+import { CreateSurveyPresignedUploadEntity } from './entity/create-survey.entity';
 import { UpdateSurveyDto } from './dto/update-survey.dto';
 
-class PresignedUploadRequestDto {
-    filename: string;
-    contentType: string;
-}
-
-class PresignedUploadResponseDto {
-    uploadUrl: string;
-    fileKey: string;
-    publicUrl: string;
-}
-
-@Controller('survey')
+@UseGuards(JwtHttpAuthGuard)
+@ApiAuth()
+@Controller({ path: 'survey', version: '1' })
 export class SurveyController {
     constructor(private readonly surveyService: SurveyService) {}
 
-    @Post()
-    create(@Body() createSurveyDto: CreateSurveyDto) {
-        return this.surveyService.create(createSurveyDto);
-    }
-
     @Post('presigned-upload')
-    @ApiOperation({ summary: 'Get a presigned URL for uploading a survey image' })
     @ApiBody({ 
-        type: PresignedUploadRequestDto,
+        type: CreateSurveyPresignedUploadDto,
         examples: { 
             'application/json': { 
                 value: { 
@@ -38,20 +30,18 @@ export class SurveyController {
             } 
         } 
     })
-    @ApiOkResponse({
-        description: 'Presigned upload URL and related info',
-        type: PresignedUploadResponseDto,
-        schema: {
-            example: {
-                uploadUrl: 'https://your-space-url/...',
-                fileKey: 'survey/uuid-filename.jpg',
-                publicUrl: 'https://your-space-url/survey/uuid-filename.jpg'
-            }
-        }
-    })
-    async getPresignedUploadUrl(@Body() body: PresignedUploadRequestDto) {
-        return this.surveyService.generatePresignedUploadUrl(body.filename, body.contentType);
+    @ApiCreate('Presigned Upload URL', CreateSurveyPresignedUploadEntity)
+    async getPresignedUploadUrl(@Body() body: CreateSurveyPresignedUploadDto): Promise<CreateSurveyPresignedUploadEntity> {
+        return this.surveyService.generatePresignedUploadUrl(body);
     }
+
+    @Post()
+    @ApiCreate('Survey', [CommonEntity])
+    @ApiBody({ type: [CreateSurveyDto] })
+    async create(@Body() createSurveyDto: CreateSurveyDto[], @Req() req: CustomRequest): Promise<CommonEntity> {
+        return this.surveyService.create(createSurveyDto, req.user);
+    }
+
 
     // @Get('all')
     // findAll() {
