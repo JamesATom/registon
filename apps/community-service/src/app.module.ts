@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { StoryModule } from './modules/v1/story/story.module';
+// import { StoryModule } from './modules/v1/story/story.module';
 import { MobileModule } from './modules/v1/mobile/mobile.module';
 // import { FileModule } from './file/file.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
@@ -19,7 +19,7 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
                 useUnifiedTopology: true,
             }),
         }),
-        StoryModule,
+        // StoryModule,
         MobileModule,
         // FileModule,
         SurveyModule,
