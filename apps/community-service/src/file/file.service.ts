@@ -37,10 +37,9 @@ export class FileService {
     private readonly baseUrl: string;
 
     constructor(private configService: ConfigService) {
-        // Initialize S3 client with DigitalOcean Spaces configuration
         this.s3Client = new S3Client({
-            region: 'fra1', // DigitalOcean Spaces region
-            endpoint: 'https://fra1.digitaloceanspaces.com', // DigitalOcean Spaces endpoint
+            region: 'fra1',
+            endpoint: 'https://fra1.digitaloceanspaces.com',
             credentials: {
                 accessKeyId: this.configService.get<string>('DO_SPACES_ACCESS_KEY_ID'),
                 secretAccessKey: this.configService.get<string>('DO_SPACES_SECRET_ACCESS_KEY'),

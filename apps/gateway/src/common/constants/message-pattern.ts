@@ -8,7 +8,7 @@ export const MessagePatterns = {
             UPDATE: 'v1.story.update',
             UPDATE_WITH_FILE: 'v1.story.update.with.file',
             DELETE: 'v1.story.delete',
-            // Story items operations
+
             CREATE_ITEM: 'v1.story.item.create',
             CREATE_ITEM_WITH_FILE: 'v1.story.item.create.with.file',
             FIND_ONE_ITEM: 'v1.story.item.find.one',
@@ -37,6 +37,15 @@ export const MessagePatterns = {
             FIND_ONE: 'v1.survey.find.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
+        },
+    },
+    IeltsExam: {
+        V1: {
+            GET_ALL: 'v1.ieltsExam.find.all',
+            CREATE: 'v1.ieltsExam.create',
+            FIND_ONE: 'v1.ieltsExam.find.one',
+            UPDATE: 'v1.ieltsExam.update',
+            DELETE: 'v1.ieltsExam.delete',
         },
     },
 };

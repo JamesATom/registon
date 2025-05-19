@@ -15,6 +15,6 @@ export class BranchController {
     @Get('all')
     @ApiGetAll('Branches', BranchResponseEntity)
     async getAll(@Req() req: CustomRequest): Promise<BranchResponseEntity[]> {
-        return this.branchService.getAll(req.user);
+        return this.branchService.getAll(req.user.id);
     }
 }

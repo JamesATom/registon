@@ -5,6 +5,7 @@ import { StoryModule } from './modules/v1/story/story.module';
 import { MobileModule } from './modules/v1/mobile/mobile.module';
 import { FileModule } from './file/file.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
+import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
         StoryModule,
         MobileModule,
         FileModule,
+        IeltsExamModule,
         SurveyModule,
     ],
     controllers: [],

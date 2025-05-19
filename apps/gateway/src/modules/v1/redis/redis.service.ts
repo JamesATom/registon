@@ -1,76 +1,85 @@
-// redis.service.ts
-import { Injectable, OnModuleDestroy, Scope } from '@nestjs/common';
+import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 
-@Injectable({ scope: Scope.DEFAULT })
+@Injectable()
 export class RedisService implements OnModuleDestroy {
-    private static instance: RedisService;
-    private static readonly globalStore: { [key: string]: { value: any; expiry: number } } = {};
+    private readonly logger = new Logger(RedisService.name);
+    private static readonly store: { [key: string]: { value: any; expiry: number } } = {};
 
     constructor() {
-        if (RedisService.instance) {
-            return RedisService.instance;
-        }
-
-        RedisService.instance = this;
+        this.logger.log('Redis service initialized');
     }
 
-    onModuleDestroy(): void {}
+    onModuleDestroy(): void {
+        this.logger.log('Redis service destroyed');
+    }
 
-    private setWithExpiry(key: string, value: any, ttl: number): void {
+    private set(key: string, value: any, ttl: number): void {
         const expiry = Date.now() + ttl * 1000;
-        RedisService.globalStore[key] = { value, expiry };
+        RedisService.store[key] = { value, expiry };
     }
 
-    private getWithExpiry(key: string): any {
-        const item = RedisService.globalStore[key];
+    private get(key: string): any {
+        const item = RedisService.store[key];
         if (!item) {
             return null;
         }
+
         if (Date.now() > item.expiry) {
-            delete RedisService.globalStore[key];
+            delete RedisService.store[key];
             return null;
         }
+
         return item.value;
     }
 
     async setUserData(phoneNumber: string, data: any, ttl: number = 86400): Promise<void> {
-        this.setWithExpiry(`user:${phoneNumber}`, data, ttl);
+        this.set(`user:${phoneNumber}`, data, ttl);
 
-        let token = data.data.token;
-        let userId = data.data._id;
-        let userData = data.data;
+        if (data?.data?.token) {
+            const token = data.data.token;
+            const userId = data.data._id;
 
-        if (token) {
-            this.setWithExpiry(
+            this.set(
                 `token:${token}`,
                 {
-                    phoneNumber: phoneNumber,
-                    userId: userId,
-                    userData: userData,
+                    phoneNumber,
+                    userId,
+                    userData: data.data,
                 },
                 ttl,
             );
         }
     }
 
-    async getUserData(phoneNumber: string): Promise<any | null> {
-        return this.getWithExpiry(`user:${phoneNumber}`);
+    async getUserData(phoneNumber: string): Promise<any> {
+        return this.get(`user:${phoneNumber}`);
     }
 
-    async getUserByToken(token: string): Promise<any | null> {
-        const key = `token:${token}`;
-        return this.getWithExpiry(key);
+    async getUserByToken(token: string): Promise<any> {
+        return this.get(`token:${token}`);
     }
 
     async validateToken(token: string): Promise<boolean> {
-        return await this.getUserByToken(token) !== null;
+        const userData = await this.getUserByToken(token);
+        return userData !== null;
     }
 
     async setAllBranchData(data: any, ttl: number = 86400): Promise<void> {
-        this.setWithExpiry(`branch`, data, ttl);
+        this.set('branch', data, ttl);
     }
-    
-    async getAllBranchData(): Promise<any | null> {
-        return this.getWithExpiry(`branch`);
+
+    async getAllBranchData(): Promise<any> {
+        return this.get('branch');
+    }
+
+    async clearAll(): Promise<void> {
+        Object.keys(RedisService.store).forEach(key => {
+            delete RedisService.store[key];
+        });
+        this.logger.log('All data cleared from store');
+    }
+
+    async getAllKeys(): Promise<string[]> {
+        return Object.keys(RedisService.store);
     }
 }

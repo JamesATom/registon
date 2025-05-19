@@ -14,4 +14,18 @@ export interface SuccessResponse<T = any> {
     message?: string;
 }
 
+export interface PaginateResult<T> {
+    status: string;
+    statusCode?: number;
+    message?: string;
+    docs: T[];
+    totalDocs: number;
+    limit: number;
+    page?: number;
+    totalPages: number;
+    pagingCounter: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+}
+
 export type ServiceResponse<T = any> = ErrorResponse | SuccessResponse<T>;

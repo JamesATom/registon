@@ -1,9 +1,7 @@
-// story.service.ts
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { firstValueFrom, timeout } from 'rxjs';
-import { CreateStoryDto } from './dto/create-story.dto';
 import { UpdateStoryDto } from './dto/update-story.dto';
 import { CreateStoryItemDto } from './dto/create-story-item.dto';
 import { UpdateStoryItemDto } from './dto/update-story-item.dto';

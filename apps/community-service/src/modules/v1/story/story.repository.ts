@@ -19,9 +19,6 @@ export class StoryRepository {
         this.logger.log('StoryRepository initialized with database connection');
     }
 
-    /**
-     * Creates a new story with the given data
-     */
     async createStory(storyData: any, userId: string): Promise<ServiceResponse<any>> {
         this.logger.log('Creating new story in database');
         try {

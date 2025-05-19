@@ -1,19 +1,11 @@
-// story.event.ts
-import { Controller, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Controller, BadRequestException, NotFoundException } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { StoryService } from './story.service';
-import { StoryStatus } from '../../../shared/models/story.schema';
-import { FileService } from '../../../file/file.service';
 
 @Controller()
 export class StoryEvents {
-    private readonly logger = new Logger(StoryEvents.name);
-
-    constructor(
-        private readonly storyService: StoryService,
-        private readonly fileService: FileService,
-    ) {}
+    constructor(private readonly storyService: StoryService) {}
 
     @MessagePattern(MessagePatterns.Story.V1.GET_ALL)
     async findAllStories() {
@@ -64,9 +56,6 @@ export class StoryEvents {
 
             return await this.storyService.updateStoryWithFileInfo(id, file, fields, userId);
         } catch (error) {
-            this.logger.error(
-                `Error updating story with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
-            );
             throw new BadRequestException({
                 message: error instanceof Error ? error.message : 'Error processing story update',
                 statusCode: 400,
@@ -82,9 +71,6 @@ export class StoryEvents {
 
             return await this.storyService.createStoryItemWithFileInfo(file, fields, userId);
         } catch (error) {
-            this.logger.error(
-                `Error creating story item with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
-            );
             throw new BadRequestException({
                 message:
                     error instanceof Error ? error.message : 'Error processing story item data',
@@ -111,9 +97,6 @@ export class StoryEvents {
 
             return await this.storyService.updateStoryItemWithFileInfo(id, file, fields);
         } catch (error) {
-            this.logger.error(
-                `Error updating story item with file: ${error instanceof Error ? error.message : 'Unknown error'}`,
-            );
             throw new BadRequestException({
                 message:
                     error instanceof Error ? error.message : 'Error processing story item update',

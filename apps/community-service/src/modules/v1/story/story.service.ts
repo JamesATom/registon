@@ -29,9 +29,7 @@ export class StoryService {
     constructor(
         private readonly storyRepository: StoryRepository,
         private readonly fileService: FileService,
-    ) {
-        this.logger.log('StoryService initialized');
-    }
+    ) {}
 
     async createStory(storyData: any, userId: string): Promise<ServiceResponse<any>> {
         return this.storyRepository.createStory(storyData, userId);

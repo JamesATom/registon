@@ -34,6 +34,7 @@ export class AuthService {
 
         try {
             const response = await axios.post(url, data);
+
             await this.redisService.setUserData(phoneNumber, response.data, 86400);
             return response.data;
         } catch (error) {
