@@ -1,11 +1,12 @@
 // create-survey.repository.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Survey, SurveyDocument } from '../schema/survey.schema';
 
 @Injectable()
 export class CreateSurveyRepository {
+    private readonly logger = new Logger(CreateSurveyRepository.name);
     constructor(
         @InjectModel(Survey.name)
         private readonly surveyModel: Model<SurveyDocument>,
@@ -31,6 +32,7 @@ export class CreateSurveyRepository {
     }
 
     async createMany(createSurveyDtos: any[]): Promise<void> {
+        this.logger.log('Creating multiple surveys', createSurveyDtos);
         const payload = createSurveyDtos.map(dto => ({
             createdBy: dto.createdBy,
             commentAdmin: dto.commentAdmin,
@@ -45,7 +47,7 @@ export class CreateSurveyRepository {
             branch: dto.branch,
             targetAudience: dto.targetAudience,
         }));
-
+        this.logger.log('Payload for multiple surveys', payload);
         await this.surveyModel.insertMany(payload);
     }
 }

@@ -16,10 +16,9 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
         MongooseModule.forRootAsync({
             useFactory: () => {
                 const isProduction = process.env.NODE_ENV === 'production';
+                console.log('isProduction', isProduction);
                 return {
-                uri: isProduction
-                    ? process.env.MONGODB_URI 
-                    : 'mongodb://localhost:27017/registan', 
+                    uri: 'mongodb://localhost:27017/registan', 
                 };
             },
         }),
