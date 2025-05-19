@@ -29,7 +29,6 @@ export class MobileRepository {
                 .exec();
 
             return {
-                status: 'success',
                 statusCode: HttpStatus.OK,
                 data: stories,
                 message: 'Stories fetched successfully for mobile',
@@ -38,7 +37,6 @@ export class MobileRepository {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error fetching stories for mobile: ${errorMessage}`);
             return {
-                status: 'error',
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to fetch stories for mobile: ${errorMessage}`,
                 data: [],
@@ -75,7 +73,6 @@ export class MobileRepository {
 
             if (!result || result.length === 0) {
                 return {
-                    status: 'error',
                     statusCode: HttpStatus.NOT_FOUND,
                     message: `Story with ID ${id} not found`,
                 };
@@ -83,7 +80,6 @@ export class MobileRepository {
 
             // Return the story with its items
             return {
-                status: 'success',
                 statusCode: HttpStatus.OK,
                 data: result[0],
                 message: 'Story with items fetched successfully for mobile',
@@ -92,7 +88,6 @@ export class MobileRepository {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             this.logger.error(`Error fetching story with items for mobile: ${errorMessage}`);
             return {
-                status: 'error',
                 statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: `Failed to fetch story with items for mobile: ${errorMessage}`,
             };

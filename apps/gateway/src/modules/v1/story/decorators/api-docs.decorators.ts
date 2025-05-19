@@ -6,6 +6,7 @@ import {
     StoryListResponseEntity,
     StoryItemResponseEntity,
 } from '../entity/story-response.entity';
+import { UpdateStoryDto } from '../dto/update-story.dto';
 
 export const ApiCreateStory = () =>
     applyDecorators(
@@ -18,7 +19,6 @@ export const ApiCreateStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 201,
                         message: 'Story created successfully',
                         data: {
@@ -38,7 +38,6 @@ export const ApiCreateStory = () =>
                             updatedBy: '60a7c8b9e4b0c1234567892',
                             createdAt: '2025-05-15T13:00:00Z',
                             updatedAt: '2025-05-15T13:00:00Z',
-                            storyItems: [],
                         },
                     },
                 },
@@ -50,7 +49,6 @@ export const ApiCreateStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Main image file is required',
                         error: 'Bad Request',
@@ -61,6 +59,15 @@ export const ApiCreateStory = () =>
         ApiResponse({
             status: 500,
             description: 'Internal server error',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 500,
+                        message: 'Internal server error',
+                        error: 'Internal Server Error',
+                    },
+                },
+            },
         }),
         ApiBody({
             schema: {
@@ -129,36 +136,38 @@ export const ApiFilterStories = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
-                        message: 'Stories retrieved successfully',
-                        data: [
-                            {
-                                _id: '60a7c8b9e4b0c1234567890',
-                                title: 'Sample Story 1',
-                                description: 'This is sample story 1',
-                                status: 'PUBLISHED',
-                                mainImage: 'https://example.com/image1.jpg',
-                                datePublished: '2025-05-15T10:00:00Z',
-                                link: 'https://example.com/story1',
-                                buttonText: 'Read More',
-                                branches: ['60a7c8b9e4b0c1234567891'],
-                                startDate: '2025-05-01T00:00:00Z',
-                                endDate: '2025-05-31T23:59:59Z',
-                                commentAdmin: 'Admin notes for story 1',
-                                createdBy: '60a7c8b9e4b0c1234567892',
-                                updatedBy: '60a7c8b9e4b0c1234567892',
-                                createdAt: '2025-05-15T09:00:00Z',
-                                updatedAt: '2025-05-15T09:30:00Z',
-                                storyItems: [],
-                            },
-                        ],
-                        pagination: {
-                            total: 1,
-                            page: 1,
+                        data: {
+                            docs: [
+                                {
+                                    _id: '682bbcd0bffaf111eb5c5e7d',
+                                    title: 'string',
+                                    status: 'DRAFT',
+                                    description: 'string',
+                                    mainImage: 'string',
+                                    datePublished: '2025-05-19T23:17:23.215Z',
+                                    link: 'string',
+                                    buttonText: 'string',
+                                    createdBy: '68238b1d6978d6863d6cf535',
+                                    branches: ['65cd0243b4bc44b5aa86c583'],
+                                    commentAdmin: 'string',
+                                    startDate: '2025-05-19T23:17:23.215Z',
+                                    endDate: '2025-05-19T23:17:23.215Z',
+                                    createdAt: '2025-05-19T23:20:48.838Z',
+                                    updatedAt: '2025-05-19T23:20:48.838Z',
+                                },
+                            ],
+                            totalDocs: 1,
                             limit: 10,
                             totalPages: 1,
+                            page: 1,
+                            pagingCounter: 1,
+                            hasPrevPage: false,
+                            hasNextPage: false,
+                            prevPage: null,
+                            nextPage: null,
                         },
+                        message: 'Stories fetched successfully',
                     },
                 },
             },
@@ -169,7 +178,6 @@ export const ApiFilterStories = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Invalid filter parameters',
                         error: 'Bad Request',
@@ -191,7 +199,6 @@ export const ApiGetStoryById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Story retrieved successfully',
                         data: {
@@ -211,7 +218,19 @@ export const ApiGetStoryById = () =>
                             updatedBy: '60a7c8b9e4b0c1234567892',
                             createdAt: '2025-05-15T09:00:00Z',
                             updatedAt: '2025-05-15T09:30:00Z',
-                            storyItems: [],
+                            storyItems: [
+                                {
+                                    _id: '60a7c8b9e4b0c1234567901',
+                                    storyId: '60a7c8b9e4b0c1234567890',
+                                    title: 'Introduction',
+                                    description:
+                                        'This is the first section of our story with introduction content',
+                                    image: 'https://example.com/story-items/intro-image.jpg',
+                                    orderNumber: 1,
+                                    createdAt: '2025-05-15T09:05:00Z',
+                                    updatedAt: '2025-05-15T09:05:00Z',
+                                },
+                            ],
                         },
                     },
                 },
@@ -223,7 +242,6 @@ export const ApiGetStoryById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
                         error: 'Not Found',
@@ -244,7 +262,6 @@ export const ApiUpdateStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Story updated successfully',
                         data: {
@@ -287,7 +304,6 @@ export const ApiUpdateStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Main image file is required',
                         error: 'Bad Request',
@@ -361,9 +377,9 @@ export const ApiRemoveStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Story deleted successfully',
+                        data: true,
                     },
                 },
             },
@@ -374,7 +390,6 @@ export const ApiRemoveStory = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
                         error: 'Not Found',
@@ -384,40 +399,6 @@ export const ApiRemoveStory = () =>
         }),
     );
 
-export const ApiPublishStory = () =>
-    applyDecorators(
-        ApiOperation({ summary: 'Publish a story' }),
-        ApiParam({ name: 'id', description: 'Story ID' }),
-        ApiResponse({
-            status: 200,
-            description: 'Story published successfully',
-            content: {
-                'application/json': {
-                    example: {
-                        status: 'success',
-                        statusCode: 200,
-                        message: 'Story published successfully',
-                    },
-                },
-            },
-        }),
-        ApiResponse({
-            status: 404,
-            description: 'Story not found',
-            content: {
-                'application/json': {
-                    example: {
-                        status: 'error',
-                        statusCode: 404,
-                        message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found',
-                    },
-                },
-            },
-        }),
-    );
-
-// Story Item decorators
 export const ApiCreateStoryItem = () =>
     applyDecorators(
         HttpCode(HttpStatus.CREATED),
@@ -429,7 +410,6 @@ export const ApiCreateStoryItem = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 201,
                         message: 'Story item created successfully',
                         data: {
@@ -452,7 +432,6 @@ export const ApiCreateStoryItem = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Story item image is required',
                         error: 'Bad Request',
@@ -502,7 +481,6 @@ export const ApiGetStoryItemById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Story item retrieved successfully',
                         data: {
@@ -525,7 +503,6 @@ export const ApiGetStoryItemById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'Story item with ID 60a7c8b9e4b0c1234567894 not found',
                         error: 'Not Found',
@@ -596,67 +573,6 @@ export const ApiUpdateStoryItem = () =>
                         type: 'string',
                         format: 'binary',
                         description: 'New image file to upload (optional)',
-                    },
-                },
-            },
-        }),
-    );
-
-export const ApiUpdateStoryItems = () =>
-    applyDecorators(
-        ApiOperation({ summary: 'Update order numbers for multiple story items' }),
-        ApiBody({
-            schema: {
-                type: 'object',
-                properties: {
-                    items: {
-                        type: 'array',
-                        items: {
-                            type: 'object',
-                            properties: {
-                                id: { type: 'string', example: '60a7c8b9e4b0c1234567894' },
-                                orderNumber: { type: 'number', example: 1 },
-                            },
-                            required: ['id', 'orderNumber'],
-                        },
-                    },
-                },
-                required: ['items'],
-            },
-        }),
-        ApiResponse({
-            status: 200,
-            description: 'Story items updated successfully',
-            content: {
-                'application/json': {
-                    example: {
-                        status: 'success',
-                        statusCode: 200,
-                        message: 'Story items updated successfully',
-                        data: [
-                            {
-                                id: '60a7c8b9e4b0c1234567894',
-                                orderNumber: 1,
-                            },
-                            {
-                                id: '60a7c8b9e4b0c1234567895',
-                                orderNumber: 2,
-                            },
-                        ],
-                    },
-                },
-            },
-        }),
-        ApiResponse({
-            status: 404,
-            description: 'Story item not found',
-            content: {
-                'application/json': {
-                    example: {
-                        status: 'error',
-                        statusCode: 404,
-                        message: 'One or more story items not found',
-                        error: 'Not Found',
                     },
                 },
             },

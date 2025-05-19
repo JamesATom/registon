@@ -25,7 +25,7 @@ import {
     ApiDeleteIeltsExam,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('IELTS Exams')
+@ApiTags('Admin')
 @ApiBearerAuth()
 @Controller('services/ielts/exams')
 export class IeltsExamController {

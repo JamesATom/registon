@@ -1,4 +1,3 @@
-// main.ts
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -49,23 +48,62 @@ async function bootstrap() {
         }),
     );
 
-    const config = new DocumentBuilder()
-        .setTitle(`${process.env.APP_NAME_1} API`)
-        .setDescription(`The ${process.env.APP_NAME_1} API description`)
-        .setVersion('1.0')
-        .addTag(`${process.env.APP_NAME_1}`)
-        .addBearerAuth()
-        .build();
+    setupSwaggerDocumentation(app);
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app as any, document);
-
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 3000;
     await app.listen(PORT, '0.0.0.0', () => {
         console.log(
             `${process.env.APP_NAME_1 + ' ' + process.env.APP_NAME_2} server is running on port => ${PORT}`,
         );
     });
+}
+
+function setupSwaggerDocumentation(app: NestFastifyApplication) {
+    const fullConfig = new DocumentBuilder()
+        .setTitle(`${process.env.APP_NAME_1} API`)
+        .setDescription('Complete API documentation')
+        .setVersion('1.0')
+        .addBearerAuth()
+        .build();
+
+    const fullDocument = SwaggerModule.createDocument(app, fullConfig);
+
+    const adminDocument = { ...fullDocument };
+    adminDocument.paths = Object.keys(fullDocument.paths)
+        .filter(path => !path.includes('/mobile/'))
+        .reduce((paths, path) => {
+            paths[path] = fullDocument.paths[path];
+            return paths;
+        }, {});
+
+    adminDocument.info = {
+        ...fullDocument.info,
+        title: `${process.env.APP_NAME_1} Admin API`,
+        description: 'API documentation for administrative operations',
+    };
+
+    SwaggerModule.setup('api/admin', app, adminDocument);
+
+    // For mobile, include both mobile-specific paths and auth paths
+    const mobileDocument = { ...fullDocument };
+    mobileDocument.paths = Object.keys(fullDocument.paths)
+        .filter(
+            path =>
+                // Include paths with '/mobile/' OR auth-related paths
+                path.includes('/mobile/') || path.includes('/auth/'),
+        )
+        .reduce((paths, path) => {
+            paths[path] = fullDocument.paths[path];
+            return paths;
+        }, {});
+
+    mobileDocument.info = {
+        ...fullDocument.info,
+        title: `${process.env.APP_NAME_1} Mobile API`,
+        description: 'API documentation for mobile client operations',
+    };
+
+    SwaggerModule.setup('api/mobile', app, mobileDocument);
 }
 
 bootstrap().catch(error => {

@@ -7,7 +7,7 @@ import {
     IeltsExamResponseEntity,
     IeltsExamListResponseEntity,
 } from '../entity/ielts-response.entity';
-import { IeltsExamStatus } from '../../../../../../../community-service/src/shared/models/ielts-exam.schema';
+import { IeltsExamStatus } from '../../../../../../common/enums/roles.enum';
 
 export const ApiCreateIeltsExam = () =>
     applyDecorators(

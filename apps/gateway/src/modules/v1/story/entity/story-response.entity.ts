@@ -1,9 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class StoryResponseEntity {
-    @ApiProperty({ example: 'success' })
-    status: string;
-
     @ApiProperty({ example: 200 })
     statusCode: number;
 
@@ -35,9 +32,6 @@ export class StoryResponseEntity {
 }
 
 export class StoryListResponseEntity {
-    @ApiProperty({ example: 'success' })
-    status: string;
-
     @ApiProperty({ example: 200 })
     statusCode: number;
 
@@ -105,9 +99,6 @@ export class StoryListResponseEntity {
 }
 
 export class StoryItemResponseEntity {
-    @ApiProperty({ example: 'success' })
-    status: string;
-
     @ApiProperty({ example: 200 })
     statusCode: number;
 

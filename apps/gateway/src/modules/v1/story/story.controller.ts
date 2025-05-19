@@ -11,12 +11,14 @@ import {
     UseGuards,
     BadRequestException,
 } from '@nestjs/common';
-import { ApiTags, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiConsumes, ApiBearerAuth, ApiOperation, ApiBody } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { StoryService } from './story.service';
-import { FastifyRequest } from 'fastify';
-import { FileSerializer } from '../../../common/utils/file-serializer';
 import { FilterStoriesDto } from './dto/filter-stories.dto';
+import { CreateStoryDto } from './dto/create-story.dto';
+import { UpdateStoryDto } from './dto/update-story.dto';
+import { CreateStoryItemDto } from './dto/create-story-item.dto';
+import { UpdateStoryItemDto } from './dto/update-story-item.dto';
 import {
     ApiCreateStory,
     ApiFilterStories,
@@ -29,7 +31,7 @@ import {
     ApiDeleteStoryItem,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('Story')
+@ApiTags('Stories')
 @ApiBearerAuth()
 @Controller('stories')
 export class StoryController {
@@ -37,12 +39,10 @@ export class StoryController {
 
     @Post()
     @ApiCreateStory()
-    @ApiConsumes('multipart/form-data')
+    @ApiBody({ type: CreateStoryDto })
     @UseGuards(AuthGuard)
-    async createStory(@Req() request: FastifyRequest, @Request() req: any) {
-        const data = await (request as any).file();
-        const serializedData = await FileSerializer.serializeMultipartData(data);
-        return this.storyService.createStoryWithFile(serializedData, req.user?.userId);
+    async createStory(@Body() createStoryDto: CreateStoryDto, @Request() req: any) {
+        return this.storyService.createStory(createStoryDto, req.user?.userId);
     }
 
     @Get(':id')
@@ -54,20 +54,14 @@ export class StoryController {
 
     @Put(':id')
     @ApiUpdateStory()
-    @ApiConsumes('multipart/form-data')
+    @ApiBody({ type: UpdateStoryDto })
     @UseGuards(AuthGuard)
     async updateStory(
         @Param('id') id: string,
-        @Req() request: FastifyRequest,
+        @Body() updateStoryDto: UpdateStoryDto,
         @Request() req: any,
     ) {
-        const data = await (request as any).file();
-        if (data) {
-            const serializedData = await FileSerializer.serializeMultipartData(data);
-            return this.storyService.updateStoryWithFile(id, serializedData, req.user?.userId);
-        }
-        const body = await request.body;
-        return this.storyService.updateStory(id, body, req.user?.userId);
+        return this.storyService.updateStory(id, updateStoryDto, req.user?.userId);
     }
 
     @Delete(':id')
@@ -86,12 +80,10 @@ export class StoryController {
 
     @Post('items')
     @ApiCreateStoryItem()
-    @ApiConsumes('multipart/form-data')
+    @ApiBody({ type: CreateStoryItemDto })
     @UseGuards(AuthGuard)
-    async createStoryItem(@Req() request: FastifyRequest, @Request() req: any) {
-        const data = await (request as any).file();
-        const serializedData = await FileSerializer.serializeMultipartData(data);
-        return this.storyService.createStoryItemWithFile(serializedData, req.user?.userId);
+    async createStoryItem(@Body() createStoryItemDto: CreateStoryItemDto, @Request() req: any) {
+        return this.storyService.createStoryItem(createStoryItemDto, req.user?.userId);
     }
 
     @Get('items/:id')
@@ -103,16 +95,10 @@ export class StoryController {
 
     @Put('items/:id')
     @ApiUpdateStoryItem()
-    @ApiConsumes('multipart/form-data')
+    @ApiBody({ type: UpdateStoryItemDto })
     @UseGuards(AuthGuard)
-    async updateStoryItem(@Param('id') id: string, @Req() request: FastifyRequest) {
-        const data = await (request as any).file();
-        if (!data) {
-            throw new BadRequestException('No form data received');
-        }
-
-        const serializedData = await FileSerializer.serializeMultipartData(data);
-        return this.storyService.updateStoryItemWithFile(id, serializedData);
+    async updateStoryItem(@Param('id') id: string, @Body() updateStoryItemDto: UpdateStoryItemDto) {
+        return this.storyService.updateStoryItem(id, updateStoryItemDto);
     }
 
     @Delete('items/:id')

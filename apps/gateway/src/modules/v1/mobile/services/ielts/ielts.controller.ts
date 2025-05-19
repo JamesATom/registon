@@ -27,7 +27,7 @@ import {
 
 @ApiTags('IELTS Exams')
 @ApiBearerAuth()
-@Controller('services/ielts')
+@Controller('mobile/services/ielts')
 export class IeltsExamController {
     constructor(private readonly ieltsExamService: IeltsExamService) {}
 

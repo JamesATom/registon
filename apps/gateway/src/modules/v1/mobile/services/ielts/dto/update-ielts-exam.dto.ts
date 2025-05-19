@@ -1,5 +1,3 @@
-// /apps/gateway/src/modules/v1/services/ielts/dto/update-ielts-exam.dto.ts
-
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsString,
@@ -12,11 +10,8 @@ import {
     MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IeltsExamStatus } from '../../../../../../../community-service/src/shared/models/ielts-exam.schema';
+import { IeltsExamStatus } from '../../../../../../common/enums/roles.enum';
 
-/**
- * DTO for updating an existing IELTS exam
- */
 export class UpdateIeltsExamDto {
     @ApiPropertyOptional({
         description: 'Title of the IELTS exam',

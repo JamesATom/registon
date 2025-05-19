@@ -10,11 +10,13 @@ export type StoryItemDocument = StoryItem & Document;
 export class StoryItem {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Story', required: true })
     storyId: MongooseSchema.Types.ObjectId;
+
     @Prop({ maxlength: 100 })
     title: string;
 
     @Prop({ maxlength: 250 })
     description?: string;
+
     @Prop({ required: true })
     image: string;
 
@@ -24,7 +26,6 @@ export class StoryItem {
 
 export const StoryItemSchema = SchemaFactory.createForClass(StoryItem);
 
-// Index for improved query performance, but without the unique constraint
 StoryItemSchema.index({ storyId: 1 });
 
 StoryItemSchema.plugin(require('mongoose-paginate-v2'));

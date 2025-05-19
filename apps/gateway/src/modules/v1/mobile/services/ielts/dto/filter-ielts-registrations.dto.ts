@@ -1,5 +1,3 @@
-// /apps/gateway/src/modules/v1/services/ielts/dto/filter-ielts-exams.dto.ts
-
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsEnum,
@@ -12,11 +10,8 @@ import {
     IsPositive,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IeltsExamStatus } from '../../../../../../../community-service/src/shared/models/ielts-exam.schema';
+import { IeltsExamStatus } from '../../../../../../common/enums/roles.enum';
 
-/**
- * DTO for filtering IELTS exams
- */
 export class FilterIeltsExamsDto {
     @ApiPropertyOptional({
         description: 'Page number',

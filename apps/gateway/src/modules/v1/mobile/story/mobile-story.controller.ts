@@ -1,11 +1,4 @@
-import {
-    Controller,
-    Get,
-    Param,
-    UseGuards,
-    NotFoundException,
-    BadRequestException,
-} from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '../../auth/guards/auth.guard';
 import { MobileStoryService } from './mobile-story.service';
@@ -14,20 +7,20 @@ import {
     ApiGetMobileStoryWithItems,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('Mobile')
+@ApiTags('Mobile Stories')
 @ApiBearerAuth()
-@Controller('mobile')
+@Controller('mobile/stories')
 export class MobileStoryController {
     constructor(private readonly mobileService: MobileStoryService) {}
 
-    @Get('stories')
+    @Get()
     @ApiGetAllMobileStories()
     @UseGuards(AuthGuard)
     async getAllStoriesForMobile() {
         return await this.mobileService.getAllStoriesForMobile();
     }
 
-    @Get('stories/:id')
+    @Get('/:id')
     @ApiGetMobileStoryWithItems()
     @UseGuards(AuthGuard)
     async getStoryWithItemsById(@Param('id') id: string) {

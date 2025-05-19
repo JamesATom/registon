@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
     imports: [
+        ConfigModule,
         ClientsModule.registerAsync([
             {
                 name: 'COMMUNITY_SERVICE',

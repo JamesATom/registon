@@ -1,4 +1,3 @@
-// story.module.ts
 import { Module } from '@nestjs/common';
 import { CommunityService } from 'src/microservices';
 import { StoryController } from './story.controller';
