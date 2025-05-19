@@ -81,9 +81,8 @@ export const ApiInternalServerErrorResponse = (message: string) =>
         schema: {
             type: 'object',
             properties: {
-                statusCode: { type: 'number', example: 500 },
+                status: { type: 'string', example: 'error' },
                 message: { type: 'string', example: message },
-                error: { type: 'string', example: 'Internal Server Error' },
             },
         },
     });
@@ -108,7 +107,7 @@ export const ApiGetOne = (entity: string, type: any) =>
         ApiInternalServerErrorResponse(`Failed to fetch ${entity} details`),
     );
 
-export const ApiCreate = (entity: string, type: any) =>
+export const ApiCreate = (entity: string, type?: any) =>
     applyDecorators(
         ApiOperation({ summary: `Create ${entity}` }),
         ApiCreatedResponse(`${entity} created successfully`, type),

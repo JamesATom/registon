@@ -31,15 +31,12 @@ export class JwtHttpAuthGuard implements CanActivate {
         }
 
         const isTokenValid = await this.redisService.validateToken(token);
-
         if (!isTokenValid) {
+            // has to be !isTokenValid
             throw new UnauthorizedException('Invalid or Expired Token!');
         }
 
-        request.user = {
-            id: token,
-            userId: token,
-        };
+        request.user = await this.redisService.getUserByToken(token);
         return true;
     }
 

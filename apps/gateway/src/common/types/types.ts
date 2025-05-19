@@ -21,10 +21,7 @@ export interface IJwtPayloadForAgent {
 }
 
 export interface CustomRequest extends FastifyRequest {
-    user: {
-        id: string;
-        [key: string]: any; // Add other user properties you need
-    };
+    user?: any;
 }
 
 export interface User {

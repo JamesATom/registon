@@ -2,9 +2,10 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType, ValidationPipe, Logger } from '@nestjs/common';
+import { VersioningType, ValidationPipe } from '@nestjs/common';
+import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
-import { LoggingInterceptor, ErrorInterceptor } from './common/interceptors';
+import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -35,11 +36,18 @@ async function bootstrap() {
 
     app.useGlobalInterceptors(
         new LoggingInterceptor(),
-        // new ErrorInterceptor(),
-        // new RpcErrorInterceptor(),
+        new ErrorInterceptor(),
+        new RpcErrorInterceptor(),
     );
 
-    app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transformOptions: { enableImplicitConversion: true },
+        }),
+    );
 
     const config = new DocumentBuilder()
         .setTitle(`${process.env.APP_NAME_1} API`)
