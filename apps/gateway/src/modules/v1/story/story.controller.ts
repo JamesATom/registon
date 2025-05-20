@@ -7,11 +7,9 @@ import {
     Param,
     Body,
     Request,
-    Req,
     UseGuards,
-    BadRequestException,
 } from '@nestjs/common';
-import { ApiTags, ApiConsumes, ApiBearerAuth, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { StoryService } from './story.service';
 import { FilterStoriesDto } from './dto/filter-stories.dto';

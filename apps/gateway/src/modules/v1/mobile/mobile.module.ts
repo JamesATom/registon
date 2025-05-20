@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MobileStoryController } from './story/mobile-story.controller';
-import { MobileStoryService } from './story/mobile-story.service';
+import { MobileStoryController } from './story/story.controller';
+import { MobileStoryService } from './story/story.service';
 import { IeltsExamController } from './services/ielts/ielts.controller';
 import { IeltsExamService } from './services/ielts/ielts.service';
 import { CommunityService } from '../../../microservices/community.service';

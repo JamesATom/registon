@@ -1,19 +1,14 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiBody } from '@nestjs/swagger';
 import {
     MobileStoryListResponseEntity,
-    MobileStoryWithItemsEntity,
-} from '../dto/mobile-response.entity';
+    MobileStoryItemEntity,
+} from '../entity/mobile-response.entity';
+import { TrackStoryItemsDto, TrackStoryButtonDto } from '../dto/dto';
 
 export function ApiGetAllMobileStories() {
     return applyDecorators(
         ApiOperation({ summary: 'Get all stories for mobile without pagination' }),
-        ApiQuery({
-            name: 'status',
-            required: false,
-            enum: ['DRAFT', 'PUBLISHED'],
-            description: 'Filter stories by status',
-        }),
         ApiResponse({
             status: 200,
             description: 'The stories have been successfully retrieved',
@@ -21,7 +16,6 @@ export function ApiGetAllMobileStories() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Stories retrieved successfully',
                         data: [
@@ -64,7 +58,6 @@ export function ApiGetAllMobileStories() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Failed to get mobile stories',
                         error: 'Bad Request',
@@ -78,7 +71,6 @@ export function ApiGetAllMobileStories() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 500,
                         message: 'An unexpected error occurred',
                         error: 'Internal Server Error',
@@ -101,26 +93,12 @@ export function ApiGetMobileStoryWithItems() {
         ApiResponse({
             status: 200,
             description: 'The story with items has been successfully retrieved',
-            type: MobileStoryWithItemsEntity,
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'Story with items retrieved successfully',
                         data: {
-                            _id: '60a7c8b9e4b0c1234567890',
-                            title: 'Sample Mobile Story',
-                            description: 'This is a sample story for mobile',
-                            status: 'PUBLISHED',
-                            mainImage: 'https://example.com/image1.jpg',
-                            datePublished: '2025-05-15T10:00:00Z',
-                            link: 'https://example.com/story1',
-                            buttonText: 'Read More',
-                            branches: ['60a7c8b9e4b0c1234567891'],
-                            createdBy: '60a7c8b9e4b0c1234567892',
-                            createdAt: '2025-05-15T09:00:00Z',
-                            updatedAt: '2025-05-15T09:30:00Z',
                             items: [
                                 {
                                     _id: '60a7c8b9e4b0c1234567894',
@@ -131,6 +109,7 @@ export function ApiGetMobileStoryWithItems() {
                                     orderNumber: 1,
                                     createdAt: '2025-05-15T10:05:00Z',
                                     updatedAt: '2025-05-15T10:05:00Z',
+                                    isViewed: true,
                                 },
                                 {
                                     _id: '60a7c8b9e4b0c1234567895',
@@ -141,8 +120,10 @@ export function ApiGetMobileStoryWithItems() {
                                     orderNumber: 2,
                                     createdAt: '2025-05-15T10:10:00Z',
                                     updatedAt: '2025-05-15T10:10:00Z',
+                                    isViewed: false,
                                 },
                             ],
+                            isButtonPressed: true,
                         },
                     },
                 },
@@ -154,10 +135,8 @@ export function ApiGetMobileStoryWithItems() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'Story with ID 60a7c8b9e4b0c1234567890 not found',
-                        error: 'Not Found',
                     },
                 },
             },
@@ -168,10 +147,8 @@ export function ApiGetMobileStoryWithItems() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Failed to get story with items',
-                        error: 'Bad Request',
                     },
                 },
             },
@@ -182,10 +159,133 @@ export function ApiGetMobileStoryWithItems() {
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 500,
                         message: 'An unexpected error occurred',
-                        error: 'Internal Server Error',
+                    },
+                },
+            },
+        }),
+    );
+}
+
+export function ApiTrackStoryItems() {
+    return applyDecorators(
+        ApiOperation({ summary: 'Track story items' }),
+        ApiBody({
+            type: TrackStoryItemsDto,
+            description: 'Data for tracking story items viewed by the student',
+            examples: {
+                example1: {
+                    summary: 'Track story item view example',
+                    description: 'A student viewed a specific item within a story',
+                    value: {
+                        storyId: '682c3a46a7d884313d6d96e0',
+                        storyItemId: '682c4d94092e4c6854653dee'
+                    }
+                }
+            }
+        }),
+        ApiResponse({
+            status: 200,
+            description: 'Story items tracked successfully',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 200,
+                        message: 'Story items tracked successfully',
+                        data: true,
+                    },
+                },
+            },
+        }),
+        ApiResponse({
+            status: 400,
+            description: 'Bad request',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 400,
+                        message: 'Failed to track story items',
+                    },
+                },
+            },
+        }),
+        ApiResponse({
+            status: 500,
+            description: 'Internal server error',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 500,
+                        message: 'An unexpected error occurred',
+                    },
+                },
+            },
+        }),
+    );
+}
+
+export function ApiTrackStoryButton() {
+    return applyDecorators(
+        ApiOperation({ summary: 'Track story button' }),
+        ApiBody({
+            type: TrackStoryButtonDto,
+            description: 'Data for tracking story button press by the student',
+            examples: {
+                example1: {
+                    summary: 'Track button press example',
+                    description: 'A student pressed the button on a story',
+                    value: {
+                        storyId: '682c3a46a7d884313d6d96e0'
+                    }
+                }
+            }
+        }),
+        ApiResponse({
+            status: 200,
+            description: 'Story button tracked successfully',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 200,
+                        message: 'Story button tracked successfully',
+                        data: true,
+                    },
+                },
+            },
+        }),
+        ApiResponse({
+            status: 400,
+            description: 'Bad request',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 400,
+                        message: 'Failed to track story button',
+                    },
+                },
+            },
+        }),
+        ApiResponse({
+            status: 404,
+            description: 'Story not found',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 404,
+                        message: 'Story not found',
+                    },
+                },
+            },
+        }),
+        ApiResponse({
+            status: 500,
+            description: 'Internal server error',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 500,
+                        message: 'An unexpected error occurred',
                     },
                 },
             },

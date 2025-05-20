@@ -21,6 +21,9 @@ export const MessagePatterns = {
         V1: {
             GET_ALL_STORIES: 'v1.mobile.story.find.all',
             GET_STORY_WITH_ITEMS: 'v1.mobile.story.find.one',
+            TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
+            TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
+            TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
         },
     },
     Auth: {

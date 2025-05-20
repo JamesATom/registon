@@ -24,15 +24,19 @@ export class RedisService implements OnModuleDestroy {
         const token = data.data.token;
         const userId = data.data._id;
         const userData = data.data;
+        const fullname = userData.fullname || '';
+        const branch = userData.branch || null;
 
         if (token) {
             await this.redis.set(
                 `token:${token}`,
-                JSON.stringify({ phoneNumber, userId, userData }),
+                JSON.stringify({ phoneNumber, userId, userData, fullname, branch }),
                 'EX',
                 ttl,
             );
         }
+
+        console.log('token::::::::', await this.redis.get(`token:${token}`));
     }
 
     async getUserData(phoneNumber: string): Promise<any | null> {

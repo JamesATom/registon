@@ -75,7 +75,7 @@ export const ApiCreateStory = () =>
                 properties: {
                     file: {
                         type: 'string',
-                        format: 'binary',
+                        format: 'string',
                         description: 'Main image file to upload',
                     },
                     title: {

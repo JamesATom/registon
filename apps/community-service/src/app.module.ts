@@ -1,4 +1,3 @@
-// app.module.ts in community-service
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -12,22 +11,23 @@ import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
     imports: [
         NestConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: '.env',
         }),
         MongooseModule.forRootAsync({
             useFactory: () => {
-                const isProduction = process.env.NODE_ENV === 'production';
-                console.log('isProduction', isProduction);
+                const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/registan';
+                console.log('Using MongoDB URI:', mongoUri);
                 return {
-                    uri: 'mongodb://localhost:27017/registan',
+                    uri: mongoUri,
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true,
                 };
             },
         }),
         StoryModule,
         MobileModule,
         FileModule,
-        IeltsExamModule,
         SurveyModule,
+        IeltsExamModule,
     ],
     controllers: [],
     providers: [],
