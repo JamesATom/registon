@@ -1,6 +1,3 @@
-before_script:
-    - git update-index --assume-unchanged redis/redis.conf
-
 stages:
     - build
     - deploy
