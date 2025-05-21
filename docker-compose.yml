@@ -12,7 +12,7 @@ services:
             APP_NAME_1: Registon
             APP_NAME_2: Gateway
             REGISTON_BACKEND_URL_FRONT_WEB: https://backend.edutizim.uz/moderator-web-api
-            MONGODB_URI: mongodb://mongodb:27017/registon
+            MONGODB_URI: mongodb://admin:password@mongodb:27017/registan?authSource=admin
             REDIS_URL: redis://redis:6379
             REDIS_HOST: redis
             REDIS_PORT: 6379
@@ -42,8 +42,8 @@ services:
             REDIS_URL: redis://redis:6379
             REDIS_HOST: redis
             REDIS_PORT: 6379
-            MONGODB_URI: mongodb://admin:password@mongodb:27017/registan?authSource=admin
             NODE_ENV: production
+            MONGODB_URI: mongodb://admin:password@mongodb:27017/registan?authSource=admin
         depends_on:
             rabbitmq:
                 condition: service_healthy
