@@ -15,6 +15,7 @@ export const MessagePatterns = {
             UPDATE_ITEM: 'v1.story.item.update',
             UPDATE_ITEM_WITH_FILE: 'v1.story.item.update.with.file',
             DELETE_ITEM: 'v1.story.item.delete',
+            //
         },
     },
     Mobile: {
