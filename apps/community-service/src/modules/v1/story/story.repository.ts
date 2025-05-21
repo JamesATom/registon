@@ -167,7 +167,7 @@ export class StoryRepository {
         }
     }
 
-    async findAllStories(filter?: any): Promise<ServiceResponse<any[]>> {
+    async findAllStories(filter?: any): Promise<ServiceResponse<any>> {
         try {
             const query = {};
 
@@ -184,31 +184,34 @@ export class StoryRepository {
             }
 
             if (filter?.startDateTo) {
-                query['startDate'] = { $lte: filter.startDateTo };
+                query['startDate'] = query['startDate'] || {};
+                query['startDate']['$lte'] = filter.startDateTo;
             }
 
-            if (filter?.createdBy) {
-                query['createdBy'] = filter.createdBy;
+            if (filter?.endDateFrom) {
+                query['endDate'] = { $gte: filter.endDateFrom };
             }
 
-            if (filter?.search) {
-                const searchRegex = new RegExp(filter.search, 'i');
-                query['$or'] = [
-                    { title: { $regex: searchRegex } },
-                    { description: { $regex: searchRegex } },
-                ];
+            if (filter?.endDateTo) {
+                query['endDate'] = query['endDate'] || {};
+                query['endDate']['$lte'] = filter.endDateTo;
             }
+
             const options = {
                 page: filter?.page || 1,
                 limit: filter?.limit || 10,
                 sort: { createdAt: -1 },
             };
 
-            const stories = await this.storyModel.paginate(query, options);
+            const storiesResult = await this.storyModel.paginate(query, options);
+            const { docs, ...pagination } = storiesResult;
 
             return {
                 statusCode: HttpStatus.OK,
-                data: stories,
+                data: {
+                    stories: docs,
+                    pagination
+                },
                 message: 'Stories fetched successfully',
             };
         } catch (error) {

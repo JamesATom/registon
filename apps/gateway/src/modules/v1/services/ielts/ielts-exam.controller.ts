@@ -50,7 +50,7 @@ export class IeltsExamController {
         return this.ieltsExamService.findExamById(id);
     }
 
-    @Patch(':id')
+    @Put(':id')
     @UseGuards(AuthGuard)
     @ApiUpdateIeltsExam()
     async updateExam(

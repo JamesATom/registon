@@ -12,11 +12,6 @@ export class IeltsExamEvents {
         return this.ieltsExamService.createExam(payload.data, payload.userId);
     }
 
-    @MessagePattern(MessagePatterns.IeltsExam.V1.GET_ALL)
-    async findAllExams(@Payload() payload: { filterDto: any }) {
-        return this.ieltsExamService.findAllExams(payload.filterDto);
-    }
-
     @MessagePattern(MessagePatterns.IeltsExam.V1.FIND_ONE)
     async findExamById(@Payload() payload: { id: string }) {
         return this.ieltsExamService.findExamById(payload.id);
@@ -30,5 +25,10 @@ export class IeltsExamEvents {
     @MessagePattern(MessagePatterns.IeltsExam.V1.DELETE)
     async deleteExam(@Payload() payload: { id: string; userId: string }) {
         return this.ieltsExamService.deleteExam(payload.id, payload.userId);
+    }
+
+    @MessagePattern(MessagePatterns.IeltsExam.V1.GET_ALL)
+    async findAllExams(@Payload() payload: { filterDto: any }) {
+        return this.ieltsExamService.findAllExams(payload.filterDto);
     }
 }

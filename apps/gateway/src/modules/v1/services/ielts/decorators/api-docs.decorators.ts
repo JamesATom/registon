@@ -1,6 +1,5 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiBody, ApiQuery } from '@nestjs/swagger';
-import { FilterIeltsExamsDto } from '../dto/filter-ielts-registrations.dto';
 import { CreateIeltsExamDto } from '../dto/create-ielts-exam.dto';
 import { UpdateIeltsExamDto } from '../dto/update-ielts-exam.dto';
 import {
@@ -21,7 +20,6 @@ export const ApiCreateIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 201,
                         message: 'IELTS exam created successfully',
                         data: {
@@ -36,7 +34,6 @@ export const ApiCreateIeltsExam = () =>
                             availableSeats: 100,
                             description: 'Official IELTS Academic test with British Council',
                             createdBy: '60a7c8b9e4b0c1234567892',
-                            updatedBy: '60a7c8b9e4b0c1234567892',
                             createdAt: '2025-01-15T13:00:00Z',
                             updatedAt: '2025-01-15T13:00:00Z',
                         },
@@ -50,7 +47,6 @@ export const ApiCreateIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Invalid input: title is required',
                         error: 'Bad Request',
@@ -61,10 +57,28 @@ export const ApiCreateIeltsExam = () =>
         ApiResponse({
             status: 401,
             description: 'Unauthorized',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 401,
+                        message: 'Unauthorized',
+                        error: 'Unauthorized',
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 403,
             description: 'Forbidden - requires admin privileges',
+            content: {
+                'application/json': {
+                    example: {
+                        statusCode: 403,
+                        message: 'Forbidden - requires admin privileges',
+                        error: 'Forbidden',
+                    },
+                },
+            },
         }),
     );
 
@@ -115,7 +129,6 @@ export const ApiGetAllIeltsExams = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'IELTS exams retrieved successfully',
                         data: [
@@ -130,29 +143,22 @@ export const ApiGetAllIeltsExams = () =>
                                 capacitySeats: 100,
                                 availableSeats: 75,
                                 description: 'Official IELTS Academic test with British Council',
+                                createdBy: '60a7c8b9e4b0c1234567892',
+                                updatedBy: '60a7c8b9e4b0c1234567892',
                                 createdAt: '2025-01-15T13:00:00Z',
                                 updatedAt: '2025-01-15T13:00:00Z',
                             },
-                            {
-                                _id: '60a7c8b9e4b0c1234567891',
-                                title: 'IELTS General Training - June 2025',
-                                examDate: '2025-06-10T09:00:00.000Z',
-                                registrationDeadline: '2025-06-01T23:59:59.000Z',
-                                fee: 250,
-                                location: 'Registon Education Center',
-                                status: 'ACTIVE',
-                                capacitySeats: 50,
-                                availableSeats: 50,
-                                description: 'IELTS General Training test',
-                                createdAt: '2025-01-20T14:30:00Z',
-                                updatedAt: '2025-01-20T14:30:00Z',
-                            },
                         ],
                         pagination: {
-                            total: 2,
-                            page: 1,
+                            totalDocs: 2,
                             limit: 10,
+                            page: 1,
                             totalPages: 1,
+                            pagingCounter: 1,
+                            hasPrevPage: false,
+                            hasNextPage: false,
+                            prevPage: null,
+                            nextPage: null,
                         },
                     },
                 },
@@ -176,7 +182,6 @@ export const ApiGetIeltsExamById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'IELTS exam retrieved successfully',
                         data: {
@@ -205,7 +210,6 @@ export const ApiGetIeltsExamById = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'IELTS exam with ID 60a7c8b9e4b0c1234567890 not found',
                         error: 'Not Found',
@@ -228,7 +232,6 @@ export const ApiUpdateIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'IELTS exam updated successfully',
                         data: {
@@ -258,7 +261,6 @@ export const ApiUpdateIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'capacitySeats cannot be less than current registrations',
                         error: 'Bad Request',
@@ -272,7 +274,6 @@ export const ApiUpdateIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'IELTS exam with ID 60a7c8b9e4b0c1234567890 not found',
                         error: 'Not Found',
@@ -283,10 +284,6 @@ export const ApiUpdateIeltsExam = () =>
         ApiResponse({
             status: 401,
             description: 'Unauthorized',
-        }),
-        ApiResponse({
-            status: 403,
-            description: 'Forbidden - requires admin privileges',
         }),
     );
 
@@ -301,7 +298,6 @@ export const ApiDeleteIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'success',
                         statusCode: 200,
                         message: 'IELTS exam deleted successfully',
                     },
@@ -314,7 +310,6 @@ export const ApiDeleteIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 404,
                         message: 'IELTS exam with ID 60a7c8b9e4b0c1234567890 not found',
                         error: 'Not Found',
@@ -328,7 +323,6 @@ export const ApiDeleteIeltsExam = () =>
             content: {
                 'application/json': {
                     example: {
-                        status: 'error',
                         statusCode: 400,
                         message: 'Cannot delete an exam with existing registrations',
                         error: 'Bad Request',
@@ -339,9 +333,5 @@ export const ApiDeleteIeltsExam = () =>
         ApiResponse({
             status: 401,
             description: 'Unauthorized',
-        }),
-        ApiResponse({
-            status: 403,
-            description: 'Forbidden - requires admin privileges',
         }),
     );

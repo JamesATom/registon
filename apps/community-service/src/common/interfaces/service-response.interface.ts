@@ -25,4 +25,9 @@ export interface PaginateResult<T> {
     hasNextPage: boolean;
 }
 
-export type ServiceResponse<T = any> = ErrorResponse | SuccessResponse<T>;
+export interface ServiceResponse<T> {
+  statusCode: number;
+  message: string;
+  data?: T;
+  pagination?: any;
+}

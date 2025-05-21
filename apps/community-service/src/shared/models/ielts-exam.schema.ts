@@ -9,7 +9,7 @@ export enum IeltsExamStatus {
     COMPLETED = 'COMPLETED',
 }
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, versionKey: false })
 export class IeltsExam {
     @Prop({ required: true, maxlength: 100 })
     title: string;
