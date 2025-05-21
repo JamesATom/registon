@@ -26,6 +26,9 @@ export class IeltsExam {
     @Prop({ required: true, maxlength: 100 })
     location: string;
 
+    @Prop({ required: true, maxlength: 100 })
+    city: string;
+
     @Prop({ default: IeltsExamStatus.ACTIVE, enum: IeltsExamStatus })
     status: string;
 

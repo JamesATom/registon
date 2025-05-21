@@ -24,6 +24,11 @@ export const MessagePatterns = {
             TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
             TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
             TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
+            // Ielts exam operations
+            GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
+            REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
+            GET_EXAM_REGISTRATION: 'v1.mobile.ieltsExam.get.registration',
+            GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
         },
     },
     Auth: {

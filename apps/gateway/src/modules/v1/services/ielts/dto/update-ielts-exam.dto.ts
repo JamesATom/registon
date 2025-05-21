@@ -69,6 +69,16 @@ export class UpdateIeltsExamDto {
     location?: string;
 
     @ApiPropertyOptional({
+        description: 'Exam city',
+        example: 'Tashkent',
+        maxLength: 100,
+    })
+    @IsString()
+    @IsOptional()
+    @MaxLength(100)
+    city?: string;
+
+    @ApiPropertyOptional({
         enum: IeltsExamStatus,
         description: 'Exam status',
         example: 'ACTIVE',

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IeltsExamStatus } from '../../../../../../common/enums/roles.enum';
+import { IeltsExamStatus } from '../../../../../common/enums/roles.enum';
 
 export class IeltsExamEntity {
     @ApiProperty({ example: '60a7c8b9e4b0c1234567890' })

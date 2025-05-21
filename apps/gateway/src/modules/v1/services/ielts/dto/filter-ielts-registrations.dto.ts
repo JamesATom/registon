@@ -60,6 +60,14 @@ export class FilterIeltsExamsDto {
     search?: string;
 
     @ApiPropertyOptional({
+        description: 'Filter exams by city',
+        example: 'Tashkent',
+    })
+    @IsString()
+    @IsOptional()
+    city?: string;
+
+    @ApiPropertyOptional({
         description: 'Filter exams after this date',
         example: '2025-05-01T00:00:00Z',
         type: Date,

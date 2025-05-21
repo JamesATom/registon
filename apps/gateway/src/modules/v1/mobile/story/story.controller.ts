@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '../../auth/guards/auth.guard';
-import { MobileStoryService } from './story.service';
+import { StoryService } from './story.service';
 import {
     ApiGetAllMobileStories,
     ApiGetMobileStoryWithItems,
@@ -13,29 +13,29 @@ import { TrackStoryButtonDto, TrackStoryItemsDto } from './dto/dto';
 @ApiTags('Mobile Stories')
 @ApiBearerAuth()
 @Controller('mobile/stories')
-export class MobileStoryController {
-    constructor(private readonly mobileService: MobileStoryService) {}
+export class StoryController {
+    constructor(private readonly storyService: StoryService) {}
 
     @Get()
     @ApiGetAllMobileStories()
     @UseGuards(AuthGuard)
     async getAllStoriesForMobile(@Req() req: any) {
         console.log('req.user.userId', req.user.userId);
-        return await this.mobileService.getAllStoriesForMobile(req.user.userId);
+        return await this.storyService.getAllStoriesForMobile(req.user.userId);
     }
 
     @Get('/:id')
     @ApiGetMobileStoryWithItems()
     @UseGuards(AuthGuard)
     async getStoryWithItemsById(@Param('id') id: string, @Req() req: any) {
-        return await this.mobileService.getStoryWithItemsById(id, req.user.userId);
+        return await this.storyService.getStoryWithItemsById(id, req.user.userId);
     }
 
     @Post('/track/items')
     @ApiTrackStoryItems()
     @UseGuards(AuthGuard)
     async trackStoryItems(@Body() trackStoryItemsDto: TrackStoryItemsDto, @Req() req: any) {
-        return await this.mobileService.trackStoryItems(
+        return await this.storyService.trackStoryItems(
             trackStoryItemsDto.storyId,
             trackStoryItemsDto.storyItemId,
             req.user.userId,
@@ -46,7 +46,7 @@ export class MobileStoryController {
     @ApiTrackStoryButton()
     @UseGuards(AuthGuard)
     async trackStoryButton(@Body() trackStoryButtonDto: TrackStoryButtonDto, @Req() req: any) {
-        return await this.mobileService.trackStoryButton(
+        return await this.storyService.trackStoryButton(
             trackStoryButtonDto.storyId,
             req.user.userId,
         );

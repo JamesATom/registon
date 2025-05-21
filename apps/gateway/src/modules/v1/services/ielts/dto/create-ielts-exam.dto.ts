@@ -65,6 +65,16 @@ export class CreateIeltsExamDto {
     location: string;
 
     @ApiProperty({
+        description: 'Exam city',
+        example: 'Tashkent',
+        maxLength: 100,
+    })
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(100)
+    city: string;
+
+    @ApiProperty({
         description: 'Maximum seats available',
         example: 100,
         minimum: 1,

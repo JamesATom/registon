@@ -10,7 +10,7 @@ import {
     MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IeltsExamStatus } from '../../../../../../common/enums/roles.enum';
+import { IeltsExamStatus } from '../../../../../common/enums/roles.enum';
 
 export class UpdateIeltsExamDto {
     @ApiPropertyOptional({

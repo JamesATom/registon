@@ -15,8 +15,10 @@ export class AuthService {
             phoneNumber: phoneNumber,
         };
         try {
+            console.log('1');
+            console.log(url);
             const response = await axios.post(url, data);
-
+            console.log('2');
             return response.data;
         } catch (error) {
             this.logger.error('Error during sign-in', error);

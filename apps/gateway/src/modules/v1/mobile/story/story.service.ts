@@ -4,7 +4,7 @@ import { firstValueFrom, timeout } from 'rxjs';
 import { MessagePatterns } from '../../../../common/constants/message-pattern';
 
 @Injectable()
-export class MobileStoryService {
+export class StoryService {
     constructor(@Inject('COMMUNITY_SERVICE') private client: ClientProxy) {}
 
     async getAllStoriesForMobile(userId: string) {

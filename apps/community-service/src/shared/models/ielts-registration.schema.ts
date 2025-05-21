@@ -12,9 +12,9 @@ export enum IeltsRegistrationStatus {
 @Schema({ timestamps: true })
 export class IeltsRegistration {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'IeltsExam', required: true })
-    ieltsExamId: MongooseSchema.Types.ObjectId;
+    examId: MongooseSchema.Types.ObjectId;
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Student', required: true })
     studentId: MongooseSchema.Types.ObjectId;
 
     @Prop({ required: true })
@@ -26,11 +26,11 @@ export class IeltsRegistration {
     @Prop({ required: true })
     phoneNumber: string;
 
+    @Prop({ required: true })
+    examDate: Date;
+
     @Prop({ default: IeltsRegistrationStatus.PENDING, enum: IeltsRegistrationStatus })
     status: string;
-
-    @Prop({ default: false })
-    isDeleted: boolean;
 
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
     createdBy: MongooseSchema.Types.ObjectId;

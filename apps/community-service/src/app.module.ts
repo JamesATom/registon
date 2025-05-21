@@ -23,8 +23,8 @@ import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
                 };
             },
         }),
-        StoryModule,
         MobileModule,
+        StoryModule,
         FileModule,
         SurveyModule,
         IeltsExamModule,

@@ -20,6 +20,9 @@ export class IeltsExamEntity {
     @ApiProperty({ example: 'British Council, Tashkent' })
     location: string;
 
+    @ApiProperty({ example: 'Tashkent' })
+    city: string;
+
     @ApiProperty({ enum: IeltsExamStatus, example: 'ACTIVE' })
     status: IeltsExamStatus;
 
