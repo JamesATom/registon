@@ -37,7 +37,7 @@ services:
             REDIS_URL: redis://redis:6379
             REDIS_HOST: redis
             REDIS_PORT: 6379
-            MONGODB_URI: mongodb://mongodb:27017/registon
+            MONGODB_URI: mongodb://admin:password@localhost:27017/registan?authSource=admin
             NODE_ENV: production
         depends_on:
             rabbitmq:
@@ -66,11 +66,13 @@ services:
             start_period: 40s
 
     redis:
+        container_name: redis
         image: redis:7
         ports:
             - "6379:6379"
         volumes:
             - redis_data:/data
+            - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
         command: redis-server --appendonly yes --appendfsync everysec
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
@@ -101,3 +103,4 @@ volumes:
     mongodb_data:
     redis_data:
 
+# networks:

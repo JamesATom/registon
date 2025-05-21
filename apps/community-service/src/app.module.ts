@@ -18,7 +18,7 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
                 const isProduction = process.env.NODE_ENV === 'production';
                 console.log('isProduction', isProduction);
                 return {
-                    uri: 'mongodb://localhost:27017/registan', 
+                    uri: isProduction ? process.env.MONGODB_URI : process.env.MONGODB_URI_LOCAL, 
                 };
             },
         }),

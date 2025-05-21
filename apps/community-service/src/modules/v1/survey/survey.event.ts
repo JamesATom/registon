@@ -17,4 +17,9 @@ export class SurveyEvent {
     async create(@Body() createSurveyDto: CreateSurveyDto[]): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto);
     }
+
+    @MessagePattern(MessagePatterns.Survey.V1.UPDATE)
+    async update(@Payload() updateSurveyDto: UpdateSurveyDto[]): Promise<CommonEntity> {
+        return this.surveyService.update(updateSurveyDto);
+    }
 }
