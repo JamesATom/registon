@@ -1,3 +1,6 @@
+before_script:
+    - git update-index --assume-unchanged redis/redis.conf
+
 stages:
     - build
     - deploy
@@ -32,6 +35,9 @@ deploy:
     stage: deploy
     tags:
         - remote-shell-dev
+    variables:
+        GIT_STRATEGY: fetch
+        GIT_CLEAN_FLAGS: -ffdx -e redis/redis.conf
     interruptible: true
     script:
         - echo "Cleaning up Docker to free space..."
