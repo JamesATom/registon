@@ -6,19 +6,22 @@ import { MobileIeltsExamRepository } from './ielts-exam.repository';
 export class MobileIeltsExamService {
     constructor(private readonly ieltsExamRepository: MobileIeltsExamRepository) {}
 
-    async getAllIeltsExamDays(location: string): Promise<ServiceResponse<any[]>> {
-        return this.ieltsExamRepository.getAllIeltsExamDays(location);
-    }
-
-    async registerForExam(examId: string, studentInformation: any): Promise<ServiceResponse<any>> {
-        return this.ieltsExamRepository.registerForExam(examId, studentInformation);
-    }
-
-    async getRegistredExams(studentId: string): Promise<ServiceResponse<any>> {
-        return this.ieltsExamRepository.getRegistredExams(studentId);
+    async getAllIeltsExamDays(city: string): Promise<ServiceResponse<any[]>> {
+        return this.ieltsExamRepository.getAllIeltsExamDays(city);
     }
 
     async findExamById(id: string): Promise<ServiceResponse<any>> {
         return this.ieltsExamRepository.findById(id);
+    }
+
+    async registerForExam(
+        studentInformation: any,
+        studentId: string,
+    ): Promise<ServiceResponse<any>> {
+        return this.ieltsExamRepository.registerForExam(studentInformation, studentId);
+    }
+
+    async getRegistredExams(studentId: string): Promise<ServiceResponse<any>> {
+        return this.ieltsExamRepository.getRegistredExams(studentId);
     }
 }

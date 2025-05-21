@@ -9,7 +9,7 @@ export enum IeltsRegistrationStatus {
     CANCELLED = 'CANCELLED',
 }
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, versionKey: false })
 export class IeltsRegistration {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'IeltsExam', required: true })
     examId: MongooseSchema.Types.ObjectId;

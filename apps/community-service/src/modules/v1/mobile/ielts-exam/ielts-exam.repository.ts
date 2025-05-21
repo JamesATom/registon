@@ -21,19 +21,23 @@ export class MobileIeltsExamRepository {
         private ieltsRegistrationModel: Model<IeltsRegistrationDocument>,
     ) {}
 
-    async getAllIeltsExamDays(location: string): Promise<ServiceResponse<any[]>> {
+    async getAllIeltsExamDays(city: string): Promise<ServiceResponse<any[]>> {
         try {
             const query: any = {
-                location: location,
+                city: city,
                 examDate: { $gte: new Date() },
                 status: IeltsExamStatus.ACTIVE,
             };
+
+            console.log('query', query);
 
             const result = await this.ieltsExamModel
                 .find(query)
                 .sort({ examDate: 1 })
                 .lean()
                 .exec();
+
+            console.log('result', result);
 
             return {
                 statusCode: HttpStatus.OK,
@@ -49,11 +53,14 @@ export class MobileIeltsExamRepository {
         }
     }
 
-    async registerForExam(id: string, studentInformation: any): Promise<ServiceResponse<any>> {
+    async registerForExam(
+        studentInformation: any,
+        studentId: string,
+    ): Promise<ServiceResponse<any>> {
         try {
             const examExists = await this.ieltsExamModel
                 .findOne({
-                    _id: id,
+                    _id: studentInformation.examId,
                     status: IeltsExamStatus.ACTIVE,
                     registrationDeadline: { $gte: new Date() },
                 })
@@ -62,14 +69,14 @@ export class MobileIeltsExamRepository {
             if (!examExists) {
                 return {
                     statusCode: HttpStatus.NOT_FOUND,
-                    message: `Exam with ID ${id} not found`,
+                    message: `Exam with ID ${studentInformation.examId} not found`,
                 };
             }
 
             const registrationExists = await this.ieltsRegistrationModel
                 .findOne({
-                    examId: id,
-                    studentId: studentInformation.studentId,
+                    examId: examExists._id,
+                    studentId,
                 })
                 .exec();
 
@@ -81,9 +88,12 @@ export class MobileIeltsExamRepository {
             }
 
             const registration = await this.ieltsRegistrationModel.create({
-                examId: id,
-                studentId: studentInformation.studentId,
-                studentInformation,
+                examId: studentInformation.examId,
+                studentId: studentId,
+                fullName: studentInformation.fullName,
+                phoneNumber: studentInformation.phoneNumber,
+                email: studentInformation.email,
+                examDate: examExists.examDate,
             });
 
             return {

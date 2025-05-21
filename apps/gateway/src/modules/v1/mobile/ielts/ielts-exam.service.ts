@@ -2,18 +2,17 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { firstValueFrom, timeout } from 'rxjs';
-import { UpdateIeltsExamDto } from './dto/update-ielts-exam.dto';
-import { FilterIeltsExamsDto } from './dto/filter-ielts-registrations.dto';
+import { CreateIeltsRegistrationDto } from './dto/create-ielts-exam.dto';
 
 @Injectable()
 export class IeltsExamService {
     constructor(@Inject('COMMUNITY_SERVICE') private readonly client: ClientProxy) {}
 
-    async getAllIeltsExamDays(location: string) {
+    async getAllIeltsExamDays(city: string) {
         return firstValueFrom(
             this.client
                 .send(MessagePatterns.Mobile.V1.GET_ALL_IELTS_EXAM_DAYS, {
-                    location,
+                    city,
                 })
                 .pipe(timeout(10000)),
         );
@@ -25,33 +24,21 @@ export class IeltsExamService {
         );
     }
 
-    async getAllExams(filterDto: FilterIeltsExamsDto) {
+    async registerForExam(body: CreateIeltsRegistrationDto, studentId: string) {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.IeltsExam.V1.GET_ALL, { filterDto: filterDto })
-                .pipe(timeout(10000)),
-        );
-    }
-
-    async updateExam(id: string, updateExamDto: UpdateIeltsExamDto, userId: string) {
-        return firstValueFrom(
-            this.client
-                .send(MessagePatterns.IeltsExam.V1.UPDATE, {
-                    updateData: updateExamDto,
-                    id,
-                    userId,
+                .send(MessagePatterns.Mobile.V1.REGISTER_FOR_EXAM, {
+                    studentInformation: body,
+                    studentId,
                 })
                 .pipe(timeout(10000)),
         );
     }
 
-    async deleteExam(id: string, userId: string) {
+    async getRegistredExams(studentId: string) {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.IeltsExam.V1.DELETE, {
-                    id,
-                    userId,
-                })
+                .send(MessagePatterns.Mobile.V1.GET_REGISTRATED_EXAMS, { studentId })
                 .pipe(timeout(10000)),
         );
     }

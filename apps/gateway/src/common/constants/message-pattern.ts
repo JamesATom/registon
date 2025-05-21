@@ -28,6 +28,7 @@ export const MessagePatterns = {
             GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
             REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
             GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
+            GET_REGISTRATED_EXAMS: 'v1.mobile.ieltsExam.get.registration',
         },
     },
     Auth: {

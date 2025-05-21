@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CommunityService } from '../../../microservices/community.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { RedisModule } from '../redis/redis.module';
-import { StoryModule } from '../story/story.module';
+import { StoryModule } from './story/story.module';
 import { IeltsExamModule } from './ielts/ielts-exam.module';
 
 @Module({
