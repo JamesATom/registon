@@ -48,15 +48,19 @@ export class SurveyController {
         return this.surveyService.update(id, updateSurveyDto, req.user);
     }
 
-    // @Get('all')
-    // findAll() {
-    //     return this.surveyService.findAll();
-    // }
+    @Get()
+    @ApiGetAll('Survey', CommonEntity)
+    @ApiOkResponse({ type: [CommonEntity] })
+    async getAll(): Promise<CommonEntity> {
+        return this.surveyService.getAll();
+    }
 
-    // @Get(':id')
-    // findOne(@Param('id') id: string) {
-    //     return this.surveyService.findOne(+id);
-    // }
+    @Get(':id')
+    @ApiGetOne('Survey')
+    @ApiOkResponse({ type: CommonEntity })
+    async getOne(@Param('id') id: string) {
+        return this.surveyService.getOne(id);
+    }
 
     // @Patch(':id')
     // update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto) {

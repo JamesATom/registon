@@ -33,8 +33,8 @@ export const MessagePatterns = {
     Survey: {
         V1: {
             CREATE: 'v1.survey.create',
-            GET_ALL: 'v1.survey.find.all',
-            GET_ONE: 'v1.survey.find.one',
+            GET_ALL: 'v1.survey.get.all',
+            GET_ONE: 'v1.survey.get.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
         },

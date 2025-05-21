@@ -27,7 +27,7 @@ export class SurveyService {
         });
     }
 
-    create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
+    async create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
         const userId = user?.userId || user?.userData?._id;
 
         const updatedDto = createSurveyDtoList.map(dto => ({
@@ -57,7 +57,7 @@ export class SurveyService {
         };
     }
 
-    update(id: string, updateSurveyDto: UpdateSurveyDto, user: any): Promise<CommonEntity> {
+    async update(id: string, updateSurveyDto: UpdateSurveyDto, user: any): Promise<CommonEntity> {
         const userId = user?.userId || user?.userData?._id;
 
         (updateSurveyDto as any).id = id;
@@ -65,6 +65,15 @@ export class SurveyService {
 
         return this.client.send(MessagePatterns.Survey.V1.UPDATE, updateSurveyDto).toPromise();
     }
+
+    async getAll(): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();
+    }
+
+    async getOne(id: string): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.GET_ONE, id).toPromise();
+    }
+
 
     // findAll() {
     //     return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();

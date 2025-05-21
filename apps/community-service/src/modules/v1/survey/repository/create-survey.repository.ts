@@ -17,4 +17,12 @@ export class CreateSurveyRepository {
         console.log('updateSurveyDto', updateSurveyDto);
         return this.surveyModel.findOneAndUpdate({ _id: updateSurveyDto.id }, updateSurveyDto, { new: true, ...options });
     }
+
+    async getAll(options?: QueryOptions): Promise<SurveyDocument[]> {
+        return this.surveyModel.find({}, {}, options).lean();
+    }
+
+    async getOne(id: string, options?: QueryOptions): Promise<SurveyDocument> {
+        return this.surveyModel.findById(id, {}, options).lean();
+    }
 }

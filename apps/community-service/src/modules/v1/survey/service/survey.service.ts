@@ -16,14 +16,15 @@ export class SurveyService {
     async update(updateSurveyDto: UpdateSurveyDto[]): Promise<CommonEntity> {
         return { statusCode: HttpStatus.OK, message: 'Survey updated successfully', data: await this.createSurveyRepository.updateOne(updateSurveyDto, { lean: true }) };
     }
-    // findAll() {
-    //     return `This action returns all survey`;
-    // }
+    
+    async getAll(): Promise<CommonEntity> {
+        return { statusCode: HttpStatus.OK, message: 'Surveys retrieved successfully', data: await this.createSurveyRepository.getAll({ lean: true }) };
+    }
 
-    // findOne(id: number) {
-    //     return `This action returns a #${id} survey`;
-    // }
-
+    async getOne(id: string): Promise<CommonEntity> {
+        return { statusCode: HttpStatus.OK, message: 'Survey retrieved successfully', data: await this.createSurveyRepository.getOne(id, { lean: true }) };
+    }
+    
     // update(id: number, updateSurveyDto: UpdateSurveyDto) {
     //     return `This action updates a #${id} survey`;
     // }

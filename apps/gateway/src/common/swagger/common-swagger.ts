@@ -112,10 +112,10 @@ export const ApiGetAll = (entity: string, model: Type<any>) =>
         ApiInternalServerErrorResponse(`Failed to fetch ${entity}s`),
     );
 
-export const ApiGetOne = (entity: string, model: Type<any>) =>
+export const ApiGetOne = (entity: string) =>
     applyDecorators(
         ApiOperation({ summary: `Get ${entity} by ID` }),
-        CommonSuccessResponse(200, `${entity} details`, model),
+        CommonSuccessResponse(200, `${entity} details`),
         ApiNotFoundResponse(entity),
         ApiInternalServerErrorResponse(`Failed to fetch ${entity} details`),
     );
