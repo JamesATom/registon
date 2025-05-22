@@ -12,11 +12,16 @@ services:
             APP_NAME_1: Registon
             APP_NAME_2: Gateway
             REGISTON_BACKEND_URL_FRONT_WEB: https://backend.edutizim.uz/moderator-web-api
-            MONGODB_URI: mongodb://mongodb:27017/registon
+            MONGODB_URI: mongodb://admin:password@mongodb:27017/registan?authSource=admin
             REDIS_URL: redis://redis:6379
             REDIS_HOST: redis
             REDIS_PORT: 6379
             NODE_ENV: production
+            DO_SPACES_REGION: fra1
+            DO_SPACES_ENDPOINT: fra1.digitaloceanspaces.com
+            DO_SPACES_KEY: DO80182Q4BUZ98EEHV2R
+            DO_SPACES_SECRET: q4AaseFy/RlY5Q/F6w/h6ynCHBbKYszf9Ep3XreF71E
+            DO_SPACES_BUCKET: registon-edu
         depends_on:
             rabbitmq:
                 condition: service_healthy
@@ -37,8 +42,8 @@ services:
             REDIS_URL: redis://redis:6379
             REDIS_HOST: redis
             REDIS_PORT: 6379
-            MONGODB_URI: mongodb://mongodb:27017/registon
             NODE_ENV: production
+            MONGODB_URI: mongodb://admin:password@mongodb:27017/registan?authSource=admin
         depends_on:
             rabbitmq:
                 condition: service_healthy
@@ -66,11 +71,14 @@ services:
             start_period: 40s
 
     redis:
+        container_name: redis
         image: redis:7
         ports:
             - "6379:6379"
         volumes:
             - redis_data:/data
+            - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+        command: redis-server --appendonly yes --appendfsync everysec
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
             interval: 10s
@@ -99,3 +107,5 @@ volumes:
     rabbitmq_data:
     mongodb_data:
     redis_data:
+
+# networks:

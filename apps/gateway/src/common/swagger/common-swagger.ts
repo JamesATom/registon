@@ -1,123 +1,136 @@
 // common-swagger.ts
-import { applyDecorators } from '@nestjs/common';
-import { ApiResponse, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { applyDecorators, Type } from '@nestjs/common';
+import {
+    ApiResponse,
+    ApiOperation,
+    ApiBearerAuth,
+    ApiExtraModels,
+    getSchemaPath,
+} from '@nestjs/swagger';
+import { CommonEntity } from '../libs/common.entity';
 
-// Common success responses
-export const ApiOkResponse = (description: string, type?: any) =>
-    ApiResponse({
-        status: 200,
-        description,
-        type: type || undefined,
-    });
+const CommonSuccessResponse = (
+    status: number,
+    message: string,
+    model?: Type<any>,
+    isArray = false,
+) => {
+    const decorators = [];
 
-export const ApiCreatedResponse = (description: string, type?: any) =>
-    ApiResponse({
-        status: 201,
-        description,
-        type: type || undefined,
-    });
+    if (model) {
+        decorators.push(
+            ApiExtraModels(CommonEntity, model),
+            ApiResponse({
+                status,
+                description: message,
+                schema: {
+                    allOf: [
+                        {
+                            $ref: getSchemaPath(CommonEntity),
+                        },
+                        {
+                            properties: {
+                                statusCode: { type: 'number', example: status },
+                                message: { type: 'string', example: message },
+                                data: isArray
+                                    ? {
+                                          type: 'array',
+                                          items: { $ref: getSchemaPath(model) },
+                                      }
+                                    : {
+                                          $ref: getSchemaPath(model),
+                                      },
+                            },
+                        },
+                    ],
+                },
+            }),
+        );
+    } else {
+        decorators.push(
+            ApiResponse({
+                status,
+                description: message,
+                schema: {
+                    type: 'object',
+                    properties: {
+                        statusCode: { type: 'number', example: status },
+                        message: { type: 'string', example: message },
+                        data: { type: 'object', example: {} },
+                    },
+                },
+            }),
+        );
+    }
 
-// Common error responses
-export const ApiUnauthorizedResponse = () =>
+    return applyDecorators(...decorators);
+};
+
+const CommonErrorResponse = (status: number, message: string) =>
     ApiResponse({
-        status: 401,
-        description: 'Unauthorized',
+        status,
+        description: message,
         schema: {
             type: 'object',
             properties: {
-                status: { type: 'string', example: 'error' },
-                message: { type: 'string', example: 'Unauthorized access' },
+                statusCode: { type: 'number', example: status },
+                message: { type: 'string', example: message },
+                data: { type: 'object', example: {} },
             },
         },
     });
+
+// 🔐 Auth
+export const ApiAuth = () =>
+    applyDecorators(
+        ApiBearerAuth('JWT'),
+        CommonErrorResponse(401, 'Unauthorized access'),
+        CommonErrorResponse(403, 'Forbidden'),
+    );
+
+// 🚫 Error handlers
+export const ApiUnauthorizedResponse = () =>
+    CommonErrorResponse(401, 'Unauthorized access');
 
 export const ApiForbiddenResponse = () =>
-    ApiResponse({
-        status: 403,
-        description: 'Forbidden',
-        schema: {
-            type: 'object',
-            properties: {
-                status: { type: 'string', example: 'error' },
-                message: { type: 'string', example: 'Unauthorized user or action' },
-            },
-        },
-    });
+    CommonErrorResponse(403, 'Forbidden');
 
-export const ApiNotFoundResponse = (entity: string, exampleId?: string) =>
-    ApiResponse({
-        status: 404,
-        description: `${entity} Not Found`,
-        schema: {
-            type: 'object',
-            properties: {
-                statusCode: { type: 'number', example: 404 },
-                message: {
-                    type: 'string',
-                    example: `${entity} with ID ${exampleId || 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'} not found`,
-                },
-                error: { type: 'string', example: 'Not Found' },
-            },
-        },
-    });
+export const ApiNotFoundResponse = (entity: string) =>
+    CommonErrorResponse(404, `${entity} with ID not found`);
 
 export const ApiConflictResponse = (message: string) =>
-    ApiResponse({
-        status: 409,
-        description: 'Conflict',
-        schema: {
-            type: 'object',
-            properties: {
-                status: { type: 'string', example: 'error' },
-                message: { type: 'string', example: message },
-            },
-        },
-    });
+    CommonErrorResponse(409, message);
 
 export const ApiInternalServerErrorResponse = (message: string) =>
-    ApiResponse({
-        status: 500,
-        description: 'Internal Server Error',
-        schema: {
-            type: 'object',
-            properties: {
-                status: { type: 'string', example: 'error' },
-                message: { type: 'string', example: message },
-            },
-        },
-    });
+    CommonErrorResponse(500, message);
 
-// Common combined decorators
-export const ApiAuth = () =>
-    applyDecorators(ApiBearerAuth('JWT'), ApiUnauthorizedResponse(), ApiForbiddenResponse());
-
-// Common CRUD operation decorators
-export const ApiGetAll = (entity: string, type: any) =>
+// 🧱 CRUD decorators
+export const ApiGetAll = (entity: string, model: Type<any>) =>
     applyDecorators(
         ApiOperation({ summary: `Get all ${entity}s` }),
-        ApiOkResponse(`List of ${entity}s`, [type]),
+        CommonSuccessResponse(200, `List of ${entity}s`, model, true),
         ApiInternalServerErrorResponse(`Failed to fetch ${entity}s`),
     );
 
-export const ApiGetOne = (entity: string, type: any) =>
+export const ApiGetOne = (entity: string) =>
     applyDecorators(
         ApiOperation({ summary: `Get ${entity} by ID` }),
-        ApiOkResponse(`${entity} details`, type),
+        CommonSuccessResponse(200, `${entity} details`),
         ApiNotFoundResponse(entity),
         ApiInternalServerErrorResponse(`Failed to fetch ${entity} details`),
     );
 
-export const ApiCreate = (entity: string, type?: any) =>
+export const ApiCreate = (entity: string, model?: Type<any>) =>
     applyDecorators(
         ApiOperation({ summary: `Create ${entity}` }),
-        ApiCreatedResponse(`${entity} created successfully`, type),
+        CommonSuccessResponse(201, `${entity} created successfully`, model),
         ApiInternalServerErrorResponse(`Failed to create ${entity}`),
     );
 
-export const ApiUpdate = (entity: string, type: any) =>
+export const ApiUpdate = (entity: string, model: Type<any>) =>
     applyDecorators(
         ApiOperation({ summary: `Update ${entity}` }),
-        ApiOkResponse(`${entity} updated successfully`, type),
+        CommonSuccessResponse(200, `${entity} updated successfully`, model),
         ApiNotFoundResponse(entity),
         ApiInternalServerErrorResponse(`Failed to update ${entity}`),
     );
@@ -125,7 +138,7 @@ export const ApiUpdate = (entity: string, type: any) =>
 export const ApiDelete = (entity: string) =>
     applyDecorators(
         ApiOperation({ summary: `Delete ${entity}` }),
-        ApiOkResponse(`${entity} deleted successfully`),
+        CommonSuccessResponse(200, `${entity} deleted successfully`),
         ApiNotFoundResponse(entity),
         ApiInternalServerErrorResponse(`Failed to delete ${entity}`),
     );

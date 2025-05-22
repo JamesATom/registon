@@ -6,8 +6,9 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonEntity } from 'src/common/libs/common.entity';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
-import { CreateSurveyDto, CreateSurveyPresignedUploadDto } from '../dto/create-survey.dto';
-import { CreateSurveyPresignedUploadEntity } from '../entity/create-survey.entity';
+import { CreateSurveyDto } from '../dto/create-survey.dto';
+import { CreatePresignedUrlDto } from '../dto/create-presigned-url.dto';
+import { CreatePresignedUrlEntity } from '../entity/create-presigned-url.entity';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
 
 @Injectable()
@@ -26,7 +27,7 @@ export class SurveyService {
         });
     }
 
-    create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
+    async create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
         const userId = user?.userId || user?.userData?._id;
 
         const updatedDto = createSurveyDtoList.map(dto => ({
@@ -37,7 +38,7 @@ export class SurveyService {
         return this.client.send(MessagePatterns.Survey.V1.CREATE, updatedDto).toPromise();
     }
 
-    async generatePresignedUploadUrl({ filename, contentType }: CreateSurveyPresignedUploadDto): Promise<CreateSurveyPresignedUploadEntity> {
+    async generatePresignedUploadUrl({ filename, contentType }: CreatePresignedUrlDto): Promise<CreatePresignedUrlEntity> {
         const uniqueKey = `survey/${uuidv4()}-${filename}`;
 
         const command = new PutObjectCommand({
@@ -55,6 +56,24 @@ export class SurveyService {
             publicUrl: `https://${this.BUCKET}.${process.env.DO_SPACES_REGION}.digitaloceanspaces.com/${uniqueKey}`,
         };
     }
+
+    async update(id: string, updateSurveyDto: UpdateSurveyDto, user: any): Promise<CommonEntity> {
+        const userId = user?.userId || user?.userData?._id;
+
+        (updateSurveyDto as any).id = id;
+        (updateSurveyDto as any).updatedBy = userId;
+
+        return this.client.send(MessagePatterns.Survey.V1.UPDATE, updateSurveyDto).toPromise();
+    }
+
+    async getAll(): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();
+    }
+
+    async getOne(id: string): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.GET_ONE, id).toPromise();
+    }
+
 
     // findAll() {
     //     return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();

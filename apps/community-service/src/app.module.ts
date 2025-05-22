@@ -14,12 +14,8 @@ import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
         }),
         MongooseModule.forRootAsync({
             useFactory: () => {
-                const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/registan';
-                console.log('Using MongoDB URI:', mongoUri);
                 return {
-                    uri: mongoUri,
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true,
+                    uri:  process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : process.env.MONGODB_URI_LOCAL, 
                 };
             },
         }),

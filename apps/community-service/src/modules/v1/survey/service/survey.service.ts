@@ -1,7 +1,6 @@
 // survey.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { CommonEntity } from 'src/common/libs/common.entity';
-import type { Survey } from '../schema/survey.schema';
 import { CreateSurveyRepository } from '../repository/create-survey.repository';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
@@ -11,18 +10,21 @@ export class SurveyService {
     constructor(private readonly createSurveyRepository: CreateSurveyRepository) {}
 
     async create(createSurveyDto: CreateSurveyDto[]): Promise<CommonEntity> {
-        await this.createSurveyRepository.createMany(createSurveyDto);
-        return { status: 'success', message: 'Survey created successfully' };
+        return { statusCode: HttpStatus.CREATED, message: 'Survey created successfully', data: await this.createSurveyRepository.createMany(createSurveyDto, { lean: true }) };
     }
 
-    // findAll() {
-    //     return `This action returns all survey`;
-    // }
+    async update(updateSurveyDto: UpdateSurveyDto[]): Promise<CommonEntity> {
+        return { statusCode: HttpStatus.OK, message: 'Survey updated successfully', data: await this.createSurveyRepository.updateOne(updateSurveyDto, { lean: true }) };
+    }
+    
+    async getAll(): Promise<CommonEntity> {
+        return { statusCode: HttpStatus.OK, message: 'Surveys retrieved successfully', data: await this.createSurveyRepository.getAll({ lean: true }) };
+    }
 
-    // findOne(id: number) {
-    //     return `This action returns a #${id} survey`;
-    // }
-
+    async getOne(id: string): Promise<CommonEntity> {
+        return { statusCode: HttpStatus.OK, message: 'Survey retrieved successfully', data: await this.createSurveyRepository.getOne(id, { lean: true }) };
+    }
+    
     // update(id: number, updateSurveyDto: UpdateSurveyDto) {
     //     return `This action updates a #${id} survey`;
     // }

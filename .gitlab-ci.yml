@@ -32,17 +32,17 @@ deploy:
     stage: deploy
     tags:
         - remote-shell-dev
+    variables:
+        GIT_STRATEGY: fetch
+        GIT_CLEAN_FLAGS: -ffdx -e redis/redis.conf
     interruptible: true
     script:
         - echo "Cleaning up Docker to free space..."
         - docker system prune -af
-        - docker volume prune -f
+        # ❌ DON'T run this: - docker volume prune -f
         - echo "Deploying to Remote Dev Server"
         - docker compose -f docker-compose.yml down
-
         - docker rm -f $(docker ps -a -q --filter name=rabbitmq) || true
         - docker rmi $(docker images rabbitmq:3-management -q) || true
-        
         - docker compose -f docker-compose.yml pull
-        
         - docker compose -f docker-compose.yml up -d --build

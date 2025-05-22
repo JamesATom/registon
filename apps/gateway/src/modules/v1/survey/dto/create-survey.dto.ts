@@ -2,22 +2,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsNotEmpty, IsEnum, IsMongoId } from 'class-validator';
 
-export class CreateSurveyPresignedUploadDto {
-    @ApiProperty({
-        description: 'The filename of the file to be uploaded',
-        example: 'survey-image.jpg',
-    })
-    @IsString()
-    filename: string;
-
-    @ApiProperty({
-        description: 'The content type of the file to be uploaded',
-        example: 'image/jpeg',
-    })
-    @IsString()
-    contentType: string;
-}
-
 export class CreateSurveyDto {
     @ApiPropertyOptional({ description: 'Optional Admin comment', maxLength: 250, example: 'Reviewed by admin.' })
     @IsOptional()

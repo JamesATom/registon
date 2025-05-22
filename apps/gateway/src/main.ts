@@ -4,7 +4,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { VersioningType, ValidationPipe } from '@nestjs/common';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
-import { ErrorInterceptor } from './common/interceptors/error.interceptor';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -35,7 +34,6 @@ async function bootstrap() {
 
     app.useGlobalInterceptors(
         new LoggingInterceptor(),
-        new ErrorInterceptor(),
         new RpcErrorInterceptor(),
     );
 
