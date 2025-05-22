@@ -1,4 +1,3 @@
-// auth.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { RedisService } from '../../redis/redis.service';
@@ -15,10 +14,11 @@ export class AuthService {
         const data = {
             phoneNumber: phoneNumber,
         };
-
         try {
+            console.log('1');
+            console.log(url);
             const response = await axios.post(url, data);
-
+            console.log('2');
             return response.data;
         } catch (error) {
             this.logger.error('Error during sign-in', error);
@@ -34,6 +34,7 @@ export class AuthService {
 
         try {
             const response = await axios.post(url, data);
+
             await this.redisService.setUserData(phoneNumber, response.data, 86400);
             return response.data;
         } catch (error) {

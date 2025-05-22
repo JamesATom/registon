@@ -21,7 +21,6 @@ export class RpcExceptionFilter implements ExceptionFilter {
         let errorMessage = 'Internal server error';
         let errorType = 'InternalServerError';
 
-        // Handle different types of exceptions
         if (exception instanceof HttpException) {
             statusCode = exception.getStatus();
             errorMessage = exception.message;
@@ -35,9 +34,7 @@ export class RpcExceptionFilter implements ExceptionFilter {
             errorType = exception.name;
         }
 
-        // Return standardized error response
         return {
-            status: 'error',
             statusCode,
             message: errorMessage,
             error: errorType,

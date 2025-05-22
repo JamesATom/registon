@@ -1,20 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Story, StorySchema } from '../../../shared/models/story.schema';
-import { StoryItem, StoryItemSchema } from '../../../shared/models/story-item.schema';
-import { MobileRepository } from './mobile.repository';
-import { MobileService } from './mobile.service';
-import { MobileEvent } from './mobile.event';
+import { MobileStoryModule } from './story/story.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { MobileIeltsExamModule } from './ielts-exam/ielts-exam.module';
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([
-            { name: Story.name, schema: StorySchema },
-            { name: StoryItem.name, schema: StoryItemSchema },
-        ]),
-    ],
-    controllers: [MobileEvent],
-    providers: [MobileService, MobileRepository],
-    exports: [MobileService],
+    imports: [SharedModule, MobileStoryModule, MobileIeltsExamModule],
+    exports: [MobileStoryModule, MobileIeltsExamModule],
 })
 export class MobileModule {}

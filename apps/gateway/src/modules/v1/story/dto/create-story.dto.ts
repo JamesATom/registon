@@ -66,16 +66,6 @@ export class CreateStoryDto {
     @IsString()
     buttonText?: string;
 
-    @ApiProperty({ description: 'ID of the user who created the story' })
-    @IsOptional()
-    @IsString()
-    createdBy: string;
-
-    @ApiProperty({ description: 'ID of the user who updated the story' })
-    @IsOptional()
-    @IsString()
-    updatedBy: string;
-
     @ApiProperty({ description: 'Branch IDs associated with this story' })
     @IsNotEmpty()
     @IsArray()

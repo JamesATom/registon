@@ -1,8 +1,15 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { FileUploadDto } from './dto/file-upload.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { Inject } from '@nestjs/common';
 import { firstValueFrom, timeout, catchError } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { v4 as uuidv4 } from 'uuid';
+import { join } from 'path';
+import { PresignedUrlDto } from './dto/presigned-url.dto';
+import { PresignedUrlResponseDto } from './dto/presigned-url-response.dto';
 
 // Define a type for the uploaded file
 interface MulterFile {
@@ -19,51 +26,65 @@ interface MulterFile {
 
 @Injectable()
 export class FileService {
-    constructor(@Inject('COMMUNITY_SERVICE') private communityClient: ClientProxy) {}
+    private readonly logger = new Logger(FileService.name);
+    private readonly s3Client: S3Client;
+    private readonly bucketName: string;
+    private readonly baseUrl: string;
 
-    async uploadFile(file: MulterFile, fileUploadDto: FileUploadDto) {
+    constructor(
+        @Inject('COMMUNITY_SERVICE') private communityClient: ClientProxy,
+        private configService: ConfigService,
+    ) {
+        // Initialize S3 client with DigitalOcean Spaces configuration
+        this.s3Client = new S3Client({
+            region: 'fra1', // DigitalOcean Spaces region
+            endpoint: 'https://fra1.digitaloceanspaces.com', // DigitalOcean Spaces endpoint
+            credentials: {
+                accessKeyId: this.configService.get<string>('DO_SPACES_ACCESS_KEY_ID'),
+                secretAccessKey: this.configService.get<string>('DO_SPACES_SECRET_ACCESS_KEY'),
+            },
+        });
+
+        this.bucketName = this.configService.get<string>('DO_SPACES_BUCKET_NAME', 'registon-edu');
+        this.baseUrl = this.configService.get<string>(
+            'DO_SPACES_BASE_URL',
+            'https://registon-edu.fra1.digitaloceanspaces.com',
+        );
+    }
+
+    async generatePresignedUrl(presignedUrlDto: PresignedUrlDto): Promise<PresignedUrlResponseDto> {
         try {
-            console.log('Starting file upload process in service');
-            console.log('File details:', {
-                name: file.originalname,
-                size: file.size,
-                mimetype: file.mimetype,
-                folder: fileUploadDto.folder,
-                filename: fileUploadDto.filename,
+            const { filename, contentType, folder } = presignedUrlDto;
+
+            const timestamp = new Date().getTime();
+            const sanitizedName = filename.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-_.]/g, '');
+            const uniqueFilename = `${timestamp}-${uuidv4().slice(0, 8)}-${sanitizedName}`;
+            const key = join(folder, uniqueFilename);
+
+            const command = new PutObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+                ContentType: contentType,
             });
 
-            // Convert file buffer to base64 to send through microservice transport
-            const fileData = {
-                originalname: file.originalname,
-                mimetype: file.mimetype,
-                size: file.size,
-                buffer: file.buffer.toString('base64'),
-                folder: fileUploadDto.folder || 'default',
-                filename: fileUploadDto.filename,
+            const presignedUrl = await getSignedUrl(this.s3Client, command, {
+                expiresIn: 3600,
+            });
+
+            const fileUrl = `${this.baseUrl}/${key}`;
+
+            this.logger.log(`Generated presigned URL for ${folder}/${uniqueFilename}`);
+
+            return {
+                presignedUrl,
+                fileUrl,
+                key,
             };
-
-            console.log('Sending file data to community service...');
-
-            // Send to community service
-            const result = await firstValueFrom(
-                this.communityClient.send('file.upload', fileData).pipe(
-                    // Add timeout to avoid hanging indefinitely
-                    timeout(30000), // 30 seconds timeout
-                    catchError(err => {
-                        console.error('Error in microservice communication:', err);
-                        throw new Error(
-                            'Communication with file upload service timed out or failed',
-                        );
-                    }),
-                ),
-            );
-
-            console.log('Received response from community service:', result);
-            return result;
-        } catch (error: any) {
+        } catch (error) {
+            this.logger.error(`Error generating presigned URL: ${error.message}`);
             throw new HttpException(
-                error.message || 'Error uploading file',
-                error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+                'Failed to generate presigned URL',
+                HttpStatus.INTERNAL_SERVER_ERROR,
             );
         }
     }

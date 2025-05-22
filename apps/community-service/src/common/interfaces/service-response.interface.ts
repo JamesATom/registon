@@ -1,5 +1,4 @@
 export interface ErrorResponse {
-    status: 'error';
     statusCode: number;
     message: string;
     error?: string;
@@ -8,10 +7,27 @@ export interface ErrorResponse {
 }
 
 export interface SuccessResponse<T = any> {
-    status: 'success';
     statusCode: number;
     data: T;
     message?: string;
 }
 
-export type ServiceResponse<T = any> = ErrorResponse | SuccessResponse<T>;
+export interface PaginateResult<T> {
+    statusCode?: number;
+    message?: string;
+    docs: T[];
+    totalDocs: number;
+    limit: number;
+    page?: number;
+    totalPages: number;
+    pagingCounter: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+}
+
+export interface ServiceResponse<T> {
+  statusCode: number;
+  message: string;
+  data?: T;
+  pagination?: any;
+}

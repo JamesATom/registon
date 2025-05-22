@@ -24,6 +24,9 @@ export class MobileStoryItemEntity {
 
     @ApiProperty()
     updatedAt: Date;
+
+    @ApiProperty({ description: 'Whether the student has viewed this story item' })
+    isViewed: boolean;
 }
 
 export class MobileBranchEntity {
@@ -82,14 +85,40 @@ export class MobileStoryEntity {
 
     @ApiProperty()
     updatedAt: Date;
+
+    @ApiProperty({ description: 'Whether the student has viewed this story' })
+    isViewed: boolean;
+
+    @ApiProperty({ description: 'Whether the student has pressed the button on this story' })
+    isButtonPressed: boolean;
 }
 
-export class MobileStoryWithItemsEntity extends MobileStoryEntity {
-    @ApiProperty({ type: [MobileStoryItemEntity] })
+export class StoryWithItemsResponseData {
+    @ApiProperty({ type: [MobileStoryItemEntity], description: 'Array of story items with their viewed status' })
     items: MobileStoryItemEntity[];
+
+    @ApiProperty({ description: 'Whether the student has pressed the button on this story' })
+    isButtonPressed: boolean;
+}
+
+export class StoryWithItemsResponseEntity {
+    @ApiProperty({ example: 200 })
+    statusCode: number;
+
+    @ApiProperty({ example: 'Story items fetched successfully for mobile' })
+    message: string;
+
+    @ApiProperty({ type: StoryWithItemsResponseData })
+    data: StoryWithItemsResponseData;
 }
 
 export class MobileStoryListResponseEntity {
+    @ApiProperty({ example: 200 })
+    statusCode: number;
+
+    @ApiProperty({ example: 'Stories fetched successfully for mobile' })
+    message: string;
+
     @ApiProperty({ type: [MobileStoryEntity] })
     data: MobileStoryEntity[];
 }

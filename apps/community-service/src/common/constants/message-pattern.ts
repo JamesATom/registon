@@ -21,6 +21,14 @@ export const MessagePatterns = {
         V1: {
             GET_ALL_STORIES: 'v1.mobile.story.find.all',
             GET_STORY_WITH_ITEMS: 'v1.mobile.story.find.one',
+            TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
+            TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
+            TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
+            // Ielts exam operations
+            GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
+            REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
+            GET_EXAM_REGISTRATION: 'v1.mobile.ieltsExam.get.registration',
+            GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
         },
     },
     Auth: {
@@ -37,6 +45,15 @@ export const MessagePatterns = {
             GET_ONE: 'v1.survey.get.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
+        },
+    },
+    IeltsExam: {
+        V1: {
+            GET_ALL: 'v1.ieltsExam.find.all',
+            CREATE: 'v1.ieltsExam.create',
+            FIND_ONE: 'v1.ieltsExam.find.one',
+            UPDATE: 'v1.ieltsExam.update',
+            DELETE: 'v1.ieltsExam.delete',
         },
     },
 };

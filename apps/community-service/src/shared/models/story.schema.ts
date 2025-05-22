@@ -62,6 +62,4 @@ export class Story {
 
 export const StorySchema = SchemaFactory.createForClass(Story);
 
-// No transforms - use MongoDB's native ISO format for timestamps
-
 StorySchema.plugin(require('mongoose-paginate-v2'));

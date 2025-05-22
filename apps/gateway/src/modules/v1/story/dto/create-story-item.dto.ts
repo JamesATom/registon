@@ -1,16 +1,7 @@
-import {
-    IsNotEmpty,
-    IsString,
-    IsOptional,
-    IsNumber,
-    IsMongoId,
-    ValidateNested,
-    IsArray,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsNumber, IsMongoId } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 
-export class StoryItemContent {
+export class CreateStoryItemDto {
     @ApiProperty({ description: 'Title of the story item', maxLength: 100 })
     @IsNotEmpty()
     @IsString()
@@ -36,26 +27,8 @@ export class StoryItemContent {
     @IsNumber()
     orderNumber?: number;
 
-    // This field will be populated from the uploaded file
-    @ApiProperty({ type: 'string', format: 'binary', description: 'Image file to upload' })
-    @IsOptional()
-    file?: any; // Only used for Swagger documentation - will be processed by the controller
-}
-
-export class CreateStoryItemDto {
     @ApiProperty({ description: 'ID of the parent story' })
     @IsNotEmpty()
     @IsMongoId()
     storyId: string;
-
-    @ApiProperty({
-        description: 'Story item content',
-        type: [StoryItemContent],
-        isArray: true,
-    })
-    @IsNotEmpty()
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => StoryItemContent)
-    storyItems: StoryItemContent[];
 }

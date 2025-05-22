@@ -1,4 +1,3 @@
-// app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { RedisModule } from './modules/v1/redis/redis.module';
@@ -8,6 +7,7 @@ import { MobileModule } from './modules/v1/mobile/mobile.module';
 import { FileModule } from './modules/v1/file/file.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
 import { BranchModule } from './modules/v1/branch/branch.module';
+import { IeltsExamModule } from './modules/v1/services/ielts/ielts-exam.module';
 
 @Module({
     imports: [
@@ -15,14 +15,14 @@ import { BranchModule } from './modules/v1/branch/branch.module';
             isGlobal: true,
             envFilePath: '.env',
         }),
+        MobileModule,
         RedisModule,
         AuthModule,
         StoryModule,
-        MobileModule,
         FileModule,
         SurveyModule,
         BranchModule,
-        
+        IeltsExamModule,
     ],
     controllers: [],
     providers: [],

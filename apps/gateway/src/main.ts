@@ -1,4 +1,3 @@
-// main.ts
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -13,9 +12,9 @@ async function bootstrap() {
     });
 
     const fastifyMultipart = require('@fastify/multipart');
-    fastifyAdapter.register(fastifyMultipart, {
+    await fastifyAdapter.register(fastifyMultipart, {
         limits: {
-            fileSize: 100 * 1024 * 1024, // 10MB
+            fileSize: 100 * 1024 * 1024, // 100MB
         },
     });
 
@@ -47,31 +46,55 @@ async function bootstrap() {
         }),
     );
 
-    const config = new DocumentBuilder()
-        .setTitle(`${process.env.APP_NAME_1} API`)
-        .setDescription(`The ${process.env.APP_NAME_1} API description`)
-        .setVersion('1.0')
-        .addTag(`${process.env.APP_NAME_1}`)
-        .addBearerAuth(
-            {
-                type: 'http',
-                scheme: 'bearer',
-                bearerFormat: 'JWT',
-                in: 'header',
-            },
-            'JWT',
-        )
-        .build();
+    setupSwaggerDocumentation(app);
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app as any, document);
-
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 3000;
     await app.listen(PORT, '0.0.0.0', () => {
         console.log(
-            `${process.env.APP_NAME_1 + ' ' + process.env.APP_NAME_2} server is running on port => ${PORT}`,
+            `${process.env.APP_NAME_1 ?? 'App'} ${process.env.APP_NAME_2 ?? ''} server is running on port => ${PORT}`,
         );
     });
+}
+
+function setupSwaggerDocumentation(app: NestFastifyApplication) {
+    const fullConfig = new DocumentBuilder()
+        .setTitle(`${process.env.APP_NAME_1 ?? 'App'} API`)
+        .setDescription('Complete API documentation')
+        .setVersion('1.0')
+        .addBearerAuth()
+        .build();
+
+    const fullDocument = SwaggerModule.createDocument(app, fullConfig);
+
+    const adminDocument = {
+        ...fullDocument,
+        paths: Object.fromEntries(
+            Object.entries(fullDocument.paths).filter(([path]) => !path.includes('/mobile/')),
+        ),
+        info: {
+            ...fullDocument.info,
+            title: `${process.env.APP_NAME_1 ?? 'App'} Admin API`,
+            description: 'API documentation for administrative operations',
+        },
+    };
+
+    SwaggerModule.setup('api/admin', app, adminDocument);
+
+    const mobileDocument = {
+        ...fullDocument,
+        paths: Object.fromEntries(
+            Object.entries(fullDocument.paths).filter(
+                ([path]) => path.includes('/mobile/') || path.includes('/auth/'),
+            ),
+        ),
+        info: {
+            ...fullDocument.info,
+            title: `${process.env.APP_NAME_1 ?? 'App'} Mobile API`,
+            description: 'API documentation for mobile client operations',
+        },
+    };
+
+    SwaggerModule.setup('api/mobile', app, mobileDocument);
 }
 
 bootstrap().catch(error => {
