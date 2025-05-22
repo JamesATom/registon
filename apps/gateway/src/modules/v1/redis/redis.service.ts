@@ -1,3 +1,4 @@
+// redis.service.ts
 import { Injectable, OnModuleDestroy, Scope } from '@nestjs/common';
 import Redis from 'ioredis';
 
@@ -14,9 +15,7 @@ export class RedisService implements OnModuleDestroy {
 
     constructor() {
         this.redis = new Redis({
-            host:
-                process.env.REDIS_HOST ||
-                (process.env.NODE_ENV === 'production' ? 'redis' : 'localhost'),
+            host: process.env.REDIS_HOST || (process.env.NODE_ENV === 'production' ? 'redis' : 'localhost'),
             port: Number(process.env.REDIS_PORT) || 6379,
         });
     }
@@ -31,19 +30,15 @@ export class RedisService implements OnModuleDestroy {
         const token = data.data.token;
         const userId = data.data._id;
         const userData = data.data;
-        const fullname = userData.fullname || '';
-        const branch = userData.branch || null;
 
         if (token) {
             await this.redis.set(
                 `token:${token}`,
-                JSON.stringify({ phoneNumber, userId, userData, fullname, branch }),
+                JSON.stringify({ phoneNumber, userId, userData }),
                 'EX',
                 ttl,
             );
         }
-
-        console.log('token::::::::', await this.redis.get(`token:${token}`));
     }
 
     async getUserData(phoneNumber: string): Promise<any | null> {
