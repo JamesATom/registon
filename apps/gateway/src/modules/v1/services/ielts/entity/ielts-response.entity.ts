@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IeltsExamStatus } from '../../../../../common/enum/common.enum';
+import { IeltsExamStatus, IeltsExamType } from '../../../../../common/enum/common.enum';
 
 export class IeltsExamEntity {
     @ApiProperty({ example: '60a7c8b9e4b0c1234567890' })
@@ -19,6 +19,9 @@ export class IeltsExamEntity {
 
     @ApiProperty({ example: 'British Council, Tashkent' })
     location: string;
+
+    @ApiProperty({ enum: IeltsExamType, example: 'IELTS' })
+    examType: IeltsExamType;
 
     @ApiProperty({ example: 'Tashkent' })
     city: string;
@@ -56,10 +59,25 @@ export class PaginationEntity {
     limit: number;
 
     @ApiProperty({ example: 100 })
-    total: number;
+    totalDocs: number;
 
-    @ApiProperty({ example: 10 })
+    @ApiProperty({ example: 1 })
     totalPages: number;
+
+    @ApiProperty({ example: 1 })
+    pagingCounter: number;
+
+    @ApiProperty({ example: false })
+    hasPrevPage: boolean;
+
+    @ApiProperty({ example: false })
+    hasNextPage: boolean;
+
+    @ApiProperty({ example: null })
+    prevPage: number | null;
+
+    @ApiProperty({ example: null })
+    nextPage: number | null;
 }
 
 export class BaseResponseEntity {
@@ -107,6 +125,9 @@ export class IeltsRegistrationEntity {
 
     @ApiProperty({ example: 'PENDING', enum: ['PENDING', 'CONFIRMED', 'CANCELLED'] })
     status: string;
+
+    @ApiProperty({ example: 'IELTS', enum: ['IELTS', 'MOCK'] })
+    examType: string;
 
     @ApiProperty({ example: '60a7c8b9e4b0c1234567892' })
     createdBy: string;

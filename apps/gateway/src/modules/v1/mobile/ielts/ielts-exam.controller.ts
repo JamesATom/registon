@@ -16,8 +16,8 @@ export class IeltsExamController {
     @Get('exams')
     @UseGuards(AuthGuard)
     @ApiGetAllIeltsExams()
-    async getAllIeltsExamDays(@Query('city') city: string) {
-        return this.ieltsExamService.getAllIeltsExamDays(city);
+    async getAllIeltsExamDays(@Query('city') city: string, @Query('examType') examType: string) {
+        return this.ieltsExamService.getAllIeltsExamDays(city, examType);
     }
 
     @Get('exams/:id')
@@ -36,7 +36,7 @@ export class IeltsExamController {
     @Get('exams/registrations')
     @ApiGetRegistredExams()
     @UseGuards(AuthGuard)
-    async getRegistredExams(@Req() req: any) {
-        return this.ieltsExamService.getRegistredExams(req.user.userId);
+    async getRegistredExams(@Query('examType') examType: string, @Req() req: any) {
+        return this.ieltsExamService.getRegistredExams(req.user.userId, examType);
     }
 }

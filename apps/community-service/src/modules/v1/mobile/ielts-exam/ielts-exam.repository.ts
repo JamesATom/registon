@@ -21,23 +21,20 @@ export class MobileIeltsExamRepository {
         private ieltsRegistrationModel: Model<IeltsRegistrationDocument>,
     ) {}
 
-    async getAllIeltsExamDays(city: string): Promise<ServiceResponse<any[]>> {
+    async getAllIeltsExamDays(city: string, examType: string): Promise<ServiceResponse<any[]>> {
         try {
             const query: any = {
                 city: city,
+                examType: examType,
                 examDate: { $gte: new Date() },
                 status: IeltsExamStatus.ACTIVE,
             };
-
-            console.log('query', query);
 
             const result = await this.ieltsExamModel
                 .find(query)
                 .sort({ examDate: 1 })
                 .lean()
                 .exec();
-
-            console.log('result', result);
 
             return {
                 statusCode: HttpStatus.OK,
@@ -93,6 +90,7 @@ export class MobileIeltsExamRepository {
                 fullName: studentInformation.fullName,
                 phoneNumber: studentInformation.phoneNumber,
                 email: studentInformation.email,
+                examType: examExists.examType,
                 examDate: examExists.examDate,
             });
 
@@ -110,10 +108,10 @@ export class MobileIeltsExamRepository {
         }
     }
 
-    async getRegistredExams(studentId: string): Promise<ServiceResponse<any>> {
+    async getRegistredExams(studentId: string, examType: string): Promise<ServiceResponse<any>> {
         try {
             const result = await this.ieltsRegistrationModel
-                .find({ studentId })
+                .find({ studentId, examType })
                 .populate('examId')
                 .sort({ examDate: 1 })
                 .lean()

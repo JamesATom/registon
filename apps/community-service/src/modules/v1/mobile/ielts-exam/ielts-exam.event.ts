@@ -8,8 +8,8 @@ export class MobileIeltsExamEvent {
     constructor(private readonly ieltsExamService: MobileIeltsExamService) {}
 
     @MessagePattern(MessagePatterns.Mobile.V1.GET_ALL_IELTS_EXAM_DAYS)
-    async getAllIeltExamDays(@Payload() data: { city: string }) {
-        return this.ieltsExamService.getAllIeltsExamDays(data.city);
+    async getAllIeltExamDays(@Payload() data: { city: string; examType: string }) {
+        return this.ieltsExamService.getAllIeltsExamDays(data.city, data.examType);
     }
 
     @MessagePattern(MessagePatterns.Mobile.V1.GET_ONE_EXAM)
@@ -23,7 +23,7 @@ export class MobileIeltsExamEvent {
     }
 
     @MessagePattern(MessagePatterns.Mobile.V1.GET_EXAM_REGISTRATION)
-    async getRegistredExams(@Payload() data: { studentId: string }) {
-        return this.ieltsExamService.getRegistredExams(data.studentId);
+    async getRegistredExams(@Payload() data: { studentId: string; examType: string }) {
+        return this.ieltsExamService.getRegistredExams(data.studentId, data.examType);
     }
 }

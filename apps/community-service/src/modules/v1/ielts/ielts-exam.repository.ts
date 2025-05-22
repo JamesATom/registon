@@ -88,7 +88,7 @@ export class IeltsExamRepository {
     }
 
     buildQuery(filterDto: any): any {
-        const { search, status, fromDate, toDate } = filterDto;
+        const { search, status, fromDate, toDate, examType } = filterDto;
         const query: any = {};
 
         if (search) {
@@ -113,6 +113,10 @@ export class IeltsExamRepository {
             if (toDate) {
                 query.examDate.$lte = new Date(toDate);
             }
+        }
+
+        if (examType) {
+            query.examType = examType;
         }
 
         return query;

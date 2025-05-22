@@ -6,7 +6,7 @@ import {
     IeltsExamResponseEntity,
     IeltsExamListResponseEntity,
 } from '../entity/ielts-response.entity';
-import { IeltsExamStatus } from '../../../../../common/enum/common.enum';
+import { IeltsExamStatus, IeltsExamType } from '../../../../../common/enum/common.enum';
 
 export const ApiCreateIeltsExam = () =>
     applyDecorators(
@@ -29,6 +29,7 @@ export const ApiCreateIeltsExam = () =>
                             registrationDeadline: '2025-05-01T23:59:59.000Z',
                             fee: 250,
                             location: 'British Council, Tashkent',
+                            examType: 'IELTS',
                             city: 'Tashkent',
                             status: 'ACTIVE',
                             capacitySeats: 100,
@@ -112,6 +113,12 @@ export const ApiGetAllIeltsExams = () =>
             description: 'Filter by exam status',
         }),
         ApiQuery({
+            name: 'examType',
+            required: false,
+            enum: IeltsExamType,
+            description: 'Filter exams by exam type',
+        }),
+        ApiQuery({
             name: 'search',
             required: false,
             type: String,
@@ -146,6 +153,7 @@ export const ApiGetAllIeltsExams = () =>
                                 registrationDeadline: '2025-05-01T23:59:59.000Z',
                                 fee: 250,
                                 location: 'British Council, Tashkent',
+                                examType: 'IELTS',
                                 city: 'Tashkent',
                                 status: 'ACTIVE',
                                 capacitySeats: 100,
@@ -199,6 +207,7 @@ export const ApiGetIeltsExamById = () =>
                             registrationDeadline: '2025-05-01T23:59:59.000Z',
                             fee: 250,
                             location: 'British Council, Tashkent',
+                            examType: 'IELTS',
                             city: 'Tashkent',
                             status: 'ACTIVE',
                             capacitySeats: 100,
@@ -250,6 +259,7 @@ export const ApiUpdateIeltsExam = () =>
                             registrationDeadline: '2025-06-01T23:59:59.000Z',
                             fee: 275,
                             location: 'British Council, Tashkent',
+                            examType: 'IELTS',
                             city: 'Tashkent',
                             status: 'ACTIVE',
                             capacitySeats: 120,
