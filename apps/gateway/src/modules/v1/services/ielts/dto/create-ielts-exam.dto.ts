@@ -1,5 +1,3 @@
-// /apps/gateway/src/modules/v1/services/ielts/dto/create-ielts-exam.dto.ts
-
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsString,
