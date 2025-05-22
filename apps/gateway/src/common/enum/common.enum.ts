@@ -9,3 +9,8 @@ export enum IeltsExamStatus {
     CANCELLED = 'CANCELLED',
     COMPLETED = 'COMPLETED',
 }
+
+export enum IeltsExamType {
+    IELTS = 'IELTS',
+    MOCK = 'MOCK',
+}

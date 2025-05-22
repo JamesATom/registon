@@ -10,9 +10,10 @@ import {
     Min,
     Max,
     IsPositive,
+    IsNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IeltsExamStatus } from '../../../../../common/enum/common.enum';
+import { IeltsExamStatus, IeltsExamType } from '../../../../../common/enum/common.enum';
 
 /**
  * DTO for filtering IELTS exams
@@ -76,6 +77,15 @@ export class FilterIeltsExamsDto {
     @IsDate()
     @IsOptional()
     fromDate?: Date;
+
+    @ApiPropertyOptional({
+        description: 'Filter exams by exam type',
+        enum: IeltsExamType,
+        example: 'IELTS',
+    })
+    @IsEnum(IeltsExamType)
+    @IsNotEmpty()
+    examType: IeltsExamType;
 
     @ApiPropertyOptional({
         description: 'Filter exams before this date',

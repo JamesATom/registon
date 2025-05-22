@@ -6,8 +6,9 @@ import {
     IsNotEmpty,
     IsEmail,
     IsPhoneNumber,
-    IsMongoId,
+    IsEnum,
 } from 'class-validator';
+import { IeltsExamType } from '../../../../../common/enum/common.enum';
 
 export class CreateIeltsRegistrationDto {
     @ApiProperty({
@@ -27,6 +28,15 @@ export class CreateIeltsRegistrationDto {
     @IsString()
     @IsNotEmpty()
     fullName: string;
+
+    @ApiProperty({
+        description: 'Exam type choose IELTS or MOCK',
+        example: 'IELTS',
+    })
+    @IsString()
+    @IsNotEmpty()
+    @IsEnum(IeltsExamType)
+    examType: string;
 
     @ApiProperty({
         description: 'Email of student for enrolling',

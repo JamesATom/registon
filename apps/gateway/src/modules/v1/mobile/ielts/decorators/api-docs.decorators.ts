@@ -31,6 +31,7 @@ export const ApiGetAllIeltsExams = () =>
                                 title: 'IELTS Academic Test - May 2025',
                                 examDate: '2025-05-15T09:00:00.000Z',
                                 registrationDeadline: '2025-05-01T23:59:59.000Z',
+                                examType: 'IELTS',
                                 fee: 250,
                                 location: 'British Council, Tashkent',
                                 city: 'Tashkent',
@@ -79,6 +80,7 @@ export const ApiGetIeltsExamById = () =>
                             title: 'IELTS Academic Test - May 2025',
                             examDate: '2025-05-15T09:00:00.000Z',
                             registrationDeadline: '2025-05-01T23:59:59.000Z',
+                            examType: 'IELTS',
                             fee: 250,
                             location: 'British Council, Tashkent',
                             status: 'ACTIVE',
@@ -118,7 +120,6 @@ export const ApiCreateIeltsRegistration = () =>
         ApiResponse({
             status: 200,
             description: 'IELTS registration created successfully',
-            type: CreateIeltsRegistrationDto,
             content: {
                 'application/json': {
                     example: {
@@ -131,6 +132,7 @@ export const ApiCreateIeltsRegistration = () =>
                             email: 'abduqodir.khusanov@gmail.com',
                             phoneNumber: '+998991234567',
                             examDate: '2025-05-15T09:00:00.000Z',
+                            examType: 'IELTS',
                             status: 'PENDING',
                             createdAt: '2025-01-15T13:00:00Z',
                             updatedAt: '2025-01-15T13:00:00Z',
@@ -194,6 +196,7 @@ export const ApiGetRegistredExams = () =>
                                     availableSeats: 75,
                                     description:
                                         'Official IELTS Academic test with British Council',
+                                    examType: 'IELTS',
                                     createdAt: '2025-01-15T13:00:00Z',
                                     updatedAt: '2025-01-15T13:00:00Z',
                                 },

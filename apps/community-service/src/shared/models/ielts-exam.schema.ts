@@ -9,6 +9,11 @@ export enum IeltsExamStatus {
     COMPLETED = 'COMPLETED',
 }
 
+export enum IeltsExamType {
+    IELTS = 'IELTS',
+    MOCK = 'MOCK',
+}
+
 @Schema({ timestamps: true, versionKey: false })
 export class IeltsExam {
     @Prop({ required: true, maxlength: 100 })
@@ -31,6 +36,9 @@ export class IeltsExam {
 
     @Prop({ default: IeltsExamStatus.ACTIVE, enum: IeltsExamStatus })
     status: string;
+
+    @Prop({ required: true, enum: IeltsExamType })
+    examType: string;
 
     @Prop({ required: true })
     capacitySeats: number;

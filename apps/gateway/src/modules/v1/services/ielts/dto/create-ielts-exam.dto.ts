@@ -8,8 +8,10 @@ import {
     MaxLength,
     IsPositive,
     IsNotEmpty,
+    IsEnum,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IeltsExamType } from '../../../../../common/enum/common.enum';
 
 /**
  * DTO for creating a new IELTS exam
@@ -42,6 +44,16 @@ export class CreateIeltsExamDto {
     @Type(() => Date)
     @IsDate()
     registrationDeadline: Date;
+
+    @ApiProperty({
+        description: 'Exam type choose IELTS or MOCK',
+        example: 'IELTS',
+        enum: IeltsExamType,
+    })
+    @IsString()
+    @IsNotEmpty()
+    @IsEnum(IeltsExamType)
+    examType: string;
 
     @ApiProperty({
         description: 'Exam fee',

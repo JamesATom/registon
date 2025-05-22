@@ -84,17 +84,27 @@ export class StoryListResponseEntity {
 
     @ApiProperty({
         example: {
-            total: 2,
-            page: 1,
+            totalDocs: 2,
             limit: 10,
+            page: 1,
             totalPages: 1,
+            pagingCounter: 1,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null,
         },
     })
     pagination: {
-        total: number;
-        page: number;
+        totalDocs: number;
         limit: number;
+        page: number;
         totalPages: number;
+        pagingCounter: number;
+        hasPrevPage: boolean;
+        hasNextPage: boolean;
+        prevPage: number;
+        nextPage: number;
     };
 }
 
