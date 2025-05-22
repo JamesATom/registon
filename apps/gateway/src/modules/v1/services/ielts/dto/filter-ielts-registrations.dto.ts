@@ -12,7 +12,7 @@ import {
     IsPositive,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IeltsExamStatus } from '../../../../../../../community-service/src/shared/models/ielts-exam.schema';
+import { IeltsExamStatus } from '../../../../../common/enum/common.enum';
 
 /**
  * DTO for filtering IELTS exams

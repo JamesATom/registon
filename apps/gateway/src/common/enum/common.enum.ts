@@ -3,3 +3,9 @@ export enum StoryStatus {
     PUBLISHED = 'PUBLISHED',
     ARCHIVED = 'ARCHIVED',
 }
+
+export enum IeltsExamStatus {
+    ACTIVE = 'ACTIVE',
+    CANCELLED = 'CANCELLED',
+    COMPLETED = 'COMPLETED',
+}
