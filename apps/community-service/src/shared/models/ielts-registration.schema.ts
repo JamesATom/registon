@@ -9,6 +9,11 @@ export enum IeltsRegistrationStatus {
     CANCELLED = 'CANCELLED',
 }
 
+export enum IeltsRegistrationType {
+    IELTS = 'IELTS',
+    MOCK = 'MOCK',
+}
+
 @Schema({ timestamps: true, versionKey: false })
 export class IeltsRegistration {
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'IeltsExam', required: true })
@@ -28,6 +33,9 @@ export class IeltsRegistration {
 
     @Prop({ required: true })
     examDate: Date;
+
+    @Prop({ required: true, enum: IeltsRegistrationType })
+    examType: string;
 
     @Prop({ default: IeltsRegistrationStatus.PENDING, enum: IeltsRegistrationStatus })
     status: string;

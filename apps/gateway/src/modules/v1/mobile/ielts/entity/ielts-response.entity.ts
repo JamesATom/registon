@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IeltsExamStatus } from '../../../../../common/enums/roles.enum';
+import { IeltsExamStatus, IeltsExamType } from '../../../../../common/enum/common.enum';
 
 export class IeltsExamEntity {
     @ApiProperty({ example: '60a7c8b9e4b0c1234567890' })
@@ -22,6 +22,9 @@ export class IeltsExamEntity {
 
     @ApiProperty({ enum: IeltsExamStatus, example: 'ACTIVE' })
     status: IeltsExamStatus;
+
+    @ApiProperty({ enum: IeltsExamType, example: 'IELTS' })
+    examType: IeltsExamType;
 
     @ApiProperty({ example: 100 })
     capacitySeats: number;
@@ -53,10 +56,25 @@ export class PaginationEntity {
     limit: number;
 
     @ApiProperty({ example: 100 })
-    total: number;
-
-    @ApiProperty({ example: 10 })
     totalPages: number;
+
+    @ApiProperty({ example: 1 })
+    totalDocs: number;
+
+    @ApiProperty({ example: 1 })
+    pagingCounter: number;
+
+    @ApiProperty({ example: false })
+    hasPrevPage: boolean;
+
+    @ApiProperty({ example: false })
+    hasNextPage: boolean;
+
+    @ApiProperty({ example: null })
+    prevPage: number;
+
+    @ApiProperty({ example: null })
+    nextPage: number;
 }
 
 export class BaseResponseEntity {
@@ -102,7 +120,10 @@ export class IeltsRegistrationEntity {
     @ApiProperty({ example: '+998901234567' })
     phoneNumber: string;
 
-    @ApiProperty({ example: 'PENDING', enum: ['PENDING', 'CONFIRMED', 'CANCELLED'] })
+    @ApiProperty({ enum: IeltsExamType, example: 'IELTS' })
+    examType: string;
+
+    @ApiProperty({ enum: IeltsExamStatus, example: 'PENDING' })
     status: string;
 
     @ApiProperty({ example: '60a7c8b9e4b0c1234567892' })

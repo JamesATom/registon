@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IeltsExamStatus } from '../../../../../common/enum/common.enum';
-
+import { IeltsExamType } from '../../../../../common/enum/common.enum';
 /**
  * DTO for updating an existing IELTS exam
  */
@@ -55,6 +55,16 @@ export class UpdateIeltsExamDto {
     @IsPositive()
     @IsOptional()
     fee?: number;
+
+    @ApiPropertyOptional({
+        description: 'Exam type choose IELTS or MOCK',
+        example: 'IELTS',
+        enum: IeltsExamType,
+    })
+    @IsString()
+    @IsOptional()
+    @IsEnum(IeltsExamType)
+    examType?: string;
 
     @ApiPropertyOptional({
         description: 'Exam location',

@@ -8,11 +8,12 @@ import { CreateIeltsRegistrationDto } from './dto/create-ielts-exam.dto';
 export class IeltsExamService {
     constructor(@Inject('COMMUNITY_SERVICE') private readonly client: ClientProxy) {}
 
-    async getAllIeltsExamDays(city: string) {
+    async getAllIeltsExamDays(city: string, examType: string) {
         return firstValueFrom(
             this.client
                 .send(MessagePatterns.Mobile.V1.GET_ALL_IELTS_EXAM_DAYS, {
                     city,
+                    examType,
                 })
                 .pipe(timeout(10000)),
         );
@@ -35,10 +36,10 @@ export class IeltsExamService {
         );
     }
 
-    async getRegistredExams(studentId: string) {
+    async getRegistredExams(studentId: string, examType: string) {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.Mobile.V1.GET_REGISTRATED_EXAMS, { studentId })
+                .send(MessagePatterns.Mobile.V1.GET_REGISTRATED_EXAMS, { studentId, examType })
                 .pipe(timeout(10000)),
         );
     }
