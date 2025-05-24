@@ -6,6 +6,7 @@ import { CommonEntity } from 'src/common/libs/common.entity';
 import { SurveyService } from './service/survey.service';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { UpdateSurveyDto } from './dto/update-survey.dto';
+import { SubmitSurveyDto } from './dto/submit-survey.dto';
 
 @Controller()
 export class SurveyEvent {
@@ -31,5 +32,15 @@ export class SurveyEvent {
     @MessagePattern(MessagePatterns.Survey.V1.GET_ONE)
     async getOne(@Payload() id: string): Promise<CommonEntity> {
         return this.surveyService.getOne(id);
+    }
+
+    @MessagePattern(MessagePatterns.Survey.V1.DELETE)
+    async delete(@Payload() id: string): Promise<CommonEntity> {
+        return this.surveyService.delete(id);
+    }
+
+    @MessagePattern(MessagePatterns.Survey.V1.SUBMIT)
+    async submit(@Payload() submitSurveyDto: SubmitSurveyDto[]): Promise<CommonEntity> {
+        return this.surveyService.submit(submitSurveyDto);
     }
 }

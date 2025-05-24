@@ -11,7 +11,8 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '../../auth/guards/auth.guard';
+import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { IeltsExamService } from './ielts-exam.service';
 import { CreateIeltsExamDto } from './dto/create-ielts-exam.dto';
 import { UpdateIeltsExamDto } from './dto/update-ielts-exam.dto';
@@ -24,14 +25,13 @@ import {
     ApiDeleteIeltsExam,
 } from './decorators/api-docs.decorators';
 
-@ApiTags('IELTS Exams')
-@ApiBearerAuth()
+@UseGuards(JwtHttpAuthGuard)
+@ApiAuth()
 @Controller('services/ielts/exams')
 export class IeltsExamController {
     constructor(private readonly ieltsExamService: IeltsExamService) {}
 
     @Post()
-    @UseGuards(AuthGuard)
     @ApiCreateIeltsExam()
     async createExam(@Body() createExamDto: CreateIeltsExamDto, @Req() req: any) {
         return this.ieltsExamService.createExam(createExamDto, req.user.userId);
@@ -50,7 +50,6 @@ export class IeltsExamController {
     }
 
     @Put(':id')
-    @UseGuards(AuthGuard)
     @ApiUpdateIeltsExam()
     async updateExam(
         @Param('id') id: string,
@@ -61,7 +60,6 @@ export class IeltsExamController {
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard)
     @ApiDeleteIeltsExam()
     async deleteExam(@Param('id') id: string, @Req() req: any) {
         return this.ieltsExamService.deleteExam(id, req.user.userId);
