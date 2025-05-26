@@ -1,19 +1,12 @@
 // story.event.ts
-import { Controller, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { StoryService } from './story.service';
-import { StoryStatus } from '../../../shared/models/story.schema';
-import { FileService } from '../../../file/file.service';
 
 @Controller()
 export class StoryEvents {
-    private readonly logger = new Logger(StoryEvents.name);
-
-    constructor(
-        private readonly storyService: StoryService,
-        private readonly fileService: FileService,
-    ) {}
+    constructor(private readonly storyService: StoryService) {}
 
     @MessagePattern(MessagePatterns.Story.V1.CREATE)
     async createStory(@Payload() payload: { createStoryDto: any; userId: string }) {

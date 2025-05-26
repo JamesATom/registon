@@ -22,7 +22,7 @@ export class MobileIeltsExamEvent {
         return this.ieltsExamService.registerForExam(data.studentInformation, data.studentId);
     }
 
-    @MessagePattern(MessagePatterns.Mobile.V1.GET_EXAM_REGISTRATION)
+    @MessagePattern(MessagePatterns.Mobile.V1.GET_REGISTRATED_EXAMS)
     async getRegistredExams(@Payload() data: { studentId: string; examType: string }) {
         return this.ieltsExamService.getRegistredExams(data.studentId, data.examType);
     }

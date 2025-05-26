@@ -10,6 +10,7 @@ import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { CreatePresignedUrlDto } from '../dto/create-presigned-url.dto';
 import { CreatePresignedUrlEntity } from '../entity/create-presigned-url.entity';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
+import { SubmitSurveyDto } from '../dto/submit-survey.dto';
 
 @Injectable()
 export class SurveyService {
@@ -74,20 +75,18 @@ export class SurveyService {
         return this.client.send(MessagePatterns.Survey.V1.GET_ONE, id).toPromise();
     }
 
+    async delete(id: string): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.DELETE, id).toPromise();
+    }
 
-    // findAll() {
-    //     return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();
-    // }
+    async submitSurvey(submitSurveyDto: SubmitSurveyDto[], user: any): Promise<any> {
+        const userId = user?.userId || user?.userData?._id;
 
-    // findOne(id: number) {
-    //     return `This action returns a #${id} survey`;
-    // }
+        const updatedDto = submitSurveyDto.map(dto => ({
+            ...dto,
+            takenBy: userId,
+        }));
 
-    // update(id: number, updateSurveyDto: UpdateSurveyDto) {
-    //     return `This action updates a #${id} survey`;
-    // }
-
-    // remove(id: number) {
-    //     return `This action removes a #${id} survey`;
-    // }
+        return this.client.send(MessagePatterns.Survey.V1.SUBMIT, updatedDto).toPromise();
+    }
 }

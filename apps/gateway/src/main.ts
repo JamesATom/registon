@@ -1,3 +1,4 @@
+// main.ts
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -7,29 +8,18 @@ import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    const fastifyAdapter = new FastifyAdapter({
-        bodyLimit: 10 * 1024 * 1024,
-    });
-
-    const fastifyMultipart = require('@fastify/multipart');
-    await fastifyAdapter.register(fastifyMultipart, {
-        limits: {
-            fileSize: 100 * 1024 * 1024, // 100MB
-        },
-    });
-
-    const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
-
-    app.enableVersioning({
-        type: VersioningType.URI,
-        prefix: 'api/',
-        defaultVersion: '1',
-    });
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
     app.enableCors({
         origin: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
+    });
+
+    app.enableVersioning({
+        type: VersioningType.URI,
+        prefix: 'api/',
+        defaultVersion: '1',
     });
 
     app.useGlobalInterceptors(
@@ -61,7 +51,15 @@ function setupSwaggerDocumentation(app: NestFastifyApplication) {
         .setTitle(`${process.env.APP_NAME_1 ?? 'App'} API`)
         .setDescription('Complete API documentation')
         .setVersion('1.0')
-        .addBearerAuth()
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                in: 'header',
+            },
+            'JWT',
+        )
         .build();
 
     const fullDocument = SwaggerModule.createDocument(app, fullConfig);

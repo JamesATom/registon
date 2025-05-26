@@ -8,7 +8,6 @@ export const MessagePatterns = {
             UPDATE: 'v1.story.update',
             UPDATE_WITH_FILE: 'v1.story.update.with.file',
             DELETE: 'v1.story.delete',
-
             CREATE_ITEM: 'v1.story.item.create',
             CREATE_ITEM_WITH_FILE: 'v1.story.item.create.with.file',
             FIND_ONE_ITEM: 'v1.story.item.find.one',
@@ -18,18 +17,39 @@ export const MessagePatterns = {
             //
         },
     },
+
+    University: {
+        V1: {
+            GET_ALL: 'v1.university.find.all',
+            CREATE: 'v1.university.create',
+            FIND_ONE: 'v1.university.find.one',
+            UPDATE: 'v1.university.update',
+            DELETE: 'v1.university.delete',
+            ADD_PROGRAM: 'v1.university.add.program',
+            UPDATE_PROGRAM: 'v1.university.update.program',
+            DELETE_PROGRAM: 'v1.university.delete.program',
+        },
+    },
+
     Mobile: {
         V1: {
+            //STORIES
             GET_ALL_STORIES: 'v1.mobile.story.find.all',
             GET_STORY_WITH_ITEMS: 'v1.mobile.story.find.one',
             TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
             TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
             TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
-            //
+            // IELTS
             GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
             REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
             GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
             GET_REGISTRATED_EXAMS: 'v1.mobile.ieltsExam.get.registration',
+            //University
+            CREATE_UNIVERSITY_APPLY: 'v1.mobile.university.create.apply',
+            GET_ALL_UNIVERSITIES: 'v1.mobile.university.find.all',
+            GET_ONE_UNIVERSITY: 'v1.mobile.university.find.one',
+            GET_MY_APPLIES: 'v1.mobile.university.get.my.applies',
+            GET_ONE_MY_APPLY: 'v1.mobile.university.get.one.apply',
         },
     },
     Auth: {
@@ -46,6 +66,7 @@ export const MessagePatterns = {
             GET_ONE: 'v1.survey.get.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
+            SUBMIT: 'v1.survey.submit',
         },
     },
     IeltsExam: {

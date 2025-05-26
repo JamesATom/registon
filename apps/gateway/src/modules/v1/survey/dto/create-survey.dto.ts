@@ -18,7 +18,7 @@ export class CreateSurveyDto {
     @IsString()
     description?: string;
 
-    @ApiPropertyOptional({ description: 'Image URL or key', example: 'survey/uuid-survey-image.jpg' })
+    @ApiPropertyOptional({ description: 'Image URL or key', example: 'https://registon.com/survey/uuid-survey-image.jpg' })
     @IsOptional()
     @IsString()
     image: string;

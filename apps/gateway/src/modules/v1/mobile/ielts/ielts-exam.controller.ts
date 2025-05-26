@@ -1,20 +1,27 @@
 import { Controller, Get, Post, Param, Body, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '../../auth/guards/auth.guard';
+import {
+    ApiAuth,
+    ApiGetAll,
+    ApiGetOne,
+    ApiCreate,
+    ApiUpdate,
+    ApiDelete,
+} from 'src/common/swagger/common-swagger';
+import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { IeltsExamService } from './ielts-exam.service';
 import { ApiGetIeltsExamById, ApiGetRegistredExams } from './decorators/api-docs.decorators';
 import { ApiGetAllIeltsExams } from './decorators/api-docs.decorators';
 import { CreateIeltsRegistrationDto } from './dto/create-ielts-exam.dto';
 import { ApiCreateIeltsRegistration } from './decorators/api-docs.decorators';
 
-@ApiTags('IELTS Exams')
-@ApiBearerAuth()
+@UseGuards(JwtHttpAuthGuard)
+@ApiAuth()
 @Controller('mobile/services/ielts/')
 export class IeltsExamController {
     constructor(private readonly ieltsExamService: IeltsExamService) {}
 
     @Get('exams')
-    @UseGuards(AuthGuard)
     @ApiGetAllIeltsExams()
     async getAllIeltsExamDays(@Query('city') city: string, @Query('examType') examType: string) {
         return this.ieltsExamService.getAllIeltsExamDays(city, examType);
@@ -28,14 +35,12 @@ export class IeltsExamController {
 
     @Post('exams/register')
     @ApiCreateIeltsRegistration()
-    @UseGuards(AuthGuard)
     async registerForExam(@Body() body: CreateIeltsRegistrationDto, @Req() req: any) {
         return this.ieltsExamService.registerForExam(body, req.user.userId);
     }
 
     @Get('exams/registrations')
     @ApiGetRegistredExams()
-    @UseGuards(AuthGuard)
     async getRegistredExams(@Query('examType') examType: string, @Req() req: any) {
         return this.ieltsExamService.getRegistredExams(req.user.userId, examType);
     }

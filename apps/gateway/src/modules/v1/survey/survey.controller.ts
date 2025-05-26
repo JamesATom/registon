@@ -1,8 +1,8 @@
 // survey.controller.ts
 import { Controller, Get, Post, Put, Body, UseGuards, Req, Param, Delete } from '@nestjs/common';
-import { ApiOperation, ApiBody, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { CommonEntity } from 'src/common/libs/common.entity';
-import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate } from 'src/common/swagger/common-swagger';
+import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { SurveyService } from './service/survey.service';
@@ -10,6 +10,7 @@ import { CreatePresignedUrlDto } from './dto/create-presigned-url.dto';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { CreatePresignedUrlEntity } from './entity/create-presigned-url.entity';
 import { UpdateSurveyDto } from './dto/update-survey.dto';
+import { SubmitSurveyDto } from './dto/submit-survey.dto';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
@@ -62,13 +63,17 @@ export class SurveyController {
         return this.surveyService.getOne(id);
     }
 
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto) {
-    //     return this.surveyService.update(+id, updateSurveyDto);
-    // }
+    @Delete(':id')
+    @ApiDelete('Survey')
+    @ApiOkResponse({ type: CommonEntity })
+    async remove(@Param('id') id: string): Promise<CommonEntity> {
+        return this.surveyService.delete(id);
+    }
 
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.surveyService.remove(+id);
-    // }
+    @Post('submit')
+    @ApiCreate('Submit Survey', CommonEntity)
+    @ApiBody({ type: [SubmitSurveyDto] })
+    async submitSurvey(@Body() submitSurveyDto: SubmitSurveyDto[], @Req() req: CustomRequest): Promise<any> {
+        return this.surveyService.submitSurvey(submitSurveyDto, req.user);
+    }
 }
