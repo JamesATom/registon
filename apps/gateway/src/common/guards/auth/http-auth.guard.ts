@@ -36,7 +36,6 @@ export class JwtHttpAuthGuard implements CanActivate {
         }
 
         request.user = await this.redisService.getUserByToken(token);
-        console.log('req.user:::::::::', request.user);
         return true;
     }
 

@@ -8,7 +8,6 @@ export const MessagePatterns = {
             UPDATE: 'v1.story.update',
             UPDATE_WITH_FILE: 'v1.story.update.with.file',
             DELETE: 'v1.story.delete',
-
             CREATE_ITEM: 'v1.story.item.create',
             CREATE_ITEM_WITH_FILE: 'v1.story.item.create.with.file',
             FIND_ONE_ITEM: 'v1.story.item.find.one',
@@ -67,6 +66,7 @@ export const MessagePatterns = {
             GET_ONE: 'v1.survey.get.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
+            SUBMIT: 'v1.survey.submit',
         },
     },
     IeltsExam: {

@@ -32,12 +32,7 @@ export class RedisService implements OnModuleDestroy {
         const userData = data.data;
 
         if (token) {
-            await this.redis.set(
-                `token:${token}`,
-                JSON.stringify({ phoneNumber, userId, userData }),
-                'EX',
-                ttl,
-            );
+            await this.redis.set(`token:${token}`, JSON.stringify({ phoneNumber, userId, userData }), 'EX', ttl);
         }
     }
 

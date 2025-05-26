@@ -22,14 +22,16 @@ import {
     ApiUpdateProgram,
     ApiUpdateUniversity,
 } from './decorators/api-docs.decorators';
-import { AuthGuard } from '../../auth/guards/auth.guard';
+
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
 import { FilterUniversitiesDto } from './dto/filter-university.dto';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
+import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 
 @ApiTags('Universities')
+@UseGuards(JwtHttpAuthGuard)
 @ApiBearerAuth()
 @Controller('universities')
 export class UniversityController {
@@ -38,14 +40,12 @@ export class UniversityController {
     @Post()
     @ApiCreateUniversity()
     @ApiBody({ type: CreateUniversityDto })
-    @UseGuards(AuthGuard)
     async createUniversity(@Body() universityData: CreateUniversityDto, @Request() req: any) {
         return this.universityService.createUniversity(universityData, req.user?.userId);
     }
 
     @Get(':id')
     @ApiGetUniversityById()
-    @UseGuards(AuthGuard)
     async findUniversityById(@Param('id') id: string) {
         return this.universityService.findUniversityById(id);
     }
@@ -53,7 +53,6 @@ export class UniversityController {
     @Put(':id')
     @ApiUpdateUniversity()
     @ApiBody({ type: UpdateUniversityDto })
-    @UseGuards(AuthGuard)
     async updateUniversity(
         @Param('id') id: string,
         @Body() updateData: UpdateUniversityDto,
@@ -64,14 +63,12 @@ export class UniversityController {
 
     @Delete(':id')
     @ApiDeleteUniversity()
-    @UseGuards(AuthGuard)
     async removeUniversity(@Param('id') id: string) {
         return this.universityService.removeUniversity(id);
     }
 
     @Post('filter')
     @ApiFilterUniversities()
-    @UseGuards(AuthGuard)
     async findAllUniversities(@Body() filters: FilterUniversitiesDto) {
         return this.universityService.findAllUniversities(filters);
     }
@@ -79,7 +76,6 @@ export class UniversityController {
     @Post('program')
     @ApiAddProgram()
     @ApiBody({ type: CreateProgramDto })
-    @UseGuards(AuthGuard)
     async addProgram(@Body() programData: CreateProgramDto, @Request() req: any) {
         return this.universityService.addProgram(programData, req.user?.userId);
     }
@@ -87,14 +83,12 @@ export class UniversityController {
     @Put('program/:id')
     @ApiUpdateProgram()
     @ApiBody({ type: UpdateProgramDto })
-    @UseGuards(AuthGuard)
     async updateProgram(@Param('id') id: string, @Body() updateData: UpdateProgramDto) {
         return this.universityService.updateProgram(id, updateData);
     }
 
     @Delete('program/:id')
     @ApiDeleteProgram()
-    @UseGuards(AuthGuard)
     async removeProgram(@Param('id') id: string, @Query('universityId') universityId: string) {
         return this.universityService.removeProgram(id, universityId);
     }

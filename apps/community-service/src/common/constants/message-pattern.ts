@@ -8,7 +8,6 @@ export const MessagePatterns = {
             UPDATE: 'v1.story.update',
             UPDATE_WITH_FILE: 'v1.story.update.with.file',
             DELETE: 'v1.story.delete',
-            // Story items operations
             CREATE_ITEM: 'v1.story.item.create',
             CREATE_ITEM_WITH_FILE: 'v1.story.item.create.with.file',
             FIND_ONE_ITEM: 'v1.story.item.find.one',
@@ -36,10 +35,8 @@ export const MessagePatterns = {
             TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
             TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
             TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
-            // Ielts exam operations
             GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
             REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
-            GET_EXAM_REGISTRATION: 'v1.mobile.ieltsExam.get.registration',
             GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
             // University operations
             CREATE_UNIVERSITY_APPLY: 'v1.mobile.university.create.apply',
@@ -47,6 +44,7 @@ export const MessagePatterns = {
             GET_ONE_UNIVERSITY: 'v1.mobile.university.find.one',
             GET_MY_APPLIES: 'v1.mobile.university.get.my.applies',
             GET_ONE_MY_APPLY: 'v1.mobile.university.get.one.apply',
+            GET_REGISTRATED_EXAMS: 'v1.mobile.ieltsExam.get.registration',
         },
     },
     Auth: {
@@ -63,6 +61,7 @@ export const MessagePatterns = {
             GET_ONE: 'v1.survey.get.one',
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
+            SUBMIT: 'v1.survey.submit',
         },
     },
     IeltsExam: {
