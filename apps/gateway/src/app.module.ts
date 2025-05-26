@@ -8,6 +8,7 @@ import { FileModule } from './modules/v1/file/file.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
 import { BranchModule } from './modules/v1/branch/branch.module';
 import { IeltsExamModule } from './modules/v1/services/ielts/ielts-exam.module';
+import { UniversityModule } from './modules/v1/services/university/university.module';
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { IeltsExamModule } from './modules/v1/services/ielts/ielts-exam.module';
         SurveyModule,
         BranchModule,
         IeltsExamModule,
+        UniversityModule,
     ],
     controllers: [],
     providers: [],

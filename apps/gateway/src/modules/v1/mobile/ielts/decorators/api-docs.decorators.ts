@@ -3,7 +3,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiQuery, ApiBody } from '@nestjs/
 import {
     IeltsExamResponseEntity,
     IeltsExamListResponseEntity,
-} from '../entity/ielts-response.entity';
+} from '../entities/ielts-response.entity';
 import { CreateIeltsRegistrationDto } from '../dto/create-ielts-exam.dto';
 
 export const ApiGetAllIeltsExams = () =>

@@ -17,6 +17,18 @@ export const MessagePatterns = {
             DELETE_ITEM: 'v1.story.item.delete',
         },
     },
+    University: {
+        V1: {
+            GET_ALL: 'v1.university.find.all',
+            CREATE: 'v1.university.create',
+            FIND_ONE: 'v1.university.find.one',
+            UPDATE: 'v1.university.update',
+            DELETE: 'v1.university.delete',
+            ADD_PROGRAM: 'v1.university.add.program',
+            UPDATE_PROGRAM: 'v1.university.update.program',
+            DELETE_PROGRAM: 'v1.university.delete.program',
+        },
+    },
     Mobile: {
         V1: {
             GET_ALL_STORIES: 'v1.mobile.story.find.all',
@@ -29,6 +41,12 @@ export const MessagePatterns = {
             REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
             GET_EXAM_REGISTRATION: 'v1.mobile.ieltsExam.get.registration',
             GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
+            // University operations
+            CREATE_UNIVERSITY_APPLY: 'v1.mobile.university.create.apply',
+            GET_ALL_UNIVERSITIES: 'v1.mobile.university.find.all',
+            GET_ONE_UNIVERSITY: 'v1.mobile.university.find.one',
+            GET_MY_APPLIES: 'v1.mobile.university.get.my.applies',
+            GET_ONE_MY_APPLY: 'v1.mobile.university.get.one.apply',
         },
     },
     Auth: {

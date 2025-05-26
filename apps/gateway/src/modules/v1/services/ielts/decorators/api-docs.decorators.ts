@@ -5,7 +5,7 @@ import { UpdateIeltsExamDto } from '../dto/update-ielts-exam.dto';
 import {
     IeltsExamResponseEntity,
     IeltsExamListResponseEntity,
-} from '../entity/ielts-response.entity';
+} from '../entities/ielts-response.entity';
 import { IeltsExamStatus, IeltsExamType } from '../../../../../common/enum/common.enum';
 
 export const ApiCreateIeltsExam = () =>

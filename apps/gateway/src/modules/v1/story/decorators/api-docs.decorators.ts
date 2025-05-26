@@ -51,7 +51,6 @@ export const ApiCreateStory = () =>
                     example: {
                         statusCode: 400,
                         message: 'Main image file is required',
-                        error: 'Bad Request',
                     },
                 },
             },
