@@ -5,6 +5,8 @@ import { StoryItem, StoryItemSchema } from './models/story-item.schema';
 import { IeltsExam, IeltsExamSchema } from './models/ielts-exam.schema';
 import { IeltsRegistration, IeltsRegistrationSchema } from './models/ielts-registration.schema';
 import { StoryStudentAction, StoryStudentActionSchema } from './models/story-student-action.schema';
+import { University, UniversitySchema } from './models/university.schema';
+import { UniversityApply, UniversityApplySchema } from './models/university-apply.schema';
 
 @Module({
     imports: [
@@ -14,6 +16,8 @@ import { StoryStudentAction, StoryStudentActionSchema } from './models/story-stu
             { name: IeltsExam.name, schema: IeltsExamSchema },
             { name: StoryStudentAction.name, schema: StoryStudentActionSchema },
             { name: IeltsRegistration.name, schema: IeltsRegistrationSchema },
+            { name: University.name, schema: UniversitySchema },
+            { name: UniversityApply.name, schema: UniversityApplySchema },
         ]),
     ],
     exports: [
@@ -23,6 +27,8 @@ import { StoryStudentAction, StoryStudentActionSchema } from './models/story-stu
             { name: IeltsExam.name, schema: IeltsExamSchema },
             { name: StoryStudentAction.name, schema: StoryStudentActionSchema },
             { name: IeltsRegistration.name, schema: IeltsRegistrationSchema },
+            { name: University.name, schema: UniversitySchema },
+            { name: UniversityApply.name, schema: UniversityApplySchema },
         ]),
     ],
 })

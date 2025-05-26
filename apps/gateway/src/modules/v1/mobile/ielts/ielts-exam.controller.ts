@@ -1,6 +1,13 @@
 import { Controller, Get, Post, Param, Body, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import {
+    ApiAuth,
+    ApiGetAll,
+    ApiGetOne,
+    ApiCreate,
+    ApiUpdate,
+    ApiDelete,
+} from 'src/common/swagger/common-swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { IeltsExamService } from './ielts-exam.service';
 import { ApiGetIeltsExamById, ApiGetRegistredExams } from './decorators/api-docs.decorators';
