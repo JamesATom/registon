@@ -37,23 +37,16 @@ export class SurveyController {
 
     @Post()
     @ApiCreate('Survey', CommonEntity)
-    @ApiBody({ type: [CreateSurveyDto] })
-    async create(@Body() createSurveyDto: CreateSurveyDto[], @Req() req: CustomRequest): Promise<CommonEntity> {
+    @ApiBody({ type: CreateSurveyDto })
+    async create(@Body() createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto, req.user);
-    }
-
-    @Put(':id')
-    @ApiUpdate('Survey', CommonEntity)
-    @ApiBody({ type: UpdateSurveyDto })
-    async update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
-        return this.surveyService.update(id, updateSurveyDto, req.user);
     }
 
     @Get()
     @ApiGetAll('Survey', CommonEntity)
     @ApiOkResponse({ type: [CommonEntity] })
-    async getAll(): Promise<CommonEntity> {
-        return this.surveyService.getAll();
+    async getAll(@Req() req: CustomRequest): Promise<CommonEntity> {
+        return this.surveyService.getAll(req?.user?.userId);
     }
 
     @Get(':id')
@@ -61,6 +54,13 @@ export class SurveyController {
     @ApiOkResponse({ type: CommonEntity })
     async getOne(@Param('id') id: string) {
         return this.surveyService.getOne(id);
+    }
+
+    @Put(':id')
+    @ApiUpdate('Survey', CommonEntity)
+    @ApiBody({ type: UpdateSurveyDto })
+    async update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+        return this.surveyService.update(id, updateSurveyDto, req.user);
     }
 
     @Delete(':id')
@@ -72,8 +72,8 @@ export class SurveyController {
 
     @Post('submit')
     @ApiCreate('Submit Survey', CommonEntity)
-    @ApiBody({ type: [SubmitSurveyDto] })
-    async submitSurvey(@Body() submitSurveyDto: SubmitSurveyDto[], @Req() req: CustomRequest): Promise<any> {
+    @ApiBody({ type: SubmitSurveyDto })
+    async submitSurvey(@Body() submitSurveyDto: SubmitSurveyDto, @Req() req: CustomRequest): Promise<any> {
         return this.surveyService.submitSurvey(submitSurveyDto, req.user);
     }
 }

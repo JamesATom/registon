@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { VersioningType, ValidationPipe } from '@nestjs/common';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
+import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -22,6 +23,8 @@ async function bootstrap() {
         defaultVersion: '1',
     });
 
+    app.useGlobalFilters(new HttpExceptionFilter());
+    
     app.useGlobalInterceptors(
         new LoggingInterceptor(),
         new RpcErrorInterceptor(),
