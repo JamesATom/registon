@@ -4,7 +4,7 @@ import { Document, Types } from 'mongoose';
 
 export type SurveyDocument = Survey & Document;
 
-@Schema({ _id: false })
+@Schema({ _id: true, timestamps: true })
 export class SurveyQuestion {
     @Prop({ maxlength: 100, required: true })
     question: string;
@@ -47,14 +47,14 @@ export const SurveyQuestionSchema = SchemaFactory.createForClass(SurveyQuestion)
 
 @Schema({ timestamps: true })
 export class Survey {
-    @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+    @Prop({ type: Types.ObjectId, required: true })
     createdBy: Types.ObjectId;
 
-    @Prop({ type: Types.ObjectId, ref: 'User' })
+    @Prop({ type: Types.ObjectId })
     updatedBy?: Types.ObjectId;
 
-    @Prop()
-    image?: string;
+    @Prop({ type: String, required: true })
+    image: string;
 
     @Prop({ maxlength: 250 })
     commentAdmin?: string;
@@ -68,13 +68,13 @@ export class Survey {
     @Prop({ type: [SurveyQuestionSchema], required: true, default: [] })
     questions: SurveyQuestion[];
 
-    @Prop({ type: Types.ObjectId, ref: 'Branch', required: true })
+    @Prop({ type: Types.ObjectId, required: true })
     branch: Types.ObjectId;
 
     @Prop({ enum: ['ALL', 'TEACHER', 'STUDENT'], required: true })
     targetAudience: 'ALL' | 'TEACHER' | 'STUDENT';
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+    @Prop({ type: [{ type: Types.ObjectId }], default: [] })
     takenBy?: Types.ObjectId[];
 }
 

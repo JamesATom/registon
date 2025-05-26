@@ -15,23 +15,23 @@ export class SurveyEvent {
     constructor(private readonly surveyService: SurveyService) {}
 
     @MessagePattern(MessagePatterns.Survey.V1.CREATE)
-    async create(@Body() createSurveyDto: CreateSurveyDto[]): Promise<CommonEntity> {
+    async create(@Body() createSurveyDto: CreateSurveyDto): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto);
     }
 
-    @MessagePattern(MessagePatterns.Survey.V1.UPDATE)
-    async update(@Payload() updateSurveyDto: UpdateSurveyDto[]): Promise<CommonEntity> {
-        return this.surveyService.update(updateSurveyDto);
-    }
-
     @MessagePattern(MessagePatterns.Survey.V1.GET_ALL)
-    async getAll(): Promise<CommonEntity> {
-        return this.surveyService.getAll();
+    async getAll(userId: string): Promise<CommonEntity> {
+        return this.surveyService.getAll(userId);
     }
 
     @MessagePattern(MessagePatterns.Survey.V1.GET_ONE)
     async getOne(@Payload() id: string): Promise<CommonEntity> {
         return this.surveyService.getOne(id);
+    }
+
+    @MessagePattern(MessagePatterns.Survey.V1.UPDATE)
+    async update(@Payload() updateSurveyDto: UpdateSurveyDto): Promise<CommonEntity> {
+        return this.surveyService.update(updateSurveyDto);
     }
 
     @MessagePattern(MessagePatterns.Survey.V1.DELETE)
@@ -40,7 +40,7 @@ export class SurveyEvent {
     }
 
     @MessagePattern(MessagePatterns.Survey.V1.SUBMIT)
-    async submit(@Payload() submitSurveyDto: SubmitSurveyDto[]): Promise<CommonEntity> {
+    async submit(@Payload() submitSurveyDto: SubmitSurveyDto): Promise<CommonEntity> {
         return this.surveyService.submit(submitSurveyDto);
     }
 }

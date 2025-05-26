@@ -28,14 +28,11 @@ export class SurveyService {
         });
     }
 
-    async create(createSurveyDtoList: CreateSurveyDto[], user: any): Promise<CommonEntity> {
+    async create(createSurveyDtoList: CreateSurveyDto, user: any): Promise<CommonEntity> {
         const userId = user?.userId || user?.userData?._id;
 
-        const updatedDto = createSurveyDtoList.map(dto => ({
-            ...dto,
-            createdBy: userId,
-        }));
-
+        const updatedDto = { ...createSurveyDtoList, createdBy: userId };
+        
         return this.client.send(MessagePatterns.Survey.V1.CREATE, updatedDto).toPromise();
     }
 
@@ -67,8 +64,8 @@ export class SurveyService {
         return this.client.send(MessagePatterns.Survey.V1.UPDATE, updateSurveyDto).toPromise();
     }
 
-    async getAll(): Promise<CommonEntity> {
-        return this.client.send(MessagePatterns.Survey.V1.GET_ALL, {}).toPromise();
+    async getAll(userId: string): Promise<CommonEntity> {
+        return this.client.send(MessagePatterns.Survey.V1.GET_ALL, userId).toPromise();
     }
 
     async getOne(id: string): Promise<CommonEntity> {
@@ -79,13 +76,13 @@ export class SurveyService {
         return this.client.send(MessagePatterns.Survey.V1.DELETE, id).toPromise();
     }
 
-    async submitSurvey(submitSurveyDto: SubmitSurveyDto[], user: any): Promise<any> {
+    async submitSurvey(submitSurveyDto: SubmitSurveyDto, user: any): Promise<any> {
         const userId = user?.userId || user?.userData?._id;
 
-        const updatedDto = submitSurveyDto.map(dto => ({
-            ...dto,
+        const updatedDto = {
+            ...submitSurveyDto,
             takenBy: userId,
-        }));
+        }
 
         return this.client.send(MessagePatterns.Survey.V1.SUBMIT, updatedDto).toPromise();
     }

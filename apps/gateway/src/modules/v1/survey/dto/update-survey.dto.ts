@@ -1,56 +1,60 @@
 // update-survey.dto.ts
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsNotEmpty, IsEnum, IsMongoId } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { 
+    IsArray, 
+    IsEnum, 
+    IsMongoId, 
+    IsOptional, 
+    IsString, 
+    MaxLength, 
+    ValidateNested 
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { SurveyQuestionDto } from './survey-question.dto';
 
 export class UpdateSurveyDto {
-    @ApiPropertyOptional({ description: 'Optional Admin comment', maxLength: 250, example: 'Reviewed by admin.' })
+    @ApiPropertyOptional({ 
+        description: 'Survey title', 
+        maxLength: 100, 
+        example: 'Student Satisfaction Survey' 
+    })
     @IsOptional()
     @IsString()
-    commentAdmin?: string;
+    @MaxLength(100)
+    title?: string;
 
-    @ApiProperty({ description: 'Survey question', maxLength: 250, example: 'What is your favorite color?' })
-    @IsString()
-    @IsNotEmpty()
-    question: string;
-
-    @ApiPropertyOptional({ description: 'Optional Survey description', maxLength: 250, example: 'Choose the color you like most.' })
+    @ApiPropertyOptional({ 
+        description: 'Survey image URL', 
+        example: 'https://registon.bucket-name/2398ujfajfj92/image.jpg' 
+    })
     @IsOptional()
     @IsString()
-    description?: string;
+    image?: string;
 
-    @ApiPropertyOptional({ description: 'Image URL or key', example: 'survey/uuid-survey-image.jpg' })
+    @ApiPropertyOptional({ 
+        description: 'Survey questions', 
+        type: [SurveyQuestionDto] 
+    })
     @IsOptional()
-    @IsString()
-    image: string;
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => SurveyQuestionDto)
+    questions?: SurveyQuestionDto[];
 
-    @ApiProperty({ description: 'First answer option', maxLength: 50, example: 'Red' })
-    @IsString()
-    answer1: string;
-
-    @ApiProperty({ description: 'Optional Second answer option', maxLength: 50, example: 'Blue' })
-    @IsString()
-    answer2: string;
-
-    @ApiPropertyOptional({ description: 'Optional Third answer option', maxLength: 50, example: 'Green' })
+    @ApiPropertyOptional({ 
+        description: 'Branch ID', 
+        example: '60f7c0c2b4d1c72d88f8e8a3' 
+    })
     @IsOptional()
-    @IsString()
-    answer3?: string;
-
-    @ApiPropertyOptional({ description: 'Optional Fourth answer option', maxLength: 50, example: 'Yellow' })
-    @IsOptional()
-    @IsString()
-    answer4?: string;
-
-    @ApiPropertyOptional({ description: 'Optional Fifth answer option', maxLength: 50, example: 'Black' })
-    @IsOptional()
-    @IsString()
-    answer5?: string;
-
-    @ApiProperty({ description: 'Branch ID', example: '60f7c0c2b4d1c72d88f8e8a3' })
     @IsMongoId()
-    branch: string;
+    branch?: string;
 
-    @ApiProperty({ description: 'Target audience', enum: ['ALL', 'TEACHER', 'STUDENT'], example: 'ALL' })
+    @ApiPropertyOptional({ 
+        description: 'Target audience', 
+        enum: ['ALL', 'TEACHER', 'STUDENT'], 
+        example: 'STUDENT' 
+    })
+    @IsOptional()
     @IsEnum(['ALL', 'TEACHER', 'STUDENT'])
-    targetAudience: 'ALL' | 'TEACHER' | 'STUDENT';
+    targetAudience?: 'ALL' | 'TEACHER' | 'STUDENT';
 }
