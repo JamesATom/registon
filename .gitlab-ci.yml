@@ -5,7 +5,7 @@ stages:
 variables:
     YARN_CACHE_FOLDER: .yarn-cache
 #     NODE_IMAGE: node:20
-
+ 
 workflow:
     rules:
         - if: $CI_COMMIT_BRANCH == "main"
