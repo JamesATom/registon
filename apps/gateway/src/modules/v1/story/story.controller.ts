@@ -11,7 +11,14 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
-import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import {
+    ApiAuth,
+    ApiGetAll,
+    ApiGetOne,
+    ApiCreate,
+    ApiUpdate,
+    ApiDelete,
+} from 'src/common/swagger/common-swagger';
 import { StoryService } from './story.service';
 import { FilterStoriesDto } from './dto/filter-stories.dto';
 import { CreateStoryDto } from './dto/create-story.dto';

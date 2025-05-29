@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Story, StorySchema } from '../../../../shared/models/story.schema';
 import { StoryItem, StoryItemSchema } from '../../../../shared/models/story-item.schema';
-import { StoryStudentAction, StoryStudentActionSchema } from '../../../../shared/models/story-student-action.schema';
+import {
+    StoryStudentAction,
+    StoryStudentActionSchema,
+} from '../../../../shared/models/story-student-action.schema';
 import { MobileStoryRepository } from './story.repository';
 import { MobileStoryService } from './story.service';
 import { MobileStoryEvent } from './story.event';

@@ -24,11 +24,8 @@ async function bootstrap() {
     });
 
     app.useGlobalFilters(new HttpExceptionFilter());
-    
-    app.useGlobalInterceptors(
-        new LoggingInterceptor(),
-        new RpcErrorInterceptor(),
-    );
+
+    app.useGlobalInterceptors(new LoggingInterceptor(), new RpcErrorInterceptor());
 
     app.useGlobalPipes(
         new ValidationPipe({

@@ -15,24 +15,33 @@ export class SurveyRepository {
     async getAll(options?: QueryOptions): Promise<SurveyDocument[]> {
         return this.surveyModel
             .find({})
-            .select('image title targetAudience takenBy questions._id questions.question questions.answer1 questions.answer2')
+            .select(
+                'image title targetAudience takenBy questions._id questions.question questions.answer1 questions.answer2',
+            )
             .setOptions(options)
             .lean();
     }
 
     async getOne(id: string, options?: QueryOptions): Promise<SurveyDocument> {
         return this.surveyModel
-        .findById(id)
-        .select('image title targetAudience branch questions._id questions.question questions.description questions.answer1 questions.answer2 questions.answer3 questions.answer4 questions.answer5')
-        .setOptions(options)
-        .lean();
+            .findById(id)
+            .select(
+                'image title targetAudience branch questions._id questions.question questions.description questions.answer1 questions.answer2 questions.answer3 questions.answer4 questions.answer5',
+            )
+            .setOptions(options)
+            .lean();
     }
 
     async update(updateSurveyDto: any, options?: QueryOptions): Promise<SurveyDocument> {
         return this.surveyModel
-        .findOneAndUpdate({ _id: updateSurveyDto.id }, updateSurveyDto, { new: true, ...options })
-        .select('image title targetAudience branch questions.question questions.description questions.answer1 questions.answer2 questions.answer3 questions.answer4 questions.answer5')
-        .setOptions(options);
+            .findOneAndUpdate({ _id: updateSurveyDto.id }, updateSurveyDto, {
+                new: true,
+                ...options,
+            })
+            .select(
+                'image title targetAudience branch questions.question questions.description questions.answer1 questions.answer2 questions.answer3 questions.answer4 questions.answer5',
+            )
+            .setOptions(options);
     }
 
     async delete(id: string, options?: QueryOptions): Promise<SurveyDocument> {
@@ -43,11 +52,9 @@ export class SurveyRepository {
         const survey = await this.surveyModel.findById(surveyId);
         if (survey.takenBy.includes(new Types.ObjectId(takenBy))) return;
 
-        questions.forEach((q) => {
-            const sub = (survey.questions as any[]).find(
-                (subDoc) => subDoc._id.toString() === q.id
-            );
-            
+        questions.forEach(q => {
+            const sub = (survey.questions as any[]).find(subDoc => subDoc._id.toString() === q.id);
+
             if (!sub) return;
 
             if (q.answer1) {

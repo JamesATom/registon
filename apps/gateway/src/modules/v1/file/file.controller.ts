@@ -1,6 +1,13 @@
 import { Controller, Post, BadRequestException, Req, Body, UseGuards } from '@nestjs/common';
 import { ApiConsumes, ApiOperation, ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import {
+    ApiAuth,
+    ApiGetAll,
+    ApiGetOne,
+    ApiCreate,
+    ApiUpdate,
+    ApiDelete,
+} from 'src/common/swagger/common-swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { FastifyRequest } from 'fastify';
 import { FileService } from './file.service';

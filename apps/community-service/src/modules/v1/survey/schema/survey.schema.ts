@@ -58,10 +58,10 @@ export class Survey {
 
     @Prop({ maxlength: 250 })
     commentAdmin?: string;
-    
+
     @Prop({ required: true, maxlength: 100 })
     title: string;
-    
+
     @Prop({ maxlength: 250 })
     description?: string;
 

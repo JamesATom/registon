@@ -89,17 +89,14 @@ export const ApiAuth = () =>
     );
 
 // 🚫 Error handlers
-export const ApiUnauthorizedResponse = () =>
-    CommonErrorResponse(401, 'Unauthorized access');
+export const ApiUnauthorizedResponse = () => CommonErrorResponse(401, 'Unauthorized access');
 
-export const ApiForbiddenResponse = () =>
-    CommonErrorResponse(403, 'Forbidden');
+export const ApiForbiddenResponse = () => CommonErrorResponse(403, 'Forbidden');
 
 export const ApiNotFoundResponse = (entity: string) =>
     CommonErrorResponse(404, `${entity} with ID not found`);
 
-export const ApiConflictResponse = (message: string) =>
-    CommonErrorResponse(409, message);
+export const ApiConflictResponse = (message: string) => CommonErrorResponse(409, message);
 
 export const ApiInternalServerErrorResponse = (message: string) =>
     CommonErrorResponse(500, message);

@@ -7,6 +7,7 @@ import { FileModule } from './file/file.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
 import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
 import { UniversityModule } from './modules/v1/university/university.module';
+import { EventModule } from './modules/v1/event/event.module';
 
 @Module({
     imports: [
@@ -29,6 +30,7 @@ import { UniversityModule } from './modules/v1/university/university.module';
         SurveyModule,
         IeltsExamModule,
         UniversityModule,
+        EventModule,
     ],
     controllers: [],
     providers: [],

@@ -94,7 +94,10 @@ export class MobileStoryEntity {
 }
 
 export class StoryWithItemsResponseData {
-    @ApiProperty({ type: [MobileStoryItemEntity], description: 'Array of story items with their viewed status' })
+    @ApiProperty({
+        type: [MobileStoryItemEntity],
+        description: 'Array of story items with their viewed status',
+    })
     items: MobileStoryItemEntity[];
 
     @ApiProperty({ description: 'Whether the student has pressed the button on this story' })

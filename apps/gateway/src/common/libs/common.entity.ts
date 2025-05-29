@@ -9,5 +9,5 @@ export class CommonEntity<T = any> {
     message: string;
 
     @ApiProperty({ description: 'Data returned', example: {}, required: false })
-    data: T | {} = {}; 
+    data: T | {} = {};
 }

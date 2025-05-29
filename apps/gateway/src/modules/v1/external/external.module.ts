@@ -1,7 +1,8 @@
 // external.module.ts
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ExternalService } from './external.service';
 
+@Global()
 @Module({
     imports: [],
     controllers: [],

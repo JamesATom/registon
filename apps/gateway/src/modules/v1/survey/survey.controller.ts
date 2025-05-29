@@ -2,7 +2,14 @@
 import { Controller, Get, Post, Put, Body, UseGuards, Req, Param, Delete } from '@nestjs/common';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { CommonEntity } from 'src/common/libs/common.entity';
-import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import {
+    ApiAuth,
+    ApiGetAll,
+    ApiGetOne,
+    ApiCreate,
+    ApiUpdate,
+    ApiDelete,
+} from 'src/common/swagger/common-swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { SurveyService } from './service/survey.service';
@@ -19,26 +26,31 @@ export class SurveyController {
     constructor(private readonly surveyService: SurveyService) {}
 
     @Post('presigned-upload')
-    @ApiBody({ 
+    @ApiBody({
         type: CreatePresignedUrlDto,
-        examples: { 
-            'application/json': { 
-                value: { 
+        examples: {
+            'application/json': {
+                value: {
                     filename: 'survey-image.jpg',
-                    contentType: 'image/jpeg'
-                } 
-            } 
-        } 
+                    contentType: 'image/jpeg',
+                },
+            },
+        },
     })
     @ApiCreate('Presigned Upload URL', CreatePresignedUrlEntity)
-    async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CreatePresignedUrlEntity> {
+    async getPresignedUploadUrl(
+        @Body() body: CreatePresignedUrlDto,
+    ): Promise<CreatePresignedUrlEntity> {
         return this.surveyService.generatePresignedUploadUrl(body);
     }
 
     @Post()
     @ApiCreate('Survey', CommonEntity)
     @ApiBody({ type: CreateSurveyDto })
-    async create(@Body() createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+    async create(
+        @Body() createSurveyDto: CreateSurveyDto,
+        @Req() req: CustomRequest,
+    ): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto, req.user);
     }
 
@@ -59,7 +71,11 @@ export class SurveyController {
     @Put(':id')
     @ApiUpdate('Survey', CommonEntity)
     @ApiBody({ type: UpdateSurveyDto })
-    async update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+    async update(
+        @Param('id') id: string,
+        @Body() updateSurveyDto: UpdateSurveyDto,
+        @Req() req: CustomRequest,
+    ): Promise<CommonEntity> {
         return this.surveyService.update(id, updateSurveyDto, req.user);
     }
 
@@ -73,7 +89,10 @@ export class SurveyController {
     @Post('submit')
     @ApiCreate('Submit Survey', CommonEntity)
     @ApiBody({ type: SubmitSurveyDto })
-    async submitSurvey(@Body() submitSurveyDto: SubmitSurveyDto, @Req() req: CustomRequest): Promise<any> {
+    async submitSurvey(
+        @Body() submitSurveyDto: SubmitSurveyDto,
+        @Req() req: CustomRequest,
+    ): Promise<any> {
         return this.surveyService.submitSurvey(submitSurveyDto, req.user);
     }
 }

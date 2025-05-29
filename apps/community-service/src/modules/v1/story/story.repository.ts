@@ -210,7 +210,7 @@ export class StoryRepository {
                 statusCode: HttpStatus.OK,
                 data: {
                     stories: docs,
-                    pagination
+                    pagination,
                 },
                 message: 'Stories fetched successfully',
             };
