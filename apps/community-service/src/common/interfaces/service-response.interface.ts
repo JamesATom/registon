@@ -26,8 +26,8 @@ export interface PaginateResult<T> {
 }
 
 export interface ServiceResponse<T> {
-  statusCode: number;
-  message: string;
-  data?: T;
-  pagination?: any;
+    statusCode: number;
+    message: string;
+    data?: T;
+    pagination?: any;
 }

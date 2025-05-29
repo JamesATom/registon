@@ -180,10 +180,10 @@ export function ApiTrackStoryItems() {
                     description: 'A student viewed a specific item within a story',
                     value: {
                         storyId: '682c3a46a7d884313d6d96e0',
-                        storyItemId: '682c4d94092e4c6854653dee'
-                    }
-                }
-            }
+                        storyItemId: '682c4d94092e4c6854653dee',
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 200,
@@ -236,10 +236,10 @@ export function ApiTrackStoryButton() {
                     summary: 'Track button press example',
                     description: 'A student pressed the button on a story',
                     value: {
-                        storyId: '682c3a46a7d884313d6d96e0'
-                    }
-                }
-            }
+                        storyId: '682c3a46a7d884313d6d96e0',
+                    },
+                },
+            },
         }),
         ApiResponse({
             status: 200,

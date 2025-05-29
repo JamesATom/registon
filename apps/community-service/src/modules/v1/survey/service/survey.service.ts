@@ -14,14 +14,14 @@ export class SurveyService {
         return {
             statusCode: HttpStatus.CREATED,
             message: 'Survey created successfully',
-            data: await this.surveyRepository.create(createSurveyDto, { lean: true })
+            data: await this.surveyRepository.create(createSurveyDto, { lean: true }),
         };
     }
 
     async getAll(userId: string): Promise<CommonEntity> {
         const surveys: any[] = await this.surveyRepository.getAll({ lean: true });
 
-        const dataWithFlag = surveys.map((s) => ({
+        const dataWithFlag = surveys.map(s => ({
             ...s,
             hasTaken: (s.takenBy || []).some((id: any) => id.toString() === userId),
         }));
@@ -34,15 +34,27 @@ export class SurveyService {
     }
 
     async getOne(id: string): Promise<CommonEntity> {
-        return { statusCode: HttpStatus.OK, message: 'Survey retrieved successfully', data: await this.surveyRepository.getOne(id, { lean: true }) };
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Survey retrieved successfully',
+            data: await this.surveyRepository.getOne(id, { lean: true }),
+        };
     }
 
     async update(updateSurveyDto: UpdateSurveyDto): Promise<CommonEntity> {
-        return { statusCode: HttpStatus.OK, message: 'Survey updated successfully', data: await this.surveyRepository.update(updateSurveyDto, { lean: true }) };
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Survey updated successfully',
+            data: await this.surveyRepository.update(updateSurveyDto, { lean: true }),
+        };
     }
-    
+
     async delete(id: string): Promise<CommonEntity> {
-        return { statusCode: HttpStatus.OK, message: 'Survey deleted successfully', data: await this.surveyRepository.delete(id, { lean: true }) };
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Survey deleted successfully',
+            data: await this.surveyRepository.delete(id, { lean: true }),
+        };
     }
 
     async submit(submissions: SubmitSurveyDto): Promise<CommonEntity> {
@@ -52,8 +64,7 @@ export class SurveyService {
         return {
             statusCode: HttpStatus.OK,
             message: 'Survey submitted successfully',
-            data: {}
+            data: {},
         };
     }
-
 }

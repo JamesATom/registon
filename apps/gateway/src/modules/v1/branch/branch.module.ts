@@ -1,13 +1,10 @@
 // branch.module.ts
 import { Module } from '@nestjs/common';
-import { ExternalModule } from '../external/external.module';
 import { BranchService } from './branch.service';
 import { BranchController } from './branch.controller';
 
 @Module({
-    imports: [
-        ExternalModule,
-    ],
+    imports: [],
     controllers: [BranchController],
     providers: [BranchService],
 })

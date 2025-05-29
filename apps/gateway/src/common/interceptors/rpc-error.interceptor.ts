@@ -19,13 +19,13 @@ export class RpcErrorInterceptor implements NestInterceptor {
             catchError(err => {
                 if (err?.response && typeof err.response === 'object') {
                     const errorResponse = err.response;
-                    
+
                     if (errorResponse.statusCode) {
                         throw new HttpException(
                             {
                                 statusCode: errorResponse.statusCode,
                                 message: errorResponse.message,
-                                data: errorResponse.data || {}
+                                data: errorResponse.data || {},
                             },
                             errorResponse.statusCode,
                         );
@@ -41,7 +41,7 @@ export class RpcErrorInterceptor implements NestInterceptor {
                 }
 
                 throw new InternalServerErrorException(
-                    `Internal server error: ${err.message || 'Unknown error'}`
+                    `Internal server error: ${err.message || 'Unknown error'}`,
                 );
             }),
         );

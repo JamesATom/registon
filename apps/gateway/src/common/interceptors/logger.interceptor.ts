@@ -1,11 +1,5 @@
 // logger.interceptor.ts
-import {
-    Injectable,
-    NestInterceptor,
-    ExecutionContext,
-    CallHandler,
-    Logger,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -30,7 +24,7 @@ export class LoggingInterceptor implements NestInterceptor {
             \t|❓ Query: ${JSON.stringify(query, null, 4)} 
             \t|🌐 User-Agent: ${userAgent} 
             \t|${'-'.repeat(90)}
-            `
+            `,
         );
 
         return next.handle();

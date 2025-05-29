@@ -10,6 +10,9 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
 import { BranchModule } from './modules/v1/branch/branch.module';
 import { IeltsExamModule } from './modules/v1/services/ielts/ielts-exam.module';
 import { UniversityModule } from './modules/v1/services/university/university.module';
+import { EventModule } from './modules/v1/event/event.module';
+import { CourseModule } from './modules/v1/course/course.module';
+import { ExternalModule } from './modules/v1/external/external.module';
 
 @Module({
     imports: [
@@ -17,6 +20,7 @@ import { UniversityModule } from './modules/v1/services/university/university.mo
             isGlobal: true,
             envFilePath: '.env',
         }),
+        ExternalModule,
         MobileModule,
         RedisModule,
         AuthModule,
@@ -26,6 +30,8 @@ import { UniversityModule } from './modules/v1/services/university/university.mo
         BranchModule,
         IeltsExamModule,
         UniversityModule,
+        EventModule,
+        CourseModule,
     ],
     controllers: [],
     providers: [],

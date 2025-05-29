@@ -21,9 +21,51 @@ export class ExternalService {
         };
 
         try {
-            return axios.get(url, { headers: headers }).then((response) => response.data);
+            return axios.get(url, { headers: headers }).then(response => response.data);
         } catch (error: any) {
             this.logger.error('Error fetching branch list', error?.response?.data || error.message);
         }
+    }
+
+    // async getCourseList(token: string, limit = 10, page = 1): Promise<any> {
+    //     const url = `${this.API_URL}/courses-pagin`;
+    //     const headers = {
+    //         Accept: 'application/json',
+    //         Authorization: `Bearer ${this.SUPERADMIN_TOKEN}`,
+    //         organization: this.ORGANIZATION,
+    //     };
+    //     const params = { limit, page };
+    //     console.log('Fetching course list with params:', params, 'and headers:', headers, 'to URL:', url, 'with token:', this.SUPERADMIN_TOKEN);
+    //     try {
+    //         const response = await axios.post(url, { headers: headers, params }).then(response => response.data);
+    //         this.logger.log('Course list fetched successfully', response);
+    //         return 'hllo';
+    //     } catch (error: any) {
+    //         this.logger.error('Error fetching course list', error?.response?.data || error.message);
+    //     }
+    //     return null;
+    // }
+
+    async getCourseList(token: string, limit = 10, page = 1): Promise<any> {
+        const url = `${this.API_URL}/courses-pagin`;
+        const headers = {
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.SUPERADMIN_TOKEN}`,
+            organization: this.ORGANIZATION,
+            branch: 'registan'
+        };
+        const params = { limit, page };
+        try {
+            const response = await axios.post(
+                url,
+                {}, // empty body
+                { headers, params }
+            );
+            this.logger.log('Course list fetched successfully', response.data);
+            return response.data;
+        } catch (error: any) {
+            this.logger.error('Error fetching course list', error?.response?.data || error.message);
+        }
+        return null;
     }
 }

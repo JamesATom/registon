@@ -1,59 +1,66 @@
 // submit-survey.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsArray, MaxLength, IsString, ValidateNested } from 'class-validator';
+import {
+    IsNotEmpty,
+    IsOptional,
+    IsArray,
+    MaxLength,
+    IsString,
+    ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class SubmitSurveyQuestionDto {
-    @ApiProperty({ 
-        description: 'Unique identifier for the question', 
-        example: '60f7c0c2b4d1c72d88f8e8a3' 
+    @ApiProperty({
+        description: 'Unique identifier for the question',
+        example: '60f7c0c2b4d1c72d88f8e8a3',
     })
     @IsNotEmpty()
     @IsString()
     id: string;
 
-    @ApiProperty({ 
-        description: 'First answer option', 
-        maxLength: 50, 
-        example: 'Excellent' 
+    @ApiProperty({
+        description: 'First answer option',
+        maxLength: 50,
+        example: 'Excellent',
     })
     @IsString()
     @MaxLength(50)
     answer1: string;
 
-    @ApiProperty({ 
-        description: 'Second answer option', 
-        maxLength: 50, 
-        example: 'Good' 
+    @ApiProperty({
+        description: 'Second answer option',
+        maxLength: 50,
+        example: 'Good',
     })
     @IsString()
     @MaxLength(50)
     answer2: string;
 
-    @ApiPropertyOptional({ 
-        description: 'Third answer option', 
-        maxLength: 50, 
-        example: 'Average' 
+    @ApiPropertyOptional({
+        description: 'Third answer option',
+        maxLength: 50,
+        example: 'Average',
     })
     @IsOptional()
     @IsString()
     @MaxLength(50)
     answer3?: string;
 
-    @ApiPropertyOptional({ 
-        description: 'Fourth answer option', 
-        maxLength: 50, 
-        example: 'Below Average' 
+    @ApiPropertyOptional({
+        description: 'Fourth answer option',
+        maxLength: 50,
+        example: 'Below Average',
     })
     @IsOptional()
     @IsString()
     @MaxLength(50)
     answer4?: string;
 
-    @ApiPropertyOptional({ 
-        description: 'Fifth answer option', 
-        maxLength: 50, 
-        example: 'Poor' 
+    @ApiPropertyOptional({
+        description: 'Fifth answer option',
+        maxLength: 50,
+        example: 'Poor',
     })
     @IsOptional()
     @IsString()
@@ -67,9 +74,9 @@ export class SubmitSurveyDto {
     @IsNotEmpty()
     surveyId: string;
 
-    @ApiPropertyOptional({ 
-        description: 'Survey questions', 
-        type: [SubmitSurveyQuestionDto] 
+    @ApiPropertyOptional({
+        description: 'Survey questions',
+        type: [SubmitSurveyQuestionDto],
     })
     @IsOptional()
     @IsArray()
@@ -79,7 +86,7 @@ export class SubmitSurveyDto {
 
     @ApiProperty({
         description: 'Taken By User ID',
-        example: '60f7c0c2b4d1c72d88f8e8a3'
+        example: '60f7c0c2b4d1c72d88f8e8a3',
     })
     @IsString()
     @IsNotEmpty()

@@ -32,11 +32,14 @@ export class SurveyService {
         const userId = user?.userId || user?.userData?._id;
 
         const updatedDto = { ...createSurveyDtoList, createdBy: userId };
-        
+
         return this.client.send(MessagePatterns.Survey.V1.CREATE, updatedDto).toPromise();
     }
 
-    async generatePresignedUploadUrl({ filename, contentType }: CreatePresignedUrlDto): Promise<CreatePresignedUrlEntity> {
+    async generatePresignedUploadUrl({
+        filename,
+        contentType,
+    }: CreatePresignedUrlDto): Promise<CreatePresignedUrlEntity> {
         const uniqueKey = `survey/${uuidv4()}-${filename}`;
 
         const command = new PutObjectCommand({
@@ -46,7 +49,7 @@ export class SurveyService {
             ACL: ObjectCannedACL.public_read,
         });
 
-        const uploadUrl = await getSignedUrl(this.s3, command, { expiresIn: 600 }); 
+        const uploadUrl = await getSignedUrl(this.s3, command, { expiresIn: 600 });
 
         return {
             uploadUrl,
@@ -82,7 +85,7 @@ export class SurveyService {
         const updatedDto = {
             ...submitSurveyDto,
             takenBy: userId,
-        }
+        };
 
         return this.client.send(MessagePatterns.Survey.V1.SUBMIT, updatedDto).toPromise();
     }

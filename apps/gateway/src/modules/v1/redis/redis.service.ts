@@ -4,9 +4,9 @@ import Redis from 'ioredis';
 
 export const REDIS_TTL = {
     ONE_HOUR: 60 * 60,
-    ONE_DAY: 24 * 60 * 60,        
-    ONE_WEEK: 7 * 24 * 60 * 60,   
-    ONE_MONTH: 30 * 24 * 60 * 60, 
+    ONE_DAY: 24 * 60 * 60,
+    ONE_WEEK: 7 * 24 * 60 * 60,
+    ONE_MONTH: 30 * 24 * 60 * 60,
 };
 
 @Injectable({ scope: Scope.DEFAULT })
@@ -15,7 +15,9 @@ export class RedisService implements OnModuleDestroy {
 
     constructor() {
         this.redis = new Redis({
-            host: process.env.REDIS_HOST || (process.env.NODE_ENV === 'production' ? 'redis' : 'localhost'),
+            host:
+                process.env.REDIS_HOST ||
+                (process.env.NODE_ENV === 'production' ? 'redis' : 'localhost'),
             port: Number(process.env.REDIS_PORT) || 6379,
         });
     }
@@ -24,7 +26,11 @@ export class RedisService implements OnModuleDestroy {
         this.redis.disconnect();
     }
 
-    async setUserData(phoneNumber: string, data: any, ttl: number = REDIS_TTL.ONE_MONTH): Promise<void> {
+    async setUserData(
+        phoneNumber: string,
+        data: any,
+        ttl: number = REDIS_TTL.ONE_MONTH,
+    ): Promise<void> {
         await this.redis.set(`user:${phoneNumber}`, JSON.stringify(data), 'EX', ttl);
 
         const token = data.data.token;
@@ -32,7 +38,12 @@ export class RedisService implements OnModuleDestroy {
         const userData = data.data;
 
         if (token) {
-            await this.redis.set(`token:${token}`, JSON.stringify({ phoneNumber, userId, userData }), 'EX', ttl);
+            await this.redis.set(
+                `token:${token}`,
+                JSON.stringify({ phoneNumber, userId, userData }),
+                'EX',
+                ttl,
+            );
         }
     }
 
