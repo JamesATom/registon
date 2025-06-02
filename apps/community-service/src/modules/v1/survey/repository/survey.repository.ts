@@ -1,4 +1,4 @@
-// create-survey.repository.ts
+// survey.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InsertManyOptions, Model, QueryOptions, Types } from 'mongoose';

@@ -1,5 +1,5 @@
 // survey.event.ts
-import { Controller, Logger, Body } from '@nestjs/common';
+import { Controller, Body } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { CommonEntity } from 'src/common/libs/common.entity';
@@ -10,8 +10,6 @@ import { SubmitSurveyDto } from './dto/submit-survey.dto';
 
 @Controller()
 export class SurveyEvent {
-    private readonly logger = new Logger(SurveyEvent.name);
-
     constructor(private readonly surveyService: SurveyService) {}
 
     @MessagePattern(MessagePatterns.Survey.V1.CREATE)

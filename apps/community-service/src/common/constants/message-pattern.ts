@@ -14,8 +14,10 @@ export const MessagePatterns = {
             UPDATE_ITEM: 'v1.story.item.update',
             UPDATE_ITEM_WITH_FILE: 'v1.story.item.update.with.file',
             DELETE_ITEM: 'v1.story.item.delete',
+            //
         },
     },
+
     University: {
         V1: {
             GET_ALL: 'v1.university.find.all',
@@ -28,23 +30,26 @@ export const MessagePatterns = {
             DELETE_PROGRAM: 'v1.university.delete.program',
         },
     },
+
     Mobile: {
         V1: {
+            //STORIES
             GET_ALL_STORIES: 'v1.mobile.story.find.all',
             GET_STORY_WITH_ITEMS: 'v1.mobile.story.find.one',
             TRACK_STORY_VIEW: 'v1.mobile.story.track.view',
             TRACK_STORY_ITEMS: 'v1.mobile.story.track.items',
             TRACK_STORY_BUTTON: 'v1.mobile.story.track.button',
+            // IELTS
             GET_ALL_IELTS_EXAM_DAYS: 'v1.mobile.ieltsExam.find.all',
             REGISTER_FOR_EXAM: 'v1.mobile.ieltsExam.register',
             GET_ONE_EXAM: 'v1.mobile.ieltsExam.find.one',
-            // University operations
+            GET_REGISTRATED_EXAMS: 'v1.mobile.ieltsExam.get.registration',
+            //University
             CREATE_UNIVERSITY_APPLY: 'v1.mobile.university.create.apply',
             GET_ALL_UNIVERSITIES: 'v1.mobile.university.find.all',
             GET_ONE_UNIVERSITY: 'v1.mobile.university.find.one',
             GET_MY_APPLIES: 'v1.mobile.university.get.my.applies',
             GET_ONE_MY_APPLY: 'v1.mobile.university.get.one.apply',
-            GET_REGISTRATED_EXAMS: 'v1.mobile.ieltsExam.get.registration',
         },
     },
     Auth: {
@@ -62,6 +67,15 @@ export const MessagePatterns = {
             UPDATE: 'v1.survey.update',
             DELETE: 'v1.survey.delete',
             SUBMIT: 'v1.survey.submit',
+        },
+    },
+    Event: {
+        V1: {
+            CREATE: 'v1.event.create',
+            GET_ALL: 'v1.event.get.all',
+            GET_ONE: 'v1.event.get.one',
+            UPDATE: 'v1.event.update',
+            DELETE: 'v1.event.delete',
         },
     },
     IeltsExam: {
