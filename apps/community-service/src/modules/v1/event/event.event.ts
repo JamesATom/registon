@@ -5,6 +5,7 @@ import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { EventService } from './service/event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { EventFilterDto } from './dto/filter-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller()
 export class EventEvent {
@@ -16,22 +17,22 @@ export class EventEvent {
     }
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ALL)
-    async getAll(@Payload() { filter }: { filter: EventFilterDto }, userId: string) {
-    	return this.eventService.getAll(filter, userId);
+    async getAll(@Payload() filter: EventFilterDto) {
+    	return this.eventService.getAll(filter, filter.userId);
     }
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ONE)
-    async findOne(@Payload() id: string) {
+    async getOne(@Payload() id: string) {
     	return this.eventService.getOne(id);
     }
 
-    // @MessagePattern('updateEvent')
-    // update(@Payload() updateEventDto: UpdateEventDto) {
-    // 	return this.eventService.update(updateEventDto.id, updateEventDto);
-    // }
+    @MessagePattern(MessagePatterns.Event.V1.UPDATE)
+    async update(@Payload() { id, updateEventDto }: { id: string, updateEventDto: UpdateEventDto }) {
+    	return this.eventService.update(id, updateEventDto);
+    }
 
-    // @MessagePattern('removeEvent')
-    // remove(@Payload() id: number) {
-    // 	return this.eventService.remove(id);
-    // }
+    @MessagePattern(MessagePatterns.Event.V1.DELETE)
+    async delete(@Payload() id: string) {
+    	return this.eventService.delete(id);
+    }
 }

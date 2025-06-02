@@ -3,11 +3,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class SurveyQuestionDto {
-    @ApiPropertyOptional({
-        description: 'Unique identifier for the question',
-        example: '60f7c0c2b4d1c72d88f8e8a3',
-    })
-    @IsNotEmpty()
+    @ApiPropertyOptional({ description: 'Question ID (optional for creation)' })
+    @IsOptional()
     @IsString()
     id?: string;
 

@@ -19,8 +19,8 @@ export class EventRepository extends BaseRepository<EventDocument, CreateEventDt
         return created;
     }
 
-    async getAll(filter: EventFilterDto, options?: QueryOptions): Promise<EventDocument[]> {
-        const query = this.buildQuery(filter);
+    async getAll(filterDto: EventFilterDto, options?: QueryOptions): Promise<EventDocument[]> {
+        const query = this.buildQuery(filterDto);
         return this.model
             .find(query)
             .select('eventTitle description date startTime endTime image status targetAudience')
@@ -76,5 +76,19 @@ export class EventRepository extends BaseRepository<EventDocument, CreateEventDt
             .findById(id)
             .setOptions(options)
             .lean();
+    }
+
+    async update(id: string, updateEventDto: any, options?: QueryOptions): Promise<any> {
+        return this.model
+            .findOneAndUpdate({ _id: id }, updateEventDto, {
+                new: true,
+                ...options,
+            })
+            .select('')
+            .setOptions(options);
+    }
+
+    async delete(id: string, options?: QueryOptions): Promise<EventDocument> {
+        return this.model.findByIdAndDelete(id, options).lean();
     }
 }
