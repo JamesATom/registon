@@ -4,6 +4,14 @@ import { IsEnum, IsMongoId, IsOptional, IsString } from 'class-validator';
 
 export class EventFilterDto {
     @ApiPropertyOptional({
+        description: 'User ID of the event registrator',
+        example: '60f7c0c2b4d1c72d88f8e8a3'
+    })
+    @IsOptional()
+    @IsMongoId()
+    userId?: string;
+
+    @ApiPropertyOptional({
         description: 'Filter by branch ID',
         example: '60f7c0c2b4d1c72d88f8e8a3'
     })

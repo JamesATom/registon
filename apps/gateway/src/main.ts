@@ -20,7 +20,7 @@ async function bootstrap() {
     app.enableVersioning({
         type: VersioningType.URI,
         prefix: 'api/',
-        defaultVersion: '1',
+        defaultVersion: 'v1',
     });
 
     app.useGlobalFilters(new HttpExceptionFilter());

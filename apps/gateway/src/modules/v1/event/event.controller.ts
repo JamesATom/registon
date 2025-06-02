@@ -1,5 +1,5 @@
 // event.controller.ts
-import { Controller, Get, Post, UseGuards, Body, Req, Query, Param } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Body, Req, Query, Param, Put, Delete } from '@nestjs/common';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import {
     ApiAuth,
@@ -9,19 +9,37 @@ import {
     ApiUpdate,
     ApiDelete,
 } from 'src/common/swagger/common-swagger';
+import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { EventService } from './service/event.service';
 import { CommonEntity } from 'src/common/libs/common.entity';
 import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 import { EventFilterDto } from './dto/filter-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
 @Controller('event')
 export class EventController {
     constructor(private readonly eventService: EventService) {}
+
+    @Post('presigned-upload')
+    @ApiBody({
+        type: Object,
+        examples: {
+            'application/json': {
+                value: {
+                    filename: 'survey-image.jpg',
+                    contentType: 'image/jpeg',
+                },
+            },
+        },
+    })
+    @ApiCreate('Presigned Upload URL')
+    async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CommonEntity> {
+        return this.eventService.generatePresignedUploadUrl(body);
+    }
 
     @Post()
     @ApiCreate('Event', CommonEntity)
@@ -34,21 +52,25 @@ export class EventController {
     @ApiGetAll('Event', CommonEntity)
     @ApiOkResponse({ type: [CommonEntity] })
     async getAll(@Query() filter: EventFilterDto, @Req() req: CustomRequest) {
-        return this.eventService.getAll(filter, req?.user.userId);
+        return this.eventService.getAll(filter, req?.user);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    @ApiGetOne('Event')
+    @ApiOkResponse({ type: CommonEntity })
+    async getOne(@Param('id') id: string) {
         return this.eventService.getOne(id);
     }
 
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    //     return this.eventService.update(+id, updateEventDto);
-    // }
+    @Put(':id')
+    @ApiUpdate('Event', CommonEntity)
+    @ApiBody({ type: UpdateEventDto })
+    async update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto, @Req() req: CustomRequest) {
+        return this.eventService.update(id, updateEventDto, req?.user);  
+    }
 
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.eventService.remove(+id);
-    // }
+    @Delete(':id')
+    async delete(@Param('id') id: string) {
+        return this.eventService.delete(id);
+    }
 }

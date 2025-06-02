@@ -1,6 +1,7 @@
 // survey.controller.ts
 import { Controller, Get, Post, Put, Body, UseGuards, Req, Param, Delete } from '@nestjs/common';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
+import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 import { CommonEntity } from 'src/common/libs/common.entity';
 import {
     ApiAuth,
@@ -13,21 +14,19 @@ import {
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { SurveyService } from './service/survey.service';
-import { CreatePresignedUrlDto } from './dto/create-presigned-url.dto';
 import { CreateSurveyDto } from './dto/create-survey.dto';
-import { CreatePresignedUrlEntity } from './entity/create-presigned-url.entity';
 import { UpdateSurveyDto } from './dto/update-survey.dto';
 import { SubmitSurveyDto } from './dto/submit-survey.dto';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@Controller({ path: 'survey', version: '1' })
+@Controller({ path: 'survey', version: 'v1' })
 export class SurveyController {
     constructor(private readonly surveyService: SurveyService) {}
 
     @Post('presigned-upload')
     @ApiBody({
-        type: CreatePresignedUrlDto,
+        type: Object,
         examples: {
             'application/json': {
                 value: {
@@ -37,20 +36,15 @@ export class SurveyController {
             },
         },
     })
-    @ApiCreate('Presigned Upload URL', CreatePresignedUrlEntity)
-    async getPresignedUploadUrl(
-        @Body() body: CreatePresignedUrlDto,
-    ): Promise<CreatePresignedUrlEntity> {
+    @ApiCreate('Presigned Upload URL')
+    async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CommonEntity> {
         return this.surveyService.generatePresignedUploadUrl(body);
     }
 
     @Post()
     @ApiCreate('Survey', CommonEntity)
     @ApiBody({ type: CreateSurveyDto })
-    async create(
-        @Body() createSurveyDto: CreateSurveyDto,
-        @Req() req: CustomRequest,
-    ): Promise<CommonEntity> {
+    async create(@Body() createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto, req.user);
     }
 
@@ -92,7 +86,7 @@ export class SurveyController {
     async submitSurvey(
         @Body() submitSurveyDto: SubmitSurveyDto,
         @Req() req: CustomRequest,
-    ): Promise<any> {
+    ): Promise<CommonEntity> {
         return this.surveyService.submitSurvey(submitSurveyDto, req.user);
     }
 }
