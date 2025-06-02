@@ -33,8 +33,8 @@ export class Event {
     @Prop()
     endTime?: string;
 
-    @Prop({ type: Types.ObjectId, required: true })
-    course: Types.ObjectId;
+    @Prop({ type: [Types.ObjectId], required: true })
+    course: Types.ObjectId[];
 
     @Prop()
     age?: number;
@@ -53,6 +53,14 @@ export class Event {
 
     @Prop({ type: [Types.ObjectId], default: [] })
     students?: Types.ObjectId[];
+
+    @Prop({ type: [Types.ObjectId], default: [] })
+    paidUsers?: Types.ObjectId[];
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
+
+EventSchema.index({ date: 1 });
+EventSchema.index({ branch: 1 });
+EventSchema.index({ status: 1 });
+EventSchema.index({ targetAudience: 1 });

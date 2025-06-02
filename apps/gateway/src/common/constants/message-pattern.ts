@@ -69,6 +69,15 @@ export const MessagePatterns = {
             SUBMIT: 'v1.survey.submit',
         },
     },
+    Event: {
+        V1: {
+            CREATE: 'v1.event.create',
+            GET_ALL: 'v1.event.get.all',
+            GET_ONE: 'v1.event.get.one',
+            UPDATE: 'v1.event.update',
+            DELETE: 'v1.event.delete',
+        },
+    },
     IeltsExam: {
         V1: {
             GET_ALL: 'v1.ieltsExam.find.all',

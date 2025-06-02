@@ -1,0 +1,80 @@
+// event.repository.ts
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { InsertManyOptions, Model, QueryOptions, Types } from 'mongoose';
+import { IRepository } from 'src/common/interfaces/repository.interface';
+import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
+import { Event, EventDocument } from '../schema/event.schema';
+import { CreateEventDto } from '../dto/create-event.dto';
+import { EventFilterDto } from '../dto/filter-event.dto';
+
+@Injectable()
+export class EventRepository extends BaseRepository<EventDocument, CreateEventDto> implements IRepository<EventDocument, CreateEventDto> {
+    constructor(@InjectModel(Event.name) model: Model<EventDocument>) {
+        super(model); 
+    }
+
+    async create(event: CreateEventDto, options?: QueryOptions): Promise<EventDocument> {
+        const [created] = await this.model.create([event], options);
+        return created;
+    }
+
+    async getAll(filter: EventFilterDto, options?: QueryOptions): Promise<EventDocument[]> {
+        const query = this.buildQuery(filter);
+        return this.model
+            .find(query)
+            .select('eventTitle description date startTime endTime image status targetAudience')
+            .sort({ date: 1 })
+            .setOptions(options)
+            .lean();
+    }
+
+    private buildQuery(filterDto: EventFilterDto): any {
+        const {
+            branch,
+            status,
+            search,
+            targetAudience,
+            fromDate,
+            toDate
+        } = filterDto;
+
+        const query: any = {};
+
+        if (status) {
+            query.status = status;
+        }
+
+        if (targetAudience) {
+            query.targetAudience = targetAudience;
+        }
+
+        // if (search) {
+        //     query.$or = [
+        //         { eventTitle: { $regex: search, $options: 'i' } },
+        //         { description: { $regex: search, $options: 'i' } }
+        //     ];
+        // }
+
+        if (fromDate || toDate) {
+            query.date = {};
+            
+            if (fromDate) {
+                query.date.$gte = new Date(fromDate);
+            }
+            
+            if (toDate) {
+                query.date.$lte = new Date(toDate);
+            }
+        }
+
+        return query;
+    }
+
+    async getOne(id: string, options?: QueryOptions): Promise<EventDocument> {
+        return this.model
+            .findById(id)
+            .setOptions(options)
+            .lean();
+    }
+}
