@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SurveyModule } from './modules/v1/survey/survey.module';
+import { EventModule } from './modules/v1/event/event.module';
 import { StoryModule } from './modules/v1/story/story.module';
 import { MobileModule } from './modules/v1/mobile/mobile.module';
 import { FileModule } from './file/file.module';
-import { SurveyModule } from './modules/v1/survey/survey.module';
 import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
 import { UniversityModule } from './modules/v1/university/university.module';
-import { EventModule } from './modules/v1/event/event.module';
 
 @Module({
     imports: [
@@ -16,6 +16,7 @@ import { EventModule } from './modules/v1/event/event.module';
         }),
         MongooseModule.forRootAsync({
             useFactory: () => {
+                console.log('here: ', process.env.MONGODB_URI)
                 return {
                     uri:
                         process.env.NODE_ENV === 'production'
@@ -24,12 +25,12 @@ import { EventModule } from './modules/v1/event/event.module';
                 };
             },
         }),
-        MobileModule,
-        StoryModule,
-        FileModule,
+        // MobileModule,
+        // StoryModule,
+        // FileModule,
         SurveyModule,
-        IeltsExamModule,
-        UniversityModule,
+        // IeltsExamModule,
+        // UniversityModule,
         EventModule,
     ],
     controllers: [],
