@@ -184,6 +184,81 @@ exports.Prisma.MockRegistrationStudentScalarFieldEnum = {
   registeredAt: 'registeredAt'
 };
 
+exports.Prisma.JobHuntingScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy',
+  title: 'title',
+  description: 'description',
+  workExperience: 'workExperience',
+  companyId: 'companyId',
+  cityId: 'cityId',
+  certificateRequirements: 'certificateRequirements',
+  workScheduleHours: 'workScheduleHours',
+  employmentType: 'employmentType',
+  workMode: 'workMode',
+  salary: 'salary',
+  responsibilities: 'responsibilities',
+  requirements: 'requirements',
+  conditions: 'conditions'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy',
+  companyTitle: 'companyTitle',
+  description: 'description',
+  companyLogo: 'companyLogo'
+};
+
+exports.Prisma.CVScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  studentId: 'studentId',
+  description: 'description',
+  cityId: 'cityId',
+  degree: 'degree',
+  universityTitle: 'universityTitle',
+  universityMajor: 'universityMajor',
+  graduationYear: 'graduationYear',
+  companyName: 'companyName',
+  position: 'position',
+  responsibilities: 'responsibilities',
+  startDate: 'startDate',
+  endDate: 'endDate'
+};
+
+exports.Prisma.SkillScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.ToolScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.CvSkillScalarFieldEnum = {
+  cvId: 'cvId',
+  skillId: 'skillId'
+};
+
+exports.Prisma.CvToolScalarFieldEnum = {
+  cvId: 'cvId',
+  toolId: 'toolId'
+};
+
+exports.Prisma.CertificateScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,7 +273,39 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.WorkExperience = exports.$Enums.WorkExperience = {
+  EXPERIENCE_1_3: 'EXPERIENCE_1_3',
+  EXPERIENCE_3_6: 'EXPERIENCE_3_6',
+  EXPERIENCE_6_PLUS: 'EXPERIENCE_6_PLUS',
+  NO_EXPERIENCE: 'NO_EXPERIENCE'
+};
 
+exports.WorkScheduleHours = exports.$Enums.WorkScheduleHours = {
+  SCHEDULE_6_1: 'SCHEDULE_6_1',
+  SCHEDULE_5_2: 'SCHEDULE_5_2',
+  WEEKENDS: 'WEEKENDS',
+  FREE: 'FREE',
+  OTHER: 'OTHER'
+};
+
+exports.EmploymentType = exports.$Enums.EmploymentType = {
+  FULL: 'FULL',
+  PART: 'PART'
+};
+
+exports.WorkMode = exports.$Enums.WorkMode = {
+  OFFLINE: 'OFFLINE',
+  ONLINE: 'ONLINE',
+  HYBRID: 'HYBRID'
+};
+
+exports.Degree = exports.$Enums.Degree = {
+  BACHELOR: 'BACHELOR',
+  MASTER: 'MASTER',
+  DOCTORATE: 'DOCTORATE',
+  ASSOCIATE: 'ASSOCIATE',
+  PHD: 'PHD'
+};
 
 exports.Prisma.ModelName = {
   IeltsExam: 'IeltsExam',
@@ -207,7 +314,15 @@ exports.Prisma.ModelName = {
   City: 'City',
   Branch: 'Branch',
   MockRegistration: 'MockRegistration',
-  MockRegistrationStudent: 'MockRegistrationStudent'
+  MockRegistrationStudent: 'MockRegistrationStudent',
+  JobHunting: 'JobHunting',
+  Company: 'Company',
+  CV: 'CV',
+  Skill: 'Skill',
+  Tool: 'Tool',
+  CvSkill: 'CvSkill',
+  CvTool: 'CvTool',
+  Certificate: 'Certificate'
 };
 
 /**

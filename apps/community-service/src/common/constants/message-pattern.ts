@@ -79,5 +79,20 @@ export const MessagePatterns = {
         V1: {
             GET_ALL: 'v1.city.get.all',
         },
+    },
+    JobHunting: {
+        V1: {
+            GET_ALL: 'v1.jobHunting.get.all',
+            CREATE: 'v1.jobHunting.create',
+            GET_ONE: 'v1.jobHunting.get.one',
+            UPDATE: 'v1.jobHunting.update',
+            DELETE: 'v1.jobHunting.delete',
+            FILTER: 'v1.jobHunting.filter',
+        },
+    },
+    Company: {
+        V1: {
+            GET_ALL: 'v1.company.get.all',
+        },
     }
 };

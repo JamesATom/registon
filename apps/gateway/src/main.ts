@@ -11,16 +11,21 @@ import { AllExceptionsFilter } from './common/filters/all-exception/all-exceptio
 import { AppModule } from './app.module';
 import { AuthModule } from './modules/v1/shared/auth/auth.module';
 import { BranchModule } from './modules/v1/shared/branch/branch.module';
+import { CityModule } from './modules/v1/shared/city/city.module';
 
 import { SurveyModule as WebSurveyModule } from './modules/v1/web/survey/survey.module';
 import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
 import { EventModule as WebEventModule } from './modules/v1/web/event/event.module';
 import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mock-register/mock-register.module';
+import { IeltsRegisterModule as WebIeltsRegisterModule } from './modules/v1/web/ielts-register/ielts-register.module';
+import { JobHuntingModule as WebJobHuntingModule } from './modules/v1/web/job-hunting/job-hunting.module';
 
 import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
 import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
 import { EventModule as MobileEventModule } from './modules/v1/mobile/event/event.module';
 import { MockRegisterModule as MobileMockRegisterModule } from './modules/v1/mobile/mock-register/mock-register.module';
+import { IeltsRegisterModule as MobileIeltsRegisterModule } from './modules/v1/mobile/ielts-register/ielts-register.module';
+import { JobHuntingModule as MobileJobHuntingModule } from './modules/v1/mobile/job-hunting/job-hunting.module';
 
 dotenv.config();
 
@@ -75,9 +80,12 @@ async function bootstrap() {
             WebStoryModule,
             WebEventModule,
             WebMockRegisterModule,
+            WebIeltsRegisterModule,
+            WebJobHuntingModule,
             
             AuthModule,
-            BranchModule
+            BranchModule,
+            CityModule
         ],
     });
 
@@ -104,9 +112,12 @@ async function bootstrap() {
             MobileStoryModule,
             MobileEventModule,
             MobileMockRegisterModule,
+            MobileIeltsRegisterModule,
+            MobileJobHuntingModule,
             
             AuthModule,
-            BranchModule
+            BranchModule,
+            CityModule
         ],
     });
     

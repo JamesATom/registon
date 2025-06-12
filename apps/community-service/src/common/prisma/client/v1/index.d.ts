@@ -48,6 +48,120 @@ export type MockRegistration = $Result.DefaultSelection<Prisma.$MockRegistration
  * 
  */
 export type MockRegistrationStudent = $Result.DefaultSelection<Prisma.$MockRegistrationStudentPayload>
+/**
+ * Model JobHunting
+ * 
+ */
+export type JobHunting = $Result.DefaultSelection<Prisma.$JobHuntingPayload>
+/**
+ * Model Company
+ * 
+ */
+export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
+/**
+ * Model CV
+ * 
+ */
+export type CV = $Result.DefaultSelection<Prisma.$CVPayload>
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
+/**
+ * Model Tool
+ * 
+ */
+export type Tool = $Result.DefaultSelection<Prisma.$ToolPayload>
+/**
+ * Model CvSkill
+ * 
+ */
+export type CvSkill = $Result.DefaultSelection<Prisma.$CvSkillPayload>
+/**
+ * Model CvTool
+ * 
+ */
+export type CvTool = $Result.DefaultSelection<Prisma.$CvToolPayload>
+/**
+ * Model Certificate
+ * 
+ */
+export type Certificate = $Result.DefaultSelection<Prisma.$CertificatePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const WorkExperience: {
+  EXPERIENCE_1_3: 'EXPERIENCE_1_3',
+  EXPERIENCE_3_6: 'EXPERIENCE_3_6',
+  EXPERIENCE_6_PLUS: 'EXPERIENCE_6_PLUS',
+  NO_EXPERIENCE: 'NO_EXPERIENCE'
+};
+
+export type WorkExperience = (typeof WorkExperience)[keyof typeof WorkExperience]
+
+
+export const WorkScheduleHours: {
+  SCHEDULE_6_1: 'SCHEDULE_6_1',
+  SCHEDULE_5_2: 'SCHEDULE_5_2',
+  WEEKENDS: 'WEEKENDS',
+  FREE: 'FREE',
+  OTHER: 'OTHER'
+};
+
+export type WorkScheduleHours = (typeof WorkScheduleHours)[keyof typeof WorkScheduleHours]
+
+
+export const EmploymentType: {
+  FULL: 'FULL',
+  PART: 'PART'
+};
+
+export type EmploymentType = (typeof EmploymentType)[keyof typeof EmploymentType]
+
+
+export const WorkMode: {
+  OFFLINE: 'OFFLINE',
+  ONLINE: 'ONLINE',
+  HYBRID: 'HYBRID'
+};
+
+export type WorkMode = (typeof WorkMode)[keyof typeof WorkMode]
+
+
+export const Degree: {
+  BACHELOR: 'BACHELOR',
+  MASTER: 'MASTER',
+  DOCTORATE: 'DOCTORATE',
+  ASSOCIATE: 'ASSOCIATE',
+  PHD: 'PHD'
+};
+
+export type Degree = (typeof Degree)[keyof typeof Degree]
+
+}
+
+export type WorkExperience = $Enums.WorkExperience
+
+export const WorkExperience: typeof $Enums.WorkExperience
+
+export type WorkScheduleHours = $Enums.WorkScheduleHours
+
+export const WorkScheduleHours: typeof $Enums.WorkScheduleHours
+
+export type EmploymentType = $Enums.EmploymentType
+
+export const EmploymentType: typeof $Enums.EmploymentType
+
+export type WorkMode = $Enums.WorkMode
+
+export const WorkMode: typeof $Enums.WorkMode
+
+export type Degree = $Enums.Degree
+
+export const Degree: typeof $Enums.Degree
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +357,86 @@ export class PrismaClient<
     * ```
     */
   get mockRegistrationStudent(): Prisma.MockRegistrationStudentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.jobHunting`: Exposes CRUD operations for the **JobHunting** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JobHuntings
+    * const jobHuntings = await prisma.jobHunting.findMany()
+    * ```
+    */
+  get jobHunting(): Prisma.JobHuntingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.company`: Exposes CRUD operations for the **Company** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Companies
+    * const companies = await prisma.company.findMany()
+    * ```
+    */
+  get company(): Prisma.CompanyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cV`: Exposes CRUD operations for the **CV** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CVS
+    * const cVS = await prisma.cV.findMany()
+    * ```
+    */
+  get cV(): Prisma.CVDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skill`: Exposes CRUD operations for the **Skill** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Skills
+    * const skills = await prisma.skill.findMany()
+    * ```
+    */
+  get skill(): Prisma.SkillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tool`: Exposes CRUD operations for the **Tool** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tools
+    * const tools = await prisma.tool.findMany()
+    * ```
+    */
+  get tool(): Prisma.ToolDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cvSkill`: Exposes CRUD operations for the **CvSkill** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CvSkills
+    * const cvSkills = await prisma.cvSkill.findMany()
+    * ```
+    */
+  get cvSkill(): Prisma.CvSkillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.cvTool`: Exposes CRUD operations for the **CvTool** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CvTools
+    * const cvTools = await prisma.cvTool.findMany()
+    * ```
+    */
+  get cvTool(): Prisma.CvToolDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.certificate`: Exposes CRUD operations for the **Certificate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Certificates
+    * const certificates = await prisma.certificate.findMany()
+    * ```
+    */
+  get certificate(): Prisma.CertificateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +883,15 @@ export namespace Prisma {
     City: 'City',
     Branch: 'Branch',
     MockRegistration: 'MockRegistration',
-    MockRegistrationStudent: 'MockRegistrationStudent'
+    MockRegistrationStudent: 'MockRegistrationStudent',
+    JobHunting: 'JobHunting',
+    Company: 'Company',
+    CV: 'CV',
+    Skill: 'Skill',
+    Tool: 'Tool',
+    CvSkill: 'CvSkill',
+    CvTool: 'CvTool',
+    Certificate: 'Certificate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -708,7 +910,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "ieltsExam" | "ieltsRegistration" | "ieltsCalendar" | "city" | "branch" | "mockRegistration" | "mockRegistrationStudent"
+      modelProps: "ieltsExam" | "ieltsRegistration" | "ieltsCalendar" | "city" | "branch" | "mockRegistration" | "mockRegistrationStudent" | "jobHunting" | "company" | "cV" | "skill" | "tool" | "cvSkill" | "cvTool" | "certificate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1230,6 +1432,598 @@ export namespace Prisma {
           }
         }
       }
+      JobHunting: {
+        payload: Prisma.$JobHuntingPayload<ExtArgs>
+        fields: Prisma.JobHuntingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JobHuntingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JobHuntingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          findFirst: {
+            args: Prisma.JobHuntingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JobHuntingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          findMany: {
+            args: Prisma.JobHuntingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>[]
+          }
+          create: {
+            args: Prisma.JobHuntingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          createMany: {
+            args: Prisma.JobHuntingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JobHuntingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>[]
+          }
+          delete: {
+            args: Prisma.JobHuntingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          update: {
+            args: Prisma.JobHuntingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          deleteMany: {
+            args: Prisma.JobHuntingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JobHuntingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.JobHuntingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>[]
+          }
+          upsert: {
+            args: Prisma.JobHuntingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JobHuntingPayload>
+          }
+          aggregate: {
+            args: Prisma.JobHuntingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJobHunting>
+          }
+          groupBy: {
+            args: Prisma.JobHuntingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JobHuntingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JobHuntingCountArgs<ExtArgs>
+            result: $Utils.Optional<JobHuntingCountAggregateOutputType> | number
+          }
+        }
+      }
+      Company: {
+        payload: Prisma.$CompanyPayload<ExtArgs>
+        fields: Prisma.CompanyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findFirst: {
+            args: Prisma.CompanyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findMany: {
+            args: Prisma.CompanyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          create: {
+            args: Prisma.CompanyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          createMany: {
+            args: Prisma.CompanyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          delete: {
+            args: Prisma.CompanyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          update: {
+            args: Prisma.CompanyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          aggregate: {
+            args: Prisma.CompanyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompany>
+          }
+          groupBy: {
+            args: Prisma.CompanyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanyCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanyCountAggregateOutputType> | number
+          }
+        }
+      }
+      CV: {
+        payload: Prisma.$CVPayload<ExtArgs>
+        fields: Prisma.CVFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CVFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CVFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          findFirst: {
+            args: Prisma.CVFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CVFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          findMany: {
+            args: Prisma.CVFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>[]
+          }
+          create: {
+            args: Prisma.CVCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          createMany: {
+            args: Prisma.CVCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CVCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>[]
+          }
+          delete: {
+            args: Prisma.CVDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          update: {
+            args: Prisma.CVUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          deleteMany: {
+            args: Prisma.CVDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CVUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CVUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>[]
+          }
+          upsert: {
+            args: Prisma.CVUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CVPayload>
+          }
+          aggregate: {
+            args: Prisma.CVAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCV>
+          }
+          groupBy: {
+            args: Prisma.CVGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CVGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CVCountArgs<ExtArgs>
+            result: $Utils.Optional<CVCountAggregateOutputType> | number
+          }
+        }
+      }
+      Skill: {
+        payload: Prisma.$SkillPayload<ExtArgs>
+        fields: Prisma.SkillFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          findMany: {
+            args: Prisma.SkillFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          create: {
+            args: Prisma.SkillCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          createMany: {
+            args: Prisma.SkillCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          delete: {
+            args: Prisma.SkillDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          update: {
+            args: Prisma.SkillUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkill>
+          }
+          groupBy: {
+            args: Prisma.SkillGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tool: {
+        payload: Prisma.$ToolPayload<ExtArgs>
+        fields: Prisma.ToolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ToolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ToolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          findFirst: {
+            args: Prisma.ToolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ToolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          findMany: {
+            args: Prisma.ToolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>[]
+          }
+          create: {
+            args: Prisma.ToolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          createMany: {
+            args: Prisma.ToolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ToolCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>[]
+          }
+          delete: {
+            args: Prisma.ToolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          update: {
+            args: Prisma.ToolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          deleteMany: {
+            args: Prisma.ToolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ToolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ToolUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>[]
+          }
+          upsert: {
+            args: Prisma.ToolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ToolPayload>
+          }
+          aggregate: {
+            args: Prisma.ToolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTool>
+          }
+          groupBy: {
+            args: Prisma.ToolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ToolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ToolCountArgs<ExtArgs>
+            result: $Utils.Optional<ToolCountAggregateOutputType> | number
+          }
+        }
+      }
+      CvSkill: {
+        payload: Prisma.$CvSkillPayload<ExtArgs>
+        fields: Prisma.CvSkillFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CvSkillFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CvSkillFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          findFirst: {
+            args: Prisma.CvSkillFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CvSkillFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          findMany: {
+            args: Prisma.CvSkillFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>[]
+          }
+          create: {
+            args: Prisma.CvSkillCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          createMany: {
+            args: Prisma.CvSkillCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CvSkillCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>[]
+          }
+          delete: {
+            args: Prisma.CvSkillDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          update: {
+            args: Prisma.CvSkillUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          deleteMany: {
+            args: Prisma.CvSkillDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CvSkillUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CvSkillUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>[]
+          }
+          upsert: {
+            args: Prisma.CvSkillUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvSkillPayload>
+          }
+          aggregate: {
+            args: Prisma.CvSkillAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCvSkill>
+          }
+          groupBy: {
+            args: Prisma.CvSkillGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CvSkillGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CvSkillCountArgs<ExtArgs>
+            result: $Utils.Optional<CvSkillCountAggregateOutputType> | number
+          }
+        }
+      }
+      CvTool: {
+        payload: Prisma.$CvToolPayload<ExtArgs>
+        fields: Prisma.CvToolFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CvToolFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CvToolFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          findFirst: {
+            args: Prisma.CvToolFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CvToolFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          findMany: {
+            args: Prisma.CvToolFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>[]
+          }
+          create: {
+            args: Prisma.CvToolCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          createMany: {
+            args: Prisma.CvToolCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CvToolCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>[]
+          }
+          delete: {
+            args: Prisma.CvToolDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          update: {
+            args: Prisma.CvToolUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          deleteMany: {
+            args: Prisma.CvToolDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CvToolUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CvToolUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>[]
+          }
+          upsert: {
+            args: Prisma.CvToolUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CvToolPayload>
+          }
+          aggregate: {
+            args: Prisma.CvToolAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCvTool>
+          }
+          groupBy: {
+            args: Prisma.CvToolGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CvToolGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CvToolCountArgs<ExtArgs>
+            result: $Utils.Optional<CvToolCountAggregateOutputType> | number
+          }
+        }
+      }
+      Certificate: {
+        payload: Prisma.$CertificatePayload<ExtArgs>
+        fields: Prisma.CertificateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CertificateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CertificateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          findFirst: {
+            args: Prisma.CertificateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CertificateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          findMany: {
+            args: Prisma.CertificateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+          }
+          create: {
+            args: Prisma.CertificateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          createMany: {
+            args: Prisma.CertificateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CertificateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+          }
+          delete: {
+            args: Prisma.CertificateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          update: {
+            args: Prisma.CertificateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          deleteMany: {
+            args: Prisma.CertificateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CertificateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CertificateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+          }
+          upsert: {
+            args: Prisma.CertificateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CertificatePayload>
+          }
+          aggregate: {
+            args: Prisma.CertificateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCertificate>
+          }
+          groupBy: {
+            args: Prisma.CertificateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CertificateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CertificateCountArgs<ExtArgs>
+            result: $Utils.Optional<CertificateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1321,6 +2115,14 @@ export namespace Prisma {
     branch?: BranchOmit
     mockRegistration?: MockRegistrationOmit
     mockRegistrationStudent?: MockRegistrationStudentOmit
+    jobHunting?: JobHuntingOmit
+    company?: CompanyOmit
+    cV?: CVOmit
+    skill?: SkillOmit
+    tool?: ToolOmit
+    cvSkill?: CvSkillOmit
+    cvTool?: CvToolOmit
+    certificate?: CertificateOmit
   }
 
   /* Types for Logging */
@@ -1479,11 +2281,15 @@ export namespace Prisma {
   export type CityCountOutputType = {
     ieltsExams: number
     calendar: number
+    jobHuntings: number
+    cvs: number
   }
 
   export type CityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ieltsExams?: boolean | CityCountOutputTypeCountIeltsExamsArgs
     calendar?: boolean | CityCountOutputTypeCountCalendarArgs
+    jobHuntings?: boolean | CityCountOutputTypeCountJobHuntingsArgs
+    cvs?: boolean | CityCountOutputTypeCountCvsArgs
   }
 
   // Custom InputTypes
@@ -1509,6 +2315,20 @@ export namespace Prisma {
    */
   export type CityCountOutputTypeCountCalendarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IeltsCalendarWhereInput
+  }
+
+  /**
+   * CityCountOutputType without action
+   */
+  export type CityCountOutputTypeCountJobHuntingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobHuntingWhereInput
+  }
+
+  /**
+   * CityCountOutputType without action
+   */
+  export type CityCountOutputTypeCountCvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CVWhereInput
   }
 
 
@@ -1571,6 +2391,139 @@ export namespace Prisma {
    */
   export type MockRegistrationCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MockRegistrationStudentWhereInput
+  }
+
+
+  /**
+   * Count Type CompanyCountOutputType
+   */
+
+  export type CompanyCountOutputType = {
+    jobHuntings: number
+  }
+
+  export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    jobHuntings?: boolean | CompanyCountOutputTypeCountJobHuntingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCountOutputType
+     */
+    select?: CompanyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountJobHuntingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobHuntingWhereInput
+  }
+
+
+  /**
+   * Count Type CVCountOutputType
+   */
+
+  export type CVCountOutputType = {
+    skills: number
+    tools: number
+  }
+
+  export type CVCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    skills?: boolean | CVCountOutputTypeCountSkillsArgs
+    tools?: boolean | CVCountOutputTypeCountToolsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CVCountOutputType without action
+   */
+  export type CVCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CVCountOutputType
+     */
+    select?: CVCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CVCountOutputType without action
+   */
+  export type CVCountOutputTypeCountSkillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvSkillWhereInput
+  }
+
+  /**
+   * CVCountOutputType without action
+   */
+  export type CVCountOutputTypeCountToolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvToolWhereInput
+  }
+
+
+  /**
+   * Count Type SkillCountOutputType
+   */
+
+  export type SkillCountOutputType = {
+    cvs: number
+  }
+
+  export type SkillCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cvs?: boolean | SkillCountOutputTypeCountCvsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SkillCountOutputType without action
+   */
+  export type SkillCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillCountOutputType
+     */
+    select?: SkillCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SkillCountOutputType without action
+   */
+  export type SkillCountOutputTypeCountCvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvSkillWhereInput
+  }
+
+
+  /**
+   * Count Type ToolCountOutputType
+   */
+
+  export type ToolCountOutputType = {
+    cvs: number
+  }
+
+  export type ToolCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cvs?: boolean | ToolCountOutputTypeCountCvsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ToolCountOutputType without action
+   */
+  export type ToolCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ToolCountOutputType
+     */
+    select?: ToolCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ToolCountOutputType without action
+   */
+  export type ToolCountOutputTypeCountCvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvToolWhereInput
   }
 
 
@@ -5074,6 +6027,8 @@ export namespace Prisma {
     name?: boolean
     ieltsExams?: boolean | City$ieltsExamsArgs<ExtArgs>
     calendar?: boolean | City$calendarArgs<ExtArgs>
+    jobHuntings?: boolean | City$jobHuntingsArgs<ExtArgs>
+    cvs?: boolean | City$cvsArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["city"]>
 
@@ -5096,6 +6051,8 @@ export namespace Prisma {
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ieltsExams?: boolean | City$ieltsExamsArgs<ExtArgs>
     calendar?: boolean | City$calendarArgs<ExtArgs>
+    jobHuntings?: boolean | City$jobHuntingsArgs<ExtArgs>
+    cvs?: boolean | City$cvsArgs<ExtArgs>
     _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5106,6 +6063,8 @@ export namespace Prisma {
     objects: {
       ieltsExams: Prisma.$IeltsExamPayload<ExtArgs>[]
       calendar: Prisma.$IeltsCalendarPayload<ExtArgs>[]
+      jobHuntings: Prisma.$JobHuntingPayload<ExtArgs>[]
+      cvs: Prisma.$CVPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5506,6 +6465,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ieltsExams<T extends City$ieltsExamsArgs<ExtArgs> = {}>(args?: Subset<T, City$ieltsExamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IeltsExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     calendar<T extends City$calendarArgs<ExtArgs> = {}>(args?: Subset<T, City$calendarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IeltsCalendarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    jobHuntings<T extends City$jobHuntingsArgs<ExtArgs> = {}>(args?: Subset<T, City$jobHuntingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    cvs<T extends City$cvsArgs<ExtArgs> = {}>(args?: Subset<T, City$cvsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5970,6 +6931,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IeltsCalendarScalarFieldEnum | IeltsCalendarScalarFieldEnum[]
+  }
+
+  /**
+   * City.jobHuntings
+   */
+  export type City$jobHuntingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    where?: JobHuntingWhereInput
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    cursor?: JobHuntingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JobHuntingScalarFieldEnum | JobHuntingScalarFieldEnum[]
+  }
+
+  /**
+   * City.cvs
+   */
+  export type City$cvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    where?: CVWhereInput
+    orderBy?: CVOrderByWithRelationInput | CVOrderByWithRelationInput[]
+    cursor?: CVWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CVScalarFieldEnum | CVScalarFieldEnum[]
   }
 
   /**
@@ -9273,6 +10282,8774 @@ export namespace Prisma {
 
 
   /**
+   * Model JobHunting
+   */
+
+  export type AggregateJobHunting = {
+    _count: JobHuntingCountAggregateOutputType | null
+    _avg: JobHuntingAvgAggregateOutputType | null
+    _sum: JobHuntingSumAggregateOutputType | null
+    _min: JobHuntingMinAggregateOutputType | null
+    _max: JobHuntingMaxAggregateOutputType | null
+  }
+
+  export type JobHuntingAvgAggregateOutputType = {
+    salary: number | null
+  }
+
+  export type JobHuntingSumAggregateOutputType = {
+    salary: number | null
+  }
+
+  export type JobHuntingMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+    title: string | null
+    description: string | null
+    workExperience: $Enums.WorkExperience | null
+    companyId: string | null
+    cityId: string | null
+    certificateRequirements: string | null
+    workScheduleHours: $Enums.WorkScheduleHours | null
+    employmentType: $Enums.EmploymentType | null
+    workMode: $Enums.WorkMode | null
+    salary: number | null
+    responsibilities: string | null
+    requirements: string | null
+    conditions: string | null
+  }
+
+  export type JobHuntingMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+    title: string | null
+    description: string | null
+    workExperience: $Enums.WorkExperience | null
+    companyId: string | null
+    cityId: string | null
+    certificateRequirements: string | null
+    workScheduleHours: $Enums.WorkScheduleHours | null
+    employmentType: $Enums.EmploymentType | null
+    workMode: $Enums.WorkMode | null
+    salary: number | null
+    responsibilities: string | null
+    requirements: string | null
+    conditions: string | null
+  }
+
+  export type JobHuntingCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    createdBy: number
+    updatedAt: number
+    updatedBy: number
+    title: number
+    description: number
+    workExperience: number
+    companyId: number
+    cityId: number
+    certificateRequirements: number
+    workScheduleHours: number
+    employmentType: number
+    workMode: number
+    salary: number
+    responsibilities: number
+    requirements: number
+    conditions: number
+    _all: number
+  }
+
+
+  export type JobHuntingAvgAggregateInputType = {
+    salary?: true
+  }
+
+  export type JobHuntingSumAggregateInputType = {
+    salary?: true
+  }
+
+  export type JobHuntingMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    title?: true
+    description?: true
+    workExperience?: true
+    companyId?: true
+    cityId?: true
+    certificateRequirements?: true
+    workScheduleHours?: true
+    employmentType?: true
+    workMode?: true
+    salary?: true
+    responsibilities?: true
+    requirements?: true
+    conditions?: true
+  }
+
+  export type JobHuntingMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    title?: true
+    description?: true
+    workExperience?: true
+    companyId?: true
+    cityId?: true
+    certificateRequirements?: true
+    workScheduleHours?: true
+    employmentType?: true
+    workMode?: true
+    salary?: true
+    responsibilities?: true
+    requirements?: true
+    conditions?: true
+  }
+
+  export type JobHuntingCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    title?: true
+    description?: true
+    workExperience?: true
+    companyId?: true
+    cityId?: true
+    certificateRequirements?: true
+    workScheduleHours?: true
+    employmentType?: true
+    workMode?: true
+    salary?: true
+    responsibilities?: true
+    requirements?: true
+    conditions?: true
+    _all?: true
+  }
+
+  export type JobHuntingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JobHunting to aggregate.
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JobHuntings to fetch.
+     */
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JobHuntingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JobHuntings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JobHuntings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JobHuntings
+    **/
+    _count?: true | JobHuntingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JobHuntingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JobHuntingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JobHuntingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JobHuntingMaxAggregateInputType
+  }
+
+  export type GetJobHuntingAggregateType<T extends JobHuntingAggregateArgs> = {
+        [P in keyof T & keyof AggregateJobHunting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJobHunting[P]>
+      : GetScalarType<T[P], AggregateJobHunting[P]>
+  }
+
+
+
+
+  export type JobHuntingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobHuntingWhereInput
+    orderBy?: JobHuntingOrderByWithAggregationInput | JobHuntingOrderByWithAggregationInput[]
+    by: JobHuntingScalarFieldEnum[] | JobHuntingScalarFieldEnum
+    having?: JobHuntingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JobHuntingCountAggregateInputType | true
+    _avg?: JobHuntingAvgAggregateInputType
+    _sum?: JobHuntingSumAggregateInputType
+    _min?: JobHuntingMinAggregateInputType
+    _max?: JobHuntingMaxAggregateInputType
+  }
+
+  export type JobHuntingGroupByOutputType = {
+    id: string
+    createdAt: Date
+    createdBy: string
+    updatedAt: Date
+    updatedBy: string | null
+    title: string
+    description: string | null
+    workExperience: $Enums.WorkExperience
+    companyId: string | null
+    cityId: string | null
+    certificateRequirements: string | null
+    workScheduleHours: $Enums.WorkScheduleHours | null
+    employmentType: $Enums.EmploymentType | null
+    workMode: $Enums.WorkMode | null
+    salary: number | null
+    responsibilities: string | null
+    requirements: string | null
+    conditions: string | null
+    _count: JobHuntingCountAggregateOutputType | null
+    _avg: JobHuntingAvgAggregateOutputType | null
+    _sum: JobHuntingSumAggregateOutputType | null
+    _min: JobHuntingMinAggregateOutputType | null
+    _max: JobHuntingMaxAggregateOutputType | null
+  }
+
+  type GetJobHuntingGroupByPayload<T extends JobHuntingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JobHuntingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JobHuntingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JobHuntingGroupByOutputType[P]>
+            : GetScalarType<T[P], JobHuntingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JobHuntingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    title?: boolean
+    description?: boolean
+    workExperience?: boolean
+    companyId?: boolean
+    cityId?: boolean
+    certificateRequirements?: boolean
+    workScheduleHours?: boolean
+    employmentType?: boolean
+    workMode?: boolean
+    salary?: boolean
+    responsibilities?: boolean
+    requirements?: boolean
+    conditions?: boolean
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }, ExtArgs["result"]["jobHunting"]>
+
+  export type JobHuntingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    title?: boolean
+    description?: boolean
+    workExperience?: boolean
+    companyId?: boolean
+    cityId?: boolean
+    certificateRequirements?: boolean
+    workScheduleHours?: boolean
+    employmentType?: boolean
+    workMode?: boolean
+    salary?: boolean
+    responsibilities?: boolean
+    requirements?: boolean
+    conditions?: boolean
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }, ExtArgs["result"]["jobHunting"]>
+
+  export type JobHuntingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    title?: boolean
+    description?: boolean
+    workExperience?: boolean
+    companyId?: boolean
+    cityId?: boolean
+    certificateRequirements?: boolean
+    workScheduleHours?: boolean
+    employmentType?: boolean
+    workMode?: boolean
+    salary?: boolean
+    responsibilities?: boolean
+    requirements?: boolean
+    conditions?: boolean
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }, ExtArgs["result"]["jobHunting"]>
+
+  export type JobHuntingSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    title?: boolean
+    description?: boolean
+    workExperience?: boolean
+    companyId?: boolean
+    cityId?: boolean
+    certificateRequirements?: boolean
+    workScheduleHours?: boolean
+    employmentType?: boolean
+    workMode?: boolean
+    salary?: boolean
+    responsibilities?: boolean
+    requirements?: boolean
+    conditions?: boolean
+  }
+
+  export type JobHuntingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "createdBy" | "updatedAt" | "updatedBy" | "title" | "description" | "workExperience" | "companyId" | "cityId" | "certificateRequirements" | "workScheduleHours" | "employmentType" | "workMode" | "salary" | "responsibilities" | "requirements" | "conditions", ExtArgs["result"]["jobHunting"]>
+  export type JobHuntingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }
+  export type JobHuntingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }
+  export type JobHuntingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | JobHunting$companyArgs<ExtArgs>
+    city?: boolean | JobHunting$cityArgs<ExtArgs>
+  }
+
+  export type $JobHuntingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JobHunting"
+    objects: {
+      company: Prisma.$CompanyPayload<ExtArgs> | null
+      city: Prisma.$CityPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      createdBy: string
+      updatedAt: Date
+      updatedBy: string | null
+      title: string
+      description: string | null
+      workExperience: $Enums.WorkExperience
+      companyId: string | null
+      cityId: string | null
+      certificateRequirements: string | null
+      workScheduleHours: $Enums.WorkScheduleHours | null
+      employmentType: $Enums.EmploymentType | null
+      workMode: $Enums.WorkMode | null
+      salary: number | null
+      responsibilities: string | null
+      requirements: string | null
+      conditions: string | null
+    }, ExtArgs["result"]["jobHunting"]>
+    composites: {}
+  }
+
+  type JobHuntingGetPayload<S extends boolean | null | undefined | JobHuntingDefaultArgs> = $Result.GetResult<Prisma.$JobHuntingPayload, S>
+
+  type JobHuntingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<JobHuntingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: JobHuntingCountAggregateInputType | true
+    }
+
+  export interface JobHuntingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JobHunting'], meta: { name: 'JobHunting' } }
+    /**
+     * Find zero or one JobHunting that matches the filter.
+     * @param {JobHuntingFindUniqueArgs} args - Arguments to find a JobHunting
+     * @example
+     * // Get one JobHunting
+     * const jobHunting = await prisma.jobHunting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JobHuntingFindUniqueArgs>(args: SelectSubset<T, JobHuntingFindUniqueArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one JobHunting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {JobHuntingFindUniqueOrThrowArgs} args - Arguments to find a JobHunting
+     * @example
+     * // Get one JobHunting
+     * const jobHunting = await prisma.jobHunting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JobHuntingFindUniqueOrThrowArgs>(args: SelectSubset<T, JobHuntingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JobHunting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingFindFirstArgs} args - Arguments to find a JobHunting
+     * @example
+     * // Get one JobHunting
+     * const jobHunting = await prisma.jobHunting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JobHuntingFindFirstArgs>(args?: SelectSubset<T, JobHuntingFindFirstArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JobHunting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingFindFirstOrThrowArgs} args - Arguments to find a JobHunting
+     * @example
+     * // Get one JobHunting
+     * const jobHunting = await prisma.jobHunting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JobHuntingFindFirstOrThrowArgs>(args?: SelectSubset<T, JobHuntingFindFirstOrThrowArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more JobHuntings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JobHuntings
+     * const jobHuntings = await prisma.jobHunting.findMany()
+     * 
+     * // Get first 10 JobHuntings
+     * const jobHuntings = await prisma.jobHunting.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const jobHuntingWithIdOnly = await prisma.jobHunting.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JobHuntingFindManyArgs>(args?: SelectSubset<T, JobHuntingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a JobHunting.
+     * @param {JobHuntingCreateArgs} args - Arguments to create a JobHunting.
+     * @example
+     * // Create one JobHunting
+     * const JobHunting = await prisma.jobHunting.create({
+     *   data: {
+     *     // ... data to create a JobHunting
+     *   }
+     * })
+     * 
+     */
+    create<T extends JobHuntingCreateArgs>(args: SelectSubset<T, JobHuntingCreateArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many JobHuntings.
+     * @param {JobHuntingCreateManyArgs} args - Arguments to create many JobHuntings.
+     * @example
+     * // Create many JobHuntings
+     * const jobHunting = await prisma.jobHunting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JobHuntingCreateManyArgs>(args?: SelectSubset<T, JobHuntingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JobHuntings and returns the data saved in the database.
+     * @param {JobHuntingCreateManyAndReturnArgs} args - Arguments to create many JobHuntings.
+     * @example
+     * // Create many JobHuntings
+     * const jobHunting = await prisma.jobHunting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JobHuntings and only return the `id`
+     * const jobHuntingWithIdOnly = await prisma.jobHunting.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JobHuntingCreateManyAndReturnArgs>(args?: SelectSubset<T, JobHuntingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a JobHunting.
+     * @param {JobHuntingDeleteArgs} args - Arguments to delete one JobHunting.
+     * @example
+     * // Delete one JobHunting
+     * const JobHunting = await prisma.jobHunting.delete({
+     *   where: {
+     *     // ... filter to delete one JobHunting
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JobHuntingDeleteArgs>(args: SelectSubset<T, JobHuntingDeleteArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one JobHunting.
+     * @param {JobHuntingUpdateArgs} args - Arguments to update one JobHunting.
+     * @example
+     * // Update one JobHunting
+     * const jobHunting = await prisma.jobHunting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JobHuntingUpdateArgs>(args: SelectSubset<T, JobHuntingUpdateArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more JobHuntings.
+     * @param {JobHuntingDeleteManyArgs} args - Arguments to filter JobHuntings to delete.
+     * @example
+     * // Delete a few JobHuntings
+     * const { count } = await prisma.jobHunting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JobHuntingDeleteManyArgs>(args?: SelectSubset<T, JobHuntingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JobHuntings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JobHuntings
+     * const jobHunting = await prisma.jobHunting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JobHuntingUpdateManyArgs>(args: SelectSubset<T, JobHuntingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JobHuntings and returns the data updated in the database.
+     * @param {JobHuntingUpdateManyAndReturnArgs} args - Arguments to update many JobHuntings.
+     * @example
+     * // Update many JobHuntings
+     * const jobHunting = await prisma.jobHunting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more JobHuntings and only return the `id`
+     * const jobHuntingWithIdOnly = await prisma.jobHunting.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends JobHuntingUpdateManyAndReturnArgs>(args: SelectSubset<T, JobHuntingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one JobHunting.
+     * @param {JobHuntingUpsertArgs} args - Arguments to update or create a JobHunting.
+     * @example
+     * // Update or create a JobHunting
+     * const jobHunting = await prisma.jobHunting.upsert({
+     *   create: {
+     *     // ... data to create a JobHunting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JobHunting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JobHuntingUpsertArgs>(args: SelectSubset<T, JobHuntingUpsertArgs<ExtArgs>>): Prisma__JobHuntingClient<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of JobHuntings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingCountArgs} args - Arguments to filter JobHuntings to count.
+     * @example
+     * // Count the number of JobHuntings
+     * const count = await prisma.jobHunting.count({
+     *   where: {
+     *     // ... the filter for the JobHuntings we want to count
+     *   }
+     * })
+    **/
+    count<T extends JobHuntingCountArgs>(
+      args?: Subset<T, JobHuntingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JobHuntingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JobHunting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JobHuntingAggregateArgs>(args: Subset<T, JobHuntingAggregateArgs>): Prisma.PrismaPromise<GetJobHuntingAggregateType<T>>
+
+    /**
+     * Group by JobHunting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobHuntingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JobHuntingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JobHuntingGroupByArgs['orderBy'] }
+        : { orderBy?: JobHuntingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JobHuntingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJobHuntingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JobHunting model
+   */
+  readonly fields: JobHuntingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JobHunting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JobHuntingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends JobHunting$companyArgs<ExtArgs> = {}>(args?: Subset<T, JobHunting$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    city<T extends JobHunting$cityArgs<ExtArgs> = {}>(args?: Subset<T, JobHunting$cityArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JobHunting model
+   */
+  interface JobHuntingFieldRefs {
+    readonly id: FieldRef<"JobHunting", 'String'>
+    readonly createdAt: FieldRef<"JobHunting", 'DateTime'>
+    readonly createdBy: FieldRef<"JobHunting", 'String'>
+    readonly updatedAt: FieldRef<"JobHunting", 'DateTime'>
+    readonly updatedBy: FieldRef<"JobHunting", 'String'>
+    readonly title: FieldRef<"JobHunting", 'String'>
+    readonly description: FieldRef<"JobHunting", 'String'>
+    readonly workExperience: FieldRef<"JobHunting", 'WorkExperience'>
+    readonly companyId: FieldRef<"JobHunting", 'String'>
+    readonly cityId: FieldRef<"JobHunting", 'String'>
+    readonly certificateRequirements: FieldRef<"JobHunting", 'String'>
+    readonly workScheduleHours: FieldRef<"JobHunting", 'WorkScheduleHours'>
+    readonly employmentType: FieldRef<"JobHunting", 'EmploymentType'>
+    readonly workMode: FieldRef<"JobHunting", 'WorkMode'>
+    readonly salary: FieldRef<"JobHunting", 'Int'>
+    readonly responsibilities: FieldRef<"JobHunting", 'String'>
+    readonly requirements: FieldRef<"JobHunting", 'String'>
+    readonly conditions: FieldRef<"JobHunting", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JobHunting findUnique
+   */
+  export type JobHuntingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter, which JobHunting to fetch.
+     */
+    where: JobHuntingWhereUniqueInput
+  }
+
+  /**
+   * JobHunting findUniqueOrThrow
+   */
+  export type JobHuntingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter, which JobHunting to fetch.
+     */
+    where: JobHuntingWhereUniqueInput
+  }
+
+  /**
+   * JobHunting findFirst
+   */
+  export type JobHuntingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter, which JobHunting to fetch.
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JobHuntings to fetch.
+     */
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JobHuntings.
+     */
+    cursor?: JobHuntingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JobHuntings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JobHuntings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JobHuntings.
+     */
+    distinct?: JobHuntingScalarFieldEnum | JobHuntingScalarFieldEnum[]
+  }
+
+  /**
+   * JobHunting findFirstOrThrow
+   */
+  export type JobHuntingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter, which JobHunting to fetch.
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JobHuntings to fetch.
+     */
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JobHuntings.
+     */
+    cursor?: JobHuntingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JobHuntings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JobHuntings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JobHuntings.
+     */
+    distinct?: JobHuntingScalarFieldEnum | JobHuntingScalarFieldEnum[]
+  }
+
+  /**
+   * JobHunting findMany
+   */
+  export type JobHuntingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter, which JobHuntings to fetch.
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JobHuntings to fetch.
+     */
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JobHuntings.
+     */
+    cursor?: JobHuntingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JobHuntings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JobHuntings.
+     */
+    skip?: number
+    distinct?: JobHuntingScalarFieldEnum | JobHuntingScalarFieldEnum[]
+  }
+
+  /**
+   * JobHunting create
+   */
+  export type JobHuntingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JobHunting.
+     */
+    data: XOR<JobHuntingCreateInput, JobHuntingUncheckedCreateInput>
+  }
+
+  /**
+   * JobHunting createMany
+   */
+  export type JobHuntingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JobHuntings.
+     */
+    data: JobHuntingCreateManyInput | JobHuntingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JobHunting createManyAndReturn
+   */
+  export type JobHuntingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * The data used to create many JobHuntings.
+     */
+    data: JobHuntingCreateManyInput | JobHuntingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JobHunting update
+   */
+  export type JobHuntingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JobHunting.
+     */
+    data: XOR<JobHuntingUpdateInput, JobHuntingUncheckedUpdateInput>
+    /**
+     * Choose, which JobHunting to update.
+     */
+    where: JobHuntingWhereUniqueInput
+  }
+
+  /**
+   * JobHunting updateMany
+   */
+  export type JobHuntingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JobHuntings.
+     */
+    data: XOR<JobHuntingUpdateManyMutationInput, JobHuntingUncheckedUpdateManyInput>
+    /**
+     * Filter which JobHuntings to update
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * Limit how many JobHuntings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * JobHunting updateManyAndReturn
+   */
+  export type JobHuntingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * The data used to update JobHuntings.
+     */
+    data: XOR<JobHuntingUpdateManyMutationInput, JobHuntingUncheckedUpdateManyInput>
+    /**
+     * Filter which JobHuntings to update
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * Limit how many JobHuntings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JobHunting upsert
+   */
+  export type JobHuntingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JobHunting to update in case it exists.
+     */
+    where: JobHuntingWhereUniqueInput
+    /**
+     * In case the JobHunting found by the `where` argument doesn't exist, create a new JobHunting with this data.
+     */
+    create: XOR<JobHuntingCreateInput, JobHuntingUncheckedCreateInput>
+    /**
+     * In case the JobHunting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JobHuntingUpdateInput, JobHuntingUncheckedUpdateInput>
+  }
+
+  /**
+   * JobHunting delete
+   */
+  export type JobHuntingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    /**
+     * Filter which JobHunting to delete.
+     */
+    where: JobHuntingWhereUniqueInput
+  }
+
+  /**
+   * JobHunting deleteMany
+   */
+  export type JobHuntingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JobHuntings to delete
+     */
+    where?: JobHuntingWhereInput
+    /**
+     * Limit how many JobHuntings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * JobHunting.company
+   */
+  export type JobHunting$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * JobHunting.city
+   */
+  export type JobHunting$cityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    where?: CityWhereInput
+  }
+
+  /**
+   * JobHunting without action
+   */
+  export type JobHuntingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Company
+   */
+
+  export type AggregateCompany = {
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  export type CompanyMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+    companyTitle: string | null
+    description: string | null
+    companyLogo: string | null
+  }
+
+  export type CompanyMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    updatedAt: Date | null
+    updatedBy: string | null
+    companyTitle: string | null
+    description: string | null
+    companyLogo: string | null
+  }
+
+  export type CompanyCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    createdBy: number
+    updatedAt: number
+    updatedBy: number
+    companyTitle: number
+    description: number
+    companyLogo: number
+    _all: number
+  }
+
+
+  export type CompanyMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    companyTitle?: true
+    description?: true
+    companyLogo?: true
+  }
+
+  export type CompanyMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    companyTitle?: true
+    description?: true
+    companyLogo?: true
+  }
+
+  export type CompanyCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    createdBy?: true
+    updatedAt?: true
+    updatedBy?: true
+    companyTitle?: true
+    description?: true
+    companyLogo?: true
+    _all?: true
+  }
+
+  export type CompanyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Company to aggregate.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Companies
+    **/
+    _count?: true | CompanyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type GetCompanyAggregateType<T extends CompanyAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompany]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompany[P]>
+      : GetScalarType<T[P], AggregateCompany[P]>
+  }
+
+
+
+
+  export type CompanyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyWhereInput
+    orderBy?: CompanyOrderByWithAggregationInput | CompanyOrderByWithAggregationInput[]
+    by: CompanyScalarFieldEnum[] | CompanyScalarFieldEnum
+    having?: CompanyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanyCountAggregateInputType | true
+    _min?: CompanyMinAggregateInputType
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type CompanyGroupByOutputType = {
+    id: string
+    createdAt: Date
+    createdBy: string
+    updatedAt: Date
+    updatedBy: string | null
+    companyTitle: string
+    description: string | null
+    companyLogo: string | null
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    companyTitle?: boolean
+    description?: boolean
+    companyLogo?: boolean
+    jobHuntings?: boolean | Company$jobHuntingsArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    companyTitle?: boolean
+    description?: boolean
+    companyLogo?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    companyTitle?: boolean
+    description?: boolean
+    companyLogo?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    updatedAt?: boolean
+    updatedBy?: boolean
+    companyTitle?: boolean
+    description?: boolean
+    companyLogo?: boolean
+  }
+
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "createdBy" | "updatedAt" | "updatedBy" | "companyTitle" | "description" | "companyLogo", ExtArgs["result"]["company"]>
+  export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    jobHuntings?: boolean | Company$jobHuntingsArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Company"
+    objects: {
+      jobHuntings: Prisma.$JobHuntingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      createdBy: string
+      updatedAt: Date
+      updatedBy: string | null
+      companyTitle: string
+      description: string | null
+      companyLogo: string | null
+    }, ExtArgs["result"]["company"]>
+    composites: {}
+  }
+
+  type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = $Result.GetResult<Prisma.$CompanyPayload, S>
+
+  type CompanyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanyCountAggregateInputType | true
+    }
+
+  export interface CompanyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Company'], meta: { name: 'Company' } }
+    /**
+     * Find zero or one Company that matches the filter.
+     * @param {CompanyFindUniqueArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanyFindUniqueArgs>(args: SelectSubset<T, CompanyFindUniqueArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Company that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanyFindUniqueOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanyFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanyFindFirstArgs>(args?: SelectSubset<T, CompanyFindFirstArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanyFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanyFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Companies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Companies
+     * const companies = await prisma.company.findMany()
+     * 
+     * // Get first 10 Companies
+     * const companies = await prisma.company.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companyWithIdOnly = await prisma.company.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanyFindManyArgs>(args?: SelectSubset<T, CompanyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Company.
+     * @param {CompanyCreateArgs} args - Arguments to create a Company.
+     * @example
+     * // Create one Company
+     * const Company = await prisma.company.create({
+     *   data: {
+     *     // ... data to create a Company
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanyCreateArgs>(args: SelectSubset<T, CompanyCreateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Companies.
+     * @param {CompanyCreateManyArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanyCreateManyArgs>(args?: SelectSubset<T, CompanyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Companies and returns the data saved in the database.
+     * @param {CompanyCreateManyAndReturnArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanyCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Company.
+     * @param {CompanyDeleteArgs} args - Arguments to delete one Company.
+     * @example
+     * // Delete one Company
+     * const Company = await prisma.company.delete({
+     *   where: {
+     *     // ... filter to delete one Company
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanyDeleteArgs>(args: SelectSubset<T, CompanyDeleteArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Company.
+     * @param {CompanyUpdateArgs} args - Arguments to update one Company.
+     * @example
+     * // Update one Company
+     * const company = await prisma.company.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanyUpdateArgs>(args: SelectSubset<T, CompanyUpdateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Companies.
+     * @param {CompanyDeleteManyArgs} args - Arguments to filter Companies to delete.
+     * @example
+     * // Delete a few Companies
+     * const { count } = await prisma.company.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanyDeleteManyArgs>(args?: SelectSubset<T, CompanyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanyUpdateManyArgs>(args: SelectSubset<T, CompanyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies and returns the data updated in the database.
+     * @param {CompanyUpdateManyAndReturnArgs} args - Arguments to update many Companies.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanyUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Company.
+     * @param {CompanyUpsertArgs} args - Arguments to update or create a Company.
+     * @example
+     * // Update or create a Company
+     * const company = await prisma.company.upsert({
+     *   create: {
+     *     // ... data to create a Company
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Company we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanyUpsertArgs>(args: SelectSubset<T, CompanyUpsertArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyCountArgs} args - Arguments to filter Companies to count.
+     * @example
+     * // Count the number of Companies
+     * const count = await prisma.company.count({
+     *   where: {
+     *     // ... the filter for the Companies we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanyCountArgs>(
+      args?: Subset<T, CompanyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanyAggregateArgs>(args: Subset<T, CompanyAggregateArgs>): Prisma.PrismaPromise<GetCompanyAggregateType<T>>
+
+    /**
+     * Group by Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanyGroupByArgs['orderBy'] }
+        : { orderBy?: CompanyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Company model
+   */
+  readonly fields: CompanyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Company.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    jobHuntings<T extends Company$jobHuntingsArgs<ExtArgs> = {}>(args?: Subset<T, Company$jobHuntingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobHuntingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Company model
+   */
+  interface CompanyFieldRefs {
+    readonly id: FieldRef<"Company", 'String'>
+    readonly createdAt: FieldRef<"Company", 'DateTime'>
+    readonly createdBy: FieldRef<"Company", 'String'>
+    readonly updatedAt: FieldRef<"Company", 'DateTime'>
+    readonly updatedBy: FieldRef<"Company", 'String'>
+    readonly companyTitle: FieldRef<"Company", 'String'>
+    readonly description: FieldRef<"Company", 'String'>
+    readonly companyLogo: FieldRef<"Company", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Company findUnique
+   */
+  export type CompanyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findUniqueOrThrow
+   */
+  export type CompanyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findFirst
+   */
+  export type CompanyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findFirstOrThrow
+   */
+  export type CompanyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findMany
+   */
+  export type CompanyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Companies to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company create
+   */
+  export type CompanyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Company.
+     */
+    data: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+  }
+
+  /**
+   * Company createMany
+   */
+  export type CompanyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company createManyAndReturn
+   */
+  export type CompanyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company update
+   */
+  export type CompanyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Company.
+     */
+    data: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+    /**
+     * Choose, which Company to update.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company updateMany
+   */
+  export type CompanyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company updateManyAndReturn
+   */
+  export type CompanyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company upsert
+   */
+  export type CompanyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Company to update in case it exists.
+     */
+    where: CompanyWhereUniqueInput
+    /**
+     * In case the Company found by the `where` argument doesn't exist, create a new Company with this data.
+     */
+    create: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+    /**
+     * In case the Company was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+  }
+
+  /**
+   * Company delete
+   */
+  export type CompanyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter which Company to delete.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company deleteMany
+   */
+  export type CompanyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Companies to delete
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company.jobHuntings
+   */
+  export type Company$jobHuntingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobHunting
+     */
+    select?: JobHuntingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobHunting
+     */
+    omit?: JobHuntingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobHuntingInclude<ExtArgs> | null
+    where?: JobHuntingWhereInput
+    orderBy?: JobHuntingOrderByWithRelationInput | JobHuntingOrderByWithRelationInput[]
+    cursor?: JobHuntingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JobHuntingScalarFieldEnum | JobHuntingScalarFieldEnum[]
+  }
+
+  /**
+   * Company without action
+   */
+  export type CompanyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CV
+   */
+
+  export type AggregateCV = {
+    _count: CVCountAggregateOutputType | null
+    _avg: CVAvgAggregateOutputType | null
+    _sum: CVSumAggregateOutputType | null
+    _min: CVMinAggregateOutputType | null
+    _max: CVMaxAggregateOutputType | null
+  }
+
+  export type CVAvgAggregateOutputType = {
+    graduationYear: number | null
+  }
+
+  export type CVSumAggregateOutputType = {
+    graduationYear: number | null
+  }
+
+  export type CVMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    studentId: string | null
+    description: string | null
+    cityId: string | null
+    degree: $Enums.Degree | null
+    universityTitle: string | null
+    universityMajor: string | null
+    graduationYear: number | null
+    companyName: string | null
+    position: string | null
+    responsibilities: string | null
+    startDate: Date | null
+    endDate: Date | null
+  }
+
+  export type CVMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    studentId: string | null
+    description: string | null
+    cityId: string | null
+    degree: $Enums.Degree | null
+    universityTitle: string | null
+    universityMajor: string | null
+    graduationYear: number | null
+    companyName: string | null
+    position: string | null
+    responsibilities: string | null
+    startDate: Date | null
+    endDate: Date | null
+  }
+
+  export type CVCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    studentId: number
+    description: number
+    cityId: number
+    degree: number
+    universityTitle: number
+    universityMajor: number
+    graduationYear: number
+    companyName: number
+    position: number
+    responsibilities: number
+    startDate: number
+    endDate: number
+    _all: number
+  }
+
+
+  export type CVAvgAggregateInputType = {
+    graduationYear?: true
+  }
+
+  export type CVSumAggregateInputType = {
+    graduationYear?: true
+  }
+
+  export type CVMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    studentId?: true
+    description?: true
+    cityId?: true
+    degree?: true
+    universityTitle?: true
+    universityMajor?: true
+    graduationYear?: true
+    companyName?: true
+    position?: true
+    responsibilities?: true
+    startDate?: true
+    endDate?: true
+  }
+
+  export type CVMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    studentId?: true
+    description?: true
+    cityId?: true
+    degree?: true
+    universityTitle?: true
+    universityMajor?: true
+    graduationYear?: true
+    companyName?: true
+    position?: true
+    responsibilities?: true
+    startDate?: true
+    endDate?: true
+  }
+
+  export type CVCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    studentId?: true
+    description?: true
+    cityId?: true
+    degree?: true
+    universityTitle?: true
+    universityMajor?: true
+    graduationYear?: true
+    companyName?: true
+    position?: true
+    responsibilities?: true
+    startDate?: true
+    endDate?: true
+    _all?: true
+  }
+
+  export type CVAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CV to aggregate.
+     */
+    where?: CVWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CVS to fetch.
+     */
+    orderBy?: CVOrderByWithRelationInput | CVOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CVWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CVS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CVS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CVS
+    **/
+    _count?: true | CVCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CVAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CVSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CVMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CVMaxAggregateInputType
+  }
+
+  export type GetCVAggregateType<T extends CVAggregateArgs> = {
+        [P in keyof T & keyof AggregateCV]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCV[P]>
+      : GetScalarType<T[P], AggregateCV[P]>
+  }
+
+
+
+
+  export type CVGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CVWhereInput
+    orderBy?: CVOrderByWithAggregationInput | CVOrderByWithAggregationInput[]
+    by: CVScalarFieldEnum[] | CVScalarFieldEnum
+    having?: CVScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CVCountAggregateInputType | true
+    _avg?: CVAvgAggregateInputType
+    _sum?: CVSumAggregateInputType
+    _min?: CVMinAggregateInputType
+    _max?: CVMaxAggregateInputType
+  }
+
+  export type CVGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    studentId: string
+    description: string | null
+    cityId: string
+    degree: $Enums.Degree | null
+    universityTitle: string | null
+    universityMajor: string | null
+    graduationYear: number | null
+    companyName: string | null
+    position: string | null
+    responsibilities: string | null
+    startDate: Date | null
+    endDate: Date | null
+    _count: CVCountAggregateOutputType | null
+    _avg: CVAvgAggregateOutputType | null
+    _sum: CVSumAggregateOutputType | null
+    _min: CVMinAggregateOutputType | null
+    _max: CVMaxAggregateOutputType | null
+  }
+
+  type GetCVGroupByPayload<T extends CVGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CVGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CVGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CVGroupByOutputType[P]>
+            : GetScalarType<T[P], CVGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CVSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    studentId?: boolean
+    description?: boolean
+    cityId?: boolean
+    degree?: boolean
+    universityTitle?: boolean
+    universityMajor?: boolean
+    graduationYear?: boolean
+    companyName?: boolean
+    position?: boolean
+    responsibilities?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    skills?: boolean | CV$skillsArgs<ExtArgs>
+    tools?: boolean | CV$toolsArgs<ExtArgs>
+    _count?: boolean | CVCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cV"]>
+
+  export type CVSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    studentId?: boolean
+    description?: boolean
+    cityId?: boolean
+    degree?: boolean
+    universityTitle?: boolean
+    universityMajor?: boolean
+    graduationYear?: boolean
+    companyName?: boolean
+    position?: boolean
+    responsibilities?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cV"]>
+
+  export type CVSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    studentId?: boolean
+    description?: boolean
+    cityId?: boolean
+    degree?: boolean
+    universityTitle?: boolean
+    universityMajor?: boolean
+    graduationYear?: boolean
+    companyName?: boolean
+    position?: boolean
+    responsibilities?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cV"]>
+
+  export type CVSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    studentId?: boolean
+    description?: boolean
+    cityId?: boolean
+    degree?: boolean
+    universityTitle?: boolean
+    universityMajor?: boolean
+    graduationYear?: boolean
+    companyName?: boolean
+    position?: boolean
+    responsibilities?: boolean
+    startDate?: boolean
+    endDate?: boolean
+  }
+
+  export type CVOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "studentId" | "description" | "cityId" | "degree" | "universityTitle" | "universityMajor" | "graduationYear" | "companyName" | "position" | "responsibilities" | "startDate" | "endDate", ExtArgs["result"]["cV"]>
+  export type CVInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    skills?: boolean | CV$skillsArgs<ExtArgs>
+    tools?: boolean | CV$toolsArgs<ExtArgs>
+    _count?: boolean | CVCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CVIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+  export type CVIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+  }
+
+  export type $CVPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CV"
+    objects: {
+      city: Prisma.$CityPayload<ExtArgs>
+      skills: Prisma.$CvSkillPayload<ExtArgs>[]
+      tools: Prisma.$CvToolPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      studentId: string
+      description: string | null
+      cityId: string
+      degree: $Enums.Degree | null
+      universityTitle: string | null
+      universityMajor: string | null
+      graduationYear: number | null
+      companyName: string | null
+      position: string | null
+      responsibilities: string | null
+      startDate: Date | null
+      endDate: Date | null
+    }, ExtArgs["result"]["cV"]>
+    composites: {}
+  }
+
+  type CVGetPayload<S extends boolean | null | undefined | CVDefaultArgs> = $Result.GetResult<Prisma.$CVPayload, S>
+
+  type CVCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CVFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CVCountAggregateInputType | true
+    }
+
+  export interface CVDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CV'], meta: { name: 'CV' } }
+    /**
+     * Find zero or one CV that matches the filter.
+     * @param {CVFindUniqueArgs} args - Arguments to find a CV
+     * @example
+     * // Get one CV
+     * const cV = await prisma.cV.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CVFindUniqueArgs>(args: SelectSubset<T, CVFindUniqueArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CV that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CVFindUniqueOrThrowArgs} args - Arguments to find a CV
+     * @example
+     * // Get one CV
+     * const cV = await prisma.cV.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CVFindUniqueOrThrowArgs>(args: SelectSubset<T, CVFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CV that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVFindFirstArgs} args - Arguments to find a CV
+     * @example
+     * // Get one CV
+     * const cV = await prisma.cV.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CVFindFirstArgs>(args?: SelectSubset<T, CVFindFirstArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CV that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVFindFirstOrThrowArgs} args - Arguments to find a CV
+     * @example
+     * // Get one CV
+     * const cV = await prisma.cV.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CVFindFirstOrThrowArgs>(args?: SelectSubset<T, CVFindFirstOrThrowArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CVS that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CVS
+     * const cVS = await prisma.cV.findMany()
+     * 
+     * // Get first 10 CVS
+     * const cVS = await prisma.cV.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const cVWithIdOnly = await prisma.cV.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CVFindManyArgs>(args?: SelectSubset<T, CVFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CV.
+     * @param {CVCreateArgs} args - Arguments to create a CV.
+     * @example
+     * // Create one CV
+     * const CV = await prisma.cV.create({
+     *   data: {
+     *     // ... data to create a CV
+     *   }
+     * })
+     * 
+     */
+    create<T extends CVCreateArgs>(args: SelectSubset<T, CVCreateArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CVS.
+     * @param {CVCreateManyArgs} args - Arguments to create many CVS.
+     * @example
+     * // Create many CVS
+     * const cV = await prisma.cV.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CVCreateManyArgs>(args?: SelectSubset<T, CVCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CVS and returns the data saved in the database.
+     * @param {CVCreateManyAndReturnArgs} args - Arguments to create many CVS.
+     * @example
+     * // Create many CVS
+     * const cV = await prisma.cV.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CVS and only return the `id`
+     * const cVWithIdOnly = await prisma.cV.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CVCreateManyAndReturnArgs>(args?: SelectSubset<T, CVCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CV.
+     * @param {CVDeleteArgs} args - Arguments to delete one CV.
+     * @example
+     * // Delete one CV
+     * const CV = await prisma.cV.delete({
+     *   where: {
+     *     // ... filter to delete one CV
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CVDeleteArgs>(args: SelectSubset<T, CVDeleteArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CV.
+     * @param {CVUpdateArgs} args - Arguments to update one CV.
+     * @example
+     * // Update one CV
+     * const cV = await prisma.cV.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CVUpdateArgs>(args: SelectSubset<T, CVUpdateArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CVS.
+     * @param {CVDeleteManyArgs} args - Arguments to filter CVS to delete.
+     * @example
+     * // Delete a few CVS
+     * const { count } = await prisma.cV.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CVDeleteManyArgs>(args?: SelectSubset<T, CVDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CVS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CVS
+     * const cV = await prisma.cV.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CVUpdateManyArgs>(args: SelectSubset<T, CVUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CVS and returns the data updated in the database.
+     * @param {CVUpdateManyAndReturnArgs} args - Arguments to update many CVS.
+     * @example
+     * // Update many CVS
+     * const cV = await prisma.cV.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CVS and only return the `id`
+     * const cVWithIdOnly = await prisma.cV.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CVUpdateManyAndReturnArgs>(args: SelectSubset<T, CVUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CV.
+     * @param {CVUpsertArgs} args - Arguments to update or create a CV.
+     * @example
+     * // Update or create a CV
+     * const cV = await prisma.cV.upsert({
+     *   create: {
+     *     // ... data to create a CV
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CV we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CVUpsertArgs>(args: SelectSubset<T, CVUpsertArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CVS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVCountArgs} args - Arguments to filter CVS to count.
+     * @example
+     * // Count the number of CVS
+     * const count = await prisma.cV.count({
+     *   where: {
+     *     // ... the filter for the CVS we want to count
+     *   }
+     * })
+    **/
+    count<T extends CVCountArgs>(
+      args?: Subset<T, CVCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CVCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CV.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CVAggregateArgs>(args: Subset<T, CVAggregateArgs>): Prisma.PrismaPromise<GetCVAggregateType<T>>
+
+    /**
+     * Group by CV.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CVGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CVGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CVGroupByArgs['orderBy'] }
+        : { orderBy?: CVGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CVGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCVGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CV model
+   */
+  readonly fields: CVFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CV.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CVClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    skills<T extends CV$skillsArgs<ExtArgs> = {}>(args?: Subset<T, CV$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tools<T extends CV$toolsArgs<ExtArgs> = {}>(args?: Subset<T, CV$toolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CV model
+   */
+  interface CVFieldRefs {
+    readonly id: FieldRef<"CV", 'String'>
+    readonly createdAt: FieldRef<"CV", 'DateTime'>
+    readonly updatedAt: FieldRef<"CV", 'DateTime'>
+    readonly studentId: FieldRef<"CV", 'String'>
+    readonly description: FieldRef<"CV", 'String'>
+    readonly cityId: FieldRef<"CV", 'String'>
+    readonly degree: FieldRef<"CV", 'Degree'>
+    readonly universityTitle: FieldRef<"CV", 'String'>
+    readonly universityMajor: FieldRef<"CV", 'String'>
+    readonly graduationYear: FieldRef<"CV", 'Int'>
+    readonly companyName: FieldRef<"CV", 'String'>
+    readonly position: FieldRef<"CV", 'String'>
+    readonly responsibilities: FieldRef<"CV", 'String'>
+    readonly startDate: FieldRef<"CV", 'DateTime'>
+    readonly endDate: FieldRef<"CV", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CV findUnique
+   */
+  export type CVFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter, which CV to fetch.
+     */
+    where: CVWhereUniqueInput
+  }
+
+  /**
+   * CV findUniqueOrThrow
+   */
+  export type CVFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter, which CV to fetch.
+     */
+    where: CVWhereUniqueInput
+  }
+
+  /**
+   * CV findFirst
+   */
+  export type CVFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter, which CV to fetch.
+     */
+    where?: CVWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CVS to fetch.
+     */
+    orderBy?: CVOrderByWithRelationInput | CVOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CVS.
+     */
+    cursor?: CVWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CVS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CVS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CVS.
+     */
+    distinct?: CVScalarFieldEnum | CVScalarFieldEnum[]
+  }
+
+  /**
+   * CV findFirstOrThrow
+   */
+  export type CVFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter, which CV to fetch.
+     */
+    where?: CVWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CVS to fetch.
+     */
+    orderBy?: CVOrderByWithRelationInput | CVOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CVS.
+     */
+    cursor?: CVWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CVS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CVS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CVS.
+     */
+    distinct?: CVScalarFieldEnum | CVScalarFieldEnum[]
+  }
+
+  /**
+   * CV findMany
+   */
+  export type CVFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter, which CVS to fetch.
+     */
+    where?: CVWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CVS to fetch.
+     */
+    orderBy?: CVOrderByWithRelationInput | CVOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CVS.
+     */
+    cursor?: CVWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CVS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CVS.
+     */
+    skip?: number
+    distinct?: CVScalarFieldEnum | CVScalarFieldEnum[]
+  }
+
+  /**
+   * CV create
+   */
+  export type CVCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CV.
+     */
+    data: XOR<CVCreateInput, CVUncheckedCreateInput>
+  }
+
+  /**
+   * CV createMany
+   */
+  export type CVCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CVS.
+     */
+    data: CVCreateManyInput | CVCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CV createManyAndReturn
+   */
+  export type CVCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * The data used to create many CVS.
+     */
+    data: CVCreateManyInput | CVCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CV update
+   */
+  export type CVUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CV.
+     */
+    data: XOR<CVUpdateInput, CVUncheckedUpdateInput>
+    /**
+     * Choose, which CV to update.
+     */
+    where: CVWhereUniqueInput
+  }
+
+  /**
+   * CV updateMany
+   */
+  export type CVUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CVS.
+     */
+    data: XOR<CVUpdateManyMutationInput, CVUncheckedUpdateManyInput>
+    /**
+     * Filter which CVS to update
+     */
+    where?: CVWhereInput
+    /**
+     * Limit how many CVS to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CV updateManyAndReturn
+   */
+  export type CVUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * The data used to update CVS.
+     */
+    data: XOR<CVUpdateManyMutationInput, CVUncheckedUpdateManyInput>
+    /**
+     * Filter which CVS to update
+     */
+    where?: CVWhereInput
+    /**
+     * Limit how many CVS to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CV upsert
+   */
+  export type CVUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CV to update in case it exists.
+     */
+    where: CVWhereUniqueInput
+    /**
+     * In case the CV found by the `where` argument doesn't exist, create a new CV with this data.
+     */
+    create: XOR<CVCreateInput, CVUncheckedCreateInput>
+    /**
+     * In case the CV was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CVUpdateInput, CVUncheckedUpdateInput>
+  }
+
+  /**
+   * CV delete
+   */
+  export type CVDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+    /**
+     * Filter which CV to delete.
+     */
+    where: CVWhereUniqueInput
+  }
+
+  /**
+   * CV deleteMany
+   */
+  export type CVDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CVS to delete
+     */
+    where?: CVWhereInput
+    /**
+     * Limit how many CVS to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CV.skills
+   */
+  export type CV$skillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    where?: CvSkillWhereInput
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    cursor?: CvSkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CvSkillScalarFieldEnum | CvSkillScalarFieldEnum[]
+  }
+
+  /**
+   * CV.tools
+   */
+  export type CV$toolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    where?: CvToolWhereInput
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    cursor?: CvToolWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CvToolScalarFieldEnum | CvToolScalarFieldEnum[]
+  }
+
+  /**
+   * CV without action
+   */
+  export type CVDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CV
+     */
+    select?: CVSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CV
+     */
+    omit?: CVOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CVInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Skill
+   */
+
+  export type AggregateSkill = {
+    _count: SkillCountAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  export type SkillMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type SkillMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type SkillCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type SkillMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type SkillMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type SkillCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type SkillAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skill to aggregate.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Skills
+    **/
+    _count?: true | SkillCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type GetSkillAggregateType<T extends SkillAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkill]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkill[P]>
+      : GetScalarType<T[P], AggregateSkill[P]>
+  }
+
+
+
+
+  export type SkillGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillWhereInput
+    orderBy?: SkillOrderByWithAggregationInput | SkillOrderByWithAggregationInput[]
+    by: SkillScalarFieldEnum[] | SkillScalarFieldEnum
+    having?: SkillScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillCountAggregateInputType | true
+    _min?: SkillMinAggregateInputType
+    _max?: SkillMaxAggregateInputType
+  }
+
+  export type SkillGroupByOutputType = {
+    id: string
+    name: string
+    _count: SkillCountAggregateOutputType | null
+    _min: SkillMinAggregateOutputType | null
+    _max: SkillMaxAggregateOutputType | null
+  }
+
+  type GetSkillGroupByPayload<T extends SkillGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    cvs?: boolean | Skill$cvsArgs<ExtArgs>
+    _count?: boolean | SkillCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["skill"]>
+
+  export type SkillSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type SkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["skill"]>
+  export type SkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cvs?: boolean | Skill$cvsArgs<ExtArgs>
+    _count?: boolean | SkillCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SkillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SkillIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Skill"
+    objects: {
+      cvs: Prisma.$CvSkillPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["skill"]>
+    composites: {}
+  }
+
+  type SkillGetPayload<S extends boolean | null | undefined | SkillDefaultArgs> = $Result.GetResult<Prisma.$SkillPayload, S>
+
+  type SkillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillCountAggregateInputType | true
+    }
+
+  export interface SkillDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Skill'], meta: { name: 'Skill' } }
+    /**
+     * Find zero or one Skill that matches the filter.
+     * @param {SkillFindUniqueArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillFindUniqueArgs>(args: SelectSubset<T, SkillFindUniqueArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Skill that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillFindUniqueOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Skill that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillFindFirstArgs>(args?: SelectSubset<T, SkillFindFirstArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Skill that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindFirstOrThrowArgs} args - Arguments to find a Skill
+     * @example
+     * // Get one Skill
+     * const skill = await prisma.skill.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Skills that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Skills
+     * const skills = await prisma.skill.findMany()
+     * 
+     * // Get first 10 Skills
+     * const skills = await prisma.skill.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillWithIdOnly = await prisma.skill.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillFindManyArgs>(args?: SelectSubset<T, SkillFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Skill.
+     * @param {SkillCreateArgs} args - Arguments to create a Skill.
+     * @example
+     * // Create one Skill
+     * const Skill = await prisma.skill.create({
+     *   data: {
+     *     // ... data to create a Skill
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillCreateArgs>(args: SelectSubset<T, SkillCreateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Skills.
+     * @param {SkillCreateManyArgs} args - Arguments to create many Skills.
+     * @example
+     * // Create many Skills
+     * const skill = await prisma.skill.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillCreateManyArgs>(args?: SelectSubset<T, SkillCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Skills and returns the data saved in the database.
+     * @param {SkillCreateManyAndReturnArgs} args - Arguments to create many Skills.
+     * @example
+     * // Create many Skills
+     * const skill = await prisma.skill.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Skills and only return the `id`
+     * const skillWithIdOnly = await prisma.skill.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Skill.
+     * @param {SkillDeleteArgs} args - Arguments to delete one Skill.
+     * @example
+     * // Delete one Skill
+     * const Skill = await prisma.skill.delete({
+     *   where: {
+     *     // ... filter to delete one Skill
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillDeleteArgs>(args: SelectSubset<T, SkillDeleteArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Skill.
+     * @param {SkillUpdateArgs} args - Arguments to update one Skill.
+     * @example
+     * // Update one Skill
+     * const skill = await prisma.skill.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillUpdateArgs>(args: SelectSubset<T, SkillUpdateArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Skills.
+     * @param {SkillDeleteManyArgs} args - Arguments to filter Skills to delete.
+     * @example
+     * // Delete a few Skills
+     * const { count } = await prisma.skill.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillDeleteManyArgs>(args?: SelectSubset<T, SkillDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Skills
+     * const skill = await prisma.skill.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillUpdateManyArgs>(args: SelectSubset<T, SkillUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Skills and returns the data updated in the database.
+     * @param {SkillUpdateManyAndReturnArgs} args - Arguments to update many Skills.
+     * @example
+     * // Update many Skills
+     * const skill = await prisma.skill.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Skills and only return the `id`
+     * const skillWithIdOnly = await prisma.skill.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Skill.
+     * @param {SkillUpsertArgs} args - Arguments to update or create a Skill.
+     * @example
+     * // Update or create a Skill
+     * const skill = await prisma.skill.upsert({
+     *   create: {
+     *     // ... data to create a Skill
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Skill we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillUpsertArgs>(args: SelectSubset<T, SkillUpsertArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Skills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillCountArgs} args - Arguments to filter Skills to count.
+     * @example
+     * // Count the number of Skills
+     * const count = await prisma.skill.count({
+     *   where: {
+     *     // ... the filter for the Skills we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillCountArgs>(
+      args?: Subset<T, SkillCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillAggregateArgs>(args: Subset<T, SkillAggregateArgs>): Prisma.PrismaPromise<GetSkillAggregateType<T>>
+
+    /**
+     * Group by Skill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillGroupByArgs['orderBy'] }
+        : { orderBy?: SkillGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Skill model
+   */
+  readonly fields: SkillFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Skill.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cvs<T extends Skill$cvsArgs<ExtArgs> = {}>(args?: Subset<T, Skill$cvsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Skill model
+   */
+  interface SkillFieldRefs {
+    readonly id: FieldRef<"Skill", 'String'>
+    readonly name: FieldRef<"Skill", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Skill findUnique
+   */
+  export type SkillFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findUniqueOrThrow
+   */
+  export type SkillFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill findFirst
+   */
+  export type SkillFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findFirstOrThrow
+   */
+  export type SkillFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skill to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Skills.
+     */
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill findMany
+   */
+  export type SkillFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter, which Skills to fetch.
+     */
+    where?: SkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Skills to fetch.
+     */
+    orderBy?: SkillOrderByWithRelationInput | SkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Skills.
+     */
+    cursor?: SkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Skills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Skills.
+     */
+    skip?: number
+    distinct?: SkillScalarFieldEnum | SkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill create
+   */
+  export type SkillCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Skill.
+     */
+    data: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+  }
+
+  /**
+   * Skill createMany
+   */
+  export type SkillCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Skills.
+     */
+    data: SkillCreateManyInput | SkillCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Skill createManyAndReturn
+   */
+  export type SkillCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * The data used to create many Skills.
+     */
+    data: SkillCreateManyInput | SkillCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Skill update
+   */
+  export type SkillUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Skill.
+     */
+    data: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+    /**
+     * Choose, which Skill to update.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill updateMany
+   */
+  export type SkillUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Skills.
+     */
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyInput>
+    /**
+     * Filter which Skills to update
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill updateManyAndReturn
+   */
+  export type SkillUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * The data used to update Skills.
+     */
+    data: XOR<SkillUpdateManyMutationInput, SkillUncheckedUpdateManyInput>
+    /**
+     * Filter which Skills to update
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill upsert
+   */
+  export type SkillUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Skill to update in case it exists.
+     */
+    where: SkillWhereUniqueInput
+    /**
+     * In case the Skill found by the `where` argument doesn't exist, create a new Skill with this data.
+     */
+    create: XOR<SkillCreateInput, SkillUncheckedCreateInput>
+    /**
+     * In case the Skill was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillUpdateInput, SkillUncheckedUpdateInput>
+  }
+
+  /**
+   * Skill delete
+   */
+  export type SkillDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+    /**
+     * Filter which Skill to delete.
+     */
+    where: SkillWhereUniqueInput
+  }
+
+  /**
+   * Skill deleteMany
+   */
+  export type SkillDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Skills to delete
+     */
+    where?: SkillWhereInput
+    /**
+     * Limit how many Skills to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Skill.cvs
+   */
+  export type Skill$cvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    where?: CvSkillWhereInput
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    cursor?: CvSkillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CvSkillScalarFieldEnum | CvSkillScalarFieldEnum[]
+  }
+
+  /**
+   * Skill without action
+   */
+  export type SkillDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Skill
+     */
+    select?: SkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Skill
+     */
+    omit?: SkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tool
+   */
+
+  export type AggregateTool = {
+    _count: ToolCountAggregateOutputType | null
+    _min: ToolMinAggregateOutputType | null
+    _max: ToolMaxAggregateOutputType | null
+  }
+
+  export type ToolMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type ToolMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type ToolCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type ToolMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type ToolMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type ToolCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type ToolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tool to aggregate.
+     */
+    where?: ToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tools to fetch.
+     */
+    orderBy?: ToolOrderByWithRelationInput | ToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tools
+    **/
+    _count?: true | ToolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ToolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ToolMaxAggregateInputType
+  }
+
+  export type GetToolAggregateType<T extends ToolAggregateArgs> = {
+        [P in keyof T & keyof AggregateTool]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTool[P]>
+      : GetScalarType<T[P], AggregateTool[P]>
+  }
+
+
+
+
+  export type ToolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ToolWhereInput
+    orderBy?: ToolOrderByWithAggregationInput | ToolOrderByWithAggregationInput[]
+    by: ToolScalarFieldEnum[] | ToolScalarFieldEnum
+    having?: ToolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ToolCountAggregateInputType | true
+    _min?: ToolMinAggregateInputType
+    _max?: ToolMaxAggregateInputType
+  }
+
+  export type ToolGroupByOutputType = {
+    id: string
+    name: string
+    _count: ToolCountAggregateOutputType | null
+    _min: ToolMinAggregateOutputType | null
+    _max: ToolMaxAggregateOutputType | null
+  }
+
+  type GetToolGroupByPayload<T extends ToolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ToolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ToolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ToolGroupByOutputType[P]>
+            : GetScalarType<T[P], ToolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ToolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    cvs?: boolean | Tool$cvsArgs<ExtArgs>
+    _count?: boolean | ToolCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tool"]>
+
+  export type ToolSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["tool"]>
+
+  export type ToolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["tool"]>
+
+  export type ToolSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type ToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tool"]>
+  export type ToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cvs?: boolean | Tool$cvsArgs<ExtArgs>
+    _count?: boolean | ToolCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ToolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ToolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ToolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tool"
+    objects: {
+      cvs: Prisma.$CvToolPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["tool"]>
+    composites: {}
+  }
+
+  type ToolGetPayload<S extends boolean | null | undefined | ToolDefaultArgs> = $Result.GetResult<Prisma.$ToolPayload, S>
+
+  type ToolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ToolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ToolCountAggregateInputType | true
+    }
+
+  export interface ToolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tool'], meta: { name: 'Tool' } }
+    /**
+     * Find zero or one Tool that matches the filter.
+     * @param {ToolFindUniqueArgs} args - Arguments to find a Tool
+     * @example
+     * // Get one Tool
+     * const tool = await prisma.tool.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ToolFindUniqueArgs>(args: SelectSubset<T, ToolFindUniqueArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tool that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ToolFindUniqueOrThrowArgs} args - Arguments to find a Tool
+     * @example
+     * // Get one Tool
+     * const tool = await prisma.tool.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ToolFindUniqueOrThrowArgs>(args: SelectSubset<T, ToolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tool that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolFindFirstArgs} args - Arguments to find a Tool
+     * @example
+     * // Get one Tool
+     * const tool = await prisma.tool.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ToolFindFirstArgs>(args?: SelectSubset<T, ToolFindFirstArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tool that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolFindFirstOrThrowArgs} args - Arguments to find a Tool
+     * @example
+     * // Get one Tool
+     * const tool = await prisma.tool.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ToolFindFirstOrThrowArgs>(args?: SelectSubset<T, ToolFindFirstOrThrowArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tools that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tools
+     * const tools = await prisma.tool.findMany()
+     * 
+     * // Get first 10 Tools
+     * const tools = await prisma.tool.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const toolWithIdOnly = await prisma.tool.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ToolFindManyArgs>(args?: SelectSubset<T, ToolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tool.
+     * @param {ToolCreateArgs} args - Arguments to create a Tool.
+     * @example
+     * // Create one Tool
+     * const Tool = await prisma.tool.create({
+     *   data: {
+     *     // ... data to create a Tool
+     *   }
+     * })
+     * 
+     */
+    create<T extends ToolCreateArgs>(args: SelectSubset<T, ToolCreateArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tools.
+     * @param {ToolCreateManyArgs} args - Arguments to create many Tools.
+     * @example
+     * // Create many Tools
+     * const tool = await prisma.tool.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ToolCreateManyArgs>(args?: SelectSubset<T, ToolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tools and returns the data saved in the database.
+     * @param {ToolCreateManyAndReturnArgs} args - Arguments to create many Tools.
+     * @example
+     * // Create many Tools
+     * const tool = await prisma.tool.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tools and only return the `id`
+     * const toolWithIdOnly = await prisma.tool.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ToolCreateManyAndReturnArgs>(args?: SelectSubset<T, ToolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tool.
+     * @param {ToolDeleteArgs} args - Arguments to delete one Tool.
+     * @example
+     * // Delete one Tool
+     * const Tool = await prisma.tool.delete({
+     *   where: {
+     *     // ... filter to delete one Tool
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ToolDeleteArgs>(args: SelectSubset<T, ToolDeleteArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tool.
+     * @param {ToolUpdateArgs} args - Arguments to update one Tool.
+     * @example
+     * // Update one Tool
+     * const tool = await prisma.tool.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ToolUpdateArgs>(args: SelectSubset<T, ToolUpdateArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tools.
+     * @param {ToolDeleteManyArgs} args - Arguments to filter Tools to delete.
+     * @example
+     * // Delete a few Tools
+     * const { count } = await prisma.tool.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ToolDeleteManyArgs>(args?: SelectSubset<T, ToolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tools
+     * const tool = await prisma.tool.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ToolUpdateManyArgs>(args: SelectSubset<T, ToolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tools and returns the data updated in the database.
+     * @param {ToolUpdateManyAndReturnArgs} args - Arguments to update many Tools.
+     * @example
+     * // Update many Tools
+     * const tool = await prisma.tool.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tools and only return the `id`
+     * const toolWithIdOnly = await prisma.tool.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ToolUpdateManyAndReturnArgs>(args: SelectSubset<T, ToolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tool.
+     * @param {ToolUpsertArgs} args - Arguments to update or create a Tool.
+     * @example
+     * // Update or create a Tool
+     * const tool = await prisma.tool.upsert({
+     *   create: {
+     *     // ... data to create a Tool
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tool we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ToolUpsertArgs>(args: SelectSubset<T, ToolUpsertArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolCountArgs} args - Arguments to filter Tools to count.
+     * @example
+     * // Count the number of Tools
+     * const count = await prisma.tool.count({
+     *   where: {
+     *     // ... the filter for the Tools we want to count
+     *   }
+     * })
+    **/
+    count<T extends ToolCountArgs>(
+      args?: Subset<T, ToolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ToolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ToolAggregateArgs>(args: Subset<T, ToolAggregateArgs>): Prisma.PrismaPromise<GetToolAggregateType<T>>
+
+    /**
+     * Group by Tool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ToolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ToolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ToolGroupByArgs['orderBy'] }
+        : { orderBy?: ToolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ToolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetToolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tool model
+   */
+  readonly fields: ToolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tool.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ToolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cvs<T extends Tool$cvsArgs<ExtArgs> = {}>(args?: Subset<T, Tool$cvsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tool model
+   */
+  interface ToolFieldRefs {
+    readonly id: FieldRef<"Tool", 'String'>
+    readonly name: FieldRef<"Tool", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tool findUnique
+   */
+  export type ToolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter, which Tool to fetch.
+     */
+    where: ToolWhereUniqueInput
+  }
+
+  /**
+   * Tool findUniqueOrThrow
+   */
+  export type ToolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter, which Tool to fetch.
+     */
+    where: ToolWhereUniqueInput
+  }
+
+  /**
+   * Tool findFirst
+   */
+  export type ToolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter, which Tool to fetch.
+     */
+    where?: ToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tools to fetch.
+     */
+    orderBy?: ToolOrderByWithRelationInput | ToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tools.
+     */
+    cursor?: ToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tools.
+     */
+    distinct?: ToolScalarFieldEnum | ToolScalarFieldEnum[]
+  }
+
+  /**
+   * Tool findFirstOrThrow
+   */
+  export type ToolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter, which Tool to fetch.
+     */
+    where?: ToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tools to fetch.
+     */
+    orderBy?: ToolOrderByWithRelationInput | ToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tools.
+     */
+    cursor?: ToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tools.
+     */
+    distinct?: ToolScalarFieldEnum | ToolScalarFieldEnum[]
+  }
+
+  /**
+   * Tool findMany
+   */
+  export type ToolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter, which Tools to fetch.
+     */
+    where?: ToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tools to fetch.
+     */
+    orderBy?: ToolOrderByWithRelationInput | ToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tools.
+     */
+    cursor?: ToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tools.
+     */
+    skip?: number
+    distinct?: ToolScalarFieldEnum | ToolScalarFieldEnum[]
+  }
+
+  /**
+   * Tool create
+   */
+  export type ToolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tool.
+     */
+    data: XOR<ToolCreateInput, ToolUncheckedCreateInput>
+  }
+
+  /**
+   * Tool createMany
+   */
+  export type ToolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tools.
+     */
+    data: ToolCreateManyInput | ToolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tool createManyAndReturn
+   */
+  export type ToolCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tools.
+     */
+    data: ToolCreateManyInput | ToolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tool update
+   */
+  export type ToolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tool.
+     */
+    data: XOR<ToolUpdateInput, ToolUncheckedUpdateInput>
+    /**
+     * Choose, which Tool to update.
+     */
+    where: ToolWhereUniqueInput
+  }
+
+  /**
+   * Tool updateMany
+   */
+  export type ToolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tools.
+     */
+    data: XOR<ToolUpdateManyMutationInput, ToolUncheckedUpdateManyInput>
+    /**
+     * Filter which Tools to update
+     */
+    where?: ToolWhereInput
+    /**
+     * Limit how many Tools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tool updateManyAndReturn
+   */
+  export type ToolUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * The data used to update Tools.
+     */
+    data: XOR<ToolUpdateManyMutationInput, ToolUncheckedUpdateManyInput>
+    /**
+     * Filter which Tools to update
+     */
+    where?: ToolWhereInput
+    /**
+     * Limit how many Tools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tool upsert
+   */
+  export type ToolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tool to update in case it exists.
+     */
+    where: ToolWhereUniqueInput
+    /**
+     * In case the Tool found by the `where` argument doesn't exist, create a new Tool with this data.
+     */
+    create: XOR<ToolCreateInput, ToolUncheckedCreateInput>
+    /**
+     * In case the Tool was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ToolUpdateInput, ToolUncheckedUpdateInput>
+  }
+
+  /**
+   * Tool delete
+   */
+  export type ToolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    /**
+     * Filter which Tool to delete.
+     */
+    where: ToolWhereUniqueInput
+  }
+
+  /**
+   * Tool deleteMany
+   */
+  export type ToolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tools to delete
+     */
+    where?: ToolWhereInput
+    /**
+     * Limit how many Tools to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tool.cvs
+   */
+  export type Tool$cvsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    where?: CvToolWhereInput
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    cursor?: CvToolWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CvToolScalarFieldEnum | CvToolScalarFieldEnum[]
+  }
+
+  /**
+   * Tool without action
+   */
+  export type ToolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CvSkill
+   */
+
+  export type AggregateCvSkill = {
+    _count: CvSkillCountAggregateOutputType | null
+    _min: CvSkillMinAggregateOutputType | null
+    _max: CvSkillMaxAggregateOutputType | null
+  }
+
+  export type CvSkillMinAggregateOutputType = {
+    cvId: string | null
+    skillId: string | null
+  }
+
+  export type CvSkillMaxAggregateOutputType = {
+    cvId: string | null
+    skillId: string | null
+  }
+
+  export type CvSkillCountAggregateOutputType = {
+    cvId: number
+    skillId: number
+    _all: number
+  }
+
+
+  export type CvSkillMinAggregateInputType = {
+    cvId?: true
+    skillId?: true
+  }
+
+  export type CvSkillMaxAggregateInputType = {
+    cvId?: true
+    skillId?: true
+  }
+
+  export type CvSkillCountAggregateInputType = {
+    cvId?: true
+    skillId?: true
+    _all?: true
+  }
+
+  export type CvSkillAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CvSkill to aggregate.
+     */
+    where?: CvSkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvSkills to fetch.
+     */
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CvSkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvSkills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvSkills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CvSkills
+    **/
+    _count?: true | CvSkillCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CvSkillMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CvSkillMaxAggregateInputType
+  }
+
+  export type GetCvSkillAggregateType<T extends CvSkillAggregateArgs> = {
+        [P in keyof T & keyof AggregateCvSkill]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCvSkill[P]>
+      : GetScalarType<T[P], AggregateCvSkill[P]>
+  }
+
+
+
+
+  export type CvSkillGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvSkillWhereInput
+    orderBy?: CvSkillOrderByWithAggregationInput | CvSkillOrderByWithAggregationInput[]
+    by: CvSkillScalarFieldEnum[] | CvSkillScalarFieldEnum
+    having?: CvSkillScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CvSkillCountAggregateInputType | true
+    _min?: CvSkillMinAggregateInputType
+    _max?: CvSkillMaxAggregateInputType
+  }
+
+  export type CvSkillGroupByOutputType = {
+    cvId: string
+    skillId: string
+    _count: CvSkillCountAggregateOutputType | null
+    _min: CvSkillMinAggregateOutputType | null
+    _max: CvSkillMaxAggregateOutputType | null
+  }
+
+  type GetCvSkillGroupByPayload<T extends CvSkillGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CvSkillGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CvSkillGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CvSkillGroupByOutputType[P]>
+            : GetScalarType<T[P], CvSkillGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CvSkillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    skillId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvSkill"]>
+
+  export type CvSkillSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    skillId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvSkill"]>
+
+  export type CvSkillSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    skillId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvSkill"]>
+
+  export type CvSkillSelectScalar = {
+    cvId?: boolean
+    skillId?: boolean
+  }
+
+  export type CvSkillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"cvId" | "skillId", ExtArgs["result"]["cvSkill"]>
+  export type CvSkillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }
+  export type CvSkillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }
+  export type CvSkillIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    skill?: boolean | SkillDefaultArgs<ExtArgs>
+  }
+
+  export type $CvSkillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CvSkill"
+    objects: {
+      cv: Prisma.$CVPayload<ExtArgs>
+      skill: Prisma.$SkillPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      cvId: string
+      skillId: string
+    }, ExtArgs["result"]["cvSkill"]>
+    composites: {}
+  }
+
+  type CvSkillGetPayload<S extends boolean | null | undefined | CvSkillDefaultArgs> = $Result.GetResult<Prisma.$CvSkillPayload, S>
+
+  type CvSkillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CvSkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CvSkillCountAggregateInputType | true
+    }
+
+  export interface CvSkillDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CvSkill'], meta: { name: 'CvSkill' } }
+    /**
+     * Find zero or one CvSkill that matches the filter.
+     * @param {CvSkillFindUniqueArgs} args - Arguments to find a CvSkill
+     * @example
+     * // Get one CvSkill
+     * const cvSkill = await prisma.cvSkill.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CvSkillFindUniqueArgs>(args: SelectSubset<T, CvSkillFindUniqueArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CvSkill that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CvSkillFindUniqueOrThrowArgs} args - Arguments to find a CvSkill
+     * @example
+     * // Get one CvSkill
+     * const cvSkill = await prisma.cvSkill.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CvSkillFindUniqueOrThrowArgs>(args: SelectSubset<T, CvSkillFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CvSkill that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillFindFirstArgs} args - Arguments to find a CvSkill
+     * @example
+     * // Get one CvSkill
+     * const cvSkill = await prisma.cvSkill.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CvSkillFindFirstArgs>(args?: SelectSubset<T, CvSkillFindFirstArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CvSkill that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillFindFirstOrThrowArgs} args - Arguments to find a CvSkill
+     * @example
+     * // Get one CvSkill
+     * const cvSkill = await prisma.cvSkill.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CvSkillFindFirstOrThrowArgs>(args?: SelectSubset<T, CvSkillFindFirstOrThrowArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CvSkills that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CvSkills
+     * const cvSkills = await prisma.cvSkill.findMany()
+     * 
+     * // Get first 10 CvSkills
+     * const cvSkills = await prisma.cvSkill.findMany({ take: 10 })
+     * 
+     * // Only select the `cvId`
+     * const cvSkillWithCvIdOnly = await prisma.cvSkill.findMany({ select: { cvId: true } })
+     * 
+     */
+    findMany<T extends CvSkillFindManyArgs>(args?: SelectSubset<T, CvSkillFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CvSkill.
+     * @param {CvSkillCreateArgs} args - Arguments to create a CvSkill.
+     * @example
+     * // Create one CvSkill
+     * const CvSkill = await prisma.cvSkill.create({
+     *   data: {
+     *     // ... data to create a CvSkill
+     *   }
+     * })
+     * 
+     */
+    create<T extends CvSkillCreateArgs>(args: SelectSubset<T, CvSkillCreateArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CvSkills.
+     * @param {CvSkillCreateManyArgs} args - Arguments to create many CvSkills.
+     * @example
+     * // Create many CvSkills
+     * const cvSkill = await prisma.cvSkill.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CvSkillCreateManyArgs>(args?: SelectSubset<T, CvSkillCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CvSkills and returns the data saved in the database.
+     * @param {CvSkillCreateManyAndReturnArgs} args - Arguments to create many CvSkills.
+     * @example
+     * // Create many CvSkills
+     * const cvSkill = await prisma.cvSkill.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CvSkills and only return the `cvId`
+     * const cvSkillWithCvIdOnly = await prisma.cvSkill.createManyAndReturn({
+     *   select: { cvId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CvSkillCreateManyAndReturnArgs>(args?: SelectSubset<T, CvSkillCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CvSkill.
+     * @param {CvSkillDeleteArgs} args - Arguments to delete one CvSkill.
+     * @example
+     * // Delete one CvSkill
+     * const CvSkill = await prisma.cvSkill.delete({
+     *   where: {
+     *     // ... filter to delete one CvSkill
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CvSkillDeleteArgs>(args: SelectSubset<T, CvSkillDeleteArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CvSkill.
+     * @param {CvSkillUpdateArgs} args - Arguments to update one CvSkill.
+     * @example
+     * // Update one CvSkill
+     * const cvSkill = await prisma.cvSkill.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CvSkillUpdateArgs>(args: SelectSubset<T, CvSkillUpdateArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CvSkills.
+     * @param {CvSkillDeleteManyArgs} args - Arguments to filter CvSkills to delete.
+     * @example
+     * // Delete a few CvSkills
+     * const { count } = await prisma.cvSkill.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CvSkillDeleteManyArgs>(args?: SelectSubset<T, CvSkillDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CvSkills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CvSkills
+     * const cvSkill = await prisma.cvSkill.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CvSkillUpdateManyArgs>(args: SelectSubset<T, CvSkillUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CvSkills and returns the data updated in the database.
+     * @param {CvSkillUpdateManyAndReturnArgs} args - Arguments to update many CvSkills.
+     * @example
+     * // Update many CvSkills
+     * const cvSkill = await prisma.cvSkill.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CvSkills and only return the `cvId`
+     * const cvSkillWithCvIdOnly = await prisma.cvSkill.updateManyAndReturn({
+     *   select: { cvId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CvSkillUpdateManyAndReturnArgs>(args: SelectSubset<T, CvSkillUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CvSkill.
+     * @param {CvSkillUpsertArgs} args - Arguments to update or create a CvSkill.
+     * @example
+     * // Update or create a CvSkill
+     * const cvSkill = await prisma.cvSkill.upsert({
+     *   create: {
+     *     // ... data to create a CvSkill
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CvSkill we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CvSkillUpsertArgs>(args: SelectSubset<T, CvSkillUpsertArgs<ExtArgs>>): Prisma__CvSkillClient<$Result.GetResult<Prisma.$CvSkillPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CvSkills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillCountArgs} args - Arguments to filter CvSkills to count.
+     * @example
+     * // Count the number of CvSkills
+     * const count = await prisma.cvSkill.count({
+     *   where: {
+     *     // ... the filter for the CvSkills we want to count
+     *   }
+     * })
+    **/
+    count<T extends CvSkillCountArgs>(
+      args?: Subset<T, CvSkillCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CvSkillCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CvSkill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CvSkillAggregateArgs>(args: Subset<T, CvSkillAggregateArgs>): Prisma.PrismaPromise<GetCvSkillAggregateType<T>>
+
+    /**
+     * Group by CvSkill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvSkillGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CvSkillGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CvSkillGroupByArgs['orderBy'] }
+        : { orderBy?: CvSkillGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CvSkillGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCvSkillGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CvSkill model
+   */
+  readonly fields: CvSkillFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CvSkill.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CvSkillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cv<T extends CVDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CVDefaultArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    skill<T extends SkillDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillDefaultArgs<ExtArgs>>): Prisma__SkillClient<$Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CvSkill model
+   */
+  interface CvSkillFieldRefs {
+    readonly cvId: FieldRef<"CvSkill", 'String'>
+    readonly skillId: FieldRef<"CvSkill", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CvSkill findUnique
+   */
+  export type CvSkillFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter, which CvSkill to fetch.
+     */
+    where: CvSkillWhereUniqueInput
+  }
+
+  /**
+   * CvSkill findUniqueOrThrow
+   */
+  export type CvSkillFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter, which CvSkill to fetch.
+     */
+    where: CvSkillWhereUniqueInput
+  }
+
+  /**
+   * CvSkill findFirst
+   */
+  export type CvSkillFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter, which CvSkill to fetch.
+     */
+    where?: CvSkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvSkills to fetch.
+     */
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CvSkills.
+     */
+    cursor?: CvSkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvSkills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvSkills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CvSkills.
+     */
+    distinct?: CvSkillScalarFieldEnum | CvSkillScalarFieldEnum[]
+  }
+
+  /**
+   * CvSkill findFirstOrThrow
+   */
+  export type CvSkillFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter, which CvSkill to fetch.
+     */
+    where?: CvSkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvSkills to fetch.
+     */
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CvSkills.
+     */
+    cursor?: CvSkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvSkills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvSkills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CvSkills.
+     */
+    distinct?: CvSkillScalarFieldEnum | CvSkillScalarFieldEnum[]
+  }
+
+  /**
+   * CvSkill findMany
+   */
+  export type CvSkillFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter, which CvSkills to fetch.
+     */
+    where?: CvSkillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvSkills to fetch.
+     */
+    orderBy?: CvSkillOrderByWithRelationInput | CvSkillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CvSkills.
+     */
+    cursor?: CvSkillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvSkills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvSkills.
+     */
+    skip?: number
+    distinct?: CvSkillScalarFieldEnum | CvSkillScalarFieldEnum[]
+  }
+
+  /**
+   * CvSkill create
+   */
+  export type CvSkillCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CvSkill.
+     */
+    data: XOR<CvSkillCreateInput, CvSkillUncheckedCreateInput>
+  }
+
+  /**
+   * CvSkill createMany
+   */
+  export type CvSkillCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CvSkills.
+     */
+    data: CvSkillCreateManyInput | CvSkillCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CvSkill createManyAndReturn
+   */
+  export type CvSkillCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * The data used to create many CvSkills.
+     */
+    data: CvSkillCreateManyInput | CvSkillCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CvSkill update
+   */
+  export type CvSkillUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CvSkill.
+     */
+    data: XOR<CvSkillUpdateInput, CvSkillUncheckedUpdateInput>
+    /**
+     * Choose, which CvSkill to update.
+     */
+    where: CvSkillWhereUniqueInput
+  }
+
+  /**
+   * CvSkill updateMany
+   */
+  export type CvSkillUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CvSkills.
+     */
+    data: XOR<CvSkillUpdateManyMutationInput, CvSkillUncheckedUpdateManyInput>
+    /**
+     * Filter which CvSkills to update
+     */
+    where?: CvSkillWhereInput
+    /**
+     * Limit how many CvSkills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CvSkill updateManyAndReturn
+   */
+  export type CvSkillUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * The data used to update CvSkills.
+     */
+    data: XOR<CvSkillUpdateManyMutationInput, CvSkillUncheckedUpdateManyInput>
+    /**
+     * Filter which CvSkills to update
+     */
+    where?: CvSkillWhereInput
+    /**
+     * Limit how many CvSkills to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CvSkill upsert
+   */
+  export type CvSkillUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CvSkill to update in case it exists.
+     */
+    where: CvSkillWhereUniqueInput
+    /**
+     * In case the CvSkill found by the `where` argument doesn't exist, create a new CvSkill with this data.
+     */
+    create: XOR<CvSkillCreateInput, CvSkillUncheckedCreateInput>
+    /**
+     * In case the CvSkill was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CvSkillUpdateInput, CvSkillUncheckedUpdateInput>
+  }
+
+  /**
+   * CvSkill delete
+   */
+  export type CvSkillDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+    /**
+     * Filter which CvSkill to delete.
+     */
+    where: CvSkillWhereUniqueInput
+  }
+
+  /**
+   * CvSkill deleteMany
+   */
+  export type CvSkillDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CvSkills to delete
+     */
+    where?: CvSkillWhereInput
+    /**
+     * Limit how many CvSkills to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CvSkill without action
+   */
+  export type CvSkillDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvSkill
+     */
+    select?: CvSkillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvSkill
+     */
+    omit?: CvSkillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvSkillInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CvTool
+   */
+
+  export type AggregateCvTool = {
+    _count: CvToolCountAggregateOutputType | null
+    _min: CvToolMinAggregateOutputType | null
+    _max: CvToolMaxAggregateOutputType | null
+  }
+
+  export type CvToolMinAggregateOutputType = {
+    cvId: string | null
+    toolId: string | null
+  }
+
+  export type CvToolMaxAggregateOutputType = {
+    cvId: string | null
+    toolId: string | null
+  }
+
+  export type CvToolCountAggregateOutputType = {
+    cvId: number
+    toolId: number
+    _all: number
+  }
+
+
+  export type CvToolMinAggregateInputType = {
+    cvId?: true
+    toolId?: true
+  }
+
+  export type CvToolMaxAggregateInputType = {
+    cvId?: true
+    toolId?: true
+  }
+
+  export type CvToolCountAggregateInputType = {
+    cvId?: true
+    toolId?: true
+    _all?: true
+  }
+
+  export type CvToolAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CvTool to aggregate.
+     */
+    where?: CvToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvTools to fetch.
+     */
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CvToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CvTools
+    **/
+    _count?: true | CvToolCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CvToolMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CvToolMaxAggregateInputType
+  }
+
+  export type GetCvToolAggregateType<T extends CvToolAggregateArgs> = {
+        [P in keyof T & keyof AggregateCvTool]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCvTool[P]>
+      : GetScalarType<T[P], AggregateCvTool[P]>
+  }
+
+
+
+
+  export type CvToolGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CvToolWhereInput
+    orderBy?: CvToolOrderByWithAggregationInput | CvToolOrderByWithAggregationInput[]
+    by: CvToolScalarFieldEnum[] | CvToolScalarFieldEnum
+    having?: CvToolScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CvToolCountAggregateInputType | true
+    _min?: CvToolMinAggregateInputType
+    _max?: CvToolMaxAggregateInputType
+  }
+
+  export type CvToolGroupByOutputType = {
+    cvId: string
+    toolId: string
+    _count: CvToolCountAggregateOutputType | null
+    _min: CvToolMinAggregateOutputType | null
+    _max: CvToolMaxAggregateOutputType | null
+  }
+
+  type GetCvToolGroupByPayload<T extends CvToolGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CvToolGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CvToolGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CvToolGroupByOutputType[P]>
+            : GetScalarType<T[P], CvToolGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CvToolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    toolId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvTool"]>
+
+  export type CvToolSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    toolId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvTool"]>
+
+  export type CvToolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    cvId?: boolean
+    toolId?: boolean
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cvTool"]>
+
+  export type CvToolSelectScalar = {
+    cvId?: boolean
+    toolId?: boolean
+  }
+
+  export type CvToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"cvId" | "toolId", ExtArgs["result"]["cvTool"]>
+  export type CvToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }
+  export type CvToolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }
+  export type CvToolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cv?: boolean | CVDefaultArgs<ExtArgs>
+    tool?: boolean | ToolDefaultArgs<ExtArgs>
+  }
+
+  export type $CvToolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CvTool"
+    objects: {
+      cv: Prisma.$CVPayload<ExtArgs>
+      tool: Prisma.$ToolPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      cvId: string
+      toolId: string
+    }, ExtArgs["result"]["cvTool"]>
+    composites: {}
+  }
+
+  type CvToolGetPayload<S extends boolean | null | undefined | CvToolDefaultArgs> = $Result.GetResult<Prisma.$CvToolPayload, S>
+
+  type CvToolCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CvToolFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CvToolCountAggregateInputType | true
+    }
+
+  export interface CvToolDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CvTool'], meta: { name: 'CvTool' } }
+    /**
+     * Find zero or one CvTool that matches the filter.
+     * @param {CvToolFindUniqueArgs} args - Arguments to find a CvTool
+     * @example
+     * // Get one CvTool
+     * const cvTool = await prisma.cvTool.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CvToolFindUniqueArgs>(args: SelectSubset<T, CvToolFindUniqueArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CvTool that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CvToolFindUniqueOrThrowArgs} args - Arguments to find a CvTool
+     * @example
+     * // Get one CvTool
+     * const cvTool = await prisma.cvTool.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CvToolFindUniqueOrThrowArgs>(args: SelectSubset<T, CvToolFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CvTool that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolFindFirstArgs} args - Arguments to find a CvTool
+     * @example
+     * // Get one CvTool
+     * const cvTool = await prisma.cvTool.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CvToolFindFirstArgs>(args?: SelectSubset<T, CvToolFindFirstArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CvTool that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolFindFirstOrThrowArgs} args - Arguments to find a CvTool
+     * @example
+     * // Get one CvTool
+     * const cvTool = await prisma.cvTool.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CvToolFindFirstOrThrowArgs>(args?: SelectSubset<T, CvToolFindFirstOrThrowArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CvTools that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CvTools
+     * const cvTools = await prisma.cvTool.findMany()
+     * 
+     * // Get first 10 CvTools
+     * const cvTools = await prisma.cvTool.findMany({ take: 10 })
+     * 
+     * // Only select the `cvId`
+     * const cvToolWithCvIdOnly = await prisma.cvTool.findMany({ select: { cvId: true } })
+     * 
+     */
+    findMany<T extends CvToolFindManyArgs>(args?: SelectSubset<T, CvToolFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CvTool.
+     * @param {CvToolCreateArgs} args - Arguments to create a CvTool.
+     * @example
+     * // Create one CvTool
+     * const CvTool = await prisma.cvTool.create({
+     *   data: {
+     *     // ... data to create a CvTool
+     *   }
+     * })
+     * 
+     */
+    create<T extends CvToolCreateArgs>(args: SelectSubset<T, CvToolCreateArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CvTools.
+     * @param {CvToolCreateManyArgs} args - Arguments to create many CvTools.
+     * @example
+     * // Create many CvTools
+     * const cvTool = await prisma.cvTool.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CvToolCreateManyArgs>(args?: SelectSubset<T, CvToolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CvTools and returns the data saved in the database.
+     * @param {CvToolCreateManyAndReturnArgs} args - Arguments to create many CvTools.
+     * @example
+     * // Create many CvTools
+     * const cvTool = await prisma.cvTool.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CvTools and only return the `cvId`
+     * const cvToolWithCvIdOnly = await prisma.cvTool.createManyAndReturn({
+     *   select: { cvId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CvToolCreateManyAndReturnArgs>(args?: SelectSubset<T, CvToolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CvTool.
+     * @param {CvToolDeleteArgs} args - Arguments to delete one CvTool.
+     * @example
+     * // Delete one CvTool
+     * const CvTool = await prisma.cvTool.delete({
+     *   where: {
+     *     // ... filter to delete one CvTool
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CvToolDeleteArgs>(args: SelectSubset<T, CvToolDeleteArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CvTool.
+     * @param {CvToolUpdateArgs} args - Arguments to update one CvTool.
+     * @example
+     * // Update one CvTool
+     * const cvTool = await prisma.cvTool.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CvToolUpdateArgs>(args: SelectSubset<T, CvToolUpdateArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CvTools.
+     * @param {CvToolDeleteManyArgs} args - Arguments to filter CvTools to delete.
+     * @example
+     * // Delete a few CvTools
+     * const { count } = await prisma.cvTool.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CvToolDeleteManyArgs>(args?: SelectSubset<T, CvToolDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CvTools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CvTools
+     * const cvTool = await prisma.cvTool.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CvToolUpdateManyArgs>(args: SelectSubset<T, CvToolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CvTools and returns the data updated in the database.
+     * @param {CvToolUpdateManyAndReturnArgs} args - Arguments to update many CvTools.
+     * @example
+     * // Update many CvTools
+     * const cvTool = await prisma.cvTool.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CvTools and only return the `cvId`
+     * const cvToolWithCvIdOnly = await prisma.cvTool.updateManyAndReturn({
+     *   select: { cvId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CvToolUpdateManyAndReturnArgs>(args: SelectSubset<T, CvToolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CvTool.
+     * @param {CvToolUpsertArgs} args - Arguments to update or create a CvTool.
+     * @example
+     * // Update or create a CvTool
+     * const cvTool = await prisma.cvTool.upsert({
+     *   create: {
+     *     // ... data to create a CvTool
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CvTool we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CvToolUpsertArgs>(args: SelectSubset<T, CvToolUpsertArgs<ExtArgs>>): Prisma__CvToolClient<$Result.GetResult<Prisma.$CvToolPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CvTools.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolCountArgs} args - Arguments to filter CvTools to count.
+     * @example
+     * // Count the number of CvTools
+     * const count = await prisma.cvTool.count({
+     *   where: {
+     *     // ... the filter for the CvTools we want to count
+     *   }
+     * })
+    **/
+    count<T extends CvToolCountArgs>(
+      args?: Subset<T, CvToolCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CvToolCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CvTool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CvToolAggregateArgs>(args: Subset<T, CvToolAggregateArgs>): Prisma.PrismaPromise<GetCvToolAggregateType<T>>
+
+    /**
+     * Group by CvTool.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CvToolGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CvToolGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CvToolGroupByArgs['orderBy'] }
+        : { orderBy?: CvToolGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CvToolGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCvToolGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CvTool model
+   */
+  readonly fields: CvToolFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CvTool.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CvToolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cv<T extends CVDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CVDefaultArgs<ExtArgs>>): Prisma__CVClient<$Result.GetResult<Prisma.$CVPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CvTool model
+   */
+  interface CvToolFieldRefs {
+    readonly cvId: FieldRef<"CvTool", 'String'>
+    readonly toolId: FieldRef<"CvTool", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CvTool findUnique
+   */
+  export type CvToolFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter, which CvTool to fetch.
+     */
+    where: CvToolWhereUniqueInput
+  }
+
+  /**
+   * CvTool findUniqueOrThrow
+   */
+  export type CvToolFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter, which CvTool to fetch.
+     */
+    where: CvToolWhereUniqueInput
+  }
+
+  /**
+   * CvTool findFirst
+   */
+  export type CvToolFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter, which CvTool to fetch.
+     */
+    where?: CvToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvTools to fetch.
+     */
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CvTools.
+     */
+    cursor?: CvToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CvTools.
+     */
+    distinct?: CvToolScalarFieldEnum | CvToolScalarFieldEnum[]
+  }
+
+  /**
+   * CvTool findFirstOrThrow
+   */
+  export type CvToolFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter, which CvTool to fetch.
+     */
+    where?: CvToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvTools to fetch.
+     */
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CvTools.
+     */
+    cursor?: CvToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvTools.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CvTools.
+     */
+    distinct?: CvToolScalarFieldEnum | CvToolScalarFieldEnum[]
+  }
+
+  /**
+   * CvTool findMany
+   */
+  export type CvToolFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter, which CvTools to fetch.
+     */
+    where?: CvToolWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CvTools to fetch.
+     */
+    orderBy?: CvToolOrderByWithRelationInput | CvToolOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CvTools.
+     */
+    cursor?: CvToolWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CvTools from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CvTools.
+     */
+    skip?: number
+    distinct?: CvToolScalarFieldEnum | CvToolScalarFieldEnum[]
+  }
+
+  /**
+   * CvTool create
+   */
+  export type CvToolCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CvTool.
+     */
+    data: XOR<CvToolCreateInput, CvToolUncheckedCreateInput>
+  }
+
+  /**
+   * CvTool createMany
+   */
+  export type CvToolCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CvTools.
+     */
+    data: CvToolCreateManyInput | CvToolCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CvTool createManyAndReturn
+   */
+  export type CvToolCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * The data used to create many CvTools.
+     */
+    data: CvToolCreateManyInput | CvToolCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CvTool update
+   */
+  export type CvToolUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CvTool.
+     */
+    data: XOR<CvToolUpdateInput, CvToolUncheckedUpdateInput>
+    /**
+     * Choose, which CvTool to update.
+     */
+    where: CvToolWhereUniqueInput
+  }
+
+  /**
+   * CvTool updateMany
+   */
+  export type CvToolUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CvTools.
+     */
+    data: XOR<CvToolUpdateManyMutationInput, CvToolUncheckedUpdateManyInput>
+    /**
+     * Filter which CvTools to update
+     */
+    where?: CvToolWhereInput
+    /**
+     * Limit how many CvTools to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CvTool updateManyAndReturn
+   */
+  export type CvToolUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * The data used to update CvTools.
+     */
+    data: XOR<CvToolUpdateManyMutationInput, CvToolUncheckedUpdateManyInput>
+    /**
+     * Filter which CvTools to update
+     */
+    where?: CvToolWhereInput
+    /**
+     * Limit how many CvTools to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CvTool upsert
+   */
+  export type CvToolUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CvTool to update in case it exists.
+     */
+    where: CvToolWhereUniqueInput
+    /**
+     * In case the CvTool found by the `where` argument doesn't exist, create a new CvTool with this data.
+     */
+    create: XOR<CvToolCreateInput, CvToolUncheckedCreateInput>
+    /**
+     * In case the CvTool was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CvToolUpdateInput, CvToolUncheckedUpdateInput>
+  }
+
+  /**
+   * CvTool delete
+   */
+  export type CvToolDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+    /**
+     * Filter which CvTool to delete.
+     */
+    where: CvToolWhereUniqueInput
+  }
+
+  /**
+   * CvTool deleteMany
+   */
+  export type CvToolDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CvTools to delete
+     */
+    where?: CvToolWhereInput
+    /**
+     * Limit how many CvTools to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CvTool without action
+   */
+  export type CvToolDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CvTool
+     */
+    select?: CvToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CvTool
+     */
+    omit?: CvToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CvToolInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Certificate
+   */
+
+  export type AggregateCertificate = {
+    _count: CertificateCountAggregateOutputType | null
+    _min: CertificateMinAggregateOutputType | null
+    _max: CertificateMaxAggregateOutputType | null
+  }
+
+  export type CertificateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type CertificateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type CertificateCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type CertificateMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CertificateMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CertificateCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type CertificateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Certificate to aggregate.
+     */
+    where?: CertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Certificates to fetch.
+     */
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Certificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Certificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Certificates
+    **/
+    _count?: true | CertificateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CertificateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CertificateMaxAggregateInputType
+  }
+
+  export type GetCertificateAggregateType<T extends CertificateAggregateArgs> = {
+        [P in keyof T & keyof AggregateCertificate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCertificate[P]>
+      : GetScalarType<T[P], AggregateCertificate[P]>
+  }
+
+
+
+
+  export type CertificateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CertificateWhereInput
+    orderBy?: CertificateOrderByWithAggregationInput | CertificateOrderByWithAggregationInput[]
+    by: CertificateScalarFieldEnum[] | CertificateScalarFieldEnum
+    having?: CertificateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CertificateCountAggregateInputType | true
+    _min?: CertificateMinAggregateInputType
+    _max?: CertificateMaxAggregateInputType
+  }
+
+  export type CertificateGroupByOutputType = {
+    id: string
+    name: string
+    _count: CertificateCountAggregateOutputType | null
+    _min: CertificateMinAggregateOutputType | null
+    _max: CertificateMaxAggregateOutputType | null
+  }
+
+  type GetCertificateGroupByPayload<T extends CertificateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CertificateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CertificateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CertificateGroupByOutputType[P]>
+            : GetScalarType<T[P], CertificateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CertificateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["certificate"]>
+
+  export type CertificateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["certificate"]>
+
+  export type CertificateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["certificate"]>
+
+  export type CertificateSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type CertificateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["certificate"]>
+
+  export type $CertificatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Certificate"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["certificate"]>
+    composites: {}
+  }
+
+  type CertificateGetPayload<S extends boolean | null | undefined | CertificateDefaultArgs> = $Result.GetResult<Prisma.$CertificatePayload, S>
+
+  type CertificateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CertificateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CertificateCountAggregateInputType | true
+    }
+
+  export interface CertificateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Certificate'], meta: { name: 'Certificate' } }
+    /**
+     * Find zero or one Certificate that matches the filter.
+     * @param {CertificateFindUniqueArgs} args - Arguments to find a Certificate
+     * @example
+     * // Get one Certificate
+     * const certificate = await prisma.certificate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CertificateFindUniqueArgs>(args: SelectSubset<T, CertificateFindUniqueArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Certificate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CertificateFindUniqueOrThrowArgs} args - Arguments to find a Certificate
+     * @example
+     * // Get one Certificate
+     * const certificate = await prisma.certificate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CertificateFindUniqueOrThrowArgs>(args: SelectSubset<T, CertificateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Certificate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateFindFirstArgs} args - Arguments to find a Certificate
+     * @example
+     * // Get one Certificate
+     * const certificate = await prisma.certificate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CertificateFindFirstArgs>(args?: SelectSubset<T, CertificateFindFirstArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Certificate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateFindFirstOrThrowArgs} args - Arguments to find a Certificate
+     * @example
+     * // Get one Certificate
+     * const certificate = await prisma.certificate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CertificateFindFirstOrThrowArgs>(args?: SelectSubset<T, CertificateFindFirstOrThrowArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Certificates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Certificates
+     * const certificates = await prisma.certificate.findMany()
+     * 
+     * // Get first 10 Certificates
+     * const certificates = await prisma.certificate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const certificateWithIdOnly = await prisma.certificate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CertificateFindManyArgs>(args?: SelectSubset<T, CertificateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Certificate.
+     * @param {CertificateCreateArgs} args - Arguments to create a Certificate.
+     * @example
+     * // Create one Certificate
+     * const Certificate = await prisma.certificate.create({
+     *   data: {
+     *     // ... data to create a Certificate
+     *   }
+     * })
+     * 
+     */
+    create<T extends CertificateCreateArgs>(args: SelectSubset<T, CertificateCreateArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Certificates.
+     * @param {CertificateCreateManyArgs} args - Arguments to create many Certificates.
+     * @example
+     * // Create many Certificates
+     * const certificate = await prisma.certificate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CertificateCreateManyArgs>(args?: SelectSubset<T, CertificateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Certificates and returns the data saved in the database.
+     * @param {CertificateCreateManyAndReturnArgs} args - Arguments to create many Certificates.
+     * @example
+     * // Create many Certificates
+     * const certificate = await prisma.certificate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Certificates and only return the `id`
+     * const certificateWithIdOnly = await prisma.certificate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CertificateCreateManyAndReturnArgs>(args?: SelectSubset<T, CertificateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Certificate.
+     * @param {CertificateDeleteArgs} args - Arguments to delete one Certificate.
+     * @example
+     * // Delete one Certificate
+     * const Certificate = await prisma.certificate.delete({
+     *   where: {
+     *     // ... filter to delete one Certificate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CertificateDeleteArgs>(args: SelectSubset<T, CertificateDeleteArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Certificate.
+     * @param {CertificateUpdateArgs} args - Arguments to update one Certificate.
+     * @example
+     * // Update one Certificate
+     * const certificate = await prisma.certificate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CertificateUpdateArgs>(args: SelectSubset<T, CertificateUpdateArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Certificates.
+     * @param {CertificateDeleteManyArgs} args - Arguments to filter Certificates to delete.
+     * @example
+     * // Delete a few Certificates
+     * const { count } = await prisma.certificate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CertificateDeleteManyArgs>(args?: SelectSubset<T, CertificateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Certificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Certificates
+     * const certificate = await prisma.certificate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CertificateUpdateManyArgs>(args: SelectSubset<T, CertificateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Certificates and returns the data updated in the database.
+     * @param {CertificateUpdateManyAndReturnArgs} args - Arguments to update many Certificates.
+     * @example
+     * // Update many Certificates
+     * const certificate = await prisma.certificate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Certificates and only return the `id`
+     * const certificateWithIdOnly = await prisma.certificate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CertificateUpdateManyAndReturnArgs>(args: SelectSubset<T, CertificateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Certificate.
+     * @param {CertificateUpsertArgs} args - Arguments to update or create a Certificate.
+     * @example
+     * // Update or create a Certificate
+     * const certificate = await prisma.certificate.upsert({
+     *   create: {
+     *     // ... data to create a Certificate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Certificate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CertificateUpsertArgs>(args: SelectSubset<T, CertificateUpsertArgs<ExtArgs>>): Prisma__CertificateClient<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Certificates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateCountArgs} args - Arguments to filter Certificates to count.
+     * @example
+     * // Count the number of Certificates
+     * const count = await prisma.certificate.count({
+     *   where: {
+     *     // ... the filter for the Certificates we want to count
+     *   }
+     * })
+    **/
+    count<T extends CertificateCountArgs>(
+      args?: Subset<T, CertificateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CertificateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Certificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CertificateAggregateArgs>(args: Subset<T, CertificateAggregateArgs>): Prisma.PrismaPromise<GetCertificateAggregateType<T>>
+
+    /**
+     * Group by Certificate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CertificateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CertificateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CertificateGroupByArgs['orderBy'] }
+        : { orderBy?: CertificateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CertificateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCertificateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Certificate model
+   */
+  readonly fields: CertificateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Certificate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CertificateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Certificate model
+   */
+  interface CertificateFieldRefs {
+    readonly id: FieldRef<"Certificate", 'String'>
+    readonly name: FieldRef<"Certificate", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Certificate findUnique
+   */
+  export type CertificateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which Certificate to fetch.
+     */
+    where: CertificateWhereUniqueInput
+  }
+
+  /**
+   * Certificate findUniqueOrThrow
+   */
+  export type CertificateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which Certificate to fetch.
+     */
+    where: CertificateWhereUniqueInput
+  }
+
+  /**
+   * Certificate findFirst
+   */
+  export type CertificateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which Certificate to fetch.
+     */
+    where?: CertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Certificates to fetch.
+     */
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Certificates.
+     */
+    cursor?: CertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Certificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Certificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Certificates.
+     */
+    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
+  }
+
+  /**
+   * Certificate findFirstOrThrow
+   */
+  export type CertificateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which Certificate to fetch.
+     */
+    where?: CertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Certificates to fetch.
+     */
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Certificates.
+     */
+    cursor?: CertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Certificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Certificates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Certificates.
+     */
+    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
+  }
+
+  /**
+   * Certificate findMany
+   */
+  export type CertificateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter, which Certificates to fetch.
+     */
+    where?: CertificateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Certificates to fetch.
+     */
+    orderBy?: CertificateOrderByWithRelationInput | CertificateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Certificates.
+     */
+    cursor?: CertificateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Certificates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Certificates.
+     */
+    skip?: number
+    distinct?: CertificateScalarFieldEnum | CertificateScalarFieldEnum[]
+  }
+
+  /**
+   * Certificate create
+   */
+  export type CertificateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Certificate.
+     */
+    data: XOR<CertificateCreateInput, CertificateUncheckedCreateInput>
+  }
+
+  /**
+   * Certificate createMany
+   */
+  export type CertificateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Certificates.
+     */
+    data: CertificateCreateManyInput | CertificateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Certificate createManyAndReturn
+   */
+  export type CertificateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * The data used to create many Certificates.
+     */
+    data: CertificateCreateManyInput | CertificateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Certificate update
+   */
+  export type CertificateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Certificate.
+     */
+    data: XOR<CertificateUpdateInput, CertificateUncheckedUpdateInput>
+    /**
+     * Choose, which Certificate to update.
+     */
+    where: CertificateWhereUniqueInput
+  }
+
+  /**
+   * Certificate updateMany
+   */
+  export type CertificateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Certificates.
+     */
+    data: XOR<CertificateUpdateManyMutationInput, CertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which Certificates to update
+     */
+    where?: CertificateWhereInput
+    /**
+     * Limit how many Certificates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Certificate updateManyAndReturn
+   */
+  export type CertificateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * The data used to update Certificates.
+     */
+    data: XOR<CertificateUpdateManyMutationInput, CertificateUncheckedUpdateManyInput>
+    /**
+     * Filter which Certificates to update
+     */
+    where?: CertificateWhereInput
+    /**
+     * Limit how many Certificates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Certificate upsert
+   */
+  export type CertificateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Certificate to update in case it exists.
+     */
+    where: CertificateWhereUniqueInput
+    /**
+     * In case the Certificate found by the `where` argument doesn't exist, create a new Certificate with this data.
+     */
+    create: XOR<CertificateCreateInput, CertificateUncheckedCreateInput>
+    /**
+     * In case the Certificate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CertificateUpdateInput, CertificateUncheckedUpdateInput>
+  }
+
+  /**
+   * Certificate delete
+   */
+  export type CertificateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+    /**
+     * Filter which Certificate to delete.
+     */
+    where: CertificateWhereUniqueInput
+  }
+
+  /**
+   * Certificate deleteMany
+   */
+  export type CertificateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Certificates to delete
+     */
+    where?: CertificateWhereInput
+    /**
+     * Limit how many Certificates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Certificate without action
+   */
+  export type CertificateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Certificate
+     */
+    select?: CertificateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Certificate
+     */
+    omit?: CertificateOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9371,6 +19148,105 @@ export namespace Prisma {
   export type MockRegistrationStudentScalarFieldEnum = (typeof MockRegistrationStudentScalarFieldEnum)[keyof typeof MockRegistrationStudentScalarFieldEnum]
 
 
+  export const JobHuntingScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy',
+    updatedAt: 'updatedAt',
+    updatedBy: 'updatedBy',
+    title: 'title',
+    description: 'description',
+    workExperience: 'workExperience',
+    companyId: 'companyId',
+    cityId: 'cityId',
+    certificateRequirements: 'certificateRequirements',
+    workScheduleHours: 'workScheduleHours',
+    employmentType: 'employmentType',
+    workMode: 'workMode',
+    salary: 'salary',
+    responsibilities: 'responsibilities',
+    requirements: 'requirements',
+    conditions: 'conditions'
+  };
+
+  export type JobHuntingScalarFieldEnum = (typeof JobHuntingScalarFieldEnum)[keyof typeof JobHuntingScalarFieldEnum]
+
+
+  export const CompanyScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy',
+    updatedAt: 'updatedAt',
+    updatedBy: 'updatedBy',
+    companyTitle: 'companyTitle',
+    description: 'description',
+    companyLogo: 'companyLogo'
+  };
+
+  export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+  export const CVScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    studentId: 'studentId',
+    description: 'description',
+    cityId: 'cityId',
+    degree: 'degree',
+    universityTitle: 'universityTitle',
+    universityMajor: 'universityMajor',
+    graduationYear: 'graduationYear',
+    companyName: 'companyName',
+    position: 'position',
+    responsibilities: 'responsibilities',
+    startDate: 'startDate',
+    endDate: 'endDate'
+  };
+
+  export type CVScalarFieldEnum = (typeof CVScalarFieldEnum)[keyof typeof CVScalarFieldEnum]
+
+
+  export const SkillScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
+
+
+  export const ToolScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type ToolScalarFieldEnum = (typeof ToolScalarFieldEnum)[keyof typeof ToolScalarFieldEnum]
+
+
+  export const CvSkillScalarFieldEnum: {
+    cvId: 'cvId',
+    skillId: 'skillId'
+  };
+
+  export type CvSkillScalarFieldEnum = (typeof CvSkillScalarFieldEnum)[keyof typeof CvSkillScalarFieldEnum]
+
+
+  export const CvToolScalarFieldEnum: {
+    cvId: 'cvId',
+    toolId: 'toolId'
+  };
+
+  export type CvToolScalarFieldEnum = (typeof CvToolScalarFieldEnum)[keyof typeof CvToolScalarFieldEnum]
+
+
+  export const CertificateScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -9446,6 +19322,76 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkExperience'
+   */
+  export type EnumWorkExperienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkExperience'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkExperience[]'
+   */
+  export type ListEnumWorkExperienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkExperience[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkScheduleHours'
+   */
+  export type EnumWorkScheduleHoursFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkScheduleHours'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkScheduleHours[]'
+   */
+  export type ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkScheduleHours[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmploymentType'
+   */
+  export type EnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmploymentType[]'
+   */
+  export type ListEnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkMode'
+   */
+  export type EnumWorkModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorkMode[]'
+   */
+  export type ListEnumWorkModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkMode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Degree'
+   */
+  export type EnumDegreeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Degree'>
+    
+
+
+  /**
+   * Reference to a field of type 'Degree[]'
+   */
+  export type ListEnumDegreeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Degree[]'>
     
 
 
@@ -9682,6 +19628,8 @@ export namespace Prisma {
     name?: StringFilter<"City"> | string
     ieltsExams?: IeltsExamListRelationFilter
     calendar?: IeltsCalendarListRelationFilter
+    jobHuntings?: JobHuntingListRelationFilter
+    cvs?: CVListRelationFilter
   }
 
   export type CityOrderByWithRelationInput = {
@@ -9689,6 +19637,8 @@ export namespace Prisma {
     name?: SortOrder
     ieltsExams?: IeltsExamOrderByRelationAggregateInput
     calendar?: IeltsCalendarOrderByRelationAggregateInput
+    jobHuntings?: JobHuntingOrderByRelationAggregateInput
+    cvs?: CVOrderByRelationAggregateInput
   }
 
   export type CityWhereUniqueInput = Prisma.AtLeast<{
@@ -9699,6 +19649,8 @@ export namespace Prisma {
     NOT?: CityWhereInput | CityWhereInput[]
     ieltsExams?: IeltsExamListRelationFilter
     calendar?: IeltsCalendarListRelationFilter
+    jobHuntings?: JobHuntingListRelationFilter
+    cvs?: CVListRelationFilter
   }, "id" | "name">
 
   export type CityOrderByWithAggregationInput = {
@@ -9909,6 +19861,519 @@ export namespace Prisma {
     studentPhoneNumber?: StringNullableWithAggregatesFilter<"MockRegistrationStudent"> | string | null
     studentId?: StringWithAggregatesFilter<"MockRegistrationStudent"> | string
     registeredAt?: DateTimeWithAggregatesFilter<"MockRegistrationStudent"> | Date | string
+  }
+
+  export type JobHuntingWhereInput = {
+    AND?: JobHuntingWhereInput | JobHuntingWhereInput[]
+    OR?: JobHuntingWhereInput[]
+    NOT?: JobHuntingWhereInput | JobHuntingWhereInput[]
+    id?: StringFilter<"JobHunting"> | string
+    createdAt?: DateTimeFilter<"JobHunting"> | Date | string
+    createdBy?: StringFilter<"JobHunting"> | string
+    updatedAt?: DateTimeFilter<"JobHunting"> | Date | string
+    updatedBy?: StringNullableFilter<"JobHunting"> | string | null
+    title?: StringFilter<"JobHunting"> | string
+    description?: StringNullableFilter<"JobHunting"> | string | null
+    workExperience?: EnumWorkExperienceFilter<"JobHunting"> | $Enums.WorkExperience
+    companyId?: StringNullableFilter<"JobHunting"> | string | null
+    cityId?: StringNullableFilter<"JobHunting"> | string | null
+    certificateRequirements?: StringNullableFilter<"JobHunting"> | string | null
+    workScheduleHours?: EnumWorkScheduleHoursNullableFilter<"JobHunting"> | $Enums.WorkScheduleHours | null
+    employmentType?: EnumEmploymentTypeNullableFilter<"JobHunting"> | $Enums.EmploymentType | null
+    workMode?: EnumWorkModeNullableFilter<"JobHunting"> | $Enums.WorkMode | null
+    salary?: IntNullableFilter<"JobHunting"> | number | null
+    responsibilities?: StringNullableFilter<"JobHunting"> | string | null
+    requirements?: StringNullableFilter<"JobHunting"> | string | null
+    conditions?: StringNullableFilter<"JobHunting"> | string | null
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
+  }
+
+  export type JobHuntingOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    workExperience?: SortOrder
+    companyId?: SortOrderInput | SortOrder
+    cityId?: SortOrderInput | SortOrder
+    certificateRequirements?: SortOrderInput | SortOrder
+    workScheduleHours?: SortOrderInput | SortOrder
+    employmentType?: SortOrderInput | SortOrder
+    workMode?: SortOrderInput | SortOrder
+    salary?: SortOrderInput | SortOrder
+    responsibilities?: SortOrderInput | SortOrder
+    requirements?: SortOrderInput | SortOrder
+    conditions?: SortOrderInput | SortOrder
+    company?: CompanyOrderByWithRelationInput
+    city?: CityOrderByWithRelationInput
+  }
+
+  export type JobHuntingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JobHuntingWhereInput | JobHuntingWhereInput[]
+    OR?: JobHuntingWhereInput[]
+    NOT?: JobHuntingWhereInput | JobHuntingWhereInput[]
+    createdAt?: DateTimeFilter<"JobHunting"> | Date | string
+    createdBy?: StringFilter<"JobHunting"> | string
+    updatedAt?: DateTimeFilter<"JobHunting"> | Date | string
+    updatedBy?: StringNullableFilter<"JobHunting"> | string | null
+    title?: StringFilter<"JobHunting"> | string
+    description?: StringNullableFilter<"JobHunting"> | string | null
+    workExperience?: EnumWorkExperienceFilter<"JobHunting"> | $Enums.WorkExperience
+    companyId?: StringNullableFilter<"JobHunting"> | string | null
+    cityId?: StringNullableFilter<"JobHunting"> | string | null
+    certificateRequirements?: StringNullableFilter<"JobHunting"> | string | null
+    workScheduleHours?: EnumWorkScheduleHoursNullableFilter<"JobHunting"> | $Enums.WorkScheduleHours | null
+    employmentType?: EnumEmploymentTypeNullableFilter<"JobHunting"> | $Enums.EmploymentType | null
+    workMode?: EnumWorkModeNullableFilter<"JobHunting"> | $Enums.WorkMode | null
+    salary?: IntNullableFilter<"JobHunting"> | number | null
+    responsibilities?: StringNullableFilter<"JobHunting"> | string | null
+    requirements?: StringNullableFilter<"JobHunting"> | string | null
+    conditions?: StringNullableFilter<"JobHunting"> | string | null
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+    city?: XOR<CityNullableScalarRelationFilter, CityWhereInput> | null
+  }, "id">
+
+  export type JobHuntingOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    workExperience?: SortOrder
+    companyId?: SortOrderInput | SortOrder
+    cityId?: SortOrderInput | SortOrder
+    certificateRequirements?: SortOrderInput | SortOrder
+    workScheduleHours?: SortOrderInput | SortOrder
+    employmentType?: SortOrderInput | SortOrder
+    workMode?: SortOrderInput | SortOrder
+    salary?: SortOrderInput | SortOrder
+    responsibilities?: SortOrderInput | SortOrder
+    requirements?: SortOrderInput | SortOrder
+    conditions?: SortOrderInput | SortOrder
+    _count?: JobHuntingCountOrderByAggregateInput
+    _avg?: JobHuntingAvgOrderByAggregateInput
+    _max?: JobHuntingMaxOrderByAggregateInput
+    _min?: JobHuntingMinOrderByAggregateInput
+    _sum?: JobHuntingSumOrderByAggregateInput
+  }
+
+  export type JobHuntingScalarWhereWithAggregatesInput = {
+    AND?: JobHuntingScalarWhereWithAggregatesInput | JobHuntingScalarWhereWithAggregatesInput[]
+    OR?: JobHuntingScalarWhereWithAggregatesInput[]
+    NOT?: JobHuntingScalarWhereWithAggregatesInput | JobHuntingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JobHunting"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"JobHunting"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"JobHunting"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"JobHunting"> | Date | string
+    updatedBy?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    title?: StringWithAggregatesFilter<"JobHunting"> | string
+    description?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    workExperience?: EnumWorkExperienceWithAggregatesFilter<"JobHunting"> | $Enums.WorkExperience
+    companyId?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    cityId?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    certificateRequirements?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    workScheduleHours?: EnumWorkScheduleHoursNullableWithAggregatesFilter<"JobHunting"> | $Enums.WorkScheduleHours | null
+    employmentType?: EnumEmploymentTypeNullableWithAggregatesFilter<"JobHunting"> | $Enums.EmploymentType | null
+    workMode?: EnumWorkModeNullableWithAggregatesFilter<"JobHunting"> | $Enums.WorkMode | null
+    salary?: IntNullableWithAggregatesFilter<"JobHunting"> | number | null
+    responsibilities?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    requirements?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+    conditions?: StringNullableWithAggregatesFilter<"JobHunting"> | string | null
+  }
+
+  export type CompanyWhereInput = {
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    id?: StringFilter<"Company"> | string
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    createdBy?: StringFilter<"Company"> | string
+    updatedAt?: DateTimeFilter<"Company"> | Date | string
+    updatedBy?: StringNullableFilter<"Company"> | string | null
+    companyTitle?: StringFilter<"Company"> | string
+    description?: StringNullableFilter<"Company"> | string | null
+    companyLogo?: StringNullableFilter<"Company"> | string | null
+    jobHuntings?: JobHuntingListRelationFilter
+  }
+
+  export type CompanyOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    companyTitle?: SortOrder
+    description?: SortOrderInput | SortOrder
+    companyLogo?: SortOrderInput | SortOrder
+    jobHuntings?: JobHuntingOrderByRelationAggregateInput
+  }
+
+  export type CompanyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    createdBy?: StringFilter<"Company"> | string
+    updatedAt?: DateTimeFilter<"Company"> | Date | string
+    updatedBy?: StringNullableFilter<"Company"> | string | null
+    companyTitle?: StringFilter<"Company"> | string
+    description?: StringNullableFilter<"Company"> | string | null
+    companyLogo?: StringNullableFilter<"Company"> | string | null
+    jobHuntings?: JobHuntingListRelationFilter
+  }, "id">
+
+  export type CompanyOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrderInput | SortOrder
+    companyTitle?: SortOrder
+    description?: SortOrderInput | SortOrder
+    companyLogo?: SortOrderInput | SortOrder
+    _count?: CompanyCountOrderByAggregateInput
+    _max?: CompanyMaxOrderByAggregateInput
+    _min?: CompanyMinOrderByAggregateInput
+  }
+
+  export type CompanyScalarWhereWithAggregatesInput = {
+    AND?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    OR?: CompanyScalarWhereWithAggregatesInput[]
+    NOT?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Company"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+    createdBy?: StringWithAggregatesFilter<"Company"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+    updatedBy?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    companyTitle?: StringWithAggregatesFilter<"Company"> | string
+    description?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    companyLogo?: StringNullableWithAggregatesFilter<"Company"> | string | null
+  }
+
+  export type CVWhereInput = {
+    AND?: CVWhereInput | CVWhereInput[]
+    OR?: CVWhereInput[]
+    NOT?: CVWhereInput | CVWhereInput[]
+    id?: StringFilter<"CV"> | string
+    createdAt?: DateTimeFilter<"CV"> | Date | string
+    updatedAt?: DateTimeFilter<"CV"> | Date | string
+    studentId?: StringFilter<"CV"> | string
+    description?: StringNullableFilter<"CV"> | string | null
+    cityId?: StringFilter<"CV"> | string
+    degree?: EnumDegreeNullableFilter<"CV"> | $Enums.Degree | null
+    universityTitle?: StringNullableFilter<"CV"> | string | null
+    universityMajor?: StringNullableFilter<"CV"> | string | null
+    graduationYear?: IntNullableFilter<"CV"> | number | null
+    companyName?: StringNullableFilter<"CV"> | string | null
+    position?: StringNullableFilter<"CV"> | string | null
+    responsibilities?: StringNullableFilter<"CV"> | string | null
+    startDate?: DateTimeNullableFilter<"CV"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"CV"> | Date | string | null
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    skills?: CvSkillListRelationFilter
+    tools?: CvToolListRelationFilter
+  }
+
+  export type CVOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    studentId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    degree?: SortOrderInput | SortOrder
+    universityTitle?: SortOrderInput | SortOrder
+    universityMajor?: SortOrderInput | SortOrder
+    graduationYear?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    responsibilities?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    city?: CityOrderByWithRelationInput
+    skills?: CvSkillOrderByRelationAggregateInput
+    tools?: CvToolOrderByRelationAggregateInput
+  }
+
+  export type CVWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CVWhereInput | CVWhereInput[]
+    OR?: CVWhereInput[]
+    NOT?: CVWhereInput | CVWhereInput[]
+    createdAt?: DateTimeFilter<"CV"> | Date | string
+    updatedAt?: DateTimeFilter<"CV"> | Date | string
+    studentId?: StringFilter<"CV"> | string
+    description?: StringNullableFilter<"CV"> | string | null
+    cityId?: StringFilter<"CV"> | string
+    degree?: EnumDegreeNullableFilter<"CV"> | $Enums.Degree | null
+    universityTitle?: StringNullableFilter<"CV"> | string | null
+    universityMajor?: StringNullableFilter<"CV"> | string | null
+    graduationYear?: IntNullableFilter<"CV"> | number | null
+    companyName?: StringNullableFilter<"CV"> | string | null
+    position?: StringNullableFilter<"CV"> | string | null
+    responsibilities?: StringNullableFilter<"CV"> | string | null
+    startDate?: DateTimeNullableFilter<"CV"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"CV"> | Date | string | null
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    skills?: CvSkillListRelationFilter
+    tools?: CvToolListRelationFilter
+  }, "id">
+
+  export type CVOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    studentId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cityId?: SortOrder
+    degree?: SortOrderInput | SortOrder
+    universityTitle?: SortOrderInput | SortOrder
+    universityMajor?: SortOrderInput | SortOrder
+    graduationYear?: SortOrderInput | SortOrder
+    companyName?: SortOrderInput | SortOrder
+    position?: SortOrderInput | SortOrder
+    responsibilities?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    endDate?: SortOrderInput | SortOrder
+    _count?: CVCountOrderByAggregateInput
+    _avg?: CVAvgOrderByAggregateInput
+    _max?: CVMaxOrderByAggregateInput
+    _min?: CVMinOrderByAggregateInput
+    _sum?: CVSumOrderByAggregateInput
+  }
+
+  export type CVScalarWhereWithAggregatesInput = {
+    AND?: CVScalarWhereWithAggregatesInput | CVScalarWhereWithAggregatesInput[]
+    OR?: CVScalarWhereWithAggregatesInput[]
+    NOT?: CVScalarWhereWithAggregatesInput | CVScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CV"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CV"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CV"> | Date | string
+    studentId?: StringWithAggregatesFilter<"CV"> | string
+    description?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    cityId?: StringWithAggregatesFilter<"CV"> | string
+    degree?: EnumDegreeNullableWithAggregatesFilter<"CV"> | $Enums.Degree | null
+    universityTitle?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    universityMajor?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    graduationYear?: IntNullableWithAggregatesFilter<"CV"> | number | null
+    companyName?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    position?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    responsibilities?: StringNullableWithAggregatesFilter<"CV"> | string | null
+    startDate?: DateTimeNullableWithAggregatesFilter<"CV"> | Date | string | null
+    endDate?: DateTimeNullableWithAggregatesFilter<"CV"> | Date | string | null
+  }
+
+  export type SkillWhereInput = {
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    id?: StringFilter<"Skill"> | string
+    name?: StringFilter<"Skill"> | string
+    cvs?: CvSkillListRelationFilter
+  }
+
+  export type SkillOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    cvs?: CvSkillOrderByRelationAggregateInput
+  }
+
+  export type SkillWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: SkillWhereInput | SkillWhereInput[]
+    OR?: SkillWhereInput[]
+    NOT?: SkillWhereInput | SkillWhereInput[]
+    cvs?: CvSkillListRelationFilter
+  }, "id" | "name">
+
+  export type SkillOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: SkillCountOrderByAggregateInput
+    _max?: SkillMaxOrderByAggregateInput
+    _min?: SkillMinOrderByAggregateInput
+  }
+
+  export type SkillScalarWhereWithAggregatesInput = {
+    AND?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    OR?: SkillScalarWhereWithAggregatesInput[]
+    NOT?: SkillScalarWhereWithAggregatesInput | SkillScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Skill"> | string
+    name?: StringWithAggregatesFilter<"Skill"> | string
+  }
+
+  export type ToolWhereInput = {
+    AND?: ToolWhereInput | ToolWhereInput[]
+    OR?: ToolWhereInput[]
+    NOT?: ToolWhereInput | ToolWhereInput[]
+    id?: StringFilter<"Tool"> | string
+    name?: StringFilter<"Tool"> | string
+    cvs?: CvToolListRelationFilter
+  }
+
+  export type ToolOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    cvs?: CvToolOrderByRelationAggregateInput
+  }
+
+  export type ToolWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: ToolWhereInput | ToolWhereInput[]
+    OR?: ToolWhereInput[]
+    NOT?: ToolWhereInput | ToolWhereInput[]
+    cvs?: CvToolListRelationFilter
+  }, "id" | "name">
+
+  export type ToolOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: ToolCountOrderByAggregateInput
+    _max?: ToolMaxOrderByAggregateInput
+    _min?: ToolMinOrderByAggregateInput
+  }
+
+  export type ToolScalarWhereWithAggregatesInput = {
+    AND?: ToolScalarWhereWithAggregatesInput | ToolScalarWhereWithAggregatesInput[]
+    OR?: ToolScalarWhereWithAggregatesInput[]
+    NOT?: ToolScalarWhereWithAggregatesInput | ToolScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tool"> | string
+    name?: StringWithAggregatesFilter<"Tool"> | string
+  }
+
+  export type CvSkillWhereInput = {
+    AND?: CvSkillWhereInput | CvSkillWhereInput[]
+    OR?: CvSkillWhereInput[]
+    NOT?: CvSkillWhereInput | CvSkillWhereInput[]
+    cvId?: StringFilter<"CvSkill"> | string
+    skillId?: StringFilter<"CvSkill"> | string
+    cv?: XOR<CVScalarRelationFilter, CVWhereInput>
+    skill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+  }
+
+  export type CvSkillOrderByWithRelationInput = {
+    cvId?: SortOrder
+    skillId?: SortOrder
+    cv?: CVOrderByWithRelationInput
+    skill?: SkillOrderByWithRelationInput
+  }
+
+  export type CvSkillWhereUniqueInput = Prisma.AtLeast<{
+    cvId_skillId?: CvSkillCvIdSkillIdCompoundUniqueInput
+    AND?: CvSkillWhereInput | CvSkillWhereInput[]
+    OR?: CvSkillWhereInput[]
+    NOT?: CvSkillWhereInput | CvSkillWhereInput[]
+    cvId?: StringFilter<"CvSkill"> | string
+    skillId?: StringFilter<"CvSkill"> | string
+    cv?: XOR<CVScalarRelationFilter, CVWhereInput>
+    skill?: XOR<SkillScalarRelationFilter, SkillWhereInput>
+  }, "cvId_skillId">
+
+  export type CvSkillOrderByWithAggregationInput = {
+    cvId?: SortOrder
+    skillId?: SortOrder
+    _count?: CvSkillCountOrderByAggregateInput
+    _max?: CvSkillMaxOrderByAggregateInput
+    _min?: CvSkillMinOrderByAggregateInput
+  }
+
+  export type CvSkillScalarWhereWithAggregatesInput = {
+    AND?: CvSkillScalarWhereWithAggregatesInput | CvSkillScalarWhereWithAggregatesInput[]
+    OR?: CvSkillScalarWhereWithAggregatesInput[]
+    NOT?: CvSkillScalarWhereWithAggregatesInput | CvSkillScalarWhereWithAggregatesInput[]
+    cvId?: StringWithAggregatesFilter<"CvSkill"> | string
+    skillId?: StringWithAggregatesFilter<"CvSkill"> | string
+  }
+
+  export type CvToolWhereInput = {
+    AND?: CvToolWhereInput | CvToolWhereInput[]
+    OR?: CvToolWhereInput[]
+    NOT?: CvToolWhereInput | CvToolWhereInput[]
+    cvId?: StringFilter<"CvTool"> | string
+    toolId?: StringFilter<"CvTool"> | string
+    cv?: XOR<CVScalarRelationFilter, CVWhereInput>
+    tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
+  }
+
+  export type CvToolOrderByWithRelationInput = {
+    cvId?: SortOrder
+    toolId?: SortOrder
+    cv?: CVOrderByWithRelationInput
+    tool?: ToolOrderByWithRelationInput
+  }
+
+  export type CvToolWhereUniqueInput = Prisma.AtLeast<{
+    cvId_toolId?: CvToolCvIdToolIdCompoundUniqueInput
+    AND?: CvToolWhereInput | CvToolWhereInput[]
+    OR?: CvToolWhereInput[]
+    NOT?: CvToolWhereInput | CvToolWhereInput[]
+    cvId?: StringFilter<"CvTool"> | string
+    toolId?: StringFilter<"CvTool"> | string
+    cv?: XOR<CVScalarRelationFilter, CVWhereInput>
+    tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
+  }, "cvId_toolId">
+
+  export type CvToolOrderByWithAggregationInput = {
+    cvId?: SortOrder
+    toolId?: SortOrder
+    _count?: CvToolCountOrderByAggregateInput
+    _max?: CvToolMaxOrderByAggregateInput
+    _min?: CvToolMinOrderByAggregateInput
+  }
+
+  export type CvToolScalarWhereWithAggregatesInput = {
+    AND?: CvToolScalarWhereWithAggregatesInput | CvToolScalarWhereWithAggregatesInput[]
+    OR?: CvToolScalarWhereWithAggregatesInput[]
+    NOT?: CvToolScalarWhereWithAggregatesInput | CvToolScalarWhereWithAggregatesInput[]
+    cvId?: StringWithAggregatesFilter<"CvTool"> | string
+    toolId?: StringWithAggregatesFilter<"CvTool"> | string
+  }
+
+  export type CertificateWhereInput = {
+    AND?: CertificateWhereInput | CertificateWhereInput[]
+    OR?: CertificateWhereInput[]
+    NOT?: CertificateWhereInput | CertificateWhereInput[]
+    id?: StringFilter<"Certificate"> | string
+    name?: StringFilter<"Certificate"> | string
+  }
+
+  export type CertificateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CertificateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: CertificateWhereInput | CertificateWhereInput[]
+    OR?: CertificateWhereInput[]
+    NOT?: CertificateWhereInput | CertificateWhereInput[]
+  }, "id" | "name">
+
+  export type CertificateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: CertificateCountOrderByAggregateInput
+    _max?: CertificateMaxOrderByAggregateInput
+    _min?: CertificateMinOrderByAggregateInput
+  }
+
+  export type CertificateScalarWhereWithAggregatesInput = {
+    AND?: CertificateScalarWhereWithAggregatesInput | CertificateScalarWhereWithAggregatesInput[]
+    OR?: CertificateScalarWhereWithAggregatesInput[]
+    NOT?: CertificateScalarWhereWithAggregatesInput | CertificateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Certificate"> | string
+    name?: StringWithAggregatesFilter<"Certificate"> | string
   }
 
   export type IeltsExamCreateInput = {
@@ -10130,6 +20595,8 @@ export namespace Prisma {
     name: string
     ieltsExams?: IeltsExamCreateNestedManyWithoutCityInput
     calendar?: IeltsCalendarCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingCreateNestedManyWithoutCityInput
+    cvs?: CVCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateInput = {
@@ -10137,6 +20604,8 @@ export namespace Prisma {
     name: string
     ieltsExams?: IeltsExamUncheckedCreateNestedManyWithoutCityInput
     calendar?: IeltsCalendarUncheckedCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingUncheckedCreateNestedManyWithoutCityInput
+    cvs?: CVUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityUpdateInput = {
@@ -10144,6 +20613,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ieltsExams?: IeltsExamUpdateManyWithoutCityNestedInput
     calendar?: IeltsCalendarUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUpdateManyWithoutCityNestedInput
+    cvs?: CVUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateInput = {
@@ -10151,6 +20622,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     ieltsExams?: IeltsExamUncheckedUpdateManyWithoutCityNestedInput
     calendar?: IeltsCalendarUncheckedUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUncheckedUpdateManyWithoutCityNestedInput
+    cvs?: CVUncheckedUpdateManyWithoutCityNestedInput
   }
 
   export type CityCreateManyInput = {
@@ -10375,6 +20848,546 @@ export namespace Prisma {
     studentPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JobHuntingCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+    company?: CompanyCreateNestedOneWithoutJobHuntingsInput
+    city?: CityCreateNestedOneWithoutJobHuntingsInput
+  }
+
+  export type JobHuntingUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    companyId?: string | null
+    cityId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type JobHuntingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: CompanyUpdateOneWithoutJobHuntingsNestedInput
+    city?: CityUpdateOneWithoutJobHuntingsNestedInput
+  }
+
+  export type JobHuntingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type JobHuntingCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    companyId?: string | null
+    cityId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type JobHuntingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type JobHuntingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    companyTitle: string
+    description?: string | null
+    companyLogo?: string | null
+    jobHuntings?: JobHuntingCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    companyTitle: string
+    description?: string | null
+    companyLogo?: string | null
+    jobHuntings?: JobHuntingUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+    jobHuntings?: JobHuntingUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+    jobHuntings?: JobHuntingUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    companyTitle: string
+    description?: string | null
+    companyLogo?: string | null
+  }
+
+  export type CompanyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CVCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    city: CityCreateNestedOneWithoutCvsInput
+    skills?: CvSkillCreateNestedManyWithoutCvInput
+    tools?: CvToolCreateNestedManyWithoutCvInput
+  }
+
+  export type CVUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    cityId: string
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    skills?: CvSkillUncheckedCreateNestedManyWithoutCvInput
+    tools?: CvToolUncheckedCreateNestedManyWithoutCvInput
+  }
+
+  export type CVUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    city?: CityUpdateOneRequiredWithoutCvsNestedInput
+    skills?: CvSkillUpdateManyWithoutCvNestedInput
+    tools?: CvToolUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: StringFieldUpdateOperationsInput | string
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    skills?: CvSkillUncheckedUpdateManyWithoutCvNestedInput
+    tools?: CvToolUncheckedUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    cityId: string
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+  }
+
+  export type CVUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CVUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: StringFieldUpdateOperationsInput | string
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SkillCreateInput = {
+    id?: string
+    name: string
+    cvs?: CvSkillCreateNestedManyWithoutSkillInput
+  }
+
+  export type SkillUncheckedCreateInput = {
+    id?: string
+    name: string
+    cvs?: CvSkillUncheckedCreateNestedManyWithoutSkillInput
+  }
+
+  export type SkillUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    cvs?: CvSkillUpdateManyWithoutSkillNestedInput
+  }
+
+  export type SkillUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    cvs?: CvSkillUncheckedUpdateManyWithoutSkillNestedInput
+  }
+
+  export type SkillCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type SkillUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ToolCreateInput = {
+    id?: string
+    name: string
+    cvs?: CvToolCreateNestedManyWithoutToolInput
+  }
+
+  export type ToolUncheckedCreateInput = {
+    id?: string
+    name: string
+    cvs?: CvToolUncheckedCreateNestedManyWithoutToolInput
+  }
+
+  export type ToolUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    cvs?: CvToolUpdateManyWithoutToolNestedInput
+  }
+
+  export type ToolUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    cvs?: CvToolUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type ToolCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type ToolUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ToolUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvSkillCreateInput = {
+    cv: CVCreateNestedOneWithoutSkillsInput
+    skill: SkillCreateNestedOneWithoutCvsInput
+  }
+
+  export type CvSkillUncheckedCreateInput = {
+    cvId: string
+    skillId: string
+  }
+
+  export type CvSkillUpdateInput = {
+    cv?: CVUpdateOneRequiredWithoutSkillsNestedInput
+    skill?: SkillUpdateOneRequiredWithoutCvsNestedInput
+  }
+
+  export type CvSkillUncheckedUpdateInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+    skillId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvSkillCreateManyInput = {
+    cvId: string
+    skillId: string
+  }
+
+  export type CvSkillUpdateManyMutationInput = {
+
+  }
+
+  export type CvSkillUncheckedUpdateManyInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+    skillId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolCreateInput = {
+    cv: CVCreateNestedOneWithoutToolsInput
+    tool: ToolCreateNestedOneWithoutCvsInput
+  }
+
+  export type CvToolUncheckedCreateInput = {
+    cvId: string
+    toolId: string
+  }
+
+  export type CvToolUpdateInput = {
+    cv?: CVUpdateOneRequiredWithoutToolsNestedInput
+    tool?: ToolUpdateOneRequiredWithoutCvsNestedInput
+  }
+
+  export type CvToolUncheckedUpdateInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolCreateManyInput = {
+    cvId: string
+    toolId: string
+  }
+
+  export type CvToolUpdateManyMutationInput = {
+
+  }
+
+  export type CvToolUncheckedUpdateManyInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+    toolId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CertificateCreateInput = {
+    id?: string
+    name: string
+  }
+
+  export type CertificateUncheckedCreateInput = {
+    id?: string
+    name: string
+  }
+
+  export type CertificateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CertificateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CertificateCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type CertificateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CertificateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10662,7 +21675,27 @@ export namespace Prisma {
     none?: IeltsCalendarWhereInput
   }
 
+  export type JobHuntingListRelationFilter = {
+    every?: JobHuntingWhereInput
+    some?: JobHuntingWhereInput
+    none?: JobHuntingWhereInput
+  }
+
+  export type CVListRelationFilter = {
+    every?: CVWhereInput
+    some?: CVWhereInput
+    none?: CVWhereInput
+  }
+
   export type IeltsCalendarOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JobHuntingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CVOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10814,6 +21847,412 @@ export namespace Prisma {
     studentPhoneNumber?: SortOrder
     studentId?: SortOrder
     registeredAt?: SortOrder
+  }
+
+  export type EnumWorkExperienceFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkExperience | EnumWorkExperienceFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkExperienceFilter<$PrismaModel> | $Enums.WorkExperience
+  }
+
+  export type EnumWorkScheduleHoursNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkScheduleHours | EnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel> | $Enums.WorkScheduleHours | null
+  }
+
+  export type EnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+  }
+
+  export type EnumWorkModeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkMode | EnumWorkModeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkModeNullableFilter<$PrismaModel> | $Enums.WorkMode | null
+  }
+
+  export type CompanyNullableScalarRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
+  export type CityNullableScalarRelationFilter = {
+    is?: CityWhereInput | null
+    isNot?: CityWhereInput | null
+  }
+
+  export type JobHuntingCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    workExperience?: SortOrder
+    companyId?: SortOrder
+    cityId?: SortOrder
+    certificateRequirements?: SortOrder
+    workScheduleHours?: SortOrder
+    employmentType?: SortOrder
+    workMode?: SortOrder
+    salary?: SortOrder
+    responsibilities?: SortOrder
+    requirements?: SortOrder
+    conditions?: SortOrder
+  }
+
+  export type JobHuntingAvgOrderByAggregateInput = {
+    salary?: SortOrder
+  }
+
+  export type JobHuntingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    workExperience?: SortOrder
+    companyId?: SortOrder
+    cityId?: SortOrder
+    certificateRequirements?: SortOrder
+    workScheduleHours?: SortOrder
+    employmentType?: SortOrder
+    workMode?: SortOrder
+    salary?: SortOrder
+    responsibilities?: SortOrder
+    requirements?: SortOrder
+    conditions?: SortOrder
+  }
+
+  export type JobHuntingMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    workExperience?: SortOrder
+    companyId?: SortOrder
+    cityId?: SortOrder
+    certificateRequirements?: SortOrder
+    workScheduleHours?: SortOrder
+    employmentType?: SortOrder
+    workMode?: SortOrder
+    salary?: SortOrder
+    responsibilities?: SortOrder
+    requirements?: SortOrder
+    conditions?: SortOrder
+  }
+
+  export type JobHuntingSumOrderByAggregateInput = {
+    salary?: SortOrder
+  }
+
+  export type EnumWorkExperienceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkExperience | EnumWorkExperienceFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkExperienceWithAggregatesFilter<$PrismaModel> | $Enums.WorkExperience
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkExperienceFilter<$PrismaModel>
+    _max?: NestedEnumWorkExperienceFilter<$PrismaModel>
+  }
+
+  export type EnumWorkScheduleHoursNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkScheduleHours | EnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkScheduleHoursNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorkScheduleHours | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel>
+  }
+
+  export type EnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumWorkModeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkMode | EnumWorkModeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkModeNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorkMode | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorkModeNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorkModeNullableFilter<$PrismaModel>
+  }
+
+  export type CompanyCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    companyTitle?: SortOrder
+    description?: SortOrder
+    companyLogo?: SortOrder
+  }
+
+  export type CompanyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    companyTitle?: SortOrder
+    description?: SortOrder
+    companyLogo?: SortOrder
+  }
+
+  export type CompanyMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    updatedAt?: SortOrder
+    updatedBy?: SortOrder
+    companyTitle?: SortOrder
+    description?: SortOrder
+    companyLogo?: SortOrder
+  }
+
+  export type EnumDegreeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Degree | EnumDegreeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDegreeNullableFilter<$PrismaModel> | $Enums.Degree | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type CvSkillListRelationFilter = {
+    every?: CvSkillWhereInput
+    some?: CvSkillWhereInput
+    none?: CvSkillWhereInput
+  }
+
+  export type CvToolListRelationFilter = {
+    every?: CvToolWhereInput
+    some?: CvToolWhereInput
+    none?: CvToolWhereInput
+  }
+
+  export type CvSkillOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CvToolOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CVCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    studentId?: SortOrder
+    description?: SortOrder
+    cityId?: SortOrder
+    degree?: SortOrder
+    universityTitle?: SortOrder
+    universityMajor?: SortOrder
+    graduationYear?: SortOrder
+    companyName?: SortOrder
+    position?: SortOrder
+    responsibilities?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type CVAvgOrderByAggregateInput = {
+    graduationYear?: SortOrder
+  }
+
+  export type CVMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    studentId?: SortOrder
+    description?: SortOrder
+    cityId?: SortOrder
+    degree?: SortOrder
+    universityTitle?: SortOrder
+    universityMajor?: SortOrder
+    graduationYear?: SortOrder
+    companyName?: SortOrder
+    position?: SortOrder
+    responsibilities?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type CVMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    studentId?: SortOrder
+    description?: SortOrder
+    cityId?: SortOrder
+    degree?: SortOrder
+    universityTitle?: SortOrder
+    universityMajor?: SortOrder
+    graduationYear?: SortOrder
+    companyName?: SortOrder
+    position?: SortOrder
+    responsibilities?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+  }
+
+  export type CVSumOrderByAggregateInput = {
+    graduationYear?: SortOrder
+  }
+
+  export type EnumDegreeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Degree | EnumDegreeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDegreeNullableWithAggregatesFilter<$PrismaModel> | $Enums.Degree | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumDegreeNullableFilter<$PrismaModel>
+    _max?: NestedEnumDegreeNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type SkillCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type SkillMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type SkillMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ToolCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ToolMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ToolMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CVScalarRelationFilter = {
+    is?: CVWhereInput
+    isNot?: CVWhereInput
+  }
+
+  export type SkillScalarRelationFilter = {
+    is?: SkillWhereInput
+    isNot?: SkillWhereInput
+  }
+
+  export type CvSkillCvIdSkillIdCompoundUniqueInput = {
+    cvId: string
+    skillId: string
+  }
+
+  export type CvSkillCountOrderByAggregateInput = {
+    cvId?: SortOrder
+    skillId?: SortOrder
+  }
+
+  export type CvSkillMaxOrderByAggregateInput = {
+    cvId?: SortOrder
+    skillId?: SortOrder
+  }
+
+  export type CvSkillMinOrderByAggregateInput = {
+    cvId?: SortOrder
+    skillId?: SortOrder
+  }
+
+  export type ToolScalarRelationFilter = {
+    is?: ToolWhereInput
+    isNot?: ToolWhereInput
+  }
+
+  export type CvToolCvIdToolIdCompoundUniqueInput = {
+    cvId: string
+    toolId: string
+  }
+
+  export type CvToolCountOrderByAggregateInput = {
+    cvId?: SortOrder
+    toolId?: SortOrder
+  }
+
+  export type CvToolMaxOrderByAggregateInput = {
+    cvId?: SortOrder
+    toolId?: SortOrder
+  }
+
+  export type CvToolMinOrderByAggregateInput = {
+    cvId?: SortOrder
+    toolId?: SortOrder
+  }
+
+  export type CertificateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CertificateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CertificateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
   }
 
   export type IeltsRegistrationCreateNestedManyWithoutExamInput = {
@@ -10994,6 +22433,20 @@ export namespace Prisma {
     connect?: IeltsCalendarWhereUniqueInput | IeltsCalendarWhereUniqueInput[]
   }
 
+  export type JobHuntingCreateNestedManyWithoutCityInput = {
+    create?: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput> | JobHuntingCreateWithoutCityInput[] | JobHuntingUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCityInput | JobHuntingCreateOrConnectWithoutCityInput[]
+    createMany?: JobHuntingCreateManyCityInputEnvelope
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+  }
+
+  export type CVCreateNestedManyWithoutCityInput = {
+    create?: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput> | CVCreateWithoutCityInput[] | CVUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: CVCreateOrConnectWithoutCityInput | CVCreateOrConnectWithoutCityInput[]
+    createMany?: CVCreateManyCityInputEnvelope
+    connect?: CVWhereUniqueInput | CVWhereUniqueInput[]
+  }
+
   export type IeltsExamUncheckedCreateNestedManyWithoutCityInput = {
     create?: XOR<IeltsExamCreateWithoutCityInput, IeltsExamUncheckedCreateWithoutCityInput> | IeltsExamCreateWithoutCityInput[] | IeltsExamUncheckedCreateWithoutCityInput[]
     connectOrCreate?: IeltsExamCreateOrConnectWithoutCityInput | IeltsExamCreateOrConnectWithoutCityInput[]
@@ -11006,6 +22459,20 @@ export namespace Prisma {
     connectOrCreate?: IeltsCalendarCreateOrConnectWithoutCityInput | IeltsCalendarCreateOrConnectWithoutCityInput[]
     createMany?: IeltsCalendarCreateManyCityInputEnvelope
     connect?: IeltsCalendarWhereUniqueInput | IeltsCalendarWhereUniqueInput[]
+  }
+
+  export type JobHuntingUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput> | JobHuntingCreateWithoutCityInput[] | JobHuntingUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCityInput | JobHuntingCreateOrConnectWithoutCityInput[]
+    createMany?: JobHuntingCreateManyCityInputEnvelope
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+  }
+
+  export type CVUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput> | CVCreateWithoutCityInput[] | CVUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: CVCreateOrConnectWithoutCityInput | CVCreateOrConnectWithoutCityInput[]
+    createMany?: CVCreateManyCityInputEnvelope
+    connect?: CVWhereUniqueInput | CVWhereUniqueInput[]
   }
 
   export type IeltsExamUpdateManyWithoutCityNestedInput = {
@@ -11036,6 +22503,34 @@ export namespace Prisma {
     deleteMany?: IeltsCalendarScalarWhereInput | IeltsCalendarScalarWhereInput[]
   }
 
+  export type JobHuntingUpdateManyWithoutCityNestedInput = {
+    create?: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput> | JobHuntingCreateWithoutCityInput[] | JobHuntingUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCityInput | JobHuntingCreateOrConnectWithoutCityInput[]
+    upsert?: JobHuntingUpsertWithWhereUniqueWithoutCityInput | JobHuntingUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: JobHuntingCreateManyCityInputEnvelope
+    set?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    disconnect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    delete?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    update?: JobHuntingUpdateWithWhereUniqueWithoutCityInput | JobHuntingUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: JobHuntingUpdateManyWithWhereWithoutCityInput | JobHuntingUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+  }
+
+  export type CVUpdateManyWithoutCityNestedInput = {
+    create?: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput> | CVCreateWithoutCityInput[] | CVUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: CVCreateOrConnectWithoutCityInput | CVCreateOrConnectWithoutCityInput[]
+    upsert?: CVUpsertWithWhereUniqueWithoutCityInput | CVUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: CVCreateManyCityInputEnvelope
+    set?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    disconnect?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    delete?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    connect?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    update?: CVUpdateWithWhereUniqueWithoutCityInput | CVUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: CVUpdateManyWithWhereWithoutCityInput | CVUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: CVScalarWhereInput | CVScalarWhereInput[]
+  }
+
   export type IeltsExamUncheckedUpdateManyWithoutCityNestedInput = {
     create?: XOR<IeltsExamCreateWithoutCityInput, IeltsExamUncheckedCreateWithoutCityInput> | IeltsExamCreateWithoutCityInput[] | IeltsExamUncheckedCreateWithoutCityInput[]
     connectOrCreate?: IeltsExamCreateOrConnectWithoutCityInput | IeltsExamCreateOrConnectWithoutCityInput[]
@@ -11062,6 +22557,34 @@ export namespace Prisma {
     update?: IeltsCalendarUpdateWithWhereUniqueWithoutCityInput | IeltsCalendarUpdateWithWhereUniqueWithoutCityInput[]
     updateMany?: IeltsCalendarUpdateManyWithWhereWithoutCityInput | IeltsCalendarUpdateManyWithWhereWithoutCityInput[]
     deleteMany?: IeltsCalendarScalarWhereInput | IeltsCalendarScalarWhereInput[]
+  }
+
+  export type JobHuntingUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput> | JobHuntingCreateWithoutCityInput[] | JobHuntingUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCityInput | JobHuntingCreateOrConnectWithoutCityInput[]
+    upsert?: JobHuntingUpsertWithWhereUniqueWithoutCityInput | JobHuntingUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: JobHuntingCreateManyCityInputEnvelope
+    set?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    disconnect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    delete?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    update?: JobHuntingUpdateWithWhereUniqueWithoutCityInput | JobHuntingUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: JobHuntingUpdateManyWithWhereWithoutCityInput | JobHuntingUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+  }
+
+  export type CVUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput> | CVCreateWithoutCityInput[] | CVUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: CVCreateOrConnectWithoutCityInput | CVCreateOrConnectWithoutCityInput[]
+    upsert?: CVUpsertWithWhereUniqueWithoutCityInput | CVUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: CVCreateManyCityInputEnvelope
+    set?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    disconnect?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    delete?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    connect?: CVWhereUniqueInput | CVWhereUniqueInput[]
+    update?: CVUpdateWithWhereUniqueWithoutCityInput | CVUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: CVUpdateManyWithWhereWithoutCityInput | CVUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: CVScalarWhereInput | CVScalarWhereInput[]
   }
 
   export type MockRegistrationCreateNestedManyWithoutBranchInput = {
@@ -11178,6 +22701,342 @@ export namespace Prisma {
     upsert?: MockRegistrationUpsertWithoutStudentsInput
     connect?: MockRegistrationWhereUniqueInput
     update?: XOR<XOR<MockRegistrationUpdateToOneWithWhereWithoutStudentsInput, MockRegistrationUpdateWithoutStudentsInput>, MockRegistrationUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type CompanyCreateNestedOneWithoutJobHuntingsInput = {
+    create?: XOR<CompanyCreateWithoutJobHuntingsInput, CompanyUncheckedCreateWithoutJobHuntingsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutJobHuntingsInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type CityCreateNestedOneWithoutJobHuntingsInput = {
+    create?: XOR<CityCreateWithoutJobHuntingsInput, CityUncheckedCreateWithoutJobHuntingsInput>
+    connectOrCreate?: CityCreateOrConnectWithoutJobHuntingsInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type EnumWorkExperienceFieldUpdateOperationsInput = {
+    set?: $Enums.WorkExperience
+  }
+
+  export type NullableEnumWorkScheduleHoursFieldUpdateOperationsInput = {
+    set?: $Enums.WorkScheduleHours | null
+  }
+
+  export type NullableEnumEmploymentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.EmploymentType | null
+  }
+
+  export type NullableEnumWorkModeFieldUpdateOperationsInput = {
+    set?: $Enums.WorkMode | null
+  }
+
+  export type CompanyUpdateOneWithoutJobHuntingsNestedInput = {
+    create?: XOR<CompanyCreateWithoutJobHuntingsInput, CompanyUncheckedCreateWithoutJobHuntingsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutJobHuntingsInput
+    upsert?: CompanyUpsertWithoutJobHuntingsInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutJobHuntingsInput, CompanyUpdateWithoutJobHuntingsInput>, CompanyUncheckedUpdateWithoutJobHuntingsInput>
+  }
+
+  export type CityUpdateOneWithoutJobHuntingsNestedInput = {
+    create?: XOR<CityCreateWithoutJobHuntingsInput, CityUncheckedCreateWithoutJobHuntingsInput>
+    connectOrCreate?: CityCreateOrConnectWithoutJobHuntingsInput
+    upsert?: CityUpsertWithoutJobHuntingsInput
+    disconnect?: CityWhereInput | boolean
+    delete?: CityWhereInput | boolean
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutJobHuntingsInput, CityUpdateWithoutJobHuntingsInput>, CityUncheckedUpdateWithoutJobHuntingsInput>
+  }
+
+  export type JobHuntingCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput> | JobHuntingCreateWithoutCompanyInput[] | JobHuntingUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCompanyInput | JobHuntingCreateOrConnectWithoutCompanyInput[]
+    createMany?: JobHuntingCreateManyCompanyInputEnvelope
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+  }
+
+  export type JobHuntingUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput> | JobHuntingCreateWithoutCompanyInput[] | JobHuntingUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCompanyInput | JobHuntingCreateOrConnectWithoutCompanyInput[]
+    createMany?: JobHuntingCreateManyCompanyInputEnvelope
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+  }
+
+  export type JobHuntingUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput> | JobHuntingCreateWithoutCompanyInput[] | JobHuntingUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCompanyInput | JobHuntingCreateOrConnectWithoutCompanyInput[]
+    upsert?: JobHuntingUpsertWithWhereUniqueWithoutCompanyInput | JobHuntingUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: JobHuntingCreateManyCompanyInputEnvelope
+    set?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    disconnect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    delete?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    update?: JobHuntingUpdateWithWhereUniqueWithoutCompanyInput | JobHuntingUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: JobHuntingUpdateManyWithWhereWithoutCompanyInput | JobHuntingUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+  }
+
+  export type JobHuntingUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput> | JobHuntingCreateWithoutCompanyInput[] | JobHuntingUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: JobHuntingCreateOrConnectWithoutCompanyInput | JobHuntingCreateOrConnectWithoutCompanyInput[]
+    upsert?: JobHuntingUpsertWithWhereUniqueWithoutCompanyInput | JobHuntingUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: JobHuntingCreateManyCompanyInputEnvelope
+    set?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    disconnect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    delete?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    connect?: JobHuntingWhereUniqueInput | JobHuntingWhereUniqueInput[]
+    update?: JobHuntingUpdateWithWhereUniqueWithoutCompanyInput | JobHuntingUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: JobHuntingUpdateManyWithWhereWithoutCompanyInput | JobHuntingUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+  }
+
+  export type CityCreateNestedOneWithoutCvsInput = {
+    create?: XOR<CityCreateWithoutCvsInput, CityUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: CityCreateOrConnectWithoutCvsInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type CvSkillCreateNestedManyWithoutCvInput = {
+    create?: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput> | CvSkillCreateWithoutCvInput[] | CvSkillUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutCvInput | CvSkillCreateOrConnectWithoutCvInput[]
+    createMany?: CvSkillCreateManyCvInputEnvelope
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+  }
+
+  export type CvToolCreateNestedManyWithoutCvInput = {
+    create?: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput> | CvToolCreateWithoutCvInput[] | CvToolUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutCvInput | CvToolCreateOrConnectWithoutCvInput[]
+    createMany?: CvToolCreateManyCvInputEnvelope
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+  }
+
+  export type CvSkillUncheckedCreateNestedManyWithoutCvInput = {
+    create?: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput> | CvSkillCreateWithoutCvInput[] | CvSkillUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutCvInput | CvSkillCreateOrConnectWithoutCvInput[]
+    createMany?: CvSkillCreateManyCvInputEnvelope
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+  }
+
+  export type CvToolUncheckedCreateNestedManyWithoutCvInput = {
+    create?: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput> | CvToolCreateWithoutCvInput[] | CvToolUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutCvInput | CvToolCreateOrConnectWithoutCvInput[]
+    createMany?: CvToolCreateManyCvInputEnvelope
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+  }
+
+  export type NullableEnumDegreeFieldUpdateOperationsInput = {
+    set?: $Enums.Degree | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type CityUpdateOneRequiredWithoutCvsNestedInput = {
+    create?: XOR<CityCreateWithoutCvsInput, CityUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: CityCreateOrConnectWithoutCvsInput
+    upsert?: CityUpsertWithoutCvsInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutCvsInput, CityUpdateWithoutCvsInput>, CityUncheckedUpdateWithoutCvsInput>
+  }
+
+  export type CvSkillUpdateManyWithoutCvNestedInput = {
+    create?: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput> | CvSkillCreateWithoutCvInput[] | CvSkillUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutCvInput | CvSkillCreateOrConnectWithoutCvInput[]
+    upsert?: CvSkillUpsertWithWhereUniqueWithoutCvInput | CvSkillUpsertWithWhereUniqueWithoutCvInput[]
+    createMany?: CvSkillCreateManyCvInputEnvelope
+    set?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    disconnect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    delete?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    update?: CvSkillUpdateWithWhereUniqueWithoutCvInput | CvSkillUpdateWithWhereUniqueWithoutCvInput[]
+    updateMany?: CvSkillUpdateManyWithWhereWithoutCvInput | CvSkillUpdateManyWithWhereWithoutCvInput[]
+    deleteMany?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+  }
+
+  export type CvToolUpdateManyWithoutCvNestedInput = {
+    create?: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput> | CvToolCreateWithoutCvInput[] | CvToolUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutCvInput | CvToolCreateOrConnectWithoutCvInput[]
+    upsert?: CvToolUpsertWithWhereUniqueWithoutCvInput | CvToolUpsertWithWhereUniqueWithoutCvInput[]
+    createMany?: CvToolCreateManyCvInputEnvelope
+    set?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    disconnect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    delete?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    update?: CvToolUpdateWithWhereUniqueWithoutCvInput | CvToolUpdateWithWhereUniqueWithoutCvInput[]
+    updateMany?: CvToolUpdateManyWithWhereWithoutCvInput | CvToolUpdateManyWithWhereWithoutCvInput[]
+    deleteMany?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+  }
+
+  export type CvSkillUncheckedUpdateManyWithoutCvNestedInput = {
+    create?: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput> | CvSkillCreateWithoutCvInput[] | CvSkillUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutCvInput | CvSkillCreateOrConnectWithoutCvInput[]
+    upsert?: CvSkillUpsertWithWhereUniqueWithoutCvInput | CvSkillUpsertWithWhereUniqueWithoutCvInput[]
+    createMany?: CvSkillCreateManyCvInputEnvelope
+    set?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    disconnect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    delete?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    update?: CvSkillUpdateWithWhereUniqueWithoutCvInput | CvSkillUpdateWithWhereUniqueWithoutCvInput[]
+    updateMany?: CvSkillUpdateManyWithWhereWithoutCvInput | CvSkillUpdateManyWithWhereWithoutCvInput[]
+    deleteMany?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+  }
+
+  export type CvToolUncheckedUpdateManyWithoutCvNestedInput = {
+    create?: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput> | CvToolCreateWithoutCvInput[] | CvToolUncheckedCreateWithoutCvInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutCvInput | CvToolCreateOrConnectWithoutCvInput[]
+    upsert?: CvToolUpsertWithWhereUniqueWithoutCvInput | CvToolUpsertWithWhereUniqueWithoutCvInput[]
+    createMany?: CvToolCreateManyCvInputEnvelope
+    set?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    disconnect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    delete?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    update?: CvToolUpdateWithWhereUniqueWithoutCvInput | CvToolUpdateWithWhereUniqueWithoutCvInput[]
+    updateMany?: CvToolUpdateManyWithWhereWithoutCvInput | CvToolUpdateManyWithWhereWithoutCvInput[]
+    deleteMany?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+  }
+
+  export type CvSkillCreateNestedManyWithoutSkillInput = {
+    create?: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput> | CvSkillCreateWithoutSkillInput[] | CvSkillUncheckedCreateWithoutSkillInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutSkillInput | CvSkillCreateOrConnectWithoutSkillInput[]
+    createMany?: CvSkillCreateManySkillInputEnvelope
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+  }
+
+  export type CvSkillUncheckedCreateNestedManyWithoutSkillInput = {
+    create?: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput> | CvSkillCreateWithoutSkillInput[] | CvSkillUncheckedCreateWithoutSkillInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutSkillInput | CvSkillCreateOrConnectWithoutSkillInput[]
+    createMany?: CvSkillCreateManySkillInputEnvelope
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+  }
+
+  export type CvSkillUpdateManyWithoutSkillNestedInput = {
+    create?: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput> | CvSkillCreateWithoutSkillInput[] | CvSkillUncheckedCreateWithoutSkillInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutSkillInput | CvSkillCreateOrConnectWithoutSkillInput[]
+    upsert?: CvSkillUpsertWithWhereUniqueWithoutSkillInput | CvSkillUpsertWithWhereUniqueWithoutSkillInput[]
+    createMany?: CvSkillCreateManySkillInputEnvelope
+    set?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    disconnect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    delete?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    update?: CvSkillUpdateWithWhereUniqueWithoutSkillInput | CvSkillUpdateWithWhereUniqueWithoutSkillInput[]
+    updateMany?: CvSkillUpdateManyWithWhereWithoutSkillInput | CvSkillUpdateManyWithWhereWithoutSkillInput[]
+    deleteMany?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+  }
+
+  export type CvSkillUncheckedUpdateManyWithoutSkillNestedInput = {
+    create?: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput> | CvSkillCreateWithoutSkillInput[] | CvSkillUncheckedCreateWithoutSkillInput[]
+    connectOrCreate?: CvSkillCreateOrConnectWithoutSkillInput | CvSkillCreateOrConnectWithoutSkillInput[]
+    upsert?: CvSkillUpsertWithWhereUniqueWithoutSkillInput | CvSkillUpsertWithWhereUniqueWithoutSkillInput[]
+    createMany?: CvSkillCreateManySkillInputEnvelope
+    set?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    disconnect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    delete?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    connect?: CvSkillWhereUniqueInput | CvSkillWhereUniqueInput[]
+    update?: CvSkillUpdateWithWhereUniqueWithoutSkillInput | CvSkillUpdateWithWhereUniqueWithoutSkillInput[]
+    updateMany?: CvSkillUpdateManyWithWhereWithoutSkillInput | CvSkillUpdateManyWithWhereWithoutSkillInput[]
+    deleteMany?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+  }
+
+  export type CvToolCreateNestedManyWithoutToolInput = {
+    create?: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput> | CvToolCreateWithoutToolInput[] | CvToolUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutToolInput | CvToolCreateOrConnectWithoutToolInput[]
+    createMany?: CvToolCreateManyToolInputEnvelope
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+  }
+
+  export type CvToolUncheckedCreateNestedManyWithoutToolInput = {
+    create?: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput> | CvToolCreateWithoutToolInput[] | CvToolUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutToolInput | CvToolCreateOrConnectWithoutToolInput[]
+    createMany?: CvToolCreateManyToolInputEnvelope
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+  }
+
+  export type CvToolUpdateManyWithoutToolNestedInput = {
+    create?: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput> | CvToolCreateWithoutToolInput[] | CvToolUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutToolInput | CvToolCreateOrConnectWithoutToolInput[]
+    upsert?: CvToolUpsertWithWhereUniqueWithoutToolInput | CvToolUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: CvToolCreateManyToolInputEnvelope
+    set?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    disconnect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    delete?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    update?: CvToolUpdateWithWhereUniqueWithoutToolInput | CvToolUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: CvToolUpdateManyWithWhereWithoutToolInput | CvToolUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+  }
+
+  export type CvToolUncheckedUpdateManyWithoutToolNestedInput = {
+    create?: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput> | CvToolCreateWithoutToolInput[] | CvToolUncheckedCreateWithoutToolInput[]
+    connectOrCreate?: CvToolCreateOrConnectWithoutToolInput | CvToolCreateOrConnectWithoutToolInput[]
+    upsert?: CvToolUpsertWithWhereUniqueWithoutToolInput | CvToolUpsertWithWhereUniqueWithoutToolInput[]
+    createMany?: CvToolCreateManyToolInputEnvelope
+    set?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    disconnect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    delete?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    connect?: CvToolWhereUniqueInput | CvToolWhereUniqueInput[]
+    update?: CvToolUpdateWithWhereUniqueWithoutToolInput | CvToolUpdateWithWhereUniqueWithoutToolInput[]
+    updateMany?: CvToolUpdateManyWithWhereWithoutToolInput | CvToolUpdateManyWithWhereWithoutToolInput[]
+    deleteMany?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+  }
+
+  export type CVCreateNestedOneWithoutSkillsInput = {
+    create?: XOR<CVCreateWithoutSkillsInput, CVUncheckedCreateWithoutSkillsInput>
+    connectOrCreate?: CVCreateOrConnectWithoutSkillsInput
+    connect?: CVWhereUniqueInput
+  }
+
+  export type SkillCreateNestedOneWithoutCvsInput = {
+    create?: XOR<SkillCreateWithoutCvsInput, SkillUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: SkillCreateOrConnectWithoutCvsInput
+    connect?: SkillWhereUniqueInput
+  }
+
+  export type CVUpdateOneRequiredWithoutSkillsNestedInput = {
+    create?: XOR<CVCreateWithoutSkillsInput, CVUncheckedCreateWithoutSkillsInput>
+    connectOrCreate?: CVCreateOrConnectWithoutSkillsInput
+    upsert?: CVUpsertWithoutSkillsInput
+    connect?: CVWhereUniqueInput
+    update?: XOR<XOR<CVUpdateToOneWithWhereWithoutSkillsInput, CVUpdateWithoutSkillsInput>, CVUncheckedUpdateWithoutSkillsInput>
+  }
+
+  export type SkillUpdateOneRequiredWithoutCvsNestedInput = {
+    create?: XOR<SkillCreateWithoutCvsInput, SkillUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: SkillCreateOrConnectWithoutCvsInput
+    upsert?: SkillUpsertWithoutCvsInput
+    connect?: SkillWhereUniqueInput
+    update?: XOR<XOR<SkillUpdateToOneWithWhereWithoutCvsInput, SkillUpdateWithoutCvsInput>, SkillUncheckedUpdateWithoutCvsInput>
+  }
+
+  export type CVCreateNestedOneWithoutToolsInput = {
+    create?: XOR<CVCreateWithoutToolsInput, CVUncheckedCreateWithoutToolsInput>
+    connectOrCreate?: CVCreateOrConnectWithoutToolsInput
+    connect?: CVWhereUniqueInput
+  }
+
+  export type ToolCreateNestedOneWithoutCvsInput = {
+    create?: XOR<ToolCreateWithoutCvsInput, ToolUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: ToolCreateOrConnectWithoutCvsInput
+    connect?: ToolWhereUniqueInput
+  }
+
+  export type CVUpdateOneRequiredWithoutToolsNestedInput = {
+    create?: XOR<CVCreateWithoutToolsInput, CVUncheckedCreateWithoutToolsInput>
+    connectOrCreate?: CVCreateOrConnectWithoutToolsInput
+    upsert?: CVUpsertWithoutToolsInput
+    connect?: CVWhereUniqueInput
+    update?: XOR<XOR<CVUpdateToOneWithWhereWithoutToolsInput, CVUpdateWithoutToolsInput>, CVUncheckedUpdateWithoutToolsInput>
+  }
+
+  export type ToolUpdateOneRequiredWithoutCvsNestedInput = {
+    create?: XOR<ToolCreateWithoutCvsInput, ToolUncheckedCreateWithoutCvsInput>
+    connectOrCreate?: ToolCreateOrConnectWithoutCvsInput
+    upsert?: ToolUpsertWithoutCvsInput
+    connect?: ToolWhereUniqueInput
+    update?: XOR<XOR<ToolUpdateToOneWithWhereWithoutCvsInput, ToolUpdateWithoutCvsInput>, ToolUncheckedUpdateWithoutCvsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11342,6 +23201,116 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumWorkExperienceFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkExperience | EnumWorkExperienceFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkExperienceFilter<$PrismaModel> | $Enums.WorkExperience
+  }
+
+  export type NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkScheduleHours | EnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel> | $Enums.WorkScheduleHours | null
+  }
+
+  export type NestedEnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+  }
+
+  export type NestedEnumWorkModeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkMode | EnumWorkModeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkModeNullableFilter<$PrismaModel> | $Enums.WorkMode | null
+  }
+
+  export type NestedEnumWorkExperienceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkExperience | EnumWorkExperienceFieldRefInput<$PrismaModel>
+    in?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WorkExperience[] | ListEnumWorkExperienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumWorkExperienceWithAggregatesFilter<$PrismaModel> | $Enums.WorkExperience
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWorkExperienceFilter<$PrismaModel>
+    _max?: NestedEnumWorkExperienceFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWorkScheduleHoursNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkScheduleHours | EnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkScheduleHours[] | ListEnumWorkScheduleHoursFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkScheduleHoursNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorkScheduleHours | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorkScheduleHoursNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWorkModeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorkMode | EnumWorkModeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorkMode[] | ListEnumWorkModeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorkModeNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorkMode | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorkModeNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorkModeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDegreeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Degree | EnumDegreeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDegreeNullableFilter<$PrismaModel> | $Enums.Degree | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumDegreeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Degree | EnumDegreeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Degree[] | ListEnumDegreeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDegreeNullableWithAggregatesFilter<$PrismaModel> | $Enums.Degree | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumDegreeNullableFilter<$PrismaModel>
+    _max?: NestedEnumDegreeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type IeltsRegistrationCreateWithoutExamInput = {
     id?: string
     studentId: string
@@ -11368,12 +23337,16 @@ export namespace Prisma {
     id?: string
     name: string
     calendar?: IeltsCalendarCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingCreateNestedManyWithoutCityInput
+    cvs?: CVCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateWithoutIeltsExamsInput = {
     id?: string
     name: string
     calendar?: IeltsCalendarUncheckedCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingUncheckedCreateNestedManyWithoutCityInput
+    cvs?: CVUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityCreateOrConnectWithoutIeltsExamsInput = {
@@ -11447,12 +23420,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     calendar?: IeltsCalendarUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUpdateManyWithoutCityNestedInput
+    cvs?: CVUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateWithoutIeltsExamsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     calendar?: IeltsCalendarUncheckedUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUncheckedUpdateManyWithoutCityNestedInput
+    cvs?: CVUncheckedUpdateManyWithoutCityNestedInput
   }
 
   export type IeltsCalendarUpsertWithoutExamsInput = {
@@ -11558,12 +23535,16 @@ export namespace Prisma {
     id?: string
     name: string
     ieltsExams?: IeltsExamCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingCreateNestedManyWithoutCityInput
+    cvs?: CVCreateNestedManyWithoutCityInput
   }
 
   export type CityUncheckedCreateWithoutCalendarInput = {
     id?: string
     name: string
     ieltsExams?: IeltsExamUncheckedCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingUncheckedCreateNestedManyWithoutCityInput
+    cvs?: CVUncheckedCreateNestedManyWithoutCityInput
   }
 
   export type CityCreateOrConnectWithoutCalendarInput = {
@@ -11622,12 +23603,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     ieltsExams?: IeltsExamUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUpdateManyWithoutCityNestedInput
+    cvs?: CVUpdateManyWithoutCityNestedInput
   }
 
   export type CityUncheckedUpdateWithoutCalendarInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     ieltsExams?: IeltsExamUncheckedUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUncheckedUpdateManyWithoutCityNestedInput
+    cvs?: CVUncheckedUpdateManyWithoutCityNestedInput
   }
 
   export type IeltsExamUpsertWithWhereUniqueWithoutCalendarInput = {
@@ -11728,6 +23713,104 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JobHuntingCreateWithoutCityInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+    company?: CompanyCreateNestedOneWithoutJobHuntingsInput
+  }
+
+  export type JobHuntingUncheckedCreateWithoutCityInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    companyId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type JobHuntingCreateOrConnectWithoutCityInput = {
+    where: JobHuntingWhereUniqueInput
+    create: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput>
+  }
+
+  export type JobHuntingCreateManyCityInputEnvelope = {
+    data: JobHuntingCreateManyCityInput | JobHuntingCreateManyCityInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CVCreateWithoutCityInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    skills?: CvSkillCreateNestedManyWithoutCvInput
+    tools?: CvToolCreateNestedManyWithoutCvInput
+  }
+
+  export type CVUncheckedCreateWithoutCityInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    skills?: CvSkillUncheckedCreateNestedManyWithoutCvInput
+    tools?: CvToolUncheckedCreateNestedManyWithoutCvInput
+  }
+
+  export type CVCreateOrConnectWithoutCityInput = {
+    where: CVWhereUniqueInput
+    create: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput>
+  }
+
+  export type CVCreateManyCityInputEnvelope = {
+    data: CVCreateManyCityInput | CVCreateManyCityInput[]
+    skipDuplicates?: boolean
+  }
+
   export type IeltsExamUpsertWithWhereUniqueWithoutCityInput = {
     where: IeltsExamWhereUniqueInput
     update: XOR<IeltsExamUpdateWithoutCityInput, IeltsExamUncheckedUpdateWithoutCityInput>
@@ -11771,6 +23854,83 @@ export namespace Prisma {
     cityId?: StringFilter<"IeltsCalendar"> | string
     createdAt?: DateTimeFilter<"IeltsCalendar"> | Date | string
     updatedAt?: DateTimeFilter<"IeltsCalendar"> | Date | string
+  }
+
+  export type JobHuntingUpsertWithWhereUniqueWithoutCityInput = {
+    where: JobHuntingWhereUniqueInput
+    update: XOR<JobHuntingUpdateWithoutCityInput, JobHuntingUncheckedUpdateWithoutCityInput>
+    create: XOR<JobHuntingCreateWithoutCityInput, JobHuntingUncheckedCreateWithoutCityInput>
+  }
+
+  export type JobHuntingUpdateWithWhereUniqueWithoutCityInput = {
+    where: JobHuntingWhereUniqueInput
+    data: XOR<JobHuntingUpdateWithoutCityInput, JobHuntingUncheckedUpdateWithoutCityInput>
+  }
+
+  export type JobHuntingUpdateManyWithWhereWithoutCityInput = {
+    where: JobHuntingScalarWhereInput
+    data: XOR<JobHuntingUpdateManyMutationInput, JobHuntingUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type JobHuntingScalarWhereInput = {
+    AND?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+    OR?: JobHuntingScalarWhereInput[]
+    NOT?: JobHuntingScalarWhereInput | JobHuntingScalarWhereInput[]
+    id?: StringFilter<"JobHunting"> | string
+    createdAt?: DateTimeFilter<"JobHunting"> | Date | string
+    createdBy?: StringFilter<"JobHunting"> | string
+    updatedAt?: DateTimeFilter<"JobHunting"> | Date | string
+    updatedBy?: StringNullableFilter<"JobHunting"> | string | null
+    title?: StringFilter<"JobHunting"> | string
+    description?: StringNullableFilter<"JobHunting"> | string | null
+    workExperience?: EnumWorkExperienceFilter<"JobHunting"> | $Enums.WorkExperience
+    companyId?: StringNullableFilter<"JobHunting"> | string | null
+    cityId?: StringNullableFilter<"JobHunting"> | string | null
+    certificateRequirements?: StringNullableFilter<"JobHunting"> | string | null
+    workScheduleHours?: EnumWorkScheduleHoursNullableFilter<"JobHunting"> | $Enums.WorkScheduleHours | null
+    employmentType?: EnumEmploymentTypeNullableFilter<"JobHunting"> | $Enums.EmploymentType | null
+    workMode?: EnumWorkModeNullableFilter<"JobHunting"> | $Enums.WorkMode | null
+    salary?: IntNullableFilter<"JobHunting"> | number | null
+    responsibilities?: StringNullableFilter<"JobHunting"> | string | null
+    requirements?: StringNullableFilter<"JobHunting"> | string | null
+    conditions?: StringNullableFilter<"JobHunting"> | string | null
+  }
+
+  export type CVUpsertWithWhereUniqueWithoutCityInput = {
+    where: CVWhereUniqueInput
+    update: XOR<CVUpdateWithoutCityInput, CVUncheckedUpdateWithoutCityInput>
+    create: XOR<CVCreateWithoutCityInput, CVUncheckedCreateWithoutCityInput>
+  }
+
+  export type CVUpdateWithWhereUniqueWithoutCityInput = {
+    where: CVWhereUniqueInput
+    data: XOR<CVUpdateWithoutCityInput, CVUncheckedUpdateWithoutCityInput>
+  }
+
+  export type CVUpdateManyWithWhereWithoutCityInput = {
+    where: CVScalarWhereInput
+    data: XOR<CVUpdateManyMutationInput, CVUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type CVScalarWhereInput = {
+    AND?: CVScalarWhereInput | CVScalarWhereInput[]
+    OR?: CVScalarWhereInput[]
+    NOT?: CVScalarWhereInput | CVScalarWhereInput[]
+    id?: StringFilter<"CV"> | string
+    createdAt?: DateTimeFilter<"CV"> | Date | string
+    updatedAt?: DateTimeFilter<"CV"> | Date | string
+    studentId?: StringFilter<"CV"> | string
+    description?: StringNullableFilter<"CV"> | string | null
+    cityId?: StringFilter<"CV"> | string
+    degree?: EnumDegreeNullableFilter<"CV"> | $Enums.Degree | null
+    universityTitle?: StringNullableFilter<"CV"> | string | null
+    universityMajor?: StringNullableFilter<"CV"> | string | null
+    graduationYear?: IntNullableFilter<"CV"> | number | null
+    companyName?: StringNullableFilter<"CV"> | string | null
+    position?: StringNullableFilter<"CV"> | string | null
+    responsibilities?: StringNullableFilter<"CV"> | string | null
+    startDate?: DateTimeNullableFilter<"CV"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"CV"> | Date | string | null
   }
 
   export type MockRegistrationCreateWithoutBranchInput = {
@@ -12010,6 +24170,636 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type CompanyCreateWithoutJobHuntingsInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    companyTitle: string
+    description?: string | null
+    companyLogo?: string | null
+  }
+
+  export type CompanyUncheckedCreateWithoutJobHuntingsInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    companyTitle: string
+    description?: string | null
+    companyLogo?: string | null
+  }
+
+  export type CompanyCreateOrConnectWithoutJobHuntingsInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutJobHuntingsInput, CompanyUncheckedCreateWithoutJobHuntingsInput>
+  }
+
+  export type CityCreateWithoutJobHuntingsInput = {
+    id?: string
+    name: string
+    ieltsExams?: IeltsExamCreateNestedManyWithoutCityInput
+    calendar?: IeltsCalendarCreateNestedManyWithoutCityInput
+    cvs?: CVCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutJobHuntingsInput = {
+    id?: string
+    name: string
+    ieltsExams?: IeltsExamUncheckedCreateNestedManyWithoutCityInput
+    calendar?: IeltsCalendarUncheckedCreateNestedManyWithoutCityInput
+    cvs?: CVUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutJobHuntingsInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutJobHuntingsInput, CityUncheckedCreateWithoutJobHuntingsInput>
+  }
+
+  export type CompanyUpsertWithoutJobHuntingsInput = {
+    update: XOR<CompanyUpdateWithoutJobHuntingsInput, CompanyUncheckedUpdateWithoutJobHuntingsInput>
+    create: XOR<CompanyCreateWithoutJobHuntingsInput, CompanyUncheckedCreateWithoutJobHuntingsInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutJobHuntingsInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutJobHuntingsInput, CompanyUncheckedUpdateWithoutJobHuntingsInput>
+  }
+
+  export type CompanyUpdateWithoutJobHuntingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CompanyUncheckedUpdateWithoutJobHuntingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    companyTitle?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    companyLogo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CityUpsertWithoutJobHuntingsInput = {
+    update: XOR<CityUpdateWithoutJobHuntingsInput, CityUncheckedUpdateWithoutJobHuntingsInput>
+    create: XOR<CityCreateWithoutJobHuntingsInput, CityUncheckedCreateWithoutJobHuntingsInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutJobHuntingsInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutJobHuntingsInput, CityUncheckedUpdateWithoutJobHuntingsInput>
+  }
+
+  export type CityUpdateWithoutJobHuntingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    ieltsExams?: IeltsExamUpdateManyWithoutCityNestedInput
+    calendar?: IeltsCalendarUpdateManyWithoutCityNestedInput
+    cvs?: CVUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutJobHuntingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    ieltsExams?: IeltsExamUncheckedUpdateManyWithoutCityNestedInput
+    calendar?: IeltsCalendarUncheckedUpdateManyWithoutCityNestedInput
+    cvs?: CVUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type JobHuntingCreateWithoutCompanyInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+    city?: CityCreateNestedOneWithoutJobHuntingsInput
+  }
+
+  export type JobHuntingUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    cityId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type JobHuntingCreateOrConnectWithoutCompanyInput = {
+    where: JobHuntingWhereUniqueInput
+    create: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type JobHuntingCreateManyCompanyInputEnvelope = {
+    data: JobHuntingCreateManyCompanyInput | JobHuntingCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JobHuntingUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: JobHuntingWhereUniqueInput
+    update: XOR<JobHuntingUpdateWithoutCompanyInput, JobHuntingUncheckedUpdateWithoutCompanyInput>
+    create: XOR<JobHuntingCreateWithoutCompanyInput, JobHuntingUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type JobHuntingUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: JobHuntingWhereUniqueInput
+    data: XOR<JobHuntingUpdateWithoutCompanyInput, JobHuntingUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type JobHuntingUpdateManyWithWhereWithoutCompanyInput = {
+    where: JobHuntingScalarWhereInput
+    data: XOR<JobHuntingUpdateManyMutationInput, JobHuntingUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type CityCreateWithoutCvsInput = {
+    id?: string
+    name: string
+    ieltsExams?: IeltsExamCreateNestedManyWithoutCityInput
+    calendar?: IeltsCalendarCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutCvsInput = {
+    id?: string
+    name: string
+    ieltsExams?: IeltsExamUncheckedCreateNestedManyWithoutCityInput
+    calendar?: IeltsCalendarUncheckedCreateNestedManyWithoutCityInput
+    jobHuntings?: JobHuntingUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutCvsInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutCvsInput, CityUncheckedCreateWithoutCvsInput>
+  }
+
+  export type CvSkillCreateWithoutCvInput = {
+    skill: SkillCreateNestedOneWithoutCvsInput
+  }
+
+  export type CvSkillUncheckedCreateWithoutCvInput = {
+    skillId: string
+  }
+
+  export type CvSkillCreateOrConnectWithoutCvInput = {
+    where: CvSkillWhereUniqueInput
+    create: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput>
+  }
+
+  export type CvSkillCreateManyCvInputEnvelope = {
+    data: CvSkillCreateManyCvInput | CvSkillCreateManyCvInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CvToolCreateWithoutCvInput = {
+    tool: ToolCreateNestedOneWithoutCvsInput
+  }
+
+  export type CvToolUncheckedCreateWithoutCvInput = {
+    toolId: string
+  }
+
+  export type CvToolCreateOrConnectWithoutCvInput = {
+    where: CvToolWhereUniqueInput
+    create: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput>
+  }
+
+  export type CvToolCreateManyCvInputEnvelope = {
+    data: CvToolCreateManyCvInput | CvToolCreateManyCvInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CityUpsertWithoutCvsInput = {
+    update: XOR<CityUpdateWithoutCvsInput, CityUncheckedUpdateWithoutCvsInput>
+    create: XOR<CityCreateWithoutCvsInput, CityUncheckedCreateWithoutCvsInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutCvsInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutCvsInput, CityUncheckedUpdateWithoutCvsInput>
+  }
+
+  export type CityUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    ieltsExams?: IeltsExamUpdateManyWithoutCityNestedInput
+    calendar?: IeltsCalendarUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    ieltsExams?: IeltsExamUncheckedUpdateManyWithoutCityNestedInput
+    calendar?: IeltsCalendarUncheckedUpdateManyWithoutCityNestedInput
+    jobHuntings?: JobHuntingUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type CvSkillUpsertWithWhereUniqueWithoutCvInput = {
+    where: CvSkillWhereUniqueInput
+    update: XOR<CvSkillUpdateWithoutCvInput, CvSkillUncheckedUpdateWithoutCvInput>
+    create: XOR<CvSkillCreateWithoutCvInput, CvSkillUncheckedCreateWithoutCvInput>
+  }
+
+  export type CvSkillUpdateWithWhereUniqueWithoutCvInput = {
+    where: CvSkillWhereUniqueInput
+    data: XOR<CvSkillUpdateWithoutCvInput, CvSkillUncheckedUpdateWithoutCvInput>
+  }
+
+  export type CvSkillUpdateManyWithWhereWithoutCvInput = {
+    where: CvSkillScalarWhereInput
+    data: XOR<CvSkillUpdateManyMutationInput, CvSkillUncheckedUpdateManyWithoutCvInput>
+  }
+
+  export type CvSkillScalarWhereInput = {
+    AND?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+    OR?: CvSkillScalarWhereInput[]
+    NOT?: CvSkillScalarWhereInput | CvSkillScalarWhereInput[]
+    cvId?: StringFilter<"CvSkill"> | string
+    skillId?: StringFilter<"CvSkill"> | string
+  }
+
+  export type CvToolUpsertWithWhereUniqueWithoutCvInput = {
+    where: CvToolWhereUniqueInput
+    update: XOR<CvToolUpdateWithoutCvInput, CvToolUncheckedUpdateWithoutCvInput>
+    create: XOR<CvToolCreateWithoutCvInput, CvToolUncheckedCreateWithoutCvInput>
+  }
+
+  export type CvToolUpdateWithWhereUniqueWithoutCvInput = {
+    where: CvToolWhereUniqueInput
+    data: XOR<CvToolUpdateWithoutCvInput, CvToolUncheckedUpdateWithoutCvInput>
+  }
+
+  export type CvToolUpdateManyWithWhereWithoutCvInput = {
+    where: CvToolScalarWhereInput
+    data: XOR<CvToolUpdateManyMutationInput, CvToolUncheckedUpdateManyWithoutCvInput>
+  }
+
+  export type CvToolScalarWhereInput = {
+    AND?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+    OR?: CvToolScalarWhereInput[]
+    NOT?: CvToolScalarWhereInput | CvToolScalarWhereInput[]
+    cvId?: StringFilter<"CvTool"> | string
+    toolId?: StringFilter<"CvTool"> | string
+  }
+
+  export type CvSkillCreateWithoutSkillInput = {
+    cv: CVCreateNestedOneWithoutSkillsInput
+  }
+
+  export type CvSkillUncheckedCreateWithoutSkillInput = {
+    cvId: string
+  }
+
+  export type CvSkillCreateOrConnectWithoutSkillInput = {
+    where: CvSkillWhereUniqueInput
+    create: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput>
+  }
+
+  export type CvSkillCreateManySkillInputEnvelope = {
+    data: CvSkillCreateManySkillInput | CvSkillCreateManySkillInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CvSkillUpsertWithWhereUniqueWithoutSkillInput = {
+    where: CvSkillWhereUniqueInput
+    update: XOR<CvSkillUpdateWithoutSkillInput, CvSkillUncheckedUpdateWithoutSkillInput>
+    create: XOR<CvSkillCreateWithoutSkillInput, CvSkillUncheckedCreateWithoutSkillInput>
+  }
+
+  export type CvSkillUpdateWithWhereUniqueWithoutSkillInput = {
+    where: CvSkillWhereUniqueInput
+    data: XOR<CvSkillUpdateWithoutSkillInput, CvSkillUncheckedUpdateWithoutSkillInput>
+  }
+
+  export type CvSkillUpdateManyWithWhereWithoutSkillInput = {
+    where: CvSkillScalarWhereInput
+    data: XOR<CvSkillUpdateManyMutationInput, CvSkillUncheckedUpdateManyWithoutSkillInput>
+  }
+
+  export type CvToolCreateWithoutToolInput = {
+    cv: CVCreateNestedOneWithoutToolsInput
+  }
+
+  export type CvToolUncheckedCreateWithoutToolInput = {
+    cvId: string
+  }
+
+  export type CvToolCreateOrConnectWithoutToolInput = {
+    where: CvToolWhereUniqueInput
+    create: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput>
+  }
+
+  export type CvToolCreateManyToolInputEnvelope = {
+    data: CvToolCreateManyToolInput | CvToolCreateManyToolInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CvToolUpsertWithWhereUniqueWithoutToolInput = {
+    where: CvToolWhereUniqueInput
+    update: XOR<CvToolUpdateWithoutToolInput, CvToolUncheckedUpdateWithoutToolInput>
+    create: XOR<CvToolCreateWithoutToolInput, CvToolUncheckedCreateWithoutToolInput>
+  }
+
+  export type CvToolUpdateWithWhereUniqueWithoutToolInput = {
+    where: CvToolWhereUniqueInput
+    data: XOR<CvToolUpdateWithoutToolInput, CvToolUncheckedUpdateWithoutToolInput>
+  }
+
+  export type CvToolUpdateManyWithWhereWithoutToolInput = {
+    where: CvToolScalarWhereInput
+    data: XOR<CvToolUpdateManyMutationInput, CvToolUncheckedUpdateManyWithoutToolInput>
+  }
+
+  export type CVCreateWithoutSkillsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    city: CityCreateNestedOneWithoutCvsInput
+    tools?: CvToolCreateNestedManyWithoutCvInput
+  }
+
+  export type CVUncheckedCreateWithoutSkillsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    cityId: string
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tools?: CvToolUncheckedCreateNestedManyWithoutCvInput
+  }
+
+  export type CVCreateOrConnectWithoutSkillsInput = {
+    where: CVWhereUniqueInput
+    create: XOR<CVCreateWithoutSkillsInput, CVUncheckedCreateWithoutSkillsInput>
+  }
+
+  export type SkillCreateWithoutCvsInput = {
+    id?: string
+    name: string
+  }
+
+  export type SkillUncheckedCreateWithoutCvsInput = {
+    id?: string
+    name: string
+  }
+
+  export type SkillCreateOrConnectWithoutCvsInput = {
+    where: SkillWhereUniqueInput
+    create: XOR<SkillCreateWithoutCvsInput, SkillUncheckedCreateWithoutCvsInput>
+  }
+
+  export type CVUpsertWithoutSkillsInput = {
+    update: XOR<CVUpdateWithoutSkillsInput, CVUncheckedUpdateWithoutSkillsInput>
+    create: XOR<CVCreateWithoutSkillsInput, CVUncheckedCreateWithoutSkillsInput>
+    where?: CVWhereInput
+  }
+
+  export type CVUpdateToOneWithWhereWithoutSkillsInput = {
+    where?: CVWhereInput
+    data: XOR<CVUpdateWithoutSkillsInput, CVUncheckedUpdateWithoutSkillsInput>
+  }
+
+  export type CVUpdateWithoutSkillsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    city?: CityUpdateOneRequiredWithoutCvsNestedInput
+    tools?: CvToolUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVUncheckedUpdateWithoutSkillsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: StringFieldUpdateOperationsInput | string
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tools?: CvToolUncheckedUpdateManyWithoutCvNestedInput
+  }
+
+  export type SkillUpsertWithoutCvsInput = {
+    update: XOR<SkillUpdateWithoutCvsInput, SkillUncheckedUpdateWithoutCvsInput>
+    create: XOR<SkillCreateWithoutCvsInput, SkillUncheckedCreateWithoutCvsInput>
+    where?: SkillWhereInput
+  }
+
+  export type SkillUpdateToOneWithWhereWithoutCvsInput = {
+    where?: SkillWhereInput
+    data: XOR<SkillUpdateWithoutCvsInput, SkillUncheckedUpdateWithoutCvsInput>
+  }
+
+  export type SkillUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SkillUncheckedUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CVCreateWithoutToolsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    city: CityCreateNestedOneWithoutCvsInput
+    skills?: CvSkillCreateNestedManyWithoutCvInput
+  }
+
+  export type CVUncheckedCreateWithoutToolsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    cityId: string
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    skills?: CvSkillUncheckedCreateNestedManyWithoutCvInput
+  }
+
+  export type CVCreateOrConnectWithoutToolsInput = {
+    where: CVWhereUniqueInput
+    create: XOR<CVCreateWithoutToolsInput, CVUncheckedCreateWithoutToolsInput>
+  }
+
+  export type ToolCreateWithoutCvsInput = {
+    id?: string
+    name: string
+  }
+
+  export type ToolUncheckedCreateWithoutCvsInput = {
+    id?: string
+    name: string
+  }
+
+  export type ToolCreateOrConnectWithoutCvsInput = {
+    where: ToolWhereUniqueInput
+    create: XOR<ToolCreateWithoutCvsInput, ToolUncheckedCreateWithoutCvsInput>
+  }
+
+  export type CVUpsertWithoutToolsInput = {
+    update: XOR<CVUpdateWithoutToolsInput, CVUncheckedUpdateWithoutToolsInput>
+    create: XOR<CVCreateWithoutToolsInput, CVUncheckedCreateWithoutToolsInput>
+    where?: CVWhereInput
+  }
+
+  export type CVUpdateToOneWithWhereWithoutToolsInput = {
+    where?: CVWhereInput
+    data: XOR<CVUpdateWithoutToolsInput, CVUncheckedUpdateWithoutToolsInput>
+  }
+
+  export type CVUpdateWithoutToolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    city?: CityUpdateOneRequiredWithoutCvsNestedInput
+    skills?: CvSkillUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVUncheckedUpdateWithoutToolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cityId?: StringFieldUpdateOperationsInput | string
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    skills?: CvSkillUncheckedUpdateManyWithoutCvNestedInput
+  }
+
+  export type ToolUpsertWithoutCvsInput = {
+    update: XOR<ToolUpdateWithoutCvsInput, ToolUncheckedUpdateWithoutCvsInput>
+    create: XOR<ToolCreateWithoutCvsInput, ToolUncheckedCreateWithoutCvsInput>
+    where?: ToolWhereInput
+  }
+
+  export type ToolUpdateToOneWithWhereWithoutCvsInput = {
+    where?: ToolWhereInput
+    data: XOR<ToolUpdateWithoutCvsInput, ToolUncheckedUpdateWithoutCvsInput>
+  }
+
+  export type ToolUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ToolUncheckedUpdateWithoutCvsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type IeltsRegistrationCreateManyExamInput = {
     id?: string
     studentId: string
@@ -12105,6 +24895,43 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type JobHuntingCreateManyCityInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    companyId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type CVCreateManyCityInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentId: string
+    description?: string | null
+    degree?: $Enums.Degree | null
+    universityTitle?: string | null
+    universityMajor?: string | null
+    graduationYear?: number | null
+    companyName?: string | null
+    position?: string | null
+    responsibilities?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+  }
+
   export type IeltsExamUpdateWithoutCityInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12170,6 +24997,121 @@ export namespace Prisma {
     isAvailable?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JobHuntingUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: CompanyUpdateOneWithoutJobHuntingsNestedInput
+  }
+
+  export type JobHuntingUncheckedUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type JobHuntingUncheckedUpdateManyWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CVUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    skills?: CvSkillUpdateManyWithoutCvNestedInput
+    tools?: CvToolUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVUncheckedUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    skills?: CvSkillUncheckedUpdateManyWithoutCvNestedInput
+    tools?: CvToolUncheckedUpdateManyWithoutCvNestedInput
+  }
+
+  export type CVUncheckedUpdateManyWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    degree?: NullableEnumDegreeFieldUpdateOperationsInput | $Enums.Degree | null
+    universityTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    universityMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    graduationYear?: NullableIntFieldUpdateOperationsInput | number | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MockRegistrationCreateManyBranchInput = {
@@ -12256,6 +25198,150 @@ export namespace Prisma {
     studentPhoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     studentId?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JobHuntingCreateManyCompanyInput = {
+    id?: string
+    createdAt?: Date | string
+    createdBy: string
+    updatedAt?: Date | string
+    updatedBy?: string | null
+    title: string
+    description?: string | null
+    workExperience: $Enums.WorkExperience
+    cityId?: string | null
+    certificateRequirements?: string | null
+    workScheduleHours?: $Enums.WorkScheduleHours | null
+    employmentType?: $Enums.EmploymentType | null
+    workMode?: $Enums.WorkMode | null
+    salary?: number | null
+    responsibilities?: string | null
+    requirements?: string | null
+    conditions?: string | null
+  }
+
+  export type JobHuntingUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: CityUpdateOneWithoutJobHuntingsNestedInput
+  }
+
+  export type JobHuntingUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    cityId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type JobHuntingUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    workExperience?: EnumWorkExperienceFieldUpdateOperationsInput | $Enums.WorkExperience
+    cityId?: NullableStringFieldUpdateOperationsInput | string | null
+    certificateRequirements?: NullableStringFieldUpdateOperationsInput | string | null
+    workScheduleHours?: NullableEnumWorkScheduleHoursFieldUpdateOperationsInput | $Enums.WorkScheduleHours | null
+    employmentType?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    workMode?: NullableEnumWorkModeFieldUpdateOperationsInput | $Enums.WorkMode | null
+    salary?: NullableIntFieldUpdateOperationsInput | number | null
+    responsibilities?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    conditions?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CvSkillCreateManyCvInput = {
+    skillId: string
+  }
+
+  export type CvToolCreateManyCvInput = {
+    toolId: string
+  }
+
+  export type CvSkillUpdateWithoutCvInput = {
+    skill?: SkillUpdateOneRequiredWithoutCvsNestedInput
+  }
+
+  export type CvSkillUncheckedUpdateWithoutCvInput = {
+    skillId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvSkillUncheckedUpdateManyWithoutCvInput = {
+    skillId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolUpdateWithoutCvInput = {
+    tool?: ToolUpdateOneRequiredWithoutCvsNestedInput
+  }
+
+  export type CvToolUncheckedUpdateWithoutCvInput = {
+    toolId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolUncheckedUpdateManyWithoutCvInput = {
+    toolId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvSkillCreateManySkillInput = {
+    cvId: string
+  }
+
+  export type CvSkillUpdateWithoutSkillInput = {
+    cv?: CVUpdateOneRequiredWithoutSkillsNestedInput
+  }
+
+  export type CvSkillUncheckedUpdateWithoutSkillInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvSkillUncheckedUpdateManyWithoutSkillInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolCreateManyToolInput = {
+    cvId: string
+  }
+
+  export type CvToolUpdateWithoutToolInput = {
+    cv?: CVUpdateOneRequiredWithoutToolsNestedInput
+  }
+
+  export type CvToolUncheckedUpdateWithoutToolInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CvToolUncheckedUpdateManyWithoutToolInput = {
+    cvId?: StringFieldUpdateOperationsInput | string
   }
 
 

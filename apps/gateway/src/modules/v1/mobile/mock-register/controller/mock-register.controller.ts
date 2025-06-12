@@ -10,7 +10,7 @@ import { RegisterForMockDto } from '../dto/register-for-mock.dto';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@ApiTags('Mock Register - Mobile')
+@ApiTags('Mobile - Mock Register')
 @Controller('mock-register/mobile')
 export class MockRegisterController {
     constructor(private readonly mockRegisterService: MockRegisterService) {}

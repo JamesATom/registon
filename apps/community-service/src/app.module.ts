@@ -9,6 +9,7 @@ import { EventModule } from './modules/v1/event/event.module';
 import { IeltsRegisterModule } from './modules/v1/ielts-register/ielts-register.module';
 import { CityModule } from './modules/v1/city/city.module';
 import { MockRegisterModule } from './modules/v1/mock-register/mock-register.module';
+import { JobHuntingModule } from './modules/v1/job-hunting/job-hunting.module';
 
 @Module({
     imports: [
@@ -29,6 +30,7 @@ import { MockRegisterModule } from './modules/v1/mock-register/mock-register.mod
         IeltsRegisterModule,
         CityModule,
         MockRegisterModule,
+        JobHuntingModule,
     ],
     controllers: [],
     providers: [],

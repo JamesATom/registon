@@ -61,8 +61,10 @@ model City {
   id   String @id @default(uuid())
   name String @unique @db.VarChar(100)
 
-  ieltsExams IeltsExam[]
-  calendar   IeltsCalendar[]
+  ieltsExams  IeltsExam[]
+  calendar    IeltsCalendar[]
+  jobHuntings JobHunting[]    @relation("jobHunting_city")
+  cvs         CV[]            @relation("cv_city")
 }
 
 model Branch {
@@ -107,4 +109,150 @@ model MockRegistrationStudent {
   @@unique([studentId, mockRegistrationId])
   @@index([studentId])
   @@index([mockRegistrationId])
+}
+
+// Enums for job hunting module
+enum WorkExperience {
+  EXPERIENCE_1_3
+  EXPERIENCE_3_6
+  EXPERIENCE_6_PLUS
+  NO_EXPERIENCE
+}
+
+enum WorkScheduleHours {
+  SCHEDULE_6_1
+  SCHEDULE_5_2
+  WEEKENDS
+  FREE
+  OTHER
+}
+
+enum EmploymentType {
+  FULL
+  PART
+}
+
+enum WorkMode {
+  OFFLINE
+  ONLINE
+  HYBRID
+}
+
+enum Degree {
+  BACHELOR
+  MASTER
+  DOCTORATE
+  ASSOCIATE
+  PHD
+}
+
+// Job Hunting model
+model JobHunting {
+  id                      String             @id @default(uuid())
+  createdAt               DateTime           @default(now())
+  createdBy               String
+  updatedAt               DateTime           @updatedAt
+  updatedBy               String?
+  title                   String             @db.VarChar(50)
+  description             String?            @db.VarChar(250)
+  workExperience          WorkExperience
+  companyId               String?
+  company                 Company?           @relation(fields: [companyId], references: [id])
+  cityId                  String?
+  city                    City?              @relation("jobHunting_city", fields: [cityId], references: [id])
+  certificateRequirements String?
+  workScheduleHours       WorkScheduleHours?
+  employmentType          EmploymentType?
+  workMode                WorkMode?
+  salary                  Int?
+  responsibilities        String?            @db.VarChar(500)
+  requirements            String?            @db.VarChar(500)
+  conditions              String?            @db.VarChar(500)
+
+  @@index([companyId])
+  @@index([cityId])
+  @@index([title])
+  @@index([workExperience])
+}
+
+// Company model
+model Company {
+  id           String       @id @default(uuid())
+  createdAt    DateTime     @default(now())
+  createdBy    String
+  updatedAt    DateTime     @updatedAt
+  updatedBy    String?
+  companyTitle String       @db.VarChar(50)
+  description  String?      @db.VarChar(250)
+  companyLogo  String?
+  jobHuntings  JobHunting[]
+
+  @@index([companyTitle])
+}
+
+// CV model
+model CV {
+  id               String    @id @default(uuid())
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  studentId        String
+  description      String?   @db.VarChar(250)
+  cityId           String
+  city             City      @relation("cv_city", fields: [cityId], references: [id])
+  degree           Degree?
+  universityTitle  String?   @db.VarChar(50)
+  universityMajor  String?
+  graduationYear   Int?
+  skills           CvSkill[]
+  tools            CvTool[]
+  companyName      String?   @db.VarChar(50)
+  position         String?   @db.VarChar(50)
+  responsibilities String?   @db.VarChar(50)
+  startDate        DateTime?
+  endDate          DateTime?
+
+  @@index([studentId])
+  @@index([cityId])
+  @@index([universityTitle])
+}
+
+// Many-to-many relation tables
+model Skill {
+  id   String    @id @default(uuid())
+  name String    @unique
+  cvs  CvSkill[]
+}
+
+model Tool {
+  id   String   @id @default(uuid())
+  name String   @unique
+  cvs  CvTool[]
+}
+
+model CvSkill {
+  cvId    String
+  skillId String
+  cv      CV     @relation(fields: [cvId], references: [id], onDelete: Cascade)
+  skill   Skill  @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([cvId, skillId])
+  @@index([cvId])
+  @@index([skillId])
+}
+
+model CvTool {
+  cvId   String
+  toolId String
+  cv     CV     @relation(fields: [cvId], references: [id], onDelete: Cascade)
+  tool   Tool   @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@id([cvId, toolId])
+  @@index([cvId])
+  @@index([toolId])
+}
+
+// Certificate model for certificate requirements
+model Certificate {
+  id   String @id @default(uuid())
+  name String @unique
 }
