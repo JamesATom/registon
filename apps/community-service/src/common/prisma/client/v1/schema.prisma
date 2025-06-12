@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../src/common/prisma/client/v1"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_V1")
+}
+
+model IeltsExam {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  createdBy    String
+  updatedAt    DateTime @updatedAt
+  updatedBy    String?
+  dateExam     DateTime
+  cityId       String
+  calendarId   String
+  commentUser  String?  @db.VarChar(250)
+  commentAdmin String?  @db.VarChar(250)
+
+  students IeltsRegistration[]
+  city     City                @relation(fields: [cityId], references: [id])
+  calendar IeltsCalendar       @relation(fields: [calendarId], references: [id])
+
+  @@index([cityId])
+  @@index([calendarId])
+}
+
+model IeltsRegistration {
+  id           String    @id @default(uuid())
+  studentId    String    @db.VarChar(36)
+  examId       String
+  registeredAt DateTime  @default(now())
+  exam         IeltsExam @relation(fields: [examId], references: [id])
+
+  @@unique([studentId, examId])
+  @@index([studentId])
+  @@index([examId])
+}
+
+model IeltsCalendar {
+  id          String   @id @default(uuid())
+  examDate    DateTime
+  maxStudents Int?     @default(250)
+  isAvailable Boolean? @default(true)
+  cityId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  city  City        @relation(fields: [cityId], references: [id])
+  exams IeltsExam[]
+
+  @@unique([examDate, cityId])
+  @@index([cityId])
+  @@index([examDate])
+}
+
+model City {
+  id   String @id @default(uuid())
+  name String @unique @db.VarChar(100)
+
+  ieltsExams IeltsExam[]
+  calendar   IeltsCalendar[]
+}
+
+model Branch {
+  id         String  @id @default(uuid())
+  isActive   Boolean @default(true)
+  branchName String  @default("Registon")
+
+  mockRegistrations MockRegistration[]
+}
+
+model MockRegistration {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  createdBy    String
+  updatedAt    DateTime @updatedAt
+  updatedBy    String?
+  commentUser  String?  @db.VarChar(250)
+  commentAdmin String?  @db.VarChar(250)
+  title        String?  @db.VarChar(50)
+  date         DateTime
+  branchId     String
+  isActive     Boolean  @default(true)
+
+  branch   Branch                    @relation(fields: [branchId], references: [id])
+  students MockRegistrationStudent[]
+
+  @@index([branchId])
+  @@index([date])
+  @@index([title])
+}
+
+model MockRegistrationStudent {
+  id                 String   @id @default(uuid())
+  mockRegistrationId String
+  studentName        String?  @db.VarChar(250)
+  studentPhoneNumber String?  @db.VarChar(50)
+  studentId          String   @db.VarChar(36)
+  registeredAt       DateTime @default(now())
+
+  mockRegistration MockRegistration @relation(fields: [mockRegistrationId], references: [id])
+
+  @@unique([studentId, mockRegistrationId])
+  @@index([studentId])
+  @@index([mockRegistrationId])
+}

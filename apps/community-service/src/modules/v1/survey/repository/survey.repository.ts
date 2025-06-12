@@ -1,17 +1,16 @@
 // survey.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { InsertManyOptions, Model, QueryOptions, Types } from 'mongoose';
-import { IRepository } from 'src/common/interfaces/repository.interface';
+import { Model, QueryOptions, Types } from 'mongoose';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
 import { Survey, SurveyDocument } from '../schema/survey.schema';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
 
 @Injectable()
-export class SurveyRepository extends BaseRepository<SurveyDocument, CreateSurveyDto> implements IRepository<SurveyDocument, CreateSurveyDto> {
+export class SurveyRepository extends BaseRepository<SurveyDocument> {
     constructor(@InjectModel(Survey.name) model: Model<SurveyDocument>) {
-        super(model); 
+        super(model);
     }
 
     async create(survey: CreateSurveyDto, options?: QueryOptions): Promise<SurveyDocument> {

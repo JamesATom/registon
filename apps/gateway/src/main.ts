@@ -3,10 +3,26 @@ import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { VersioningType, ValidationPipe } from '@nestjs/common';
+import * as dotenv from 'dotenv';
 import { LoggingInterceptor } from './common/interceptors/logger.interceptor';
 import { RpcErrorInterceptor } from './common/interceptors/rpc-error.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
+import { AllExceptionsFilter } from './common/filters/all-exception/all-exception.filter';
 import { AppModule } from './app.module';
+import { AuthModule } from './modules/v1/shared/auth/auth.module';
+import { BranchModule } from './modules/v1/shared/branch/branch.module';
+
+import { SurveyModule as WebSurveyModule } from './modules/v1/web/survey/survey.module';
+import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
+import { EventModule as WebEventModule } from './modules/v1/web/event/event.module';
+import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mock-register/mock-register.module';
+
+import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
+import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
+import { EventModule as MobileEventModule } from './modules/v1/mobile/event/event.module';
+import { MockRegisterModule as MobileMockRegisterModule } from './modules/v1/mobile/mock-register/mock-register.module';
+
+dotenv.config();
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
@@ -23,7 +39,7 @@ async function bootstrap() {
         defaultVersion: 'v1',
     });
 
-    app.useGlobalFilters(new HttpExceptionFilter());
+    app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter());
 
     app.useGlobalInterceptors(new LoggingInterceptor(), new RpcErrorInterceptor());
 
@@ -36,20 +52,11 @@ async function bootstrap() {
         }),
     );
 
-    setupSwaggerDocumentation(app);
+    const APP_NAME_1 = process.env.APP_NAME_1 || 'MyApp';
 
-    const PORT = process.env.PORT || 3000;
-    await app.listen(PORT, '0.0.0.0', () => {
-        console.log(
-            `${process.env.APP_NAME_1 ?? 'App'} ${process.env.APP_NAME_2 ?? ''} server is running on port => ${PORT}`,
-        );
-    });
-}
-
-function setupSwaggerDocumentation(app: NestFastifyApplication) {
-    const fullConfig = new DocumentBuilder()
-        .setTitle(`${process.env.APP_NAME_1 ?? 'App'} API`)
-        .setDescription('Complete API documentation')
+    const webConfig = new DocumentBuilder()
+        .setTitle(`${APP_NAME_1} Web API`)
+        .setDescription(`The ${APP_NAME_1} Web API documentation`)
         .setVersion('1.0')
         .addBearerAuth(
             {
@@ -62,37 +69,55 @@ function setupSwaggerDocumentation(app: NestFastifyApplication) {
         )
         .build();
 
-    const fullDocument = SwaggerModule.createDocument(app, fullConfig);
+    const webDocument = SwaggerModule.createDocument(app, webConfig, {
+        include: [
+            WebSurveyModule,
+            WebStoryModule,
+            WebEventModule,
+            WebMockRegisterModule,
+            
+            AuthModule,
+            BranchModule
+        ],
+    });
 
-    const adminDocument = {
-        ...fullDocument,
-        paths: Object.fromEntries(
-            Object.entries(fullDocument.paths).filter(([path]) => !path.includes('/mobile/')),
-        ),
-        info: {
-            ...fullDocument.info,
-            title: `${process.env.APP_NAME_1 ?? 'App'} Admin API`,
-            description: 'API documentation for administrative operations',
-        },
-    };
+    SwaggerModule.setup('api/docs/web', app, webDocument);
 
-    SwaggerModule.setup('api/admin', app, adminDocument);
+    const mobileConfig = new DocumentBuilder()
+        .setTitle(`${APP_NAME_1} Mobile API`)
+        .setDescription(`The ${APP_NAME_1} Mobile API documentation`)
+        .setVersion('1.0')
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                in: 'header',
+            },
+            'JWT',
+        )
+        .build();
 
-    const mobileDocument = {
-        ...fullDocument,
-        paths: Object.fromEntries(
-            Object.entries(fullDocument.paths).filter(
-                ([path]) => path.includes('/mobile/') || path.includes('/auth/'),
-            ),
-        ),
-        info: {
-            ...fullDocument.info,
-            title: `${process.env.APP_NAME_1 ?? 'App'} Mobile API`,
-            description: 'API documentation for mobile client operations',
-        },
-    };
+    const mobileDocument = SwaggerModule.createDocument(app, mobileConfig, {
+        include: [
+            MobileSurveyModule,
+            MobileStoryModule,
+            MobileEventModule,
+            MobileMockRegisterModule,
+            
+            AuthModule,
+            BranchModule
+        ],
+    });
+    
+    SwaggerModule.setup('api/docs/mobile', app, mobileDocument);
 
-    SwaggerModule.setup('api/mobile', app, mobileDocument);
+    const PORT = process.env.PORT || 3000;
+    await app.listen(PORT, '0.0.0.0', () => {
+        console.log(
+            `${process.env.APP_NAME_1 ?? 'App'} ${process.env.APP_NAME_2 ?? ''} server is running on port => ${PORT}`,
+        );
+    });
 }
 
 bootstrap().catch(error => {

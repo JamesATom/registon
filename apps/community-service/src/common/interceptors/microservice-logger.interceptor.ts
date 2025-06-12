@@ -14,9 +14,7 @@ export class MicroserviceLoggerInterceptor implements NestInterceptor {
             const pattern = rpcContext.getContext();
 
             // Log incoming message
-            this.logger.log(
-                `[MESSAGE] Pattern: ${JSON.stringify(pattern)} - Data: ${JSON.stringify(data)}`,
-            );
+            this.logger.log(`[MESSAGE] Pattern: ${JSON.stringify(pattern)} - Data: ${JSON.stringify(data)}`);
 
             const start = Date.now();
             return next.handle().pipe(

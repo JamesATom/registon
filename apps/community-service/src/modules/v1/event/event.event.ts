@@ -18,21 +18,21 @@ export class EventEvent {
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ALL)
     async getAll(@Payload() filter: EventFilterDto) {
-    	return this.eventService.getAll(filter, filter.userId);
+        return this.eventService.getAll(filter, filter.userId);
     }
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ONE)
     async getOne(@Payload() id: string) {
-    	return this.eventService.getOne(id);
+        return this.eventService.getOne(id);
     }
 
     @MessagePattern(MessagePatterns.Event.V1.UPDATE)
-    async update(@Payload() { id, updateEventDto }: { id: string, updateEventDto: UpdateEventDto }) {
-    	return this.eventService.update(id, updateEventDto);
+    async update(@Payload() { id, updateEventDto }: { id: string; updateEventDto: UpdateEventDto }) {
+        return this.eventService.update(id, updateEventDto);
     }
 
     @MessagePattern(MessagePatterns.Event.V1.DELETE)
     async delete(@Payload() id: string) {
-    	return this.eventService.delete(id);
+        return this.eventService.delete(id);
     }
 }

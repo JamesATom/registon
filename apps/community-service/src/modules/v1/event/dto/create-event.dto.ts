@@ -75,7 +75,7 @@ export class CreateEventDto {
     @IsOptional()
     endTime?: string;
 
-   @ApiProperty({
+    @ApiProperty({
         description: 'Course IDs associated with the event',
         example: ['60f7c0c2b4d1c72d88f8e8b4', '60f7c0c2b4d1c72d88f8e8b5'],
         type: [String],
@@ -97,14 +97,15 @@ export class CreateEventDto {
         description: 'Event image URL or path',
         example: 'https://registon.bucket-name/events/coding-bootcamp.jpg',
     })
-    @IsString() 
+    @IsString()
     @IsNotEmpty()
     image: string;
 
     @ApiPropertyOptional({
         description: 'Detailed description of the event',
         maxLength: 250,
-        example: 'A two-week intensive bootcamp focusing on web development for beginners. No prior experience required.',
+        example:
+            'A two-week intensive bootcamp focusing on web development for beginners. No prior experience required.',
     })
     @IsString()
     @MaxLength(250)

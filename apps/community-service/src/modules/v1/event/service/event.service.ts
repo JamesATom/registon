@@ -15,7 +15,7 @@ export class EventService {
             statusCode: HttpStatus.CREATED,
             message: 'Event created successfully',
             data: await this.eventRepository.create(createEventDto, { lean: true }),
-        }
+        };
     }
 
     async getAll(filter: EventFilterDto, userId: string): Promise<CommonEntity> {
@@ -29,16 +29,16 @@ export class EventService {
         return {
             statusCode: HttpStatus.OK,
             message: 'Events retrieved successfully',
-            data: dataWithFlag
-        }
+            data: dataWithFlag,
+        };
     }
 
     async getOne(id: string): Promise<CommonEntity> {
         return {
             statusCode: HttpStatus.OK,
             message: 'Event retrieved successfully',
-            data: await this.eventRepository.getOne(id, { lean: true }) || {},
-        }
+            data: (await this.eventRepository.getOne(id, { lean: true })) || {},
+        };
     }
 
     async update(id: string, updateEventDto: UpdateEventDto): Promise<CommonEntity> {
@@ -56,6 +56,4 @@ export class EventService {
             data: await this.eventRepository.delete(id, { lean: true }),
         };
     }
-
-
 }

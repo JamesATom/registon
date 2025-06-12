@@ -1,13 +1,14 @@
+// app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PrismaModule } from './modules/v1/prisma/prisma.module';
 import { SurveyModule } from './modules/v1/survey/survey.module';
 import { EventModule } from './modules/v1/event/event.module';
-import { StoryModule } from './modules/v1/story/story.module';
-import { MobileModule } from './modules/v1/mobile/mobile.module';
-import { FileModule } from './file/file.module';
-import { IeltsExamModule } from './modules/v1/ielts/ielts-exam.module';
-import { UniversityModule } from './modules/v1/university/university.module';
+// import { StoryModule } from './modules/v1/story/story.module';
+import { IeltsRegisterModule } from './modules/v1/ielts-register/ielts-register.module';
+import { CityModule } from './modules/v1/city/city.module';
+import { MockRegisterModule } from './modules/v1/mock-register/mock-register.module';
 
 @Module({
     imports: [
@@ -16,22 +17,18 @@ import { UniversityModule } from './modules/v1/university/university.module';
         }),
         MongooseModule.forRootAsync({
             useFactory: () => {
-                console.log('here: ', process.env.MONGODB_URI)
+                console.log('here: ', process.env.MONGODB_URI_LOCAL);
                 return {
-                    uri:
-                        process.env.NODE_ENV === 'production'
-                            ? process.env.MONGODB_URI
-                            : process.env.MONGODB_URI_LOCAL,
+                    uri: 'mongodb://admin:password@localhost:27017/registon?authSource=admin',
                 };
             },
         }),
-        // MobileModule,
-        // StoryModule,
-        // FileModule,
+        PrismaModule,
         SurveyModule,
-        // IeltsExamModule,
-        // UniversityModule,
         EventModule,
+        IeltsRegisterModule,
+        CityModule,
+        MockRegisterModule,
     ],
     controllers: [],
     providers: [],

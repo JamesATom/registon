@@ -1,13 +1,24 @@
 // mobile.module.ts
 import { Module } from '@nestjs/common';
-import { CommunityService } from 'src/microservices/community.service';
+import { SharedModule } from '../shared/shared.module';
+import { MockRegisterModule } from './mock-register/mock-register.module';
+import { SurveyModule } from './survey/survey.module';
+import { EventModule } from './event/event.module';
 import { StoryModule } from './story/story.module';
-import { IeltsExamModule } from './ielts/ielts-exam.module';
-import { UniversityModule } from './university/university.module';
 
 @Module({
-    imports: [CommunityService, StoryModule, IeltsExamModule, UniversityModule],
-    controllers: [],
-    providers: [],
+    imports: [
+        SharedModule,
+        MockRegisterModule,
+        SurveyModule,
+        EventModule,
+        StoryModule,
+    ],
+    exports: [
+        MockRegisterModule,
+        SurveyModule,
+        EventModule,
+        StoryModule,
+    ],
 })
 export class MobileModule {}

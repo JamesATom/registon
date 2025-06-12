@@ -1,20 +1,9 @@
 // common-swagger.ts
 import { applyDecorators, Type } from '@nestjs/common';
-import {
-    ApiResponse,
-    ApiOperation,
-    ApiBearerAuth,
-    ApiExtraModels,
-    getSchemaPath,
-} from '@nestjs/swagger';
+import { ApiResponse, ApiOperation, ApiBearerAuth, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 import { CommonEntity } from '../libs/common.entity';
 
-const CommonSuccessResponse = (
-    status: number,
-    message: string,
-    model?: Type<any>,
-    isArray = false,
-) => {
+const CommonSuccessResponse = (status: number, message: string, model?: Type<any>, isArray = false) => {
     const decorators = [];
 
     if (model) {
@@ -93,13 +82,11 @@ export const ApiUnauthorizedResponse = () => CommonErrorResponse(401, 'Unauthori
 
 export const ApiForbiddenResponse = () => CommonErrorResponse(403, 'Forbidden');
 
-export const ApiNotFoundResponse = (entity: string) =>
-    CommonErrorResponse(404, `${entity} with ID not found`);
+export const ApiNotFoundResponse = (entity: string) => CommonErrorResponse(404, `${entity} with ID not found`);
 
 export const ApiConflictResponse = (message: string) => CommonErrorResponse(409, message);
 
-export const ApiInternalServerErrorResponse = (message: string) =>
-    CommonErrorResponse(500, message);
+export const ApiInternalServerErrorResponse = (message: string) => CommonErrorResponse(500, message);
 
 // 🧱 CRUD decorators
 export const ApiGetAll = (entity: string, model: Type<any>) =>

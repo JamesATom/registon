@@ -1,45 +1,100 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { firstValueFrom, timeout } from 'rxjs';
-import { MessagePatterns } from '../../../../common/constants/message-pattern';
+import { MessagePatterns } from 'src/common/constants/message-pattern';
+import { firstValueFrom } from 'rxjs';
+import { timeout, catchError } from 'rxjs/operators';
+import { CreateStoryItemDto } from './dto/create-story-item.dto';
+import { FilterStoriesDto } from './dto/filter-stories.dto';
+import { CreateStoryDto } from './dto/create-story.dto';
 
 @Injectable()
 export class StoryService {
-    constructor(@Inject('COMMUNITY_SERVICE') private client: ClientProxy) {}
+    private REQUEST_TIMEOUT = 10000; // 10 seconds timeout
 
-    async getAllStoriesForMobile(userId: string) {
+    constructor(@Inject('COMMUNITY_SERVICE') private readonly client: ClientProxy) {}
+
+    async createStory(createStoryDto: CreateStoryDto, userId: string) {
+        // Always set status to PUBLISHED for mobile
+        const updatedDto = { 
+            ...createStoryDto, 
+            status: 'PUBLISHED' 
+        };
+        
         return firstValueFrom(
-            this.client
-                .send(MessagePatterns.Mobile.V1.GET_ALL_STORIES, { userId })
-                .pipe(timeout(10000)),
-        );
-    }
-
-    async getStoryWithItemsById(id: string, userId: string) {
-        return await firstValueFrom(
-            this.client
-                .send(MessagePatterns.Mobile.V1.GET_STORY_WITH_ITEMS, { id, userId })
-                .pipe(timeout(10000)),
-        );
-    }
-
-    async trackStoryItems(storyId: string, storyItemId: string, userId: string) {
-        return firstValueFrom(
-            this.client
-                .send(MessagePatterns.Mobile.V1.TRACK_STORY_ITEMS, {
-                    storyId,
-                    storyItemId,
-                    userId,
+            this.client.send(MessagePatterns.Story.V1.CREATE, { createStoryDto: updatedDto, userId }).pipe(
+                timeout(this.REQUEST_TIMEOUT),
+                catchError((error) => {
+                    throw error;
                 })
-                .pipe(timeout(10000)),
+            ),
         );
     }
 
-    async trackStoryButton(storyId: string, userId: string) {
+    async getStoryById(id: string) {
+        return firstValueFrom(
+            this.client.send(MessagePatterns.Story.V1.GET_ONE, { id }).pipe(
+                timeout(this.REQUEST_TIMEOUT),
+                catchError((error) => {
+                    throw error;
+                })
+            ),
+        );
+    }
+
+    async getAllStories(filters?: FilterStoriesDto) {
+        // Always filter for published stories on mobile
+        const updatedFilters = { 
+            ...filters, 
+            status: 'PUBLISHED' 
+        };
+        
+        return firstValueFrom(
+            this.client.send(MessagePatterns.Story.V1.GET_ALL, { filters: updatedFilters }).pipe(
+                timeout(this.REQUEST_TIMEOUT),
+                catchError((error) => {
+                    throw error;
+                })
+            ),
+        );
+    }
+
+    async createStoryWithFile(serializedData: any, userId: string) {
+        // Ensure status is set to PUBLISHED
+        if (serializedData && serializedData.fields) {
+            serializedData.fields.status = 'PUBLISHED';
+        }
+        
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.Mobile.V1.TRACK_STORY_BUTTON, { storyId, userId })
-                .pipe(timeout(10000)),
+                .send(MessagePatterns.Story.V1.CREATE_WITH_FILE, { data: serializedData, userId })
+                .pipe(
+                    timeout(30000),
+                    catchError((error) => {
+                        throw error;
+                    })
+                ),
+        );
+    }
+
+    async createStoryItem(createStoryItemDto: CreateStoryItemDto, userId: string) {
+        return firstValueFrom(
+            this.client.send(MessagePatterns.Story.V1.CREATE_ITEM, { createStoryItemDto, userId }).pipe(
+                timeout(this.REQUEST_TIMEOUT),
+                catchError((error) => {
+                    throw error;
+                })
+            ),
+        );
+    }
+
+    async findStoryItemById(id: string) {
+        return firstValueFrom(
+            this.client.send(MessagePatterns.Story.V1.GET_ONE_ITEM, id).pipe(
+                timeout(this.REQUEST_TIMEOUT),
+                catchError((error) => {
+                    throw error;
+                })
+            ),
         );
     }
 }

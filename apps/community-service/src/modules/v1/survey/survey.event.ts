@@ -28,7 +28,9 @@ export class SurveyEvent {
     }
 
     @MessagePattern(MessagePatterns.Survey.V1.UPDATE)
-    async update(@Payload() { id, updateSurveyDto }: { id: string, updateSurveyDto: UpdateSurveyDto } ): Promise<CommonEntity> {
+    async update(
+        @Payload() { id, updateSurveyDto }: { id: string; updateSurveyDto: UpdateSurveyDto },
+    ): Promise<CommonEntity> {
         return this.surveyService.update(id, updateSurveyDto);
     }
 

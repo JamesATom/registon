@@ -223,10 +223,7 @@ export class StoryRepository {
         }
     }
 
-    async createStoryItem(
-        createStoryItemDto: any,
-        userId: string,
-    ): Promise<ServiceResponse<any[]>> {
+    async createStoryItem(createStoryItemDto: any, userId: string): Promise<ServiceResponse<any[]>> {
         try {
             const storyExists = await this.storyModel.findById(createStoryItemDto.storyId).exec();
 
@@ -302,9 +299,7 @@ export class StoryRepository {
                 };
             }
 
-            const updatedStoryItem = await this.storyItemModel
-                .findByIdAndUpdate(id, updateData, { new: true })
-                .exec();
+            const updatedStoryItem = await this.storyItemModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
 
             return {
                 statusCode: HttpStatus.OK,

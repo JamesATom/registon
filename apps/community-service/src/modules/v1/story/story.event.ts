@@ -16,7 +16,7 @@ export class StoryEvents {
         return this.storyService.createStory(storyData, userId);
     }
 
-    @MessagePattern(MessagePatterns.Story.V1.FIND_ONE)
+    @MessagePattern(MessagePatterns.Story.V1.GET_ONE)
     async findStoryById(@Payload() payload: { id: string }) {
         const id = payload.id;
         return this.storyService.findStoryById(id);
@@ -38,7 +38,7 @@ export class StoryEvents {
         return this.storyService.findAllStories(payload.filters);
     }
 
-    @MessagePattern(MessagePatterns.Story.V1.FIND_ONE_ITEM)
+    @MessagePattern(MessagePatterns.Story.V1.GET_ONE_ITEM)
     async findStoryItemById(@Payload() id: string) {
         return this.storyService.findStoryItemById(id);
     }

@@ -2,16 +2,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InsertManyOptions, Model, QueryOptions, Types } from 'mongoose';
-import { IRepository } from 'src/common/interfaces/repository.interface';
+import { IRepository } from 'src/common/interfaces/base-repository.interface';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
 import { Event, EventDocument } from '../schema/event.schema';
 import { CreateEventDto } from '../dto/create-event.dto';
 import { EventFilterDto } from '../dto/filter-event.dto';
 
 @Injectable()
-export class EventRepository extends BaseRepository<EventDocument, CreateEventDto> implements IRepository<EventDocument, CreateEventDto> {
+export class EventRepository extends BaseRepository<EventDocument> {
     constructor(@InjectModel(Event.name) model: Model<EventDocument>) {
-        super(model); 
+        super(model);
     }
 
     async create(event: CreateEventDto, options?: QueryOptions): Promise<EventDocument> {
@@ -30,14 +30,7 @@ export class EventRepository extends BaseRepository<EventDocument, CreateEventDt
     }
 
     private buildQuery(filterDto: EventFilterDto): any {
-        const {
-            branch,
-            status,
-            search,
-            targetAudience,
-            fromDate,
-            toDate
-        } = filterDto;
+        const { branch, status, search, targetAudience, fromDate, toDate } = filterDto;
 
         const query: any = {};
 
@@ -58,11 +51,11 @@ export class EventRepository extends BaseRepository<EventDocument, CreateEventDt
 
         if (fromDate || toDate) {
             query.date = {};
-            
+
             if (fromDate) {
                 query.date.$gte = new Date(fromDate);
             }
-            
+
             if (toDate) {
                 query.date.$lte = new Date(toDate);
             }
@@ -72,10 +65,7 @@ export class EventRepository extends BaseRepository<EventDocument, CreateEventDt
     }
 
     async getOne(id: string, options?: QueryOptions): Promise<EventDocument> {
-        return this.model
-            .findById(id)
-            .setOptions(options)
-            .lean();
+        return this.model.findById(id).setOptions(options).lean();
     }
 
     async update(id: string, updateEventDto: any, options?: QueryOptions): Promise<any> {

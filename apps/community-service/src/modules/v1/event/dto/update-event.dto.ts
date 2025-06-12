@@ -1,14 +1,5 @@
 // update-event.dto.ts
-import {
-    IsOptional,
-    IsEnum,
-    IsMongoId,
-    IsString,
-    MaxLength,
-    IsDateString,
-    IsArray,
-    IsNumber
-} from 'class-validator';
+import { IsOptional, IsEnum, IsMongoId, IsString, MaxLength, IsDateString, IsArray, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateEventDto {

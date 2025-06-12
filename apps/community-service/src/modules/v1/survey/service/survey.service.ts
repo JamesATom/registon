@@ -37,7 +37,7 @@ export class SurveyService {
         return {
             statusCode: HttpStatus.OK,
             message: 'Survey retrieved successfully',
-            data: await this.surveyRepository.getOne(id, { lean: true }) || {},
+            data: (await this.surveyRepository.getOne(id, { lean: true })) || {},
         };
     }
 

@@ -5,7 +5,7 @@ import { IsEnum, IsMongoId, IsOptional, IsString } from 'class-validator';
 export class EventFilterDto {
     @ApiPropertyOptional({
         description: 'User ID of the event registrator',
-        example: '60f7c0c2b4d1c72d88f8e8a3'
+        example: '60f7c0c2b4d1c72d88f8e8a3',
     })
     @IsOptional()
     @IsMongoId()
@@ -13,7 +13,7 @@ export class EventFilterDto {
 
     @ApiPropertyOptional({
         description: 'Filter by branch ID',
-        example: '60f7c0c2b4d1c72d88f8e8a3'
+        example: '60f7c0c2b4d1c72d88f8e8a3',
     })
     @IsOptional()
     @IsMongoId()
@@ -21,7 +21,7 @@ export class EventFilterDto {
 
     @ApiPropertyOptional({
         description: 'Filter by status',
-        enum: ['DRAFT', 'PUBLISHED']
+        enum: ['DRAFT', 'PUBLISHED'],
     })
     @IsOptional()
     @IsEnum(['DRAFT', 'PUBLISHED'])
@@ -29,7 +29,7 @@ export class EventFilterDto {
 
     @ApiPropertyOptional({
         description: 'Search in title and description',
-        example: 'coding'
+        example: 'coding',
     })
     @IsOptional()
     @IsString()
@@ -37,7 +37,7 @@ export class EventFilterDto {
 
     @ApiPropertyOptional({
         description: 'Filter by target audience',
-        enum: ['ALL', 'TEACHER', 'STUDENT']
+        enum: ['ALL', 'TEACHER', 'STUDENT'],
     })
     @IsOptional()
     @IsEnum(['ALL', 'TEACHER', 'STUDENT'])
@@ -45,14 +45,14 @@ export class EventFilterDto {
 
     @ApiPropertyOptional({
         description: 'Filter events from date',
-        example: '2025-01-01'
+        example: '2025-01-01',
     })
     @IsOptional()
     fromDate?: string;
 
     @ApiPropertyOptional({
         description: 'Filter events to date',
-        example: '2025-12-31'
+        example: '2025-12-31',
     })
     @IsOptional()
     toDate?: string;

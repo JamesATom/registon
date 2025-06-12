@@ -37,8 +37,7 @@ export class StoryService {
                     await this.fileService.deleteFile(mainImageKey);
                 }
             } catch (fileError) {
-                const errorMessage =
-                    fileError instanceof Error ? fileError.message : 'Unknown error';
+                const errorMessage = fileError instanceof Error ? fileError.message : 'Unknown error';
             }
         }
 
@@ -52,8 +51,7 @@ export class StoryService {
 
                     await this.fileService.deleteFile(imageKey);
                 } catch (fileError) {
-                    const errorMessage =
-                        fileError instanceof Error ? fileError.message : 'Unknown error';
+                    const errorMessage = fileError instanceof Error ? fileError.message : 'Unknown error';
                 }
             }
         }
@@ -65,10 +63,7 @@ export class StoryService {
         return this.storyRepository.findAllStories(filter);
     }
 
-    async createStoryItem(
-        createStoryItemDto: any,
-        userId: string,
-    ): Promise<ServiceResponse<any[]>> {
+    async createStoryItem(createStoryItemDto: any, userId: string): Promise<ServiceResponse<any[]>> {
         return this.storyRepository.createStoryItem(createStoryItemDto, userId);
     }
 

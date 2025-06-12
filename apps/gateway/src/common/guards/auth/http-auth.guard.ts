@@ -1,7 +1,7 @@
 // http-auth.guard.ts
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-import { RedisService } from 'src/modules/v1/redis/redis.service';
+import { RedisService } from 'src/modules/v1/shared/redis/redis.service';
 import { CustomRequest } from 'src/common/types/types';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/common/decorators/public.decorator';

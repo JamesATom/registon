@@ -40,9 +40,7 @@ export class RpcErrorInterceptor implements NestInterceptor {
                     throw err;
                 }
 
-                throw new InternalServerErrorException(
-                    `Internal server error: ${err.message || 'Unknown error'}`,
-                );
+                throw new InternalServerErrorException(`Internal server error: ${err.message || 'Unknown error'}`);
             }),
         );
     }
