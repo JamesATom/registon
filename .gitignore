@@ -5,3 +5,6 @@ dist/
 .env
 coverage/
 .DS_Store
+
+./API_MIGRATION_GUIDE.md
+
