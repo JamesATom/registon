@@ -11,4 +11,6 @@ export const TableNames = {
     UNIVERSITY: 'university',
     SURVEY: 'survey',
     EVENT: 'event',
+    FAQ: 'faq',
+    FAQ_CATEGORY: 'faqCategory',
 };

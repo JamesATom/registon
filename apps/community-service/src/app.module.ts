@@ -11,6 +11,7 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
 import { EventModule } from './modules/v1/event/event.module';
 // import { StoryModule } from './modules/v1/story/story.module';
 import { UniversitySearchModule } from './modules/v1/university-search/university-search.module';
+import { FaqModule } from './modules/v1/faq/faq.module';
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { UniversitySearchModule } from './modules/v1/university-search/universit
         MockRegisterModule,
         IeltsRegisterModule,
         JobHuntingModule,
+        // FaqModule,
         // SurveyModule,
         // EventModule,
         // UniversitySearchModule,

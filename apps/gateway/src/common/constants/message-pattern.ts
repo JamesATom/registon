@@ -1,4 +1,22 @@
 export const MessagePatterns = {
+    Faq: {
+        V1: {
+            CREATE: 'v1.faq.create',
+            GET_ALL: 'v1.faq.get.all',
+            GET_ONE: 'v1.faq.get.one',
+            UPDATE: 'v1.faq.update',
+            DELETE: 'v1.faq.delete',
+        },
+    },
+    FaqCategory: {
+        V1: {
+            CREATE: 'v1.faq.category.create',
+            GET_ALL: 'v1.faq.category.get.all',
+            GET_ONE: 'v1.faq.category.get.one',
+            UPDATE: 'v1.faq.category.update',
+            DELETE: 'v1.faq.category.delete',
+        },
+    },
     Story: {
         V1: {
             GET_ALL: 'v1.story.get.all',
