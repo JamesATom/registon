@@ -1,179 +1,42 @@
 // mock-register.repository.ts
 import { Injectable } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
+import { InjectKnex, Knex } from 'nestjs-knex';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
+import { TableNames } from 'src/common/constants/table-names';
+import { MockRegistration } from '../interface/mock-register.interface';
+import { CreateMockRegisterDto } from '../dto/create-mock-register.dto';
 
 @Injectable()
-export class MockRegisterRepository extends BaseRepository<any> {
-    constructor(private readonly prisma: PrismaService) {
-        super(prisma.mockRegistration);
+export class MockRegisterRepository extends BaseRepository<MockRegistration, CreateMockRegisterDto> {
+    constructor(@InjectKnex() protected readonly knex: Knex) {
+        super(knex, TableNames.MOCK_REGISTRATION);
     }
 
-    async create(data: any): Promise<any> {
-        const existingBranch = await this.prisma.branch.findUnique({
-            where: { id: data.branch },
-        });
+    async createMockRegistration(dto: CreateMockRegisterDto): Promise<any> {
+        return super.create(dto);
+    }
 
-        if (!existingBranch) {
-            await this.prisma.branch.create({
-                data: {
-                    id: data.branch, 
-                    branchName: data.branchName,
-                    isActive: true,
-                },
-            });
-        }
-        const mockRegistration = await this.prisma.mockRegistration.create({
-            data: {
-                createdBy: data.createdBy,
-                updatedBy: data.updatedBy,
-                commentAdmin: data.commentAdmin,
-                title: data.title,
-                date: new Date(data.date),
-                branchId: data.branch,
-                isActive: data.isActive ?? true,
-            },
-            include: {
-                branch: true,
-            },
-        });
-
-        return mockRegistration;
+    async createMockRegistrationStudent(dto: any): Promise<void> {
+        await this.knex(TableNames.MOCK_REGISTRATION_STUDENT).insert(dto).returning('*');
     }
 
     async getAll(): Promise<any> {
-        return this.prisma.mockRegistration.findMany({
-            include: {
-                branch: true,
-                students: true
-            },
-            where: {
-                isActive: true
-            }
-        });
+        return super.getAll();
     }
 
     async getOne(id: string): Promise<any> {
-        return this.prisma.mockRegistration.findUnique({
-            where: { id },
-            include: {
-                branch: true,
-                students: true
-            }
-        });
+        return super.getOne(id);
     }
 
-    async update(id: string, data: any): Promise<any> {
-        return this.prisma.mockRegistration.update({
-            where: { id },
-            data: {
-                updatedBy: data.updatedBy,
-                commentAdmin: data.commentAdmin,
-                title: data.title,
-                date: new Date(data.date),
-                branchId: data.branch,
-                isActive: data.isActive
-            },
-            include: {
-                branch: true,
-                students: true
-            }
-        });
+    async updateMockRegistration(id: string, dto: any): Promise<any> {
+        return super.update(id, dto);
+    }
+
+    async updateMockRegistrationStudent(id: string, dto: any): Promise<any> {
+        return this.knex(TableNames.MOCK_REGISTRATION_STUDENT).where('id', id).update(dto).returning('*');
     }
 
     async delete(id: string): Promise<any> {
-        const mockRegistration = await this.prisma.mockRegistration.findUnique({
-            where: { id },
-            include: {
-                students: true
-            }
-        });
-        
-        if (!mockRegistration) {
-            throw new RpcException({
-                statusCode: 404,
-                message: 'Mock registration not found'
-            });
-        }
-        
-        return this.prisma.$transaction(async (tx) => {
-            if (mockRegistration.students.length > 0) {
-                await tx.mockRegistrationStudent.deleteMany({
-                    where: { mockRegistrationId: id }
-                });
-            }
-            
-            return tx.mockRegistration.delete({
-                where: { id }
-            });
-        });
-    }
-
-    async registerStudent(mockRegistrationId: string, studentId: string): Promise<any> {
-        const mockRegistration = await this.prisma.mockRegistration.findUnique({
-            where: { id: mockRegistrationId },
-            include: {
-                students: true
-            }
-        });
-        
-        if (!mockRegistration) {
-            throw new RpcException({
-                statusCode: 404,
-                message: 'Mock registration not found'
-            });
-        }
-        
-        const existingRegistration = await this.prisma.mockRegistrationStudent.findUnique({
-            where: {
-                studentId_mockRegistrationId: {
-                    studentId,
-                    mockRegistrationId
-                }
-            }
-        });
-        
-        if (existingRegistration) {
-            throw new RpcException({
-                statusCode: 400,
-                message: 'Student is already registered for this mock exam'
-            });
-        }
-        
-        return this.prisma.mockRegistrationStudent.create({
-            data: {
-                mockRegistrationId,
-                studentId
-            }
-        });
-    }
-    
-    async unregisterStudent(mockRegistrationId: string, studentId: string): Promise<any> {
-        const registration = await this.prisma.mockRegistrationStudent.findUnique({
-            where: {
-                studentId_mockRegistrationId: {
-                    studentId,
-                    mockRegistrationId
-                }
-            }
-        });
-        
-        if (!registration) {
-            throw new RpcException({
-                statusCode: 404,
-                message: 'Student is not registered for this mock exam'
-            });
-        }
-        
-        return this.prisma.mockRegistrationStudent.delete({
-            where: {
-                studentId_mockRegistrationId: {
-                    studentId,
-                    mockRegistrationId
-                }
-            }
-        });
+        return super.delete(id);
     }
 }

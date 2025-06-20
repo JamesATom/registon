@@ -5,7 +5,6 @@ import { MessagePatterns } from 'src/common/constants/message-pattern';
 import { JobHuntingService } from './service/job-hunting.service';
 import { CreateJobHuntingDto } from './dto/create-job-hunting.dto';
 import { UpdateJobHuntingDto } from './dto/update-job-hunting.dto';
-import { FilterJobHuntingDto } from './dto/filter-job-hunting.dto';
 
 @Controller()
 export class JobHuntingEvent {
@@ -27,7 +26,9 @@ export class JobHuntingEvent {
     }
 
     @MessagePattern(MessagePatterns.JobHunting.V1.UPDATE)
-    async update(@Payload() { id, updateJobHuntingDto }: { id: string, updateJobHuntingDto: UpdateJobHuntingDto }): Promise<any> {
+    async update(
+        @Payload() { id, updateJobHuntingDto }: { id: string; updateJobHuntingDto: UpdateJobHuntingDto },
+    ): Promise<any> {
         return this.jobHuntingService.update(id, updateJobHuntingDto);
     }
 
@@ -36,8 +37,4 @@ export class JobHuntingEvent {
         return this.jobHuntingService.delete(id);
     }
 
-    @MessagePattern(MessagePatterns.JobHunting.V1.FILTER)
-    async filter(@Payload() filterJobHuntingDto: FilterJobHuntingDto): Promise<any> {
-        return this.jobHuntingService.filter(filterJobHuntingDto);
-    }
 }

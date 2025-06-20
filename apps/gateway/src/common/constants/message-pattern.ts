@@ -77,7 +77,11 @@ export const MessagePatterns = {
     },
     City: {
         V1: {
+            CREATE: 'v1.city.create',
             GET_ALL: 'v1.city.get.all',
+            GET_ONE: 'v1.city.get.one',
+            UPDATE: 'v1.city.update',
+            DELETE: 'v1.city.delete',
         },
     },
     Branch: {
@@ -137,6 +141,16 @@ export const MessagePatterns = {
             GET_ALL: 'v1.certificate.get.all',
             CREATE: 'v1.certificate.create',
             GET_ONE: 'v1.certificate.get.one',
+        },
+    },
+    UniversitySearch: {
+        V1: {
+            GET_ALL: 'v1.universitySearch.get.all',
+            CREATE: 'v1.universitySearch.create',
+            GET_ONE: 'v1.universitySearch.get.one',
+            UPDATE: 'v1.universitySearch.update',
+            DELETE: 'v1.universitySearch.delete',
+            FILTER: 'v1.universitySearch.filter',
         },
     }
 };

@@ -26,7 +26,9 @@ export class MockRegisterEvent {
     }
 
     @MessagePattern(MessagePatterns.MockRegister.V1.UPDATE)
-    async update(@Payload() { id, updateMockRegisterDto }: { id: string, updateMockRegisterDto: UpdateMockRegisterDto }): Promise<any> {
+    async update(
+        @Payload() { id, updateMockRegisterDto }: { id: string; updateMockRegisterDto: UpdateMockRegisterDto },
+    ): Promise<any> {
         return this.mockRegisterService.update(id, updateMockRegisterDto);
     }
 
@@ -34,14 +36,4 @@ export class MockRegisterEvent {
     async delete(@Payload() { id }: { id: string }): Promise<any> {
         return this.mockRegisterService.delete(id);
     }
-
-    @MessagePattern(MessagePatterns.MockRegister.V1.REGISTER_STUDENT)
-    async registerStudent(@Payload() { mockRegistrationId, studentId }: { mockRegistrationId: string, studentId: string }): Promise<any> {
-        return this.mockRegisterService.registerStudent(mockRegistrationId, studentId);
-    }
-    
-    // @MessagePattern(MessagePatterns.MockRegister.V1.UNREGISTER_STUDENT)
-    // async unregisterStudent(@Payload() { mockRegistrationId, studentId }: { mockRegistrationId: string, studentId: string }): Promise<any> {
-    //     return this.mockRegisterService.unregisterStudent(mockRegistrationId, studentId);
-    // }
 }

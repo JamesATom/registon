@@ -5,7 +5,6 @@ import {
     IsOptional,
     IsString,
     MaxLength,
-    IsUUID
 } from 'class-validator';
 
 export class CreateIeltsRegisterDto {
@@ -35,34 +34,26 @@ export class CreateIeltsRegisterDto {
     })
     @IsNotEmpty()
     @IsString()
-    examDate: string;
+    date_exam: string;
 
     @ApiProperty({
         description: 'City ID where the exam will take place',
         example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
     })
     @IsNotEmpty()
-    @IsUUID()
-    cityId: string;
+    city: string;    
 
     @ApiProperty({
-        description: 'ID of the user who created this registration',
+        description: 'ID of the student who created this registration',
         example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
     })
     @IsNotEmpty()
-    @IsUUID()
-    createdBy: string;
+    student: string;
 
-    @ApiProperty({
-        description: 'ID of the user who last updated this registration',
-        example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
+    @ApiPropertyOptional({
+        description: 'Indicates if the registration is active',
+        example: true,
     })
     @IsNotEmpty()
-    @IsUUID()
-    updatedBy: string;
+    isActive: boolean;
 }
-
-
-
-
-// branchId: alsdjfalsdjf

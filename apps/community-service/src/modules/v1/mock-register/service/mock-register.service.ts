@@ -9,10 +9,18 @@ export class MockRegisterService {
     constructor(private readonly mockRegisterRepository: MockRegisterRepository) {}
 
     async create(createMockRegisterDto: CreateMockRegisterDto): Promise<any> {
+        const mockRegData = this.prepareMockRegistrationData(createMockRegisterDto);
+        const createdMockReg = await this.mockRegisterRepository.createMockRegistration(mockRegData);
+        const mockRegStudentData = this.prepareMockRegistrationStudentData({
+            ...createdMockReg,
+            student: createMockRegisterDto.student,
+        });
+        await this.mockRegisterRepository.createMockRegistrationStudent(mockRegStudentData);
+
         return {
             statusCode: HttpStatus.CREATED,
             message: 'Mock registration created successfully',
-            data: await this.mockRegisterRepository.create(createMockRegisterDto),
+            data: createdMockReg,
         };
     }
 
@@ -28,15 +36,23 @@ export class MockRegisterService {
         return {
             statusCode: HttpStatus.OK,
             message: `Mock registration with ID ${id} retrieved successfully`,
-            data: await this.mockRegisterRepository.getOne(id),
+            data: (await this.mockRegisterRepository.getOne(id)) || {},
         };
     }
 
     async update(id: string, updateMockRegisterDto: UpdateMockRegisterDto): Promise<any> {
+        const mockRegData = this.prepareMockRegistrationData(updateMockRegisterDto);
+        const updatedMockReg = await this.mockRegisterRepository.updateMockRegistration(id, mockRegData);
+        const mockRegStudentData = this.prepareMockRegistrationStudentData({
+            ...updatedMockReg,
+            student: updateMockRegisterDto.student,
+        });
+        await this.mockRegisterRepository.updateMockRegistrationStudent(id, mockRegStudentData);
+
         return {
             statusCode: HttpStatus.OK,
             message: `Mock registration with ID ${id} updated successfully`,
-            data: await this.mockRegisterRepository.update(id, updateMockRegisterDto),
+            data: updatedMockReg,
         };
     }
 
@@ -48,19 +64,18 @@ export class MockRegisterService {
         };
     }
 
-    async registerStudent(mockRegistrationId: string, studentId: string): Promise<any> {
+    private prepareMockRegistrationData(dto: any): any {
+        const { branch, student, ...registrationData } = dto;
         return {
-            statusCode: HttpStatus.OK,
-            message: `Student with ID ${studentId} registered for mock exam with ID ${mockRegistrationId} successfully`,
-            data: await this.mockRegisterRepository.registerStudent(mockRegistrationId, studentId),
+            ...registrationData,
+            branchId: branch,
         };
     }
-    
-    async unregisterStudent(mockRegistrationId: string, studentId: string): Promise<any> {
+
+    private prepareMockRegistrationStudentData(dto: any): any {
         return {
-            statusCode: HttpStatus.OK,
-            message: `Student with ID ${studentId} unregistered from mock exam with ID ${mockRegistrationId} successfully`,
-            data: await this.mockRegisterRepository.unregisterStudent(mockRegistrationId, studentId),
+            mockRegistrationId: dto[0].id,
+            studentId: dto.student,
         };
     }
 }

@@ -18,7 +18,7 @@ export class UpdateEventDto {
 
     @IsOptional()
     @IsMongoId()
-    branch?: string;
+    branchId?: string;
 
     @IsOptional()
     @IsString()

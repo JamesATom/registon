@@ -19,6 +19,7 @@ import { EventModule as WebEventModule } from './modules/v1/web/event/event.modu
 import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mock-register/mock-register.module';
 import { IeltsRegisterModule as WebIeltsRegisterModule } from './modules/v1/web/ielts-register/ielts-register.module';
 import { JobHuntingModule as WebJobHuntingModule } from './modules/v1/web/job-hunting/job-hunting.module';
+import { UniversitySearchModule as WebUniversitySearchModule } from './modules/v1/web/university-search/university-search.module';
 
 import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
 import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
@@ -82,6 +83,7 @@ async function bootstrap() {
             WebMockRegisterModule,
             WebIeltsRegisterModule,
             WebJobHuntingModule,
+            WebUniversitySearchModule,
             
             AuthModule,
             BranchModule,

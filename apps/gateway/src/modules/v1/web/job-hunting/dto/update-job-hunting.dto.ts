@@ -38,7 +38,7 @@ export class UpdateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    companyId?: string;
+    company?: string;
 
     @ApiPropertyOptional({
         description: 'City ID',
@@ -46,7 +46,7 @@ export class UpdateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    cityId?: string;
+    city?: string;
 
     @ApiPropertyOptional({
         description: 'Certificate requirements',
@@ -120,4 +120,28 @@ export class UpdateJobHuntingDto {
     @IsString()
     @MaxLength(500)
     conditions?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company logo URL',
+        example: 'https://example.com/logo.png',
+    })
+    @IsOptional()
+    @IsString()
+    companyLogo?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company title',
+        example: 'Tech Company',
+    })
+    @IsOptional()
+    @IsString()
+    companyTitle?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company description',
+        example: 'A leading tech company specializing in software development.',
+    })
+    @IsOptional()
+    @IsString()
+    companyDescription?: string;
 }

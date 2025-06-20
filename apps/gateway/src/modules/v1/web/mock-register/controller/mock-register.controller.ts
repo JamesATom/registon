@@ -5,7 +5,7 @@ import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validat
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { CommonEntity } from 'src/common/libs/common.entity';
-import { ApiAuth, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import { ApiAuth, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete, ApiGetAll } from 'src/common/swagger/common-swagger';
 import { MockRegisterService } from '../service/mock-register.service';
 import { CreateMockRegisterDto } from '../dto/create-mock-register.dto';
 import { UpdateMockRegisterDto } from '../dto/update-mock-register.dto';
@@ -16,6 +16,13 @@ import { UpdateMockRegisterDto } from '../dto/update-mock-register.dto';
 @Controller('mock-register/web')
 export class MockRegisterController {
     constructor(private readonly mockRegisterService: MockRegisterService) {}
+
+    @Get()
+    @ApiGetAll('Mock Registration', CommonEntity)
+    @ApiOkResponse({ type: [CommonEntity] })
+    async getAll() {
+        return this.mockRegisterService.getAll();
+    }
 
     @Post()
     @ApiCreate('Mock Registration', CommonEntity)
@@ -45,7 +52,7 @@ export class MockRegisterController {
     @Delete(':id')
     @ApiDelete('Mock Registration')
     @ApiOkResponse({ type: CommonEntity })
-    async remove(@Param('id') id: string): Promise<CommonEntity> {
+    async delete(@Param('id') id: string): Promise<CommonEntity> {
         return this.mockRegisterService.delete(id);
     }
 }

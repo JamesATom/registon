@@ -1,6 +1,9 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCityDto } from './create-city.dto';
+import { IsOptional, IsUUID } from 'class-validator';
 
 export class UpdateCityDto extends PartialType(CreateCityDto) {
-    id: number;
+    @IsOptional()
+    @IsUUID()
+    id?: string;
 }

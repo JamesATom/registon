@@ -8,143 +8,80 @@ datasource db {
   url      = env("DATABASE_URL_V1")
 }
 
-model IeltsExam {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  createdBy    String
-  updatedAt    DateTime @updatedAt
-  updatedBy    String?
-  dateExam     DateTime
-  cityId       String
-  calendarId   String
-  commentUser  String?  @db.VarChar(250)
-  commentAdmin String?  @db.VarChar(250)
+// model IeltsExam {
+//   id           String   @id @default(uuid())
+//   createdAt    DateTime @default(now())
+//   createdBy    String
+//   updatedAt    DateTime @updatedAt
+//   updatedBy    String?
+//   dateExam     DateTime
+//   cityId       String
+//   isActive    Boolean? @default(true) 
+//   commentUser  String?  @db.VarChar(250)
+//   commentAdmin String?  @db.VarChar(250)
 
-  students IeltsRegistration[]
-  city     City                @relation(fields: [cityId], references: [id])
-  calendar IeltsCalendar       @relation(fields: [calendarId], references: [id])
+//   city     City                @relation(fields: [cityId], references: [id])
+//   students IeltsRegistrationStudent[]
 
-  @@index([cityId])
-  @@index([calendarId])
-}
+//   @@index([cityId])
+//   @@index([dateExam])
+//   @@index([isActive])
+// }
 
-model IeltsRegistration {
-  id           String    @id @default(uuid())
-  studentId    String    @db.VarChar(36)
-  examId       String
-  registeredAt DateTime  @default(now())
-  exam         IeltsExam @relation(fields: [examId], references: [id])
+// model IeltsRegistrationStudent {
+//   id           String    @id @default(uuid())
+//   examId       String    @unique
+//   studentId    String    @db.VarChar(36)
+//   registeredAt DateTime  @default(now())
 
-  @@unique([studentId, examId])
-  @@index([studentId])
-  @@index([examId])
-}
+//   exam         IeltsExam @relation(fields: [examId], references: [id])
 
-model IeltsCalendar {
-  id          String   @id @default(uuid())
-  examDate    DateTime
-  maxStudents Int?     @default(250)
-  isAvailable Boolean? @default(true)
-  cityId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+//   @@unique([studentId, examId])
+//   @@index([studentId])
+//   @@index([examId])
+// }
 
-  city  City        @relation(fields: [cityId], references: [id])
-  exams IeltsExam[]
 
-  @@unique([examDate, cityId])
-  @@index([cityId])
-  @@index([examDate])
-}
+// model MockRegistration {
+//   id           String   @id @default(uuid())
+//   createdAt    DateTime @default(now())
+//   createdBy    String
+//   updatedAt    DateTime @updatedAt
+//   updatedBy    String?
+//   commentUser  String?  @db.VarChar(250)
+//   commentAdmin String?  @db.VarChar(250)
+//   title        String?  @db.VarChar(50)
+//   date         DateTime
+//   branchId     String
+//   isActive     Boolean  @default(true)
+  
+//   students     MockRegistrationStudent[]
+  
+//   @@index([date])
+//   @@index([title])
+// }
+
+// model MockRegistrationStudent {
+//   id                String          @id @default(uuid())
+//   studentId         String          @db.VarChar(36)
+//   mockRegistrationId String         @unique
+//   registeredAt      DateTime        @default(now())
+  
+//   mockRegistration  MockRegistration @relation(fields: [mockRegistrationId], references: [id])
+  
+//   @@unique([studentId, mockRegistrationId])
+//   @@index([studentId])
+//   @@index([mockRegistrationId])
+// }
 
 model City {
   id   String @id @default(uuid())
   name String @db.VarChar(100) @unique
 
-  ieltsExams IeltsExam[]
-  calendar   IeltsCalendar[]
-  jobHuntings JobHunting[] @relation("jobHunting_city")
-  cvs        CV[]         @relation("cv_city")
-}
-
-
-model Branch {
-  id        String @id @default(uuid())
-  isActive  Boolean @default(true)
-  branchName String @default("Registon") 
-  
-  mockRegistrations MockRegistration[]
-}
-
-model MockRegistration {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  createdBy    String
-  updatedAt    DateTime @updatedAt
-  updatedBy    String?
-  commentUser  String?  @db.VarChar(250)
-  commentAdmin String?  @db.VarChar(250)
-  title        String?  @db.VarChar(50)
-  date         DateTime
-  branchId     String
-  isActive     Boolean  @default(true)
-  
-  branch       Branch   @relation(fields: [branchId], references: [id])
-  students     MockRegistrationStudent[]
-  
-  @@index([branchId])
-  @@index([date])
-  @@index([title])
-}
-
-model MockRegistrationStudent {
-  id                String          @id @default(uuid())
-  mockRegistrationId String
-  studentName      String?          @db.VarChar(250)
-  studentPhoneNumber String? @db.VarChar(50)
-  studentId         String          @db.VarChar(36)
-  registeredAt      DateTime        @default(now())
-  
-  mockRegistration  MockRegistration @relation(fields: [mockRegistrationId], references: [id])
-  
-  @@unique([studentId, mockRegistrationId])
-  @@index([studentId])
-  @@index([mockRegistrationId])
-}
-
-// Enums for job hunting module
-enum WorkExperience {
-  EXPERIENCE_1_3
-  EXPERIENCE_3_6
-  EXPERIENCE_6_PLUS
-  NO_EXPERIENCE
-}
-
-enum WorkScheduleHours {
-  SCHEDULE_6_1
-  SCHEDULE_5_2
-  WEEKENDS
-  FREE
-  OTHER
-}
-
-enum EmploymentType {
-  FULL
-  PART
-}
-
-enum WorkMode {
-  OFFLINE
-  ONLINE
-  HYBRID
-}
-
-enum Degree {
-  BACHELOR
-  MASTER
-  DOCTORATE
-  ASSOCIATE
-  PHD
+  // ieltsExams IeltsExam[]
+  jobHuntings JobHunting[] @relation("jobHuntingCity")
+  cvs        CV[]         @relation("cvCity")
+  universities            University[]
 }
 
 // Job Hunting model
@@ -160,7 +97,7 @@ model JobHunting {
   companyId              String?
   company                Company?         @relation(fields: [companyId], references: [id])
   cityId                 String?
-  city City? @relation("jobHunting_city", fields: [cityId], references: [id])
+  city                   City? @relation("jobHuntingCity", fields: [cityId], references: [id])
   certificateRequirements String?
   workScheduleHours      WorkScheduleHours?
   employmentType         EmploymentType?
@@ -199,7 +136,7 @@ model CV {
   studentId         String
   description       String?   @db.VarChar(250)
   cityId            String
-  city City @relation("cv_city", fields: [cityId], references: [id])
+  city              City      @relation("cvCity", fields: [cityId], references: [id])
   degree            Degree?
   universityTitle   String?   @db.VarChar(50)
   universityMajor   String?
@@ -252,8 +189,149 @@ model CvTool {
   @@index([toolId])
 }
 
+model University {
+  id                      String    @id @default(uuid())
+  createdAt               DateTime  @default(now()) @map("createdAt")
+  createdBy               String?   @map("createdBy")
+  updatedAt               DateTime  @updatedAt @map("updatedAt")
+  updatedBy               String?   @map("updatedBy")
+  title                   String    @db.VarChar(100)
+  description             String?   @db.VarChar(500)
+  registrationDate        DateTime  @map("registrationDate")
+  type                    UniType?
+  status                  Boolean?
+  contract                String    @db.VarChar(100)
+  contacts                Int?
+  website                 String?   @db.VarChar(50)
+  email                   String?   @db.VarChar(50)
+  address                 String?   @db.VarChar(100)
+  logo                    String?
+  license                 String?
+
+  cityId                  String?   @map("cityId")
+  certificateRequirementId String?  @map("certificateRequirementId")
+  
+  city                    City?     @relation(fields: [cityId], references: [id])
+  certificateRequirement  CertificateRequirements? @relation(fields: [certificateRequirementId], references: [id])
+  programs                Program[]
+  faculties               Faculty[]
+
+  @@map("universities")
+}
+
+model Program {
+  id                      String    @id @default(uuid())
+  createdAt               DateTime  @default(now()) @map("createdAt")
+  createdBy               String?   @map("createdBy")
+  updatedAt               DateTime  @updatedAt @map("updatedAt")
+  updatedBy               String?   @map("updatedBy")
+  title                   String    @db.VarChar(100)
+  studyLanguage           StudyLanguage @map("studyLanguage")
+  contract                Int
+  degree                  Degree
+  studyType               StudyType?
+  
+  facultyId               String?   @map("facultyId")
+  universityId            String    @map("universityId")
+  certificateRequirementId String?  @map("certificateRequirementId")
+  
+  university              University @relation(fields: [universityId], references: [id])
+  faculty                 Faculty?   @relation(fields: [facultyId], references: [id])
+  certificateRequirement  CertificateRequirements? @relation(fields: [certificateRequirementId], references: [id])
+
+  @@map("programs")
+}
+
+model Faculty {
+  id                      String    @id @default(uuid())
+  createdAt               DateTime  @default(now()) @map("createdAt")
+  createdBy               String?   @map("createdBy")
+  updatedAt               DateTime  @updatedAt @map("updatedAt")
+  updatedBy               String?   @map("updatedBy")
+  facultyTitle            String    @map("facultyTitle") @db.VarChar(50)
+  description             String?   @db.VarChar(250)
+  
+  universityId            String    @map("universityId")
+  
+  university              University @relation(fields: [universityId], references: [id])
+  programs                Program[]
+
+  @@map("faculties")
+}
+
+model CertificateRequirements {
+  id                      String    @id @default(uuid())
+  createdAt               DateTime  @default(now()) @map("createdAt")
+  createdBy               String?   @map("createdBy")
+  updatedAt               DateTime  @updatedAt @map("updatedAt")
+  updatedBy               String?   @map("updatedBy")
+  certificateRequirementsTitle String @map("certificateRequirementsTitle") @db.VarChar(50)
+  description             String?   @db.VarChar(250)
+  
+  universities            University[]
+  programs                Program[]
+
+  @@map("certificateRequirements")
+}
+
+
+
 // Certificate model for certificate requirements
 model Certificate {
   id    String @id @default(uuid())
   name  String @unique
+}
+
+// Enums for job hunting module
+enum WorkExperience {
+  Experience13
+  Experience36
+  Experience6Plus
+  NoExperience
+}
+
+enum WorkScheduleHours {
+  Schedule61
+  Schedule52
+  Weekends
+  Free
+  Other
+}
+
+enum EmploymentType {
+  Full
+  Part
+}
+
+enum WorkMode {
+  Offline
+  Online
+  Hybrid
+}
+
+enum Degree {
+  Bachelor
+  Master
+  Doctorate
+  Associate
+  Phd
+}
+
+enum UniType {
+  Local
+  International
+  Foreign
+}
+
+enum StudyLanguage {
+  Uzbek
+  Russian
+  English
+}
+
+enum StudyType {
+  FullTime
+  PartTime
+  Remote
+  Hybrid
 }

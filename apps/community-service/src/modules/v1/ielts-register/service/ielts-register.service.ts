@@ -8,51 +8,75 @@ import { UpdateIeltsRegisterDto } from '../dto/update-ielts-register.dto';
 export class IeltsRegisterService {
     constructor(private readonly ieltsRegisterRepository: IeltsRegisterRepository) {}
 
-    async create(createIeltsRegisterDto: any): Promise<any> {
+    async create(createIeltsRegisterDto: CreateIeltsRegisterDto): Promise<any> {
+        const ieltsExamData = this.prepareIeltsExamData(createIeltsRegisterDto);
+        const createdIeltsExam = await this.ieltsRegisterRepository.createIeltsExam(ieltsExamData);
+        const ieltsRegistrationStudentData = this.prepareIeltsRegistrationStudentData({
+            ...createdIeltsExam,
+            student: createIeltsRegisterDto.student,
+        });
+        await this.ieltsRegisterRepository.createIeltsRegistrationStudent(ieltsRegistrationStudentData);
+
         return {
             statusCode: HttpStatus.CREATED,
-            message: 'Ielts registration created successfully',
-            data: await this.ieltsRegisterRepository.create(createIeltsRegisterDto),
+            message: 'IELTS registration created successfully',
+            data: ieltsExamData || {},
         };
     }
 
     async getAll(): Promise<any> {
         return {
             statusCode: HttpStatus.OK,
-            message: 'Ielts registrations retrieved successfully',
-            data: await this.ieltsRegisterRepository.getAll(),
+            message: 'IELTS registrations retrieved successfully',
+            data: (await this.ieltsRegisterRepository.getAll()) || {},
         };
     }
 
     async getOne(id: string): Promise<any> {
         return {
             statusCode: HttpStatus.OK,
-            message: `Ielts registration with ID ${id} retrieved successfully`,
-            data: await this.ieltsRegisterRepository.getOne(id),
+            message: `IELTS registration with ID ${id} retrieved successfully`,
+            data: (await this.ieltsRegisterRepository.getOne(id)) || {},
         };
     }
 
     async update(id: string, updateIeltsRegisterDto: UpdateIeltsRegisterDto): Promise<any> {
+        const ieltsExamData = this.prepareIeltsExamData(updateIeltsRegisterDto);
+        const updatedIeltsExam = await this.ieltsRegisterRepository.updateIeltsExam(id, ieltsExamData);
+        const ieltsRegistrationStudentData = this.prepareIeltsRegistrationStudentData({
+            ...updatedIeltsExam,
+            student: updateIeltsRegisterDto.student,
+        });
+        await this.ieltsRegisterRepository.updateIeltsRegistrationStudent(id, ieltsRegistrationStudentData);
+
         return {
             statusCode: HttpStatus.OK,
-            message: `Ielts registration with ID ${id} updated successfully`,
-            data: await this.ieltsRegisterRepository.update(id, updateIeltsRegisterDto),
-        }
+            message: `IELTS registration with ID ${id} updated successfully`,
+            data: updatedIeltsExam,
+        };
     }
 
     async delete(id: string): Promise<any> {
         return {
             statusCode: HttpStatus.OK,
-            message: `Ielts registration with ID ${id} deleted successfully`,
+            message: `IELTS registration with ID ${id} deleted successfully`,
             data: await this.ieltsRegisterRepository.delete(id),
-        }
+        };
     }
 
-    async registerForExam(examId: string, studentId: string): Promise<any> {
+    private prepareIeltsExamData(dto: any): any {
+        const { cityId, student, date_exam, ...examData } = dto;
         return {
-            statusCode: HttpStatus.OK,
-            message: `Student with ID ${studentId} registered for exam with ID ${examId} successfully`,
-            data: await this.ieltsRegisterRepository.registerForExam(examId, studentId),
+            ...examData,
+            cityId,
+            dateExam: new Date(date_exam),
+        };
+    }
+
+    private prepareIeltsRegistrationStudentData(dto: any): any {
+        return {
+            examId: dto[0].id,
+            studentId: dto.student,
         };
     }
 }

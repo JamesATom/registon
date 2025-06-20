@@ -30,7 +30,7 @@ export class EventRepository extends BaseRepository<EventDocument> {
     }
 
     private buildQuery(filterDto: EventFilterDto): any {
-        const { branch, status, search, targetAudience, fromDate, toDate } = filterDto;
+        const { branchId, status, search, targetAudience, fromDate, toDate } = filterDto;
 
         const query: any = {};
 

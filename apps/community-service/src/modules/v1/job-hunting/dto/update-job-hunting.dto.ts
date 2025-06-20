@@ -1,44 +1,40 @@
 // update-job-hunting.dto.ts
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsEnum,
+    IsNotEmpty,
     IsNumber,
     IsOptional,
     IsString,
     IsUUID,
-    MaxLength,
 } from 'class-validator';
 import { WorkExperience, WorkScheduleHours, EmploymentType, WorkMode } from '../enums/job-hunting.enum';
 
 export class UpdateJobHuntingDto {
-    @ApiPropertyOptional({
+    @ApiProperty({
         description: 'Job title',
         example: 'Senior Software Engineer',
-        maxLength: 50,
     })
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
-    @MaxLength(50)
-    title?: string;
+    title: string;
 
     @ApiPropertyOptional({
         description: 'Job description',
         example: 'We are looking for a senior software engineer to join our team.',
-        maxLength: 250,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(250)
     description?: string;
 
-    @ApiPropertyOptional({
+    @ApiProperty({
         description: 'Required work experience',
         enum: WorkExperience,
         example: WorkExperience.EXPERIENCE_3_6,
     })
-    @IsOptional()
+    @IsNotEmpty()
     @IsEnum(WorkExperience)
-    workExperience?: WorkExperience;
+    workExperience: WorkExperience;
 
     @ApiPropertyOptional({
         description: 'Company ID',
@@ -46,7 +42,7 @@ export class UpdateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    companyId?: string;
+    company?: string;
 
     @ApiPropertyOptional({
         description: 'City ID',
@@ -102,33 +98,63 @@ export class UpdateJobHuntingDto {
     @ApiPropertyOptional({
         description: 'Job responsibilities',
         example: 'Develop and maintain high-quality software.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(500)
     responsibilities?: string;
 
     @ApiPropertyOptional({
         description: 'Job requirements',
         example: 'At least 3 years of experience in JavaScript.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(500)
     requirements?: string;
 
     @ApiPropertyOptional({
         description: 'Job conditions',
         example: 'Remote work available, flexible hours.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(500)
     conditions?: string;
 
+    @ApiPropertyOptional({
+        description: 'Company logo URL',
+        example: 'https://example.com/logo.png',
+    })
+    @IsOptional()
+    @IsString()
+    companyLogo?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company title',
+        example: 'Tech Company',
+    })
+    @IsOptional()
+    @IsString()
+    companyTitle?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company description',
+        example: 'A leading tech company specializing in software development.',
+    })
+    @IsOptional()
+    @IsString()
+    companyDescription?: string;
+    
+    @ApiPropertyOptional({
+        description: 'ID of the user who created this job posting',
+        example: 'user-123',
+    })
+    @IsOptional()
+    @IsString()
+    createdBy?: string;
+    
+    @ApiPropertyOptional({
+        description: 'ID of the user who last updated this job posting',
+        example: 'user-123',
+    })
     @IsOptional()
     @IsString()
     updatedBy?: string;

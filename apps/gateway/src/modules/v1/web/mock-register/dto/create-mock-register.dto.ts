@@ -21,6 +21,16 @@ export class CreateMockRegisterDto {
     commentAdmin?: string;
 
     @ApiPropertyOptional({
+        description: 'User comments about this registration',
+        maxLength: 250,
+        example: 'I need special accommodation for my exam.',
+    })
+    @IsOptional()
+    @IsString()
+    @MaxLength(250)
+    commentUser?: string;
+
+    @ApiPropertyOptional({
         description: 'Title of the mock registration',
         maxLength: 50,
         example: 'IELTS Mock Test - June 2025',
@@ -40,10 +50,17 @@ export class CreateMockRegisterDto {
 
     @ApiProperty({
         description: 'Branch ID where the mock exam will take place',
-        example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
+        example: '62db9559dfc47710618d5c45',
     })
     @IsNotEmpty()
     branch: string;
+
+    @ApiProperty({
+        description: 'ID of the student who created this registration',
+        example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
+    })
+    @IsNotEmpty()
+    student: string;
 
     @ApiPropertyOptional({
         description: 'Indicates if the mock registration is active',

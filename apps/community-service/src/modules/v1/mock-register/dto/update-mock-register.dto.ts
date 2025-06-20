@@ -1,14 +1,6 @@
 // update-mock-register.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-    IsNotEmpty,
-    IsOptional,
-    IsString,
-    MaxLength,
-    IsUUID,
-    IsBoolean,
-    IsDateString
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength, IsUUID, IsBoolean, IsDateString } from 'class-validator';
 
 export class UpdateMockRegisterDto {
     @ApiPropertyOptional({
@@ -55,6 +47,13 @@ export class UpdateMockRegisterDto {
     })
     @IsNotEmpty()
     branch: string;
+
+    @ApiProperty({
+        description: 'ID of the student who created this registration',
+        example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
+    })
+    @IsNotEmpty()
+    student: string;
 
     @ApiPropertyOptional({
         description: 'Indicates if the mock registration is active',

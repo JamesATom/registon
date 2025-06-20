@@ -1,21 +1,21 @@
 // city.repository.ts
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { InjectKnex, Knex } from 'nestjs-knex';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
-import { PrismaService } from '../../prisma/prisma.service';
+import { TableNames } from 'src/common/constants/table-names';
+import { City } from '../interfaces/city.interface';
 
 @Injectable()
-export class CityRepository extends BaseRepository<Prisma.IeltsRegistrationDelegate> {
-    constructor(private readonly prisma: PrismaService) {
-        super(prisma.ieltsRegistration);
+export class CityRepository extends BaseRepository<City, any> {
+    constructor(@InjectKnex() protected readonly knex: Knex) {
+        super(knex, TableNames.CITY);
     }
 
-    async getAll(): Promise<any> {
-        return this.prisma.city.findMany({
-            select: {
-                id: true,
-                name: true,
-            }
-        });
+    async create(createCityDto: any): Promise<City> {
+        return super.create(createCityDto);
+    }
+
+    async getAll(): Promise<City[]> {
+        return super.getAll();
     }
 }

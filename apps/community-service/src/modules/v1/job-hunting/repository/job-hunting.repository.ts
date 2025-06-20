@@ -1,229 +1,127 @@
 // job-hunting.repository.ts
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-import { Prisma } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
+import { InjectKnex, Knex } from 'nestjs-knex';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
+import { TableNames } from 'src/common/constants/table-names';
 import { CreateJobHuntingDto } from '../dto/create-job-hunting.dto';
-import { UpdateJobHuntingDto } from '../dto/update-job-hunting.dto';
-import { FilterJobHuntingDto } from '../dto/filter-job-hunting.dto';
+import { JobHunting, Company } from '../interface/job-hunting.interface';
 
 @Injectable()
-export class JobHuntingRepository extends BaseRepository<any> {
-    constructor(private readonly prisma: PrismaService) {
-        super(prisma.jobHunting);
+export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHuntingDto> {
+    constructor(@InjectKnex() protected readonly knex: Knex) {
+        super(knex, TableNames.JOB_HUNTING);
     }
 
-    async create(createJobHuntingDto: CreateJobHuntingDto): Promise<any> {
+    async createJobHunting(dto: CreateJobHuntingDto): Promise<any> {
+        return super.create(dto);
+    }
+
+    async createCompany(companyData: Partial<Company>): Promise<Company> {
+        const created = await this.knex(TableNames.COMPANY).insert(companyData).returning('*');
+        return created[0];
+    }
+
+    async getAll(): Promise<JobHunting[]> {
+        return super.getAll();
+    }
+
+    async getOne(id: string): Promise<JobHunting | null> {
+        return super.getOne(id);
+    }
+
+    async updateJobHunting(id: string, dto: Partial<JobHunting>): Promise<JobHunting> {
+        const updated = await super.update(id, dto);
+        return updated[0];
+    }
+
+    async updateCompany(id: string, dto: Partial<Company>): Promise<Company> {
+        const updated = await this.knex(TableNames.COMPANY).where('id', id).update(dto).returning('*');
+        return updated[0];
+    }
+
+    async delete(id: string): Promise<void> {
         try {
-            return await this.prisma.jobHunting.create({
-                data: {
-                    ...createJobHuntingDto,
-                },
-                include: {
-                    company: true,
-                    city: true,
-                },
-            });
+            await super.delete(id);
         } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
-            }
-            throw error;
+            throw new RpcException(error.message || 'Error deleting job hunting entry');
         }
     }
 
-    async getAll(): Promise<any> {
+    async filter(filterDto: Partial<JobHunting>): Promise<JobHunting[]> {
         try {
-            return await this.prisma.jobHunting.findMany({
-                include: {
-                    company: true,
-                    city: true,
-                },
-            });
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
+            const query = this.knex(this.tableName).select('*');
+            
+            if (filterDto.title) {
+                query.where('title', 'ilike', `%${filterDto.title}%`);
             }
-            throw error;
+            
+            if (filterDto.workExperience) {
+                query.where('workExperience', filterDto.workExperience);
+            }
+            
+            if (filterDto.workMode) {
+                query.where('workMode', filterDto.workMode);
+            }
+            
+            if (filterDto.employmentType) {
+                query.where('employmentType', filterDto.employmentType);
+            }
+            
+            if (filterDto.cityId) {
+                query.where('cityId', filterDto.cityId);
+            }
+            
+            if (filterDto.companyId) {
+                query.where('companyId', filterDto.companyId);
+            }
+            
+            return await query;
+        } catch (error) {
+            throw new RpcException(error.message || 'Error filtering job hunting entries');
         }
     }
-
-    async getOne(id: string): Promise<any> {
+    
+    async getJobWithCompany(id: string): Promise<any> {
         try {
-            const jobHunting = await this.prisma.jobHunting.findUnique({
-                where: { id },
-                include: {
-                    company: true,
-                    city: true,
-                },
-            });
-
-            if (!jobHunting) {
-                throw new RpcException({
-                    message: `Job listing with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            return jobHunting;
+            const result = await this.knex(this.tableName)
+                .select(
+                    `${this.tableName}.*`,
+                    `${TableNames.COMPANY}.companyTitle`,
+                    `${TableNames.COMPANY}.companyLogo`,
+                    `${TableNames.COMPANY}.description as companyDescription`
+                )
+                .leftJoin(
+                    TableNames.COMPANY,
+                    `${this.tableName}.companyId`,
+                    `${TableNames.COMPANY}.id`
+                )
+                .where(`${this.tableName}.id`, id)
+                .first();
+                
+            return result;
         } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
-            }
-            throw error;
+            throw new RpcException(error.message || 'Error fetching job with company details');
         }
     }
-
-    async update(id: string, updateJobHuntingDto: UpdateJobHuntingDto): Promise<any> {
+    
+    async getAllWithCompanyDetails(): Promise<any[]> {
         try {
-            // Check if job hunting exists
-            const existingJobHunting = await this.prisma.jobHunting.findUnique({
-                where: { id },
-            });
-
-            if (!existingJobHunting) {
-                throw new RpcException({
-                    message: `Job listing with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            return await this.prisma.jobHunting.update({
-                where: { id },
-                data: updateJobHuntingDto,
-                include: {
-                    company: true,
-                    city: true,
-                },
-            });
+            const results = await this.knex(this.tableName)
+                .select(
+                    `${this.tableName}.*`,
+                    `${TableNames.COMPANY}.companyTitle`,
+                    `${TableNames.COMPANY}.companyLogo`
+                )
+                .leftJoin(
+                    TableNames.COMPANY,
+                    `${this.tableName}.companyId`,
+                    `${TableNames.COMPANY}.id`
+                );
+                
+            return results;
         } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
-            }
-            throw error;
-        }
-    }
-
-    async delete(id: string): Promise<any> {
-        try {
-            // Check if job hunting exists
-            const existingJobHunting = await this.prisma.jobHunting.findUnique({
-                where: { id },
-            });
-
-            if (!existingJobHunting) {
-                throw new RpcException({
-                    message: `Job listing with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            return await this.prisma.jobHunting.delete({
-                where: { id },
-            });
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
-            }
-            throw error;
-        }
-    }
-
-    async filter(filterDto: FilterJobHuntingDto): Promise<any> {
-        try {
-            const {
-                searchTerm,
-                workExperience,
-                cityId,
-                companyId,
-                workScheduleHours,
-                employmentType,
-                workMode,
-                minSalary,
-                maxSalary,
-            } = filterDto;
-
-            // Build filter conditions
-            const where: any = {};
-
-            if (searchTerm) {
-                where.OR = [
-                    { title: { contains: searchTerm, mode: 'insensitive' } },
-                    { description: { contains: searchTerm, mode: 'insensitive' } },
-                    { responsibilities: { contains: searchTerm, mode: 'insensitive' } },
-                    { requirements: { contains: searchTerm, mode: 'insensitive' } },
-                    { conditions: { contains: searchTerm, mode: 'insensitive' } },
-                ];
-            }
-
-            if (workExperience) {
-                where.workExperience = workExperience;
-            }
-
-            if (cityId) {
-                where.cityId = cityId;
-            }
-
-            if (companyId) {
-                where.companyId = companyId;
-            }
-
-            if (workScheduleHours) {
-                where.workScheduleHours = workScheduleHours;
-            }
-
-            if (employmentType) {
-                where.employmentType = employmentType;
-            }
-
-            if (workMode) {
-                where.workMode = workMode;
-            }
-
-            // Salary range filter
-            if (minSalary !== undefined || maxSalary !== undefined) {
-                where.salary = {};
-
-                if (minSalary !== undefined) {
-                    where.salary.gte = minSalary;
-                }
-
-                if (maxSalary !== undefined) {
-                    where.salary.lte = maxSalary;
-                }
-            }
-
-            return await this.prisma.jobHunting.findMany({
-                where,
-                include: {
-                    company: true,
-                    city: true,
-                },
-            });
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                throw new RpcException({
-                    message: 'Database error occurred',
-                    statusCode: 500,
-                });
-            }
-            throw error;
+            throw new RpcException(error.message || 'Error fetching jobs with company details');
         }
     }
 }

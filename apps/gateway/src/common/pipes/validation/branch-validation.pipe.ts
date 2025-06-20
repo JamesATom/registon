@@ -7,6 +7,8 @@ export class BranchValidationPipe implements PipeTransform {
     constructor(private readonly externalService: ExternalService) {}
 
     async transform(value: any, metadata: ArgumentMetadata) {
+        const { branch, ...newValue } = value;
+
         if (!value || !value.branch) {
             return value;
         }
@@ -20,11 +22,11 @@ export class BranchValidationPipe implements PipeTransform {
             );
         }
         
-        const branch = branchesResponse.data.find(
+        const foundBranch = branchesResponse.data.find(
             branch => branch._id === value.branch
         );
 
-        if (!branch) {
+        if (!foundBranch) {
             throw new HttpException(
                 'Branch not found',
                 HttpStatus.BAD_REQUEST
@@ -32,8 +34,8 @@ export class BranchValidationPipe implements PipeTransform {
         }
 
         return {
-            ...value,
-            branchName: branch.name
+            ...newValue,
+            branchId: foundBranch._id,
         };
     }
 }

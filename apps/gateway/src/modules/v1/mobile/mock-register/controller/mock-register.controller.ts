@@ -15,13 +15,6 @@ import { RegisterForMockDto } from '../dto/register-for-mock.dto';
 export class MockRegisterController {
     constructor(private readonly mockRegisterService: MockRegisterService) {}
 
-    @Get()
-    @ApiGetAll('Mock Registration', CommonEntity)
-    @ApiOkResponse({ type: [CommonEntity] })
-    async getAll() {
-        return this.mockRegisterService.getAll();
-    }
-
     @Get(':id')
     @ApiGetOne('Mock Registration')
     @ApiOkResponse({ type: CommonEntity })

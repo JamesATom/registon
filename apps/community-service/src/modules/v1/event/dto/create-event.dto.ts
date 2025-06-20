@@ -37,7 +37,7 @@ export class CreateEventDto {
     })
     @IsMongoId()
     @IsNotEmpty()
-    branch: string;
+    branchId: string;
 
     @ApiProperty({
         description: 'Title of the event',

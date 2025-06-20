@@ -1,3 +1,4 @@
+// create-job-hunting.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsEnum,
@@ -18,17 +19,14 @@ export class CreateJobHuntingDto {
     })
     @IsNotEmpty()
     @IsString()
-    @MaxLength(50)
     title: string;
 
     @ApiPropertyOptional({
         description: 'Job description',
         example: 'We are looking for a senior software engineer to join our team.',
-        maxLength: 250,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(250)
     description?: string;
 
     @ApiProperty({
@@ -46,7 +44,7 @@ export class CreateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    companyId?: string;
+    company?: string;
 
     @ApiPropertyOptional({
         description: 'City ID',
@@ -54,7 +52,7 @@ export class CreateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    cityId?: string;
+    city?: string;
 
     @ApiPropertyOptional({
         description: 'Certificate requirements',
@@ -102,17 +100,14 @@ export class CreateJobHuntingDto {
     @ApiPropertyOptional({
         description: 'Job responsibilities',
         example: 'Develop and maintain high-quality software.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(500)
     responsibilities?: string;
 
     @ApiPropertyOptional({
         description: 'Job requirements',
         example: 'At least 3 years of experience in JavaScript.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
@@ -122,10 +117,32 @@ export class CreateJobHuntingDto {
     @ApiPropertyOptional({
         description: 'Job conditions',
         example: 'Remote work available, flexible hours.',
-        maxLength: 500,
     })
     @IsOptional()
     @IsString()
-    @MaxLength(500)
     conditions?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company logo URL',
+        example: 'https://example.com/logo.png',
+    })
+    @IsOptional()
+    @IsString()
+    companyLogo?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company title',
+        example: 'Tech Company',
+    })
+    @IsOptional()
+    @IsString()
+    companyTitle?: string;
+
+    @ApiPropertyOptional({
+        description: 'Company description',
+        example: 'A leading tech company specializing in software development.',
+    })
+    @IsOptional()
+    @IsString()
+    companyDescription?: string;
 }

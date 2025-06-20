@@ -77,7 +77,17 @@ export const MessagePatterns = {
     },
     City: {
         V1: {
+            CREATE: 'v1.city.create',
             GET_ALL: 'v1.city.get.all',
+            GET_ONE: 'v1.city.get.one',
+            UPDATE: 'v1.city.update',
+            DELETE: 'v1.city.delete',
+        },
+    },
+    Branch: {
+        V1: {
+            GET_ALL: 'v1.branch.get.all',
+            GET_BY_CITY: 'v1.branch.get.by.city',
         },
     },
     JobHunting: {
@@ -93,6 +103,54 @@ export const MessagePatterns = {
     Company: {
         V1: {
             GET_ALL: 'v1.company.get.all',
+            CREATE: 'v1.company.create',
+            GET_ONE: 'v1.company.get.one',
+            UPDATE: 'v1.company.update',
+            DELETE: 'v1.company.delete',
         },
-    }
+    },
+    CV: {
+        V1: {
+            GET_ALL: 'v1.cv.get.all',
+            CREATE: 'v1.cv.create',
+            GET_ONE: 'v1.cv.get.one',
+            UPDATE: 'v1.cv.update',
+            DELETE: 'v1.cv.delete',
+            ADD_SKILL: 'v1.cv.add.skill',
+            REMOVE_SKILL: 'v1.cv.remove.skill',
+            ADD_TOOL: 'v1.cv.add.tool',
+            REMOVE_TOOL: 'v1.cv.remove.tool',
+        },
+    },
+    Skill: {
+        V1: {
+            GET_ALL: 'v1.skill.get.all',
+            CREATE: 'v1.skill.create',
+            GET_ONE: 'v1.skill.get.one',
+        },
+    },
+    Tool: {
+        V1: {
+            GET_ALL: 'v1.tool.get.all',
+            CREATE: 'v1.tool.create',
+            GET_ONE: 'v1.tool.get.one',
+        },
+    },
+    Certificate: {
+        V1: {
+            GET_ALL: 'v1.certificate.get.all',
+            CREATE: 'v1.certificate.create',
+            GET_ONE: 'v1.certificate.get.one',
+        },
+    },
+    UniversitySearch: {
+        V1: {
+            GET_ALL: 'v1.universitySearch.get.all',
+            CREATE: 'v1.universitySearch.create',
+            GET_ONE: 'v1.universitySearch.get.one',
+            UPDATE: 'v1.universitySearch.update',
+            DELETE: 'v1.universitySearch.delete',
+            FILTER: 'v1.universitySearch.filter',
+        },
+    },
 };

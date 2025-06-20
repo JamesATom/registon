@@ -26,7 +26,9 @@ export class IeltsRegisterEvent {
     }
 
     @MessagePattern(MessagePatterns.IeltsRegister.V1.UPDATE)
-    async update(@Payload() { id, updateIeltsRegisterDto }: {id: string, updateIeltsRegisterDto: UpdateIeltsRegisterDto}): Promise<any> {
+    async update(
+        @Payload() { id, updateIeltsRegisterDto }: { id: string; updateIeltsRegisterDto: UpdateIeltsRegisterDto },
+    ): Promise<any> {
         return this.ieltsRegisterService.update(id, updateIeltsRegisterDto);
     }
 
@@ -35,8 +37,8 @@ export class IeltsRegisterEvent {
         return this.ieltsRegisterService.delete(id);
     }
 
-    @MessagePattern(MessagePatterns.IeltsRegister.V1.REGISTER_FOR_EXAM)
-    async registerForExam(@Payload() { examId, studentId }: { examId: string, studentId: string }): Promise<any> {
-        return this.ieltsRegisterService.registerForExam(examId, studentId);
-    }
+    // @MessagePattern(MessagePatterns.IeltsRegister.V1.REGISTER_FOR_EXAM)
+    // async registerForExam(@Payload() { examId, studentId }: { examId: string; studentId: string }): Promise<any> {
+    //     return this.ieltsRegisterService.registerForExam(examId, studentId);
+    // }
 }

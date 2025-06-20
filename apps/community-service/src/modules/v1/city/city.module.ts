@@ -5,6 +5,7 @@ import { CityService } from './service/city.service';
 import { CityController } from './city.event';
 
 @Module({
+    imports: [],
     controllers: [CityController],
     providers: [CityService, CityRepository],
 })
