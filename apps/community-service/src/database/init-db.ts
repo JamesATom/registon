@@ -12,9 +12,9 @@ const connection = Knex({
         host: process.env.DB_HOST,
         port: parseInt(process.env.DB_PORT || '25060', 10),
         user: process.env.DB_USER,
-        password: String(process.env.DB_PASSWORD),  
+        password: String(process.env.DB_PASSWORD),
         database: process.env.DB_NAME,
-    }
+    },
 });
 
 async function initializeDatabase() {

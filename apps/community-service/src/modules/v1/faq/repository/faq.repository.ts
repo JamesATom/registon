@@ -17,9 +17,7 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
     async create(dto: CreateFaqDto): Promise<Faq> {
         try {
             // Check if the category exists
-            const categoryExists = await this.knex(TableNames.FAQ_CATEGORY)
-                .where('id', dto.categoryId)
-                .first();
+            const categoryExists = await this.knex(TableNames.FAQ_CATEGORY).where('id', dto.categoryId).first();
 
             if (!categoryExists) {
                 throw new RpcException({
@@ -39,15 +37,11 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
         try {
             return await this.knex(this.tableName)
                 .select('*')
-                .leftJoin(
-                    TableNames.FAQ_CATEGORY,
-                    `${this.tableName}.categoryId`,
-                    `${TableNames.FAQ_CATEGORY}.id`
-                )
+                .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`)
                 .select(
                     `${this.tableName}.*`,
                     `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
-                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`
+                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
                 );
         } catch (error) {
             throw new RpcException(error.message || 'Error retrieving FAQs');
@@ -58,15 +52,11 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
         try {
             const faq = await this.knex(this.tableName)
                 .where(`${this.tableName}.id`, id)
-                .leftJoin(
-                    TableNames.FAQ_CATEGORY,
-                    `${this.tableName}.categoryId`,
-                    `${TableNames.FAQ_CATEGORY}.id`
-                )
+                .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`)
                 .select(
                     `${this.tableName}.*`,
                     `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
-                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`
+                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
                 )
                 .first();
 
@@ -86,9 +76,7 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
     async update(id: string, dto: UpdateFaqDto): Promise<Faq> {
         try {
             // Check if the FAQ exists
-            const faqExists = await this.knex(this.tableName)
-                .where('id', id)
-                .first();
+            const faqExists = await this.knex(this.tableName).where('id', id).first();
 
             if (!faqExists) {
                 throw new RpcException({
@@ -99,9 +87,7 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
 
             // If category ID is provided, check if it exists
             if (dto.categoryId) {
-                const categoryExists = await this.knex(TableNames.FAQ_CATEGORY)
-                    .where('id', dto.categoryId)
-                    .first();
+                const categoryExists = await this.knex(TableNames.FAQ_CATEGORY).where('id', dto.categoryId).first();
 
                 if (!categoryExists) {
                     throw new RpcException({
@@ -121,9 +107,7 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
     async delete(id: string): Promise<void> {
         try {
             // Check if the FAQ exists
-            const faqExists = await this.knex(this.tableName)
-                .where('id', id)
-                .first();
+            const faqExists = await this.knex(this.tableName).where('id', id).first();
 
             if (!faqExists) {
                 throw new RpcException({

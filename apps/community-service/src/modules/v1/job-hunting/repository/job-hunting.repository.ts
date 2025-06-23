@@ -13,7 +13,7 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
         super(knex, TableNames.JOB_HUNTING);
     }
 
-    async createJobHunting(dto: CreateJobHuntingDto): Promise<any> {
+    async createJobHunting(dto: any): Promise<any> {
         return super.create(dto);
     }
 
@@ -41,87 +41,62 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
     }
 
     async delete(id: string): Promise<void> {
-        try {
-            await super.delete(id);
-        } catch (error) {
-            throw new RpcException(error.message || 'Error deleting job hunting entry');
-        }
+        await super.delete(id);
     }
 
-    async filter(filterDto: Partial<JobHunting>): Promise<JobHunting[]> {
-        try {
-            const query = this.knex(this.tableName).select('*');
-            
-            if (filterDto.title) {
-                query.where('title', 'ilike', `%${filterDto.title}%`);
-            }
-            
-            if (filterDto.workExperience) {
-                query.where('workExperience', filterDto.workExperience);
-            }
-            
-            if (filterDto.workMode) {
-                query.where('workMode', filterDto.workMode);
-            }
-            
-            if (filterDto.employmentType) {
-                query.where('employmentType', filterDto.employmentType);
-            }
-            
-            if (filterDto.cityId) {
-                query.where('cityId', filterDto.cityId);
-            }
-            
-            if (filterDto.companyId) {
-                query.where('companyId', filterDto.companyId);
-            }
-            
-            return await query;
-        } catch (error) {
-            throw new RpcException(error.message || 'Error filtering job hunting entries');
-        }
-    }
-    
     async getJobWithCompany(id: string): Promise<any> {
-        try {
-            const result = await this.knex(this.tableName)
-                .select(
-                    `${this.tableName}.*`,
-                    `${TableNames.COMPANY}.companyTitle`,
-                    `${TableNames.COMPANY}.companyLogo`,
-                    `${TableNames.COMPANY}.description as companyDescription`
-                )
-                .leftJoin(
-                    TableNames.COMPANY,
-                    `${this.tableName}.companyId`,
-                    `${TableNames.COMPANY}.id`
-                )
-                .where(`${this.tableName}.id`, id)
-                .first();
-                
-            return result;
-        } catch (error) {
-            throw new RpcException(error.message || 'Error fetching job with company details');
-        }
+        const result = await this.knex(this.tableName)
+            .select(
+                `${this.tableName}.*`,
+                `${TableNames.COMPANY}.companyTitle`,
+                `${TableNames.COMPANY}.companyLogo`,
+                `${TableNames.COMPANY}.description as companyDescription`,
+            )
+            .leftJoin(TableNames.COMPANY, `${this.tableName}.companyId`, `${TableNames.COMPANY}.id`)
+            .where(`${this.tableName}.id`, id)
+            .first();
+
+        return result;
     }
-    
+
     async getAllWithCompanyDetails(): Promise<any[]> {
-        try {
-            const results = await this.knex(this.tableName)
-                .select(
-                    `${this.tableName}.*`,
-                    `${TableNames.COMPANY}.companyTitle`,
-                    `${TableNames.COMPANY}.companyLogo`
-                )
-                .leftJoin(
-                    TableNames.COMPANY,
-                    `${this.tableName}.companyId`,
-                    `${TableNames.COMPANY}.id`
-                );
-                
-            return results;
-        } catch (error) {
-            throw new RpcException(error.message || 'Error fetching jobs with company details');
+        const results = await this.knex(this.tableName)
+            .select(`${this.tableName}.*`, `${TableNames.COMPANY}.companyTitle`, `${TableNames.COMPANY}.companyLogo`)
+            .leftJoin(TableNames.COMPANY, `${this.tableName}.companyId`, `${TableNames.COMPANY}.id`);
+
+        return results;
+    }
+
+    async getAllCompanies(): Promise<Company[]> {
+        const companies = await this.knex(TableNames.COMPANY).select('*');
+        return companies;
+    }
+
+    async getCompany(id: string): Promise<Company> {
+        const company = await this.knex(TableNames.COMPANY).where('id', id).first();
+
+        if (!company) {
+            throw new RpcException({
+                message: `Company with ID ${id} not found`,
+                statusCode: 404,
+            });
         }
+
+        return company;
+    }
+
+    async getCompanyWithJobs(id: string): Promise<any> {
+        const company = await this.knex(TableNames.COMPANY).where(`${TableNames.COMPANY}.id`, id).first();
+
+        if (!company) {
+            throw new RpcException({
+                message: `Company with ID ${id} not found`,
+                statusCode: 404,
+            });
+        }
+
+        const jobs = await this.knex(this.tableName).where('companyId', id).select('*');
+
+        return { ...company, jobs };
     }
 }

@@ -2,6 +2,19 @@
 import type { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
+	// Create enum for course levels
+    await knex.raw(`
+        CREATE TYPE "CourseLevel" AS ENUM (
+            'BEGINNER',
+            'ELEMENTARY',
+            'PRE_INTERMEDIATE',
+            'INTERMEDIATE',
+            'UPPER_INTERMEDIATE',
+            'ADVANCED',
+            'PROFICIENCY'
+        );
+    `);
+	
     // Work Experience enum
     await knex.raw(`
 		CREATE TYPE "WorkExperience" AS ENUM (
@@ -89,4 +102,5 @@ export async function down(knex: Knex): Promise<void> {
     await knex.raw('DROP TYPE IF EXISTS "EmploymentType"');
     await knex.raw('DROP TYPE IF EXISTS "WorkScheduleHours"');
     await knex.raw('DROP TYPE IF EXISTS "WorkExperience"');
+	await knex.raw('DROP TYPE IF EXISTS "CourseLevel"');
 }

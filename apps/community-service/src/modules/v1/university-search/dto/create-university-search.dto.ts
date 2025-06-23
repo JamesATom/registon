@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsOptional, IsEnum, IsBoolean, IsInt, IsEmail, IsUrl, IsArray } from 'class-validator';
-import { UniType, StudyLanguage, StudyType } from 'src/common/prisma/client/v1';
+import { UniType, StudyLanguage, StudyType } from '../enum/university.enum';
 
 export class CreateUniversitySearchDto {
     @ApiProperty({ description: 'Title of the university', example: 'Harvard University' })

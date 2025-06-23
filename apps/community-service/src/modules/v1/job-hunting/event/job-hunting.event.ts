@@ -2,9 +2,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { MessagePatterns } from 'src/common/constants/message-pattern';
-import { JobHuntingService } from './service/job-hunting.service';
-import { CreateJobHuntingDto } from './dto/create-job-hunting.dto';
-import { UpdateJobHuntingDto } from './dto/update-job-hunting.dto';
+import { JobHuntingService } from '../service/job-hunting.service';
+import { CreateJobHuntingDto } from '../dto/create-job-hunting.dto';
+import { UpdateJobHuntingDto } from '../dto/update-job-hunting.dto';
 
 @Controller()
 export class JobHuntingEvent {
@@ -36,5 +36,4 @@ export class JobHuntingEvent {
     async delete(@Payload() { id }: { id: string }): Promise<any> {
         return this.jobHuntingService.delete(id);
     }
-
 }

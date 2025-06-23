@@ -20,7 +20,6 @@ import { FaqModule } from './modules/v1/faq/faq.module';
         }),
         MongooseModule.forRootAsync({
             useFactory: () => {
-                console.log('here: ', process.env.MONGODB_URI_LOCAL);
                 return {
                     uri: 'mongodb://admin:password@localhost:27017/registon?authSource=admin',
                 };
@@ -31,9 +30,9 @@ import { FaqModule } from './modules/v1/faq/faq.module';
         MockRegisterModule,
         IeltsRegisterModule,
         JobHuntingModule,
+        EventModule,
+        SurveyModule,
         // FaqModule,
-        // SurveyModule,
-        // EventModule,
         // UniversitySearchModule,
     ],
     controllers: [],

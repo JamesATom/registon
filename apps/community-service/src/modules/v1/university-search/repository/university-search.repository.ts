@@ -1,61 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-import { Prisma } from 'src/common/prisma/client/v1';
-import { PrismaService } from '../../prisma/prisma.service';
+import { InjectKnex, Knex } from 'nestjs-knex';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
+import { TableNames } from 'src/common/constants/table-names';
 import { CreateUniversitySearchDto } from '../dto/create-university-search.dto';
 import { UpdateUniversitySearchDto } from '../dto/update-university-search.dto';
 import { FilterUniversitySearchDto } from '../dto/filter-university-search.dto';
+import { University } from '../interface/university-search.interface';
 
 @Injectable()
-export class UniversitySearchRepository extends BaseRepository<any> {
-    constructor(private readonly prisma: PrismaService) {
-        super(prisma.university);
+export class UniversitySearchRepository extends BaseRepository<University, CreateUniversitySearchDto> {
+    constructor(@InjectKnex() protected readonly knex: Knex) {
+        super(knex, TableNames.UNIVERSITY);
     }
 
     async create(createUniversitySearchDto: CreateUniversitySearchDto): Promise<any> {
-        // Remove study languages and types until schema is updated
-        const { cityId, certificateRequirementId, studyLanguages, studyTypes, ...otherData } =
-            createUniversitySearchDto;
+        const { studyLanguages, studyTypes, ...universityData } = createUniversitySearchDto;
         console.log('Creating university with data:', createUniversitySearchDto);
-        // return this.prisma.university.create({
-        //     data: {
-        //         ...otherData,
-        //         city: cityId ? { connect: { id: cityId } } : undefined,
-        //         certificateRequirement: certificateRequirementId ?
-        //             { connect: { id: certificateRequirementId } } : undefined,
-        //         // Ignoring studyLanguages and studyTypes until schema is updated
-        //     },
-        //     include: {
-        //         city: true,
-        //         certificateRequirement: true,
-        //         programs: true,
-        //         faculties: true,
-        //     },
-        // });
+
+        const [created] = await this.knex(TableNames.UNIVERSITY).insert(universityData).returning('*');
+
+        return created;
     }
 
     async getAll(): Promise<any> {
-        return this.prisma.university.findMany({
-            include: {
-                city: true,
-                certificateRequirement: true,
-                programs: true,
-                faculties: true,
-            },
-        });
+        const universities = await this.knex(TableNames.UNIVERSITY).select('*');
+
+        for (const university of universities) {
+            university.city = await this.knex(TableNames.CITY).where('id', university.cityId).first();
+
+            university.certificateRequirement = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
+                .where('id', university.certificateRequirementId)
+                .first();
+
+            university.programs = await this.knex(TableNames.PROGRAM).where('universityId', university.id).select('*');
+
+            university.faculties = await this.knex(TableNames.FACULTY).where('universityId', university.id).select('*');
+        }
+
+        return universities;
     }
 
     async getOne(id: string): Promise<any> {
-        const university = await this.prisma.university.findUnique({
-            where: { id },
-            include: {
-                city: true,
-                certificateRequirement: true,
-                programs: true,
-                faculties: true,
-            },
-        });
+        const university = await this.knex(TableNames.UNIVERSITY).where('id', id).first();
 
         if (!university) {
             throw new RpcException({
@@ -64,17 +51,23 @@ export class UniversitySearchRepository extends BaseRepository<any> {
             });
         }
 
+        university.city = await this.knex(TableNames.CITY).where('id', university.cityId).first();
+
+        university.certificateRequirement = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
+            .where('id', university.certificateRequirementId)
+            .first();
+
+        university.programs = await this.knex(TableNames.PROGRAM).where('universityId', university.id).select('*');
+
+        university.faculties = await this.knex(TableNames.FACULTY).where('universityId', university.id).select('*');
+
         return university;
     }
 
     async update(id: string, updateUniversitySearchDto: UpdateUniversitySearchDto): Promise<any> {
-        // Remove study languages and types until schema is updated
-        const { cityId, certificateRequirementId, studyLanguages, studyTypes, ...otherData } =
-            updateUniversitySearchDto;
+        const { studyLanguages, studyTypes, ...updateData } = updateUniversitySearchDto;
 
-        const existingUniversity = await this.prisma.university.findUnique({
-            where: { id },
-        });
+        const existingUniversity = await this.knex(TableNames.UNIVERSITY).where('id', id).first();
 
         if (!existingUniversity) {
             throw new RpcException({
@@ -83,34 +76,24 @@ export class UniversitySearchRepository extends BaseRepository<any> {
             });
         }
 
-        const updateData: any = { ...otherData };
+        const [updated] = await this.knex(TableNames.UNIVERSITY).where('id', id).update(updateData).returning('*');
 
-        if (cityId !== undefined) {
-            updateData.city = { connect: { id: cityId } };
-        }
+        // Include related data
+        updated.city = await this.knex(TableNames.CITY).where('id', updated.cityId).first();
 
-        if (certificateRequirementId !== undefined) {
-            updateData.certificateRequirement = { connect: { id: certificateRequirementId } };
-        }
+        updated.certificateRequirement = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
+            .where('id', updated.certificateRequirementId)
+            .first();
 
-        // Ignoring studyLanguages and studyTypes until schema is updated
+        updated.programs = await this.knex(TableNames.PROGRAM).where('universityId', updated.id).select('*');
 
-        return this.prisma.university.update({
-            where: { id },
-            data: updateData,
-            include: {
-                city: true,
-                certificateRequirement: true,
-                programs: true,
-                faculties: true,
-            },
-        });
+        updated.faculties = await this.knex(TableNames.FACULTY).where('universityId', updated.id).select('*');
+
+        return updated;
     }
 
     async delete(id: string): Promise<any> {
-        const existingUniversity = await this.prisma.university.findUnique({
-            where: { id },
-        });
+        const existingUniversity = await this.knex(TableNames.UNIVERSITY).where('id', id).first();
 
         if (!existingUniversity) {
             throw new RpcException({
@@ -119,45 +102,55 @@ export class UniversitySearchRepository extends BaseRepository<any> {
             });
         }
 
-        return this.prisma.university.delete({
-            where: { id },
-        });
+        // Delete related records
+        await this.knex(TableNames.PROGRAM).where('universityId', id).delete();
+
+        await this.knex(TableNames.FACULTY).where('universityId', id).delete();
+
+        const [deleted] = await this.knex(TableNames.UNIVERSITY).where('id', id).delete().returning('*');
+
+        return deleted;
     }
 
     async filter(filterDto: FilterUniversitySearchDto): Promise<any> {
         const { searchTerm, type, cityId, certificateRequirementId } = filterDto;
 
-        // Build filter conditions
-        const where: any = {};
+        // Build query
+        let query = this.knex(TableNames.UNIVERSITY);
 
         if (searchTerm) {
-            where.OR = [
-                { title: { contains: searchTerm, mode: 'insensitive' } },
-                { description: { contains: searchTerm, mode: 'insensitive' } },
-            ];
+            query = query.where(builder => {
+                builder.where('title', 'ilike', `%${searchTerm}%`).orWhere('description', 'ilike', `%${searchTerm}%`);
+            });
         }
 
         if (type) {
-            where.type = type;
+            query = query.where('type', type);
         }
 
         if (cityId) {
-            where.cityId = cityId;
+            query = query.where('cityId', cityId);
         }
 
         if (certificateRequirementId) {
-            where.certificateRequirementId = certificateRequirementId;
+            query = query.where('certificateRequirementId', certificateRequirementId);
         }
 
-        // For now, we'll ignore the study languages and types filters until schema is updated
-        return this.prisma.university.findMany({
-            where,
-            include: {
-                city: true,
-                certificateRequirement: true,
-                programs: true,
-                faculties: true,
-            },
-        });
+        const universities = await query.select('*');
+
+        // Add related data
+        for (const university of universities) {
+            university.city = await this.knex(TableNames.CITY).where('id', university.cityId).first();
+
+            university.certificateRequirement = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
+                .where('id', university.certificateRequirementId)
+                .first();
+
+            university.programs = await this.knex(TableNames.PROGRAM).where('universityId', university.id).select('*');
+
+            university.faculties = await this.knex(TableNames.FACULTY).where('universityId', university.id).select('*');
+        }
+
+        return universities;
     }
 }

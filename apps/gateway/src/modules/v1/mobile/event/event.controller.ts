@@ -6,6 +6,7 @@ import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validation.pipe';
+import { CourseValidationPipe } from 'src/common/pipes/validation/course-validation.pipe';
 import { EventService } from './service/event.service';
 import { CommonEntity } from 'src/common/libs/common.entity';
 import { CreateEventDto } from './dto/create-event.dto';

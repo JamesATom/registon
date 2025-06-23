@@ -83,7 +83,7 @@ export class CreateEventDto {
     @IsArray()
     @IsMongoId({ each: true })
     @IsNotEmpty()
-    courses: string[];
+    course: string[];
 
     @ApiPropertyOptional({
         description: 'Recommended age for participants',

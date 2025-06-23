@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsEnum, IsArray } from 'class-validator';
-import { UniType, StudyLanguage, StudyType } from 'src/common/prisma/client/v1';
+import { UniType, StudyLanguage, StudyType } from '../enum/university.enum';
 
 export class FilterUniversitySearchDto {
     @ApiPropertyOptional({ description: 'Search term to look in title and description', example: 'international' })

@@ -5,6 +5,7 @@ import { CommonEntity } from 'src/common/libs/common.entity';
 import { AuthService } from './service/auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignVerifyDto } from './dto/sign-verify.dto';
+import { SignWithPasswordDto } from './dto/sign-with-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -22,5 +23,12 @@ export class AuthController {
     @ApiResponse({ status: 200, type: CommonEntity })
     async signVerify(@Body() signVerifyDto: SignVerifyDto): Promise<CommonEntity> {
         return this.authService.signVerify(signVerifyDto.phoneNumber, signVerifyDto.otp);
+    }
+    
+    @Post('sign-with-password')
+    @ApiOperation({ summary: 'Sign in with password' })
+    @ApiResponse({ status: 200, type: CommonEntity })
+    async signWithPassword(@Body() signWithPasswordDto: SignWithPasswordDto): Promise<CommonEntity> {
+        return this.authService.signWithPassword(signWithPasswordDto.phoneNumber, signWithPasswordDto.password);
     }
 }

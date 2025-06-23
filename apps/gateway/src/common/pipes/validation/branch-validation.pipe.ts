@@ -21,7 +21,7 @@ export class BranchValidationPipe implements PipeTransform {
                 HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
-        
+
         const foundBranch = branchesResponse.data.find(
             branch => branch._id === value.branch
         );

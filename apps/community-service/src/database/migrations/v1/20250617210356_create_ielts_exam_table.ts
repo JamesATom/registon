@@ -21,8 +21,8 @@ export async function up(knex: Knex): Promise<void> {
 
     await knex.schema.createTable('ieltsRegistrationStudent', table => {
         table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-        table.uuid('examId').notNullable().unique();
-        table.string('studentId', 36).notNullable();
+        table.string('studentId').notNullable();
+        table.uuid('examId').notNullable();
         table.timestamp('registeredAt').defaultTo(knex.fn.now()).notNullable();
 
         table.foreign('examId').references('id').inTable('ieltsExam').onDelete('CASCADE');

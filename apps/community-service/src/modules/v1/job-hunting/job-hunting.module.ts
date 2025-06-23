@@ -2,10 +2,12 @@
 import { Module } from '@nestjs/common';
 import { JobHuntingRepository } from './repository/job-hunting.repository';
 import { JobHuntingService } from './service/job-hunting.service';
-import { JobHuntingEvent } from './job-hunting.event';
+import { CompanyService } from './service/company.service';
+import { JobHuntingEvent } from './event/job-hunting.event';
+import { CompanyEvent } from './event/company.event';
 
 @Module({
-    controllers: [JobHuntingEvent],
-    providers: [JobHuntingService, JobHuntingRepository],
+    controllers: [JobHuntingEvent, CompanyEvent],
+    providers: [JobHuntingService, CompanyService, JobHuntingRepository],
 })
 export class JobHuntingModule {}

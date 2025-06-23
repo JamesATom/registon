@@ -70,6 +70,17 @@ export const MessagePatterns = {
             GET_ONE: 'v1.event.get.one',
             UPDATE: 'v1.event.update',
             DELETE: 'v1.event.delete',
+            REGISTER_STUDENT: 'registerStudentForEvent',
+            UNREGISTER_STUDENT: 'unregisterStudentFromEvent',
+        },
+    },
+    Course: {
+        V1: {
+            CREATE: 'v1.course.create',
+            GET_ALL: 'v1.course.get.all',
+            GET_ONE: 'v1.course.get.one',
+            UPDATE: 'v1.course.update',
+            DELETE: 'v1.course.delete',
         },
     },
     IeltsRegister: {
@@ -125,6 +136,7 @@ export const MessagePatterns = {
             GET_ONE: 'v1.company.get.one',
             UPDATE: 'v1.company.update',
             DELETE: 'v1.company.delete',
+            GET_WITH_JOBS: 'v1.company.get.with.jobs',
         },
     },
     CV: {

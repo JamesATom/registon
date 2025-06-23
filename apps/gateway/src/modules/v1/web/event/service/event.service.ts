@@ -17,7 +17,7 @@ import { UpdateEventDto } from '../dto/update-event.dto';
 export class EventService {
     private s3: S3Client;
     private BUCKET = process.env.DO_SPACES_BUCKET;
-    private REQUEST_TIMEOUT = 10000; // 10 seconds timeout
+    private REQUEST_TIMEOUT = 10000; 
 
     constructor(@Inject('COMMUNITY_SERVICE') private readonly client: ClientProxy) {
         this.s3 = new S3Client({
@@ -57,7 +57,6 @@ export class EventService {
         const userId = user?.userId || user?.userData?._id;
 
         const updatedDto = { ...createEventDto, createdBy: userId };
-
         return firstValueFrom(
             this.client.send(MessagePatterns.Event.V1.CREATE, updatedDto).pipe(
                 timeout(this.REQUEST_TIMEOUT),

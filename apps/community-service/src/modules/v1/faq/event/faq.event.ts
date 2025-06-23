@@ -26,7 +26,7 @@ export class FaqEvent {
     }
 
     @MessagePattern(MessagePatterns.Faq.V1.UPDATE)
-    async update(@Payload() { id, updateFaqDto }: { id: string, updateFaqDto: UpdateFaqDto }): Promise<any> {
+    async update(@Payload() { id, updateFaqDto }: { id: string; updateFaqDto: UpdateFaqDto }): Promise<any> {
         return this.faqService.update(id, updateFaqDto);
     }
 

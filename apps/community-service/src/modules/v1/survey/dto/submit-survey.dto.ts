@@ -1,87 +1,62 @@
 // submit-survey.dto.ts
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsArray, MaxLength, IsString, ValidateNested } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import {
+    IsArray,
+    IsMongoId,
+    IsNotEmpty,
+    IsNumber,
+    Max,
+    Min,
+    ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SubmitSurveyQuestionDto {
+export class SurveyQuestionResponseDto {
     @ApiProperty({
-        description: 'Unique identifier for the question',
-        example: '60f7c0c2b4d1c72d88f8e8a3',
+        description: 'ID of the survey question',
+        example: '60f7c0c2b4d1c72d88f8e8a5',
     })
+    @IsMongoId()
     @IsNotEmpty()
-    @IsString()
-    id: string;
+    questionId: string;
 
     @ApiProperty({
-        description: 'First answer option',
-        maxLength: 50,
-        example: 'Excellent',
+        description: 'Selected answer index (1-5)',
+        example: 1,
+        minimum: 1,
+        maximum: 5,
     })
-    @IsString()
-    @MaxLength(50)
-    answer1: string;
-
-    @ApiProperty({
-        description: 'Second answer option',
-        maxLength: 50,
-        example: 'Good',
-    })
-    @IsString()
-    @MaxLength(50)
-    answer2: string;
-
-    @ApiPropertyOptional({
-        description: 'Third answer option',
-        maxLength: 50,
-        example: 'Average',
-    })
-    @IsOptional()
-    @IsString()
-    @MaxLength(50)
-    answer3?: string;
-
-    @ApiPropertyOptional({
-        description: 'Fourth answer option',
-        maxLength: 50,
-        example: 'Below Average',
-    })
-    @IsOptional()
-    @IsString()
-    @MaxLength(50)
-    answer4?: string;
-
-    @ApiPropertyOptional({
-        description: 'Fifth answer option',
-        maxLength: 50,
-        example: 'Poor',
-    })
-    @IsOptional()
-    @IsString()
-    @MaxLength(50)
-    answer5?: string;
+    @IsNumber()
+    @Min(1)
+    @Max(5)
+    @IsNotEmpty()
+    answerIndex: number;
 }
 
 export class SubmitSurveyDto {
-    @ApiProperty({ description: 'Survey ID', example: '1234567890abcdef12345678' })
-    @IsString()
+    @ApiProperty({
+        description: 'ID of the survey',
+        example: '60f7c0c2b4d1c72d88f8e8a4',
+    })
+    @IsMongoId()
     @IsNotEmpty()
     surveyId: string;
 
-    @ApiPropertyOptional({
-        description: 'Survey questions',
-        type: [SubmitSurveyQuestionDto],
-    })
-    @IsOptional()
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => SubmitSurveyQuestionDto)
-    questions?: SubmitSurveyQuestionDto[];
-
     @ApiProperty({
-        description: 'Taken By User ID',
+        description: 'ID of the user submitting the survey',
         example: '60f7c0c2b4d1c72d88f8e8a3',
     })
-    @IsString()
+    @IsMongoId()
     @IsNotEmpty()
-    takenBy: string;
+    userId: string;
+
+    @ApiProperty({
+        description: 'Responses to survey questions',
+        type: [SurveyQuestionResponseDto],
+    })
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => SurveyQuestionResponseDto)
+    @IsNotEmpty()
+    responses: SurveyQuestionResponseDto[];
 }

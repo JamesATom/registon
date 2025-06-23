@@ -26,7 +26,9 @@ export class FaqCategoryEvent {
     }
 
     @MessagePattern(MessagePatterns.FaqCategory.V1.UPDATE)
-    async update(@Payload() { id, updateFaqCategoryDto }: { id: string, updateFaqCategoryDto: UpdateFaqCategoryDto }): Promise<any> {
+    async update(
+        @Payload() { id, updateFaqCategoryDto }: { id: string; updateFaqCategoryDto: UpdateFaqCategoryDto },
+    ): Promise<any> {
         return this.faqCategoryService.update(id, updateFaqCategoryDto);
     }
 

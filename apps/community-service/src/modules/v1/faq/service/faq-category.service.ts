@@ -42,7 +42,7 @@ export class FaqCategoryService {
 
     async delete(id: string): Promise<any> {
         await this.faqCategoryRepository.delete(id);
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: `FAQ category with ID ${id} deleted successfully`,

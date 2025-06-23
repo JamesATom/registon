@@ -12,6 +12,7 @@ import { AppModule } from './app.module';
 import { AuthModule } from './modules/v1/shared/auth/auth.module';
 import { BranchModule } from './modules/v1/shared/branch/branch.module';
 import { CityModule } from './modules/v1/shared/city/city.module';
+import { CourseModule } from './modules/v1/shared/course/course.module';
 
 import { SurveyModule as WebSurveyModule } from './modules/v1/web/survey/survey.module';
 import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
@@ -87,7 +88,8 @@ async function bootstrap() {
             
             AuthModule,
             BranchModule,
-            CityModule
+            CityModule,
+            CourseModule
         ],
     });
 
@@ -119,7 +121,8 @@ async function bootstrap() {
             
             AuthModule,
             BranchModule,
-            CityModule
+            CityModule,
+            CourseModule
         ],
     });
     

@@ -11,7 +11,7 @@ export const REDIS_TTL = {
 
 @Injectable({ scope: Scope.DEFAULT })
 export class RedisService implements OnModuleDestroy {
-    private readonly redis: Redis;
+    readonly redis: Redis;
 
     constructor() {
         this.redis = new Redis({

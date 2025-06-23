@@ -1,13 +1,6 @@
 // update-job-hunting.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-    IsEnum,
-    IsNotEmpty,
-    IsNumber,
-    IsOptional,
-    IsString,
-    IsUUID,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 import { WorkExperience, WorkScheduleHours, EmploymentType, WorkMode } from '../enums/job-hunting.enum';
 
 export class UpdateJobHuntingDto {
@@ -120,37 +113,13 @@ export class UpdateJobHuntingDto {
     conditions?: string;
 
     @ApiPropertyOptional({
-        description: 'Company logo URL',
-        example: 'https://example.com/logo.png',
-    })
-    @IsOptional()
-    @IsString()
-    companyLogo?: string;
-
-    @ApiPropertyOptional({
-        description: 'Company title',
-        example: 'Tech Company',
-    })
-    @IsOptional()
-    @IsString()
-    companyTitle?: string;
-
-    @ApiPropertyOptional({
-        description: 'Company description',
-        example: 'A leading tech company specializing in software development.',
-    })
-    @IsOptional()
-    @IsString()
-    companyDescription?: string;
-    
-    @ApiPropertyOptional({
         description: 'ID of the user who created this job posting',
         example: 'user-123',
     })
     @IsOptional()
     @IsString()
     createdBy?: string;
-    
+
     @ApiPropertyOptional({
         description: 'ID of the user who last updated this job posting',
         example: 'user-123',

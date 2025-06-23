@@ -5,6 +5,7 @@ import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from '
 import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validation.pipe';
+import { CourseValidationPipe } from 'src/common/pipes/validation/course-validation.pipe';
 import { CustomRequest } from 'src/common/types/types';
 import { EventService } from './service/event.service';
 import { CommonEntity } from 'src/common/libs/common.entity';
@@ -39,7 +40,10 @@ export class EventController {
     @Post()
     @ApiCreate('Event', CommonEntity)
     @ApiBody({ type: CreateEventDto })
-    async create(@Body(BranchValidationPipe) createEventDto: CreateEventDto, @Req() req: CustomRequest) {
+    async create(
+        @Body(BranchValidationPipe, CourseValidationPipe) createEventDto: CreateEventDto, 
+        @Req() req: CustomRequest
+    ) {
         return this.eventService.create(createEventDto, req.user);
     }
 
@@ -60,7 +64,11 @@ export class EventController {
     @Put(':id')
     @ApiUpdate('Event', CommonEntity)
     @ApiBody({ type: UpdateEventDto })
-    async update(@Param('id') id: string, @Body(BranchValidationPipe) updateEventDto: UpdateEventDto, @Req() req: CustomRequest) {
+    async update(
+        @Param('id') id: string, 
+        @Body(BranchValidationPipe, CourseValidationPipe) updateEventDto: UpdateEventDto, 
+        @Req() req: CustomRequest
+    ) {
         return this.eventService.update(id, updateEventDto, req?.user);
     }
 

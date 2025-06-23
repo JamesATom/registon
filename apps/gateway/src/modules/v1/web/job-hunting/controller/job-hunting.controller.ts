@@ -18,23 +18,6 @@ import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 export class JobHuntingController {
     constructor(private readonly jobHuntingService: JobHuntingService) {}
 
-    @Post('presigned-upload')
-    @ApiBody({
-        type: Object,
-        examples: {
-            'application/json': {
-                value: {
-                    filename: 'company-logo.jpg',
-                    contentType: 'image/jpeg',
-                },
-            },
-        },
-    })
-    @ApiCreate('Presigned Upload URL for Company Logo')
-    async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CommonEntity> {
-        return this.jobHuntingService.generatePresignedUploadUrlForCompanyLogo(body);
-    }
-
     @Post()
     @ApiCreate('Job Hunting')
     @ApiResponse({ type: CommonEntity })

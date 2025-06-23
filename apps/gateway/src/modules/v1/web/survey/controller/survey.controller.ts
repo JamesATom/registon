@@ -6,6 +6,7 @@ import { CommonEntity } from 'src/common/libs/common.entity';
 import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
+import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validation.pipe';
 import { SurveyService } from '../service/survey.service';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
@@ -38,7 +39,7 @@ export class SurveyController {
     @Post()
     @ApiCreate('Survey', CommonEntity)
     @ApiBody({ type: CreateSurveyDto })
-    async create(@Body() createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+    async create(@Body(BranchValidationPipe) createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
         return this.surveyService.create(createSurveyDto, req.user);
     }
 
@@ -61,7 +62,7 @@ export class SurveyController {
     @ApiBody({ type: UpdateSurveyDto })
     async update(
         @Param('id') id: string,
-        @Body() updateSurveyDto: UpdateSurveyDto,
+        @Body(BranchValidationPipe) updateSurveyDto: UpdateSurveyDto,
         @Req() req: CustomRequest,
     ): Promise<CommonEntity> {
         return this.surveyService.update(id, updateSurveyDto, req.user);

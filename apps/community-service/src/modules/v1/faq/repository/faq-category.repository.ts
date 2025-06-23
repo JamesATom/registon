@@ -26,17 +26,17 @@ export class FaqCategoryRepository extends BaseRepository<FaqCategory, CreateFaq
     async getAll(): Promise<FaqCategory[]> {
         try {
             const categories = await super.getAll();
-            
+
             // Count FAQs for each category
             for (const category of categories) {
                 const count = await this.knex(TableNames.FAQ)
                     .where('categoryId', category.id)
                     .count('id as faqCount')
                     .first();
-                
+
                 category.faqCount = parseInt(count.faqCount as string, 10);
             }
-            
+
             return categories;
         } catch (error) {
             throw new RpcException(error.message || 'Error retrieving FAQ categories');
@@ -46,29 +46,24 @@ export class FaqCategoryRepository extends BaseRepository<FaqCategory, CreateFaq
     async getOne(id: string): Promise<FaqCategory> {
         try {
             const category = await super.getOne(id);
-            
+
             if (!category) {
                 throw new RpcException({
                     message: `FAQ category with ID ${id} not found`,
                     statusCode: 404,
                 });
             }
-            
+
             // Count FAQs for this category
-            const count = await this.knex(TableNames.FAQ)
-                .where('categoryId', id)
-                .count('id as faqCount')
-                .first();
-            
+            const count = await this.knex(TableNames.FAQ).where('categoryId', id).count('id as faqCount').first();
+
             category.faqCount = parseInt(count.faqCount as string, 10);
-            
+
             // Get related FAQs
-            const faqs = await this.knex(TableNames.FAQ)
-                .where('categoryId', id)
-                .select('*');
-            
+            const faqs = await this.knex(TableNames.FAQ).where('categoryId', id).select('*');
+
             category.faqs = faqs;
-            
+
             return category;
         } catch (error) {
             throw new RpcException(error.message || 'Error retrieving FAQ category');
@@ -78,9 +73,7 @@ export class FaqCategoryRepository extends BaseRepository<FaqCategory, CreateFaq
     async update(id: string, dto: UpdateFaqCategoryDto): Promise<FaqCategory> {
         try {
             // Check if the category exists
-            const categoryExists = await this.knex(this.tableName)
-                .where('id', id)
-                .first();
+            const categoryExists = await this.knex(this.tableName).where('id', id).first();
 
             if (!categoryExists) {
                 throw new RpcException({
@@ -99,9 +92,7 @@ export class FaqCategoryRepository extends BaseRepository<FaqCategory, CreateFaq
     async delete(id: string): Promise<void> {
         try {
             // Check if the category exists
-            const categoryExists = await this.knex(this.tableName)
-                .where('id', id)
-                .first();
+            const categoryExists = await this.knex(this.tableName).where('id', id).first();
 
             if (!categoryExists) {
                 throw new RpcException({
@@ -111,10 +102,7 @@ export class FaqCategoryRepository extends BaseRepository<FaqCategory, CreateFaq
             }
 
             // Check if there are FAQs in this category
-            const faqCount = await this.knex(TableNames.FAQ)
-                .where('categoryId', id)
-                .count('id as count')
-                .first();
+            const faqCount = await this.knex(TableNames.FAQ).where('categoryId', id).count('id as count').first();
 
             if (parseInt(faqCount.count as string, 10) > 0) {
                 throw new RpcException({

@@ -47,4 +47,31 @@ export class AuthService {
             this.logger.error('Error during sign verification', error);
         }
     }
+
+    async signWithPassword(phoneNumber: string, password: string): Promise<CommonEntity> {
+        const url = `${this.API_URL}/sign-with-password`;
+        const data = {
+            phoneNumber: phoneNumber,
+            password: password,
+        };
+
+        try {
+            const response = await axios.post(url, data, {
+                headers: {
+                    'organization': 'amuwebschool'
+                }
+            });
+
+            await this.redisService.setUserData(phoneNumber, response.data, 86400);
+            
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Sign in with password successful',
+                data: response.data
+            };
+        } catch (error) {
+            this.logger.error('Error during sign in with password', error);
+            throw error;
+        }
+    }
 }

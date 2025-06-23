@@ -3,8 +3,8 @@ import type { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
     // const enumTypes = await knex.raw(`
-    //     SELECT typname 
-    //     FROM pg_type 
+    //     SELECT typname
+    //     FROM pg_type
     //     WHERE typname IN ('WorkExperience', 'WorkScheduleHours', 'EmploymentType', 'WorkMode')
     // `);
 

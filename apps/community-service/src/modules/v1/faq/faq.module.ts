@@ -9,11 +9,6 @@ import { FaqCategoryEvent } from './event/faq-category.event';
 
 @Module({
     controllers: [FaqEvent, FaqCategoryEvent],
-    providers: [
-        FaqService, 
-        FaqCategoryService, 
-        FaqRepository, 
-        FaqCategoryRepository
-    ],
+    providers: [FaqService, FaqCategoryService, FaqRepository, FaqCategoryRepository],
 })
 export class FaqModule {}

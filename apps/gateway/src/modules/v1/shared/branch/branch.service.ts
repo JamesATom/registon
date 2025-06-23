@@ -11,7 +11,15 @@ export class BranchService {
         private readonly externalService: ExternalService,
     ) {}
 
-    async getAll(token: string): Promise<BranchResponseEntity[]> {
+    async getAll(user: any): Promise<BranchResponseEntity[]> {
+        const { token } = user.userData || {};
+        const userData = await this.redisService.getUserByToken(token);
+        
+        if (userData && userData.userData && userData.userData.branches && userData.userData.branches.length > 0) {
+            await this.redisService.setAllBranchData(userData.userData.branches);
+            return userData.userData.branches;
+        }
+        
         const newBranchData = await this.externalService.getBranchList(token);
 
         if (!newBranchData || !newBranchData.data) {
@@ -25,6 +33,6 @@ export class BranchService {
         }
 
         await this.redisService.setAllBranchData(newBranchData.data);
-        return newBranchData;
+        return newBranchData.data;
     }
 }
