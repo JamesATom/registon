@@ -15,19 +15,19 @@ import { CityModule } from './modules/v1/shared/city/city.module';
 import { CourseModule } from './modules/v1/shared/course/course.module';
 
 import { SurveyModule as WebSurveyModule } from './modules/v1/web/survey/survey.module';
-import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
 import { EventModule as WebEventModule } from './modules/v1/web/event/event.module';
+import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
 import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mock-register/mock-register.module';
 import { IeltsRegisterModule as WebIeltsRegisterModule } from './modules/v1/web/ielts-register/ielts-register.module';
 import { JobHuntingModule as WebJobHuntingModule } from './modules/v1/web/job-hunting/job-hunting.module';
 import { UniversitySearchModule as WebUniversitySearchModule } from './modules/v1/web/university-search/university-search.module';
 
-import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
-import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
-import { EventModule as MobileEventModule } from './modules/v1/mobile/event/event.module';
-import { MockRegisterModule as MobileMockRegisterModule } from './modules/v1/mobile/mock-register/mock-register.module';
-import { IeltsRegisterModule as MobileIeltsRegisterModule } from './modules/v1/mobile/ielts-register/ielts-register.module';
-import { JobHuntingModule as MobileJobHuntingModule } from './modules/v1/mobile/job-hunting/job-hunting.module';
+// import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
+// import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
+// import { EventModule as MobileEventModule } from './modules/v1/mobile/event/event.module';
+// import { MockRegisterModule as MobileMockRegisterModule } from './modules/v1/mobile/mock-register/mock-register.module';
+// import { IeltsRegisterModule as MobileIeltsRegisterModule } from './modules/v1/mobile/ielts-register/ielts-register.module';
+// import { JobHuntingModule as MobileJobHuntingModule } from './modules/v1/mobile/job-hunting/job-hunting.module';
 
 dotenv.config();
 
@@ -79,8 +79,8 @@ async function bootstrap() {
     const webDocument = SwaggerModule.createDocument(app, webConfig, {
         include: [
             WebSurveyModule,
-            WebStoryModule,
             WebEventModule,
+            WebStoryModule,
             WebMockRegisterModule,
             WebIeltsRegisterModule,
             WebJobHuntingModule,
@@ -112,12 +112,11 @@ async function bootstrap() {
 
     const mobileDocument = SwaggerModule.createDocument(app, mobileConfig, {
         include: [
-            MobileSurveyModule,
-            MobileStoryModule,
-            MobileEventModule,
-            MobileMockRegisterModule,
-            MobileIeltsRegisterModule,
-            MobileJobHuntingModule,
+            // MobileSurveyModule,
+            // MobileEventModule,
+            // MobileMockRegisterModule,
+            // MobileIeltsRegisterModule,
+            // MobileJobHuntingModule,
             
             AuthModule,
             BranchModule,

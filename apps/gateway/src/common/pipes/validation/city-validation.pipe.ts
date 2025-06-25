@@ -7,9 +7,7 @@ export class CityValidationPipe implements PipeTransform {
     constructor(private readonly cityService: CityService) {}
 
     async transform(value: any, metadata: ArgumentMetadata) {
-        const { city, ...newValue } = value;
-
-        if (!value || !city) {
+        if (!value || !value.city) {
             return value;
         }
 
@@ -33,6 +31,6 @@ export class CityValidationPipe implements PipeTransform {
             );
         }
 
-        return { ...newValue, cityId: foundCity.id };
+        return value;
     }
 }

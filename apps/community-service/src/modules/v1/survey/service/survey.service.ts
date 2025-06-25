@@ -4,7 +4,6 @@ import { SurveyRepository } from '../repository/survey.repository';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
 import { SurveyFilterDto } from '../dto/filter-survey.dto';
-import { SubmitSurveyDto } from '../dto/submit-survey.dto';
 
 @Injectable()
 export class SurveyService {
@@ -24,7 +23,7 @@ export class SurveyService {
         return {
             statusCode: HttpStatus.OK,
             message: 'Surveys retrieved successfully',
-            data: (await this.surveyRepository.getSurveys(filter)) || [],
+            data: (await this.surveyRepository.getSurveys(filter)) || {},
         };
     }
 
@@ -82,42 +81,7 @@ export class SurveyService {
         return {
             statusCode: HttpStatus.OK,
             message: `Survey with ID ${id} deleted successfully`,
-            data: { id },
-        };
-    }
-    
-    async submitSurvey(submitSurveyDto: SubmitSurveyDto): Promise<any> {
-        // Check if the survey exists
-        const survey = await this.surveyRepository.getOne(submitSurveyDto.surveyId);
-        
-        if (!survey) {
-            return {
-                statusCode: HttpStatus.NOT_FOUND,
-                message: `Survey with ID ${submitSurveyDto.surveyId} not found`,
-                data: {},
-            };
-        }
-        
-        // Check if user already participated
-        const hasParticipated = await this.surveyRepository.checkUserParticipation(
-            submitSurveyDto.surveyId,
-            submitSurveyDto.userId
-        );
-        
-        if (hasParticipated) {
-            return {
-                statusCode: HttpStatus.BAD_REQUEST,
-                message: `User with ID ${submitSurveyDto.userId} has already participated in this survey`,
-                data: {},
-            };
-        }
-        
-        const result = await this.surveyRepository.submitSurveyResponses(submitSurveyDto);
-        
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Survey responses submitted successfully',
-            data: result || {},
+            data: {},
         };
     }
 }

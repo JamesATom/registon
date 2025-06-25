@@ -1,24 +1,16 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Request, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+// story.controller.ts
+import { Controller, Get, Post, UseGuards, Body, Req, Query, Param, Put, Delete } from '@nestjs/common';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
+import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
-import { ApiAuth } from 'src/common/swagger/common-swagger';
-import { StoryService } from './story.service';
-import { FilterStoriesDto } from './dto/filter-stories.dto';
+import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validation.pipe';
+import { CustomRequest } from 'src/common/types/types';
+import { StoryService } from './service/story.service';
+import { CommonEntity } from 'src/common/libs/common.entity';
 import { CreateStoryDto } from './dto/create-story.dto';
+import { FilterStoryDto } from './dto/filter-story.dto';
 import { UpdateStoryDto } from './dto/update-story.dto';
-import { CreateStoryItemDto } from './dto/create-story-item.dto';
-import { UpdateStoryItemDto } from './dto/update-story-item.dto';
-import {
-    ApiCreateStory,
-    ApiFilterStories,
-    ApiGetStoryById,
-    ApiUpdateStory,
-    ApiRemoveStory,
-    ApiCreateStoryItem,
-    ApiGetStoryItemById,
-    ApiUpdateStoryItem,
-    ApiDeleteStoryItem,
-} from './decorators/api-docs.decorators';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
@@ -27,61 +19,54 @@ import {
 export class StoryController {
     constructor(private readonly storyService: StoryService) {}
 
+    @Post('presigned-upload')
+    @ApiBody({
+        type: Object,
+        examples: {
+            'application/json': {
+                value: {
+                    filename: 'story-image.jpg',
+                    contentType: 'image/jpeg',
+                },
+            },
+        },
+    })
+    @ApiCreate('Presigned Upload URL')
+    async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CommonEntity> {
+        return this.storyService.generatePresignedUploadUrl(body);
+    }
+
     @Post()
-    @ApiCreateStory()
+    @ApiCreate('Story', CommonEntity)
     @ApiBody({ type: CreateStoryDto })
-    async createStory(@Body() createStoryDto: CreateStoryDto, @Request() req: any) {
-        return this.storyService.createStory(createStoryDto, req.user?.userId);
+    async create(@Body(BranchValidationPipe) createStoryDto: CreateStoryDto, @Req() req: CustomRequest) {
+        return this.storyService.create(createStoryDto, req.user);
+    }
+
+    @Get()
+    @ApiGetAll('Story', CommonEntity)
+    @ApiOkResponse({ type: [CommonEntity] })
+    async getAll(@Query() filter: FilterStoryDto) {
+        return this.storyService.getAll(filter);
     }
 
     @Get(':id')
-    @ApiGetStoryById()
-    async findStoryById(@Param('id') id: string) {
-        return this.storyService.getStoryById(id);
+    @ApiGetOne('Story')
+    @ApiOkResponse({ type: CommonEntity })
+    async getOne(@Param('id') id: string) {
+        return this.storyService.getOne(id);
     }
 
     @Put(':id')
-    @ApiUpdateStory()
+    @ApiUpdate('Story', CommonEntity)
     @ApiBody({ type: UpdateStoryDto })
-    async updateStory(@Param('id') id: string, @Body() updateStoryDto: UpdateStoryDto, @Request() req: any) {
-        return this.storyService.updateStory(id, updateStoryDto, req.user?.userId);
+    async update(@Param('id') id: string, @Body(BranchValidationPipe) updateStoryDto: UpdateStoryDto, @Req() req: CustomRequest) {
+        return this.storyService.update(id, updateStoryDto, req.user);
     }
 
     @Delete(':id')
-    @ApiRemoveStory()
-    async removeStory(@Param('id') id: string) {
-        return this.storyService.deleteStory(id);
-    }
-
-    @Post('filter')
-    @ApiFilterStories()
-    async filterStories(@Body() filterDto: FilterStoriesDto) {
-        return this.storyService.getAllStories(filterDto);
-    }
-
-    @Post('item')
-    @ApiCreateStoryItem()
-    @ApiBody({ type: CreateStoryItemDto })
-    async createStoryItem(@Body() createStoryItemDto: CreateStoryItemDto, @Request() req: any) {
-        return this.storyService.createStoryItem(createStoryItemDto, req.user?.userId);
-    }
-
-    @Get('item/:id')
-    @ApiGetStoryItemById()
-    async findStoryItemById(@Param('id') id: string) {
-        return this.storyService.findStoryItemById(id);
-    }
-
-    @Put('item/:id')
-    @ApiUpdateStoryItem()
-    @ApiBody({ type: UpdateStoryItemDto })
-    async updateStoryItem(@Param('id') id: string, @Body() updateStoryItemDto: UpdateStoryItemDto) {
-        return this.storyService.updateStoryItem(id, updateStoryItemDto);
-    }
-
-    @Delete('item/:id')
-    @ApiDeleteStoryItem()
-    async removeStoryItem(@Param('id') id: string) {
-        return this.storyService.removeStoryItem(id);
+    @ApiDelete('Story')
+    async delete(@Param('id') id: string) {
+        return this.storyService.delete(id);
     }
 }

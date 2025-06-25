@@ -65,10 +65,10 @@ export class IeltsRegisterService {
     }
 
     private prepareIeltsExamData(dto: any): any {
-        const { cityId, student, date_exam, ...examData } = dto;
+        const { city, student, date_exam, ...examData } = dto;
         return {
             ...examData,
-            cityId,
+            city,
             dateExam: new Date(date_exam),
         };
     }

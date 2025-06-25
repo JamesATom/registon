@@ -1,4 +1,48 @@
 export const MessagePatterns = {
+    UniversitySearch: {
+        V1: {
+            University: {
+                CREATE: 'v1.university-search.university.create',
+                GET_ALL: 'v1.university-search.university.get.all',
+                GET_ONE: 'v1.university-search.university.get.one',
+                UPDATE: 'v1.university-search.university.update',
+                DELETE: 'v1.university-search.university.delete',
+            },
+            Faculty: {
+                CREATE: 'v1.university-search.faculty.create',
+                GET_ALL: 'v1.university-search.faculty.get.all',
+                GET_ALL_BY_UNIVERSITY: 'v1.university-search.faculty.get.all.by.university',
+                GET_ONE: 'v1.university-search.faculty.get.one',
+                UPDATE: 'v1.university-search.faculty.update',
+                DELETE: 'v1.university-search.faculty.delete',
+            },
+            Program: {
+                CREATE: 'v1.university-search.program.create',
+                GET_ALL: 'v1.university-search.program.get.all',
+                GET_ALL_BY_UNIVERSITY: 'v1.university-search.program.get.all.by.university',
+                GET_ALL_BY_FACULTY: 'v1.university-search.program.get.all.by.faculty',
+                GET_ONE: 'v1.university-search.program.get.one',
+                UPDATE: 'v1.university-search.program.update',
+                DELETE: 'v1.university-search.program.delete',
+            },
+            CertificateRequirement: {
+                CREATE: 'v1.university-search.certificate-requirement.create',
+                GET_ALL: 'v1.university-search.certificate-requirement.get.all',
+                GET_ONE: 'v1.university-search.certificate-requirement.get.one',
+                UPDATE: 'v1.university-search.certificate-requirement.update',
+                DELETE: 'v1.university-search.certificate-requirement.delete',
+            },
+        },
+    },
+    Story: {
+        V1: {
+            CREATE: 'v1.story.create',
+            GET_ALL: 'v1.story.get.all',
+            GET_ONE: 'v1.story.get.one',
+            UPDATE: 'v1.story.update',
+            DELETE: 'v1.story.delete',
+        },
+    },
     Faq: {
         V1: {
             CREATE: 'v1.faq.create',
@@ -15,23 +59,6 @@ export const MessagePatterns = {
             GET_ONE: 'v1.faq.category.get.one',
             UPDATE: 'v1.faq.category.update',
             DELETE: 'v1.faq.category.delete',
-        },
-    },
-    Story: {
-        V1: {
-            GET_ALL: 'v1.story.get.all',
-            CREATE: 'v1.story.create',
-            CREATE_WITH_FILE: 'v1.story.create.with.file',
-            GET_ONE: 'v1.story.get.one',
-            UPDATE: 'v1.story.update',
-            UPDATE_WITH_FILE: 'v1.story.update.with.file',
-            DELETE: 'v1.story.delete',
-            CREATE_ITEM: 'v1.story.item.create',
-            CREATE_ITEM_WITH_FILE: 'v1.story.item.create.with.file',
-            GET_ONE_ITEM: 'v1.story.item.get.one',
-            UPDATE_ITEM: 'v1.story.item.update',
-            UPDATE_ITEM_WITH_FILE: 'v1.story.item.update.with.file',
-            DELETE_ITEM: 'v1.story.item.delete',
         },
     },
     University: {
@@ -172,15 +199,5 @@ export const MessagePatterns = {
             CREATE: 'v1.certificate.create',
             GET_ONE: 'v1.certificate.get.one',
         },
-    },
-    UniversitySearch: {
-        V1: {
-            GET_ALL: 'v1.universitySearch.get.all',
-            CREATE: 'v1.universitySearch.create',
-            GET_ONE: 'v1.universitySearch.get.one',
-            UPDATE: 'v1.universitySearch.update',
-            DELETE: 'v1.universitySearch.delete',
-            FILTER: 'v1.universitySearch.filter',
-        },
-    },
+    }
 };

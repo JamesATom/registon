@@ -12,8 +12,8 @@ import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@ApiTags('Web - Company')
-@Controller('company/web')
+@ApiTags('Web - Job Hunting - Company')
+@Controller('job-hunting/company/web')
 export class CompanyController {
     constructor(private readonly companyService: CompanyService) {}
 

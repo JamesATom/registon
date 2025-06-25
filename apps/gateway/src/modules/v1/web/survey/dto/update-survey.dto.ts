@@ -49,4 +49,14 @@ export class UpdateSurveyDto {
     @IsOptional()
     @IsEnum(['ALL', 'TEACHER', 'STUDENT'])
     targetAudience?: 'ALL' | 'TEACHER' | 'STUDENT';
+
+    @ApiPropertyOptional({
+        description: 'Admin comment about the survey',
+        maxLength: 250,
+        example: 'This survey is for the summer quarter evaluation.',
+    })
+    @IsString()
+    @MaxLength(250)
+    @IsOptional()
+    commentAdmin?: string;
 }

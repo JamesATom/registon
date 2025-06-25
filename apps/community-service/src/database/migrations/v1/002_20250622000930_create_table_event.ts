@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('updatedBy').nullable();
         table.string('commentAdmin', 250).nullable();
         table.enum('status', ['DRAFT', 'PUBLISHED']).defaultTo('DRAFT').notNullable();
-        table.string('branch').notNullable();
+        table.string('branchId').notNullable();
         table.string('eventTitle', 250).notNullable();
         table.date('date').notNullable();
         table.string('startTime').notNullable();
@@ -26,7 +26,7 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable();
 
         table.index('date');
-        table.index('branch');
+        table.index('branchId');
         table.index('status');
         table.index('targetAudience');
     });

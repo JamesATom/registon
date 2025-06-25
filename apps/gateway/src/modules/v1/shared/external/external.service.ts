@@ -65,7 +65,7 @@ export class ExternalService {
             branch: branchId || '',
         };
         const params = { limit, page };
-        // console.log('headers', headers, 'token: ', token);
+
         try {
             const response = await axios.post(
                 url,

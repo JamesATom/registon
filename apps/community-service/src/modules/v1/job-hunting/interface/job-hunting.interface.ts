@@ -19,7 +19,7 @@ export interface JobHunting {
     updatedAt: Date;
     updatedBy?: string;
     companyId?: string;
-    cityId?: string;
+    city?: string;
 }
 
 export interface Company {

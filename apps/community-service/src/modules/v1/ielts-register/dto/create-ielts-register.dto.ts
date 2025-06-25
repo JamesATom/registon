@@ -44,7 +44,7 @@ export class CreateIeltsRegisterDto {
         example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
     })
     @IsNotEmpty()
-    cityId: string;
+    city: string;
 
     @ApiProperty({
         description: 'ID of the student who created this registration',

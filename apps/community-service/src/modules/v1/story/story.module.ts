@@ -1,14 +1,11 @@
+// story.module.ts
 import { Module } from '@nestjs/common';
-import { StoryService } from './story.service';
-import { StoryEvents } from './story.event';
-import { SharedModule } from '../../../shared/shared.module';
-import { FileModule } from '../../../file/file.module';
-import { StoryRepository } from './story.repository';
+import { StoryRepository } from './repository/story.repository';
+import { StoryService } from './service/story.service';
+import { StoryEvent } from './story.event';
 
 @Module({
-    imports: [SharedModule, FileModule],
-    controllers: [StoryEvents],
-    providers: [StoryService, StoryEvents, StoryRepository],
-    exports: [StoryService],
+    controllers: [StoryEvent],
+    providers: [StoryService, StoryRepository],
 })
 export class StoryModule {}

@@ -43,7 +43,7 @@ export class CreateJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    cityId?: string;
+    city?: string;
 
     @ApiPropertyOptional({
         description: 'Certificate requirements',

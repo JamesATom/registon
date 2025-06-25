@@ -1,3 +1,4 @@
+// job-hunting.module.ts
 import { Module } from '@nestjs/common';
 import { CommunityService } from 'src/microservices';
 import { JobHuntingController } from './controller/job-hunting.controller';

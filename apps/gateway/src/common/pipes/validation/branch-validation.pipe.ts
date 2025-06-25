@@ -7,8 +7,6 @@ export class BranchValidationPipe implements PipeTransform {
     constructor(private readonly externalService: ExternalService) {}
 
     async transform(value: any, metadata: ArgumentMetadata) {
-        const { branch, ...newValue } = value;
-
         if (!value || !value.branch) {
             return value;
         }
@@ -33,9 +31,6 @@ export class BranchValidationPipe implements PipeTransform {
             );
         }
 
-        return {
-            ...newValue,
-            branchId: foundBranch._id,
-        };
+        return value;
     }
 }

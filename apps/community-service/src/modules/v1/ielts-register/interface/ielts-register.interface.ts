@@ -6,7 +6,7 @@ export interface IeltsExam {
     updatedAt: Date;
     updatedBy: string;
     dateExam: Date;
-    cityId: string;
+    city: string;
     commentAdmin?: string;
     commentUser?: string;
     isActive: boolean;

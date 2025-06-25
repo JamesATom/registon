@@ -9,12 +9,12 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable();
         table.string('updatedBy');
         table.timestamp('dateExam').notNullable();
-        table.uuid('cityId').notNullable();
+        table.uuid('city').notNullable();
         table.boolean('isActive').defaultTo(true);
         table.string('commentUser', 250);
         table.string('commentAdmin', 250);
 
-        table.index('cityId');
+        table.index('city');
         table.index('dateExam');
         table.index('isActive');
     });

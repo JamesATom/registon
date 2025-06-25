@@ -1,16 +1,14 @@
 // university-search.interface.ts
-import { UniType, StudyLanguage, StudyType, Degree } from '../enum/university.enum';
-
 export interface University {
     id: string;
     createdAt: Date;
-    createdBy: string;
+    createdBy?: string;
     updatedAt: Date;
     updatedBy?: string;
     title: string;
     description?: string;
     registrationDate: Date;
-    type?: UniType;
+    type?: string;
     status?: boolean;
     contract: string;
     contacts?: number;
@@ -19,23 +17,7 @@ export interface University {
     address?: string;
     logo?: string;
     license?: string;
-    cityId?: string;
-    certificateRequirementId?: string;
-}
-
-export interface Program {
-    id: string;
-    createdAt: Date;
-    createdBy?: string;
-    updatedAt: Date;
-    updatedBy?: string;
-    title: string;
-    studyLanguage: StudyLanguage;
-    contract: number;
-    degree: Degree;
-    studyType?: StudyType;
-    facultyId?: string;
-    universityId: string;
+    city?: string;
     certificateRequirementId?: string;
 }
 
@@ -48,6 +30,22 @@ export interface Faculty {
     facultyTitle: string;
     description?: string;
     universityId: string;
+}
+
+export interface Program {
+    id: string;
+    createdAt: Date;
+    createdBy?: string;
+    updatedAt: Date;
+    updatedBy?: string;
+    title: string;
+    studyLanguage: string;
+    contract: number;
+    degree: string;
+    studyType?: string;
+    facultyId?: string;
+    universityId: string;
+    certificateRequirementId?: string;
 }
 
 export interface CertificateRequirement {

@@ -41,6 +41,16 @@ export class UpdateSurveyQuestionDto {
     description?: string;
 
     @ApiPropertyOptional({
+        description: 'Admin comment about the survey',
+        maxLength: 250,
+        example: 'This survey is for the summer quarter evaluation.',
+    })
+    @IsString()
+    @MaxLength(250)
+    @IsOptional()
+    commentAdmin?: string;
+    
+    @ApiPropertyOptional({
         description: 'First answer option',
         maxLength: 50,
         example: 'Very satisfied',
@@ -106,7 +116,7 @@ export class UpdateSurveyDto {
     })
     @IsMongoId()
     @IsOptional()
-    branchId?: string;
+    branch?: string;
 
     @ApiPropertyOptional({
         description: 'Title of the survey',

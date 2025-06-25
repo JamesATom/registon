@@ -25,7 +25,6 @@ export class CourseController {
         @Query('page') page?: number,
     ): Promise<CommonEntity<CourseResponseEntity[]>> {
         const token = req.user?.userData?.token || '';
-        console.log('Token here in course controller:', token);
         return this.courseService.getAll(token, limit || 10, page || 1);
     }
 

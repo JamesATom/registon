@@ -6,7 +6,6 @@ import { IeltsRegisterModule } from './ielts-register/ielts-register.module';
 import { JobHuntingModule } from './job-hunting/job-hunting.module';
 import { SurveyModule } from './survey/survey.module';
 import { EventModule } from './event/event.module';
-import { StoryModule } from './story/story.module';
 
 @Module({
     imports: [
@@ -16,7 +15,6 @@ import { StoryModule } from './story/story.module';
         JobHuntingModule,
         SurveyModule,
         EventModule,
-        StoryModule,
     ],
     exports: [
         MockRegisterModule,
@@ -24,7 +22,6 @@ import { StoryModule } from './story/story.module';
         JobHuntingModule,
         SurveyModule,
         EventModule,
-        StoryModule,
     ],
 })
 export class MobileModule {}

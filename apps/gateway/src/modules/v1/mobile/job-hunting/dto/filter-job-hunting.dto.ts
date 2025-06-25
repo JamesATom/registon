@@ -29,7 +29,7 @@ export class FilterJobHuntingDto {
     })
     @IsOptional()
     @IsUUID()
-    cityId?: string;
+    city?: string;
 
     @ApiProperty({
         description: 'Filter by company ID',

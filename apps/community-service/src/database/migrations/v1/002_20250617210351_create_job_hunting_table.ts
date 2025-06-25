@@ -46,10 +46,10 @@ export async function up(knex: Knex): Promise<void> {
         table.string('updatedBy').nullable();
 
         table.uuid('companyId').nullable().references('id').inTable('company').onDelete('SET NULL');
-        table.uuid('cityId').nullable().references('id').inTable('city').onDelete('SET NULL');
+        table.uuid('city').nullable().references('id').inTable('city').onDelete('SET NULL');
 
         table.index(['companyId']);
-        table.index(['cityId']);
+        table.index(['city']);
         table.index(['title']);
         table.index(['workExperience']);
     });
@@ -71,10 +71,10 @@ export async function up(knex: Knex): Promise<void> {
     //     table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
     //     table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable();
 
-    //     table.uuid('cityId').notNullable().references('id').inTable('city');
+    //     table.uuid('city').notNullable().references('id').inTable('city');
 
     //     table.index('studentId');
-    //     table.index('cityId');
+    //     table.index('city');
     //     table.index('universityTitle');
     // });
 

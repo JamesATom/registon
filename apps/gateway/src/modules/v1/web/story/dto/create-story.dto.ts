@@ -1,82 +1,118 @@
-import { IsNotEmpty, IsString, IsOptional, IsEnum, IsArray, ArrayMinSize, IsDate } from 'class-validator';
+// create-story.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { StoryStatus } from '../../../../../common/enum/common.enum';
+import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class CreateStoryDto {
-    @ApiProperty({
-        description: 'Title of the story',
-        minLength: 3,
+class CreateStoryItemDto {
+    @ApiPropertyOptional({
+        description: 'Title of the story item',
+        example: 'First Day of Bootcamp',
         maxLength: 100,
-        required: true,
     })
-    @IsNotEmpty()
     @IsString()
-    title: string;
+    @MaxLength(100)
+    @IsOptional()
+    title?: string;
 
     @ApiPropertyOptional({
-        description: 'Description of the story',
-        minLength: 3,
+        description: 'Description of the story item',
+        example: 'Students getting introduced to the program and instructors',
         maxLength: 250,
     })
-    @IsOptional()
     @IsString()
+    @MaxLength(250)
+    @IsOptional()
     description?: string;
 
     @ApiProperty({
-        description: 'Story status',
-        enum: StoryStatus,
-        default: StoryStatus.DRAFT,
+        description: 'Image URL for the story item',
+        example: 'https://registon.bucket-name/stories/bootcamp-day1.jpg',
     })
-    @IsOptional()
-    @IsEnum(StoryStatus)
-    status?: StoryStatus = StoryStatus.DRAFT;
-
-    @ApiProperty({
-        description: 'Main image URL or path',
-        required: true,
-    })
+    @IsString()
     @IsNotEmpty()
-    @IsString()
-    mainImage: string;
+    image: string;
+}
 
-    @ApiPropertyOptional({ description: 'Date when the story was published (dd-mm-yyyy hh:mm)' })
-    @IsOptional()
-    @IsDate()
-    datePublished?: Date;
-
-    @ApiPropertyOptional({ description: 'External link', maxLength: 250 })
-    @IsOptional()
+export class CreateStoryDto {
+    @ApiProperty({
+        description: 'Thumbnail image URL for the story',
+        example: 'https://registon.bucket-name/stories/summer-event.jpg',
+    })
     @IsString()
-    link?: string;
+    @IsNotEmpty()
+    thumbnail: string;
 
     @ApiPropertyOptional({
-        description: 'Button text',
-        minLength: 3,
-        maxLength: 50,
+        description: 'External link for the story (if applicable)',
+        example: 'https://example.com/event-details',
+    })
+    @IsString()
+    @MaxLength(250)
+    @IsOptional()
+    link?: string;
+
+    @ApiProperty({
+        description: 'Branch ID where the story belongs',
+        example: 'branch-001',
+    })
+    @IsString()
+    @IsNotEmpty()
+    branch: string;
+
+    @ApiPropertyOptional({
+        description: 'Admin comment for internal use',
+        example: 'Approved by marketing team',
+        maxLength: 250,
+    })
+    @IsString()
+    @MaxLength(250)
+    @IsOptional()
+    commentAdmin?: string;
+
+    @ApiProperty({
+        description: 'Title of the story',
+        example: 'Summer Coding Bootcamp 2025',
+        maxLength: 100,
+    })
+    @IsString()
+    @MaxLength(100)
+    @IsNotEmpty()
+    title: string;
+
+    @ApiProperty({
+        description: 'Status of the story',
+        enum: ['DRAFT', 'PUBLISHED'],
+        example: 'DRAFT',
+    })
+    @IsEnum(['DRAFT', 'PUBLISHED'])
+    @IsNotEmpty()
+    status: 'DRAFT' | 'PUBLISHED';
+
+    @ApiPropertyOptional({
+        description: 'Date until which the story will be visible (from creation date)',
+        type: Date,
+        example: '2025-07-30T23:59:59Z',
     })
     @IsOptional()
+    publishedAt?: Date;
+
+    @ApiPropertyOptional({
+        description: 'Text for the story button (if applicable)',
+        example: 'Learn more',
+        maxLength: 20,
+    })
     @IsString()
+    @MaxLength(20)
+    @IsOptional()
     buttonText?: string;
 
-    @ApiProperty({ description: 'Branch IDs associated with this story' })
-    @IsNotEmpty()
+    @ApiProperty({
+        description: 'Story items (slides) that make up the story',
+        type: [CreateStoryItemDto],
+    })
     @IsArray()
-    @ArrayMinSize(1)
-    @IsString({ each: true })
-    branches: string[];
-
-    @ApiPropertyOptional({ description: 'Start date (dd-mm-yyyy hh:mm)' })
+    @ValidateNested({ each: true })
+    @Type(() => CreateStoryItemDto)
     @IsOptional()
-    @IsDate()
-    startDate?: Date;
-
-    @ApiPropertyOptional({ description: 'End date (dd-mm-yyyy hh:mm)' })
-    @IsOptional()
-    @IsDate()
-    endDate?: Date;
-
-    @ApiPropertyOptional({ description: 'Admin comments about this story' })
-    @IsOptional()
-    @IsString()
-    commentAdmin?: string;
+    items?: CreateStoryItemDto[];
 }

@@ -37,8 +37,4 @@ export class SurveyEvent {
         return this.surveyService.delete(id);
     }
     
-    @MessagePattern(MessagePatterns.Survey.V1.SUBMIT)
-    async submitSurvey(@Payload() submitSurveyDto: SubmitSurveyDto) {
-        return this.surveyService.submitSurvey(submitSurveyDto);
-    }
 }

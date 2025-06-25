@@ -4,15 +4,17 @@ import type { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('survey', table => {
         table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-        table.uuid('createdBy').notNullable();
-        table.uuid('updatedBy').nullable();
-        table.string('image').notNullable();
-        table.string('commentAdmin', 250).nullable();
         table.string('title', 100).notNullable();
         table.string('description', 250).nullable();
-        table.uuid('branch').notNullable();
+        table.string('image').notNullable();
+        table.string('commentAdmin', 250).nullable();
+        table.string('branch').notNullable();
         table.enum('targetAudience', ['ALL', 'TEACHER', 'STUDENT']).notNullable();
-        table.timestamps(true, true);
+        
+        table.string('createdBy').notNullable();
+        table.string('updatedBy').nullable();
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
+        table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable();
         
         table.index('branch');
         table.index('targetAudience');

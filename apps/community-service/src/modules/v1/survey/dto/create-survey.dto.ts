@@ -99,7 +99,7 @@ export class CreateSurveyDto {
     })
     @IsMongoId()
     @IsNotEmpty()
-    branchId: string;
+    branch: string;
 
     @ApiProperty({
         description: 'Title of the survey',

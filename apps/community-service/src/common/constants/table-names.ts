@@ -18,4 +18,6 @@ export const TableNames = {
     COURSE: 'course',
     FAQ: 'faq',
     FAQ_CATEGORY: 'faqCategory',
+    STORY: 'story',
+    STORY_ITEM: 'storyItem',
 };
