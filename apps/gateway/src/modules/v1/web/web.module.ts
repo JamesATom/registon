@@ -8,6 +8,10 @@ import { UniversitySearchModule } from './university-search/university-search.mo
 import { SurveyModule } from './survey/survey.module';
 import { EventModule } from './event/event.module';
 import { StoryModule } from './story/story.module';
+import { FaqModule } from './faq/faq.module';
+import { NewsModule } from './news/news.module';
+import { ShopModule } from './shop/shop.module';
+
 
 @Module({
     imports: [
@@ -19,6 +23,9 @@ import { StoryModule } from './story/story.module';
         IeltsRegisterModule,
         JobHuntingModule,
         UniversitySearchModule,
+        FaqModule,
+        NewsModule,
+        ShopModule,
     ],
     exports: [
         SurveyModule,
@@ -28,6 +35,9 @@ import { StoryModule } from './story/story.module';
         IeltsRegisterModule,
         JobHuntingModule,
         UniversitySearchModule,
+        FaqModule,
+        NewsModule,
+        ShopModule,
     ],
 })
 export class WebModule {}

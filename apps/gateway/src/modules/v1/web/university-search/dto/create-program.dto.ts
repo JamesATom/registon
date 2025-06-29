@@ -1,56 +1,73 @@
 // create-program.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsEnum } from 'class-validator';
-import { ProgramDegreeLevel, ProgramFormat, ProgramLanguage } from '../enums/university-search.enum';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsEnum, IsInt } from 'class-validator';
+import { Degree, StudyLanguage, StudyType } from '../enums/university-search.enum';
 
 export class CreateProgramDto {
-    @ApiProperty({ description: 'Name of the program' })
+    @ApiProperty({ 
+        description: 'Title of the program',
+        example: 'Computer Science'
+    })
     @IsString()
     @IsNotEmpty()
-    name: string;
+    title: string;
 
-    @ApiProperty({ description: 'Description of the program' })
+    @ApiProperty({ 
+        description: 'Description of the program',
+        example: 'The Computer Science program at Harvard provides students with a solid foundation in the theoretical and mathematical foundations of computing.'
+    })
     @IsString()
     @IsOptional()
     description?: string;
 
-    @ApiProperty({ description: 'University ID that the program belongs to' })
+    @ApiProperty({ 
+        description: 'Language of study', 
+        enum: StudyLanguage,
+        example: StudyLanguage.ENGLISH
+    })
+    @IsEnum(StudyLanguage)
+    @IsNotEmpty()
+    studyLanguage: StudyLanguage;
+
+    @ApiProperty({ 
+        description: 'Contract cost amount',
+        example: 49653
+    })
+    @IsInt()
+    @IsNotEmpty()
+    contract: number;
+
+    @ApiProperty({ 
+        description: 'Degree level of the program', 
+        enum: Degree,
+        example: Degree.BACHELOR
+    })
+    @IsEnum(Degree)
+    @IsNotEmpty()
+    degree: Degree;
+
+    @ApiProperty({ 
+        description: 'Study type of the program', 
+        enum: StudyType,
+        example: StudyType.FULL_TIME
+    })
+    @IsEnum(StudyType)
+    @IsOptional()
+    studyType?: StudyType;
+    
+    @ApiProperty({ 
+        description: 'University ID that the program belongs to',
+        example: '5f8d0d55b54764421b715701'
+    })
     @IsString()
     @IsNotEmpty()
     universityId: string;
 
-    @ApiProperty({ description: 'Faculty ID that the program belongs to' })
+    @ApiProperty({ 
+        description: 'Faculty ID that the program belongs to',
+        example: '5f8d0d55b54764421b715702'
+    })
     @IsString()
     @IsOptional()
     facultyId?: string;
-
-    @ApiProperty({ description: 'Certificate requirement ID for the program' })
-    @IsString()
-    @IsOptional()
-    certificateRequirementId?: string;
-
-    @ApiProperty({ description: 'Duration of the program in years' })
-    @IsNumber()
-    @IsOptional()
-    duration?: number;
-
-    @ApiProperty({ description: 'Tuition fee of the program' })
-    @IsNumber()
-    @IsOptional()
-    tuitionFee?: number;
-
-    @ApiProperty({ description: 'Degree level of the program', enum: ProgramDegreeLevel })
-    @IsEnum(ProgramDegreeLevel)
-    @IsOptional()
-    degreeLevel?: ProgramDegreeLevel;
-
-    @ApiProperty({ description: 'Format of the program', enum: ProgramFormat })
-    @IsEnum(ProgramFormat)
-    @IsOptional()
-    format?: ProgramFormat;
-
-    @ApiProperty({ description: 'Language of the program', enum: ProgramLanguage })
-    @IsEnum(ProgramLanguage)
-    @IsOptional()
-    language?: ProgramLanguage;
 }

@@ -33,7 +33,7 @@ export class EventEvent {
     }
 
     @MessagePattern(MessagePatterns.Event.V1.DELETE)
-    async delete(@Payload() id: string ) {
+    async delete(@Payload() id: string) {
         return this.eventService.delete(id);
     }
 

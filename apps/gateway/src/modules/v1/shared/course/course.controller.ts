@@ -11,7 +11,7 @@ import { CommonEntity } from 'src/common/libs/common.entity';
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
 @ApiTags('Course')
-@Controller({ path: 'course', version: '1' })
+@Controller({ path: 'course', version: 'v1' })
 export class CourseController {
     constructor(private readonly courseService: CourseService) {}
 

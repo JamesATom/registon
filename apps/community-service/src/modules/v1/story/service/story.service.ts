@@ -12,7 +12,7 @@ export class StoryService {
 
     async create(createStoryDto: CreateStoryDto): Promise<CommonEntity> {
         const createdStory = await this.storyRepository.create(createStoryDto);
-        
+
         return {
             statusCode: HttpStatus.CREATED,
             message: 'Story created successfully',
@@ -22,7 +22,7 @@ export class StoryService {
 
     async getAll(filter: FilterStoryDto): Promise<CommonEntity> {
         const stories = await this.storyRepository.getAll();
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: 'Stories retrieved successfully',
@@ -32,7 +32,7 @@ export class StoryService {
 
     async getOne(id: string): Promise<CommonEntity> {
         const story = await this.storyRepository.getOne(id);
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: 'Story retrieved successfully',
@@ -42,7 +42,7 @@ export class StoryService {
 
     async update(id: string, updateStoryDto: UpdateStoryDto): Promise<CommonEntity> {
         const updatedStory = await this.storyRepository.update(id, updateStoryDto);
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: 'Story updated successfully',
@@ -61,7 +61,7 @@ export class StoryService {
         }
 
         await this.storyRepository.delete(id);
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: 'Story deleted successfully',

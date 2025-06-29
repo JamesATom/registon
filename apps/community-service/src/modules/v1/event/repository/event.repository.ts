@@ -39,10 +39,7 @@ export class EventRepository extends BaseRepository<Event, CreateEventDto> {
     }
 
     async deleteEventRegistrationStudent(eventId: string, studentId: string): Promise<any> {
-        return this.knex(TableNames.EVENT_REGISTRATION_STUDENT)
-            .where({ eventId, studentId })
-            .delete()
-            .returning('*');
+        return this.knex(TableNames.EVENT_REGISTRATION_STUDENT).where({ eventId, studentId }).delete().returning('*');
     }
 
     async delete(id: string): Promise<any> {

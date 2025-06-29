@@ -36,5 +36,4 @@ export class SurveyEvent {
     async delete(@Payload() id: string) {
         return this.surveyService.delete(id);
     }
-    
 }

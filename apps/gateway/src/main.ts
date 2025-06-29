@@ -21,6 +21,9 @@ import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mo
 import { IeltsRegisterModule as WebIeltsRegisterModule } from './modules/v1/web/ielts-register/ielts-register.module';
 import { JobHuntingModule as WebJobHuntingModule } from './modules/v1/web/job-hunting/job-hunting.module';
 import { UniversitySearchModule as WebUniversitySearchModule } from './modules/v1/web/university-search/university-search.module';
+import { FaqModule as WebFaqModule } from './modules/v1/web/faq/faq.module';
+import { NewsModule as WebNewsModule } from './modules/v1/web/news/news.module';
+import { ShopModule as WebShopModule } from './modules/v1/web/shop/shop.module';
 
 // import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
 // import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
@@ -85,7 +88,10 @@ async function bootstrap() {
             WebIeltsRegisterModule,
             WebJobHuntingModule,
             WebUniversitySearchModule,
-            
+            WebFaqModule,
+            WebNewsModule,
+            WebShopModule,
+
             AuthModule,
             BranchModule,
             CityModule,
@@ -110,22 +116,22 @@ async function bootstrap() {
         )
         .build();
 
-    const mobileDocument = SwaggerModule.createDocument(app, mobileConfig, {
-        include: [
+    // const mobileDocument = SwaggerModule.createDocument(app, mobileConfig, {
+    //     include: [
             // MobileSurveyModule,
             // MobileEventModule,
             // MobileMockRegisterModule,
             // MobileIeltsRegisterModule,
             // MobileJobHuntingModule,
             
-            AuthModule,
-            BranchModule,
-            CityModule,
-            CourseModule
-        ],
-    });
+    //         AuthModule,
+    //         BranchModule,
+    //         CityModule,
+    //         CourseModule
+    //     ],
+    // });
     
-    SwaggerModule.setup('api/docs/mobile', app, mobileDocument);
+    // SwaggerModule.setup('api/docs/mobile', app, mobileDocument);
 
     const PORT = process.env.PORT || 3000;
     await app.listen(PORT, '0.0.0.0', () => {

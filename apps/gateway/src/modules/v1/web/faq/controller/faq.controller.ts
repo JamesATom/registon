@@ -50,7 +50,6 @@ export class FaqController {
 
     @Delete(':id')
     @ApiDelete('FAQ')
-    @ApiResponse({ type: CommonEntity })
     async delete(@Param('id') id: string) {
         return this.faqService.delete(id);
     }

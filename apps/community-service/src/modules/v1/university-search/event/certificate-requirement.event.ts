@@ -27,7 +27,14 @@ export class CertificateRequirementEvent {
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.CertificateRequirement.UPDATE)
     async update(
-        @Payload() { id, updateCertificateRequirementDto }: { id: string; updateCertificateRequirementDto: UpdateCertificateRequirementDto },
+        @Payload()
+        {
+            id,
+            updateCertificateRequirementDto,
+        }: {
+            id: string;
+            updateCertificateRequirementDto: UpdateCertificateRequirementDto;
+        },
     ): Promise<any> {
         return this.certificateRequirementService.update(id, updateCertificateRequirementDto);
     }

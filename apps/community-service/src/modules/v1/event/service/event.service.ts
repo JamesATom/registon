@@ -61,9 +61,9 @@ export class EventService {
     //         studentId,
     //         registeredAt: new Date(),
     //     };
-        
+
     //     await this.eventRepository.createEventRegistrationStudent(eventRegistrationData);
-        
+
     //     return {
     //         statusCode: HttpStatus.OK,
     //         message: `Student with ID ${studentId} registered for event with ID ${eventId} successfully`,
@@ -73,7 +73,7 @@ export class EventService {
 
     // async unregisterStudent(eventId: string, studentId: string): Promise<any> {
     //     await this.eventRepository.deleteEventRegistrationStudent(eventId, studentId);
-        
+
     //     return {
     //         statusCode: HttpStatus.OK,
     //         message: `Student with ID ${studentId} unregistered from event with ID ${eventId} successfully`,

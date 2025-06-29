@@ -18,71 +18,39 @@ export class UniversityService {
 
     async create(createUniversityDto: CreateUniversityDto): Promise<any> {
         const university = await this.universityRepository.createUniversity(createUniversityDto);
-        return this.formatResponse(
-            HttpStatus.CREATED, 
-            'University created successfully', 
-            university
-        );
+        return this.formatResponse(HttpStatus.CREATED, 'University created successfully', university);
     }
 
     async getAll(): Promise<any> {
         const universities = await this.universityRepository.getAllUniversities();
-        return this.formatResponse(
-            HttpStatus.OK, 
-            'Universities retrieved successfully', 
-            universities
-        );
+        return this.formatResponse(HttpStatus.OK, 'Universities retrieved successfully', universities);
     }
 
     async getOne(id: string): Promise<any> {
-        const university = await this.universityRepository.getUniversityWithDetails(id);
+        const university = await this.universityRepository.getOne(id);
         if (!university) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `University with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `University with ID ${id} not found`, null);
         }
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `University with ID ${id} retrieved successfully`, 
-            university
-        );
+        return this.formatResponse(HttpStatus.OK, `University with ID ${id} retrieved successfully`, university);
     }
 
     async update(id: string, updateUniversityDto: UpdateUniversityDto): Promise<any> {
         const existingUniversity = await this.universityRepository.getUniversityById(id);
         if (!existingUniversity) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `University with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `University with ID ${id} not found`, null);
         }
 
         const updatedUniversity = await this.universityRepository.updateUniversity(id, updateUniversityDto);
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `University with ID ${id} updated successfully`, 
-            updatedUniversity
-        );
+        return this.formatResponse(HttpStatus.OK, `University with ID ${id} updated successfully`, updatedUniversity);
     }
 
     async delete(id: string): Promise<any> {
         const existingUniversity = await this.universityRepository.getUniversityById(id);
         if (!existingUniversity) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `University with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `University with ID ${id} not found`, null);
         }
 
         await this.universityRepository.deleteUniversity(id);
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `University with ID ${id} deleted successfully`, 
-            null
-        );
+        return this.formatResponse(HttpStatus.OK, `University with ID ${id} deleted successfully`, null);
     }
 }

@@ -10,7 +10,9 @@ import { SurveyModule } from './modules/v1/survey/survey.module';
 import { EventModule } from './modules/v1/event/event.module';
 import { StoryModule } from './modules/v1/story/story.module';
 import { UniversitySearchModule } from './modules/v1/university-search/university-search.module';
-// import { FaqModule } from './modules/v1/faq/faq.module';
+import { FaqModule } from './modules/v1/faq/faq.module';
+import { NewsModule } from './modules/v1/news/news.module';
+import { ShopModule } from './modules/v1/shop/shop.module';
 
 @Module({
     imports: [
@@ -26,7 +28,9 @@ import { UniversitySearchModule } from './modules/v1/university-search/universit
         SurveyModule,
         StoryModule,
         UniversitySearchModule,
-        // FaqModule,
+        FaqModule,
+        NewsModule,
+        ShopModule,
     ],
     controllers: [],
     providers: [],

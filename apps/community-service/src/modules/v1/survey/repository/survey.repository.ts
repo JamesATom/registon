@@ -16,7 +16,7 @@ export class SurveyRepository extends BaseRepository<Survey, any> {
 
     async createSurvey(dto: CreateSurveyDto): Promise<any> {
         const { questions, ...surveyData } = dto;
-        return this.knex.transaction(async (trx) => {
+        return this.knex.transaction(async trx => {
             const [createdSurvey]: any = await super.create(surveyData);
             if (questions && questions.length > 0) {
                 const questionsToInsert = questions.map(question => ({
@@ -28,14 +28,12 @@ export class SurveyRepository extends BaseRepository<Survey, any> {
                     answer4Qty: 0,
                     answer5Qty: 0,
                 }));
-                
-                const createdQuestions = await trx('surveyQuestion')
-                    .insert(questionsToInsert)
-                    .returning('*');
-                
+
+                const createdQuestions = await trx('surveyQuestion').insert(questionsToInsert).returning('*');
+
                 createdSurvey.questions = createdQuestions;
             }
-            
+
             return createdSurvey;
         });
     }
@@ -46,15 +44,13 @@ export class SurveyRepository extends BaseRepository<Survey, any> {
 
     async getSurveyWithQuestions(id: string): Promise<any> {
         const survey = await super.getOne(id);
-        
+
         if (!survey) {
             return null;
         }
-        
-        const questions = await this.knex('surveyQuestion')
-            .where('surveyId', survey.id)
-            .select('*');
-        
+
+        const questions = await this.knex('surveyQuestion').where('surveyId', survey.id).select('*');
+
         return {
             ...survey,
             questions,
@@ -63,27 +59,27 @@ export class SurveyRepository extends BaseRepository<Survey, any> {
 
     async updateSurvey(id: string, dto: any): Promise<any> {
         const { questions, ...surveyData } = dto;
-        return this.knex.transaction(async (trx) => {
+        return this.knex.transaction(async trx => {
             const [updatedSurvey] = await super.update(id, surveyData);
 
             if (questions && questions.length > 0) {
                 for (const question of questions) {
-                    await trx('surveyQuestion').where('id', question.id).update({
-                        question: question.question,
-                        description: question.description,
-                        answer1: question.answer1,
-                        answer2: question.answer2,
-                        answer3: question.answer3 || null,
-                        answer4: question.answer4 || null,
-                        answer5: question.answer5 || null,
-                    });
+                    await trx('surveyQuestion')
+                        .where('id', question.id)
+                        .update({
+                            question: question.question,
+                            description: question.description,
+                            answer1: question.answer1,
+                            answer2: question.answer2,
+                            answer3: question.answer3 || null,
+                            answer4: question.answer4 || null,
+                            answer5: question.answer5 || null,
+                        });
                 }
             }
-            
-            const updatedQuestions = await trx('surveyQuestion')
-                .where('surveyId', id)
-                .select('*');
-            
+
+            const updatedQuestions = await trx('surveyQuestion').where('surveyId', id).select('*');
+
             return {
                 ...updatedSurvey,
                 questions: updatedQuestions,

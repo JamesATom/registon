@@ -1,5 +1,5 @@
 // 20250622194035_create_table_survey.ts
-import type { Knex } from "knex";
+import type { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('survey', table => {
@@ -10,12 +10,12 @@ export async function up(knex: Knex): Promise<void> {
         table.string('commentAdmin', 250).nullable();
         table.string('branch').notNullable();
         table.enum('targetAudience', ['ALL', 'TEACHER', 'STUDENT']).notNullable();
-        
+
         table.string('createdBy').notNullable();
         table.string('updatedBy').nullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updatedAt').defaultTo(knex.fn.now()).notNullable();
-        
+
         table.index('branch');
         table.index('targetAudience');
     });
@@ -35,7 +35,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('answer3Qty').defaultTo(0);
         table.integer('answer4Qty').defaultTo(0);
         table.integer('answer5Qty').defaultTo(0);
-        
+
         table.foreign('surveyId').references('id').inTable('survey').onDelete('CASCADE');
         table.index('surveyId');
     });
@@ -45,7 +45,7 @@ export async function up(knex: Knex): Promise<void> {
         table.uuid('surveyId').notNullable();
         table.uuid('userId').notNullable();
         table.timestamp('takenAt').defaultTo(knex.fn.now()).notNullable();
-        
+
         table.foreign('surveyId').references('id').inTable('survey').onDelete('CASCADE');
         table.unique(['surveyId', 'userId']);
         table.index('surveyId');

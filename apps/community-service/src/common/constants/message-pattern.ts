@@ -61,6 +61,24 @@ export const MessagePatterns = {
             DELETE: 'v1.faq.category.delete',
         },
     },
+    News: {
+        V1: {
+            CREATE: 'v1.news.create',
+            GET_ALL: 'v1.news.get.all',
+            GET_ONE: 'v1.news.get.one',
+            UPDATE: 'v1.news.update',
+            DELETE: 'v1.news.delete',
+        },
+    },
+    NewsCategory: {
+        V1: {
+            CREATE: 'v1.news.category.create',
+            GET_ALL: 'v1.news.category.get.all',
+            GET_ONE: 'v1.news.category.get.one',
+            UPDATE: 'v1.news.category.update',
+            DELETE: 'v1.news.category.delete',
+        },
+    },
     University: {
         V1: {
             GET_ALL: 'v1.university.get.all',
@@ -199,5 +217,33 @@ export const MessagePatterns = {
             CREATE: 'v1.certificate.create',
             GET_ONE: 'v1.certificate.get.one',
         },
-    }
+    },
+    Shop: {
+        V1: {
+            Category: {
+                CREATE: 'v1.shop.category.create',
+                GET_ALL: 'v1.shop.category.get.all',
+                GET_ONE: 'v1.shop.category.get.one',
+                UPDATE: 'v1.shop.category.update',
+                DELETE: 'v1.shop.category.delete',
+            },
+            Product: {
+                CREATE: 'v1.shop.product.create',
+                GET_ALL: 'v1.shop.product.get.all',
+                GET_ONE: 'v1.shop.product.get.one',
+                GET_BY_CATEGORY: 'v1.shop.product.get.by.category',
+                UPDATE: 'v1.shop.product.update',
+                DELETE: 'v1.shop.product.delete',
+            },
+            Order: {
+                CREATE: 'v1.shop.order.create',
+                GET_ALL: 'v1.shop.order.get.all',
+                GET_ONE: 'v1.shop.order.get.one',
+                GET_BY_STUDENT: 'v1.shop.order.get.by.student',
+                UPDATE: 'v1.shop.order.update',
+                DELETE: 'v1.shop.order.delete',
+                UPDATE_STATUS: 'v1.shop.order.update.status',
+            },
+        },
+    },
 };

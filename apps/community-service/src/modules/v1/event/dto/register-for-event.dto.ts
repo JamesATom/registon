@@ -1,12 +1,6 @@
 // register-for-event.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-    IsNotEmpty,
-    IsOptional,
-    IsString,
-    MaxLength,
-    IsMongoId
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength, IsMongoId } from 'class-validator';
 
 export class RegisterForEventDto {
     @ApiProperty({

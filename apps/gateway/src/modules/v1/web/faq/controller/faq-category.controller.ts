@@ -11,8 +11,8 @@ import { ApiAuth, ApiCreate, ApiDelete, ApiGetAll, ApiGetOne, ApiUpdate } from '
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@ApiTags('Web - FAQ Category')
-@Controller('faq-category/web')
+@ApiTags('Web - FAQ Categories')
+@Controller('faq/category/web')
 export class FaqCategoryController {
     constructor(private readonly faqCategoryService: FaqCategoryService) {}
 
@@ -50,7 +50,6 @@ export class FaqCategoryController {
 
     @Delete(':id')
     @ApiDelete('FAQ Category')
-    @ApiResponse({ type: CommonEntity })
     async delete(@Param('id') id: string) {
         return this.faqCategoryService.delete(id);
     }

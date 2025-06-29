@@ -1,14 +1,6 @@
 // submit-survey.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import {
-    IsArray,
-    IsMongoId,
-    IsNotEmpty,
-    IsNumber,
-    Max,
-    Min,
-    ValidateNested,
-} from 'class-validator';
+import { IsArray, IsMongoId, IsNotEmpty, IsNumber, Max, Min, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class SurveyQuestionResponseDto {

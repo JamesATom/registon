@@ -11,7 +11,6 @@ export class UniversityRepository extends BaseRepository<University, any> {
         super(knex, TableNames.UNIVERSITY);
     }
 
-    // University methods
     async createUniversity(data: Partial<University>): Promise<University> {
         const [university] = await super.create(data);
         return university;
@@ -34,41 +33,6 @@ export class UniversityRepository extends BaseRepository<University, any> {
         await super.delete(id);
     }
 
-    async getUniversityWithDetails(id: string): Promise<any> {
-        const university = await this.knex(this.tableName)
-            .select(
-                `${this.tableName}.*`,
-                `${TableNames.CITY}.name as cityName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
-            )
-            .leftJoin(TableNames.CITY, `${this.tableName}.city`, `${TableNames.CITY}.id`)
-            .leftJoin(TableNames.CERTIFICATE_REQUIREMENT, `${this.tableName}.certificateRequirementId`, `${TableNames.CERTIFICATE_REQUIREMENT}.id`)
-            .where(`${this.tableName}.id`, id)
-            .first();
-
-        if (!university) return null;
-
-        const faculties = await this.knex(TableNames.FACULTY)
-            .select('*')
-            .where('universityId', id);
-
-        const programs = await this.knex(TableNames.PROGRAM)
-            .select(
-                `${TableNames.PROGRAM}.*`,
-                `${TableNames.FACULTY}.facultyTitle as facultyName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
-            )
-            .leftJoin(TableNames.FACULTY, `${TableNames.PROGRAM}.facultyId`, `${TableNames.FACULTY}.id`)
-            .leftJoin(TableNames.CERTIFICATE_REQUIREMENT, `${TableNames.PROGRAM}.certificateRequirementId`, `${TableNames.CERTIFICATE_REQUIREMENT}.id`)
-            .where(`${TableNames.PROGRAM}.universityId`, id);
-
-        return {
-            ...university,
-            faculties,
-            programs
-        };
-    }
-
     // Faculty methods
     async createFaculty(data: Partial<Faculty>): Promise<Faculty> {
         const [faculty] = await this.knex(TableNames.FACULTY).insert(data).returning('*');
@@ -80,30 +44,20 @@ export class UniversityRepository extends BaseRepository<University, any> {
     }
 
     async getFacultiesByUniversityId(universityId: string): Promise<Faculty[]> {
-        return this.knex(TableNames.FACULTY)
-            .select('*')
-            .where('universityId', universityId);
+        return this.knex(TableNames.FACULTY).select('*').where('universityId', universityId);
     }
 
     async getFacultyById(id: string): Promise<Faculty | null> {
-        return this.knex(TableNames.FACULTY)
-            .select('*')
-            .where('id', id)
-            .first();
+        return this.knex(TableNames.FACULTY).select('*').where('id', id).first();
     }
 
     async updateFaculty(id: string, data: Partial<Faculty>): Promise<Faculty> {
-        const [updated] = await this.knex(TableNames.FACULTY)
-            .where('id', id)
-            .update(data)
-            .returning('*');
+        const [updated] = await this.knex(TableNames.FACULTY).where('id', id).update(data).returning('*');
         return updated;
     }
 
     async deleteFaculty(id: string): Promise<void> {
-        await this.knex(TableNames.FACULTY)
-            .where('id', id)
-            .delete();
+        await this.knex(TableNames.FACULTY).where('id', id).delete();
     }
 
     // Program methods
@@ -121,10 +75,14 @@ export class UniversityRepository extends BaseRepository<University, any> {
             .select(
                 `${TableNames.PROGRAM}.*`,
                 `${TableNames.FACULTY}.facultyTitle as facultyName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
+                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`,
             )
             .leftJoin(TableNames.FACULTY, `${TableNames.PROGRAM}.facultyId`, `${TableNames.FACULTY}.id`)
-            .leftJoin(TableNames.CERTIFICATE_REQUIREMENT, `${TableNames.PROGRAM}.certificateRequirementId`, `${TableNames.CERTIFICATE_REQUIREMENT}.id`)
+            .leftJoin(
+                TableNames.CERTIFICATE_REQUIREMENT,
+                `${TableNames.PROGRAM}.certificateRequirementId`,
+                `${TableNames.CERTIFICATE_REQUIREMENT}.id`,
+            )
             .where(`${TableNames.PROGRAM}.universityId`, universityId);
     }
 
@@ -133,10 +91,14 @@ export class UniversityRepository extends BaseRepository<University, any> {
             .select(
                 `${TableNames.PROGRAM}.*`,
                 `${TableNames.FACULTY}.facultyTitle as facultyName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
+                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`,
             )
             .leftJoin(TableNames.FACULTY, `${TableNames.PROGRAM}.facultyId`, `${TableNames.FACULTY}.id`)
-            .leftJoin(TableNames.CERTIFICATE_REQUIREMENT, `${TableNames.PROGRAM}.certificateRequirementId`, `${TableNames.CERTIFICATE_REQUIREMENT}.id`)
+            .leftJoin(
+                TableNames.CERTIFICATE_REQUIREMENT,
+                `${TableNames.PROGRAM}.certificateRequirementId`,
+                `${TableNames.CERTIFICATE_REQUIREMENT}.id`,
+            )
             .where(`${TableNames.PROGRAM}.facultyId`, facultyId);
     }
 
@@ -145,26 +107,25 @@ export class UniversityRepository extends BaseRepository<University, any> {
             .select(
                 `${TableNames.PROGRAM}.*`,
                 `${TableNames.FACULTY}.facultyTitle as facultyName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
+                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`,
             )
             .leftJoin(TableNames.FACULTY, `${TableNames.PROGRAM}.facultyId`, `${TableNames.FACULTY}.id`)
-            .leftJoin(TableNames.CERTIFICATE_REQUIREMENT, `${TableNames.PROGRAM}.certificateRequirementId`, `${TableNames.CERTIFICATE_REQUIREMENT}.id`)
+            .leftJoin(
+                TableNames.CERTIFICATE_REQUIREMENT,
+                `${TableNames.PROGRAM}.certificateRequirementId`,
+                `${TableNames.CERTIFICATE_REQUIREMENT}.id`,
+            )
             .where(`${TableNames.PROGRAM}.id`, id)
             .first();
     }
 
     async updateProgram(id: string, data: Partial<Program>): Promise<Program> {
-        const [updated] = await this.knex(TableNames.PROGRAM)
-            .where('id', id)
-            .update(data)
-            .returning('*');
+        const [updated] = await this.knex(TableNames.PROGRAM).where('id', id).update(data).returning('*');
         return updated;
     }
 
     async deleteProgram(id: string): Promise<void> {
-        await this.knex(TableNames.PROGRAM)
-            .where('id', id)
-            .delete();
+        await this.knex(TableNames.PROGRAM).where('id', id).delete();
     }
 
     // Certificate Requirement methods
@@ -178,13 +139,13 @@ export class UniversityRepository extends BaseRepository<University, any> {
     }
 
     async getCertificateRequirementById(id: string): Promise<CertificateRequirement | null> {
-        return this.knex(TableNames.CERTIFICATE_REQUIREMENT)
-            .select('*')
-            .where('id', id)
-            .first();
+        return this.knex(TableNames.CERTIFICATE_REQUIREMENT).select('*').where('id', id).first();
     }
 
-    async updateCertificateRequirement(id: string, data: Partial<CertificateRequirement>): Promise<CertificateRequirement> {
+    async updateCertificateRequirement(
+        id: string,
+        data: Partial<CertificateRequirement>,
+    ): Promise<CertificateRequirement> {
         const [updated] = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
             .where('id', id)
             .update(data)
@@ -193,8 +154,6 @@ export class UniversityRepository extends BaseRepository<University, any> {
     }
 
     async deleteCertificateRequirement(id: string): Promise<void> {
-        await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
-            .where('id', id)
-            .delete();
+        await this.knex(TableNames.CERTIFICATE_REQUIREMENT).where('id', id).delete();
     }
 }

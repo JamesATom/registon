@@ -29,7 +29,7 @@ export class SurveyService {
 
     async getOne(id: string): Promise<any> {
         const survey = await this.surveyRepository.getSurveyWithQuestions(id);
-        
+
         if (!survey) {
             return {
                 statusCode: HttpStatus.NOT_FOUND,
@@ -37,7 +37,7 @@ export class SurveyService {
                 data: {},
             };
         }
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: `Survey with ID ${id} retrieved successfully`,
@@ -47,7 +47,7 @@ export class SurveyService {
 
     async update(id: string, updateSurveyDto: UpdateSurveyDto): Promise<any> {
         const survey = await this.surveyRepository.getOne(id);
-        
+
         if (!survey) {
             return {
                 statusCode: HttpStatus.NOT_FOUND,
@@ -55,7 +55,7 @@ export class SurveyService {
                 data: {},
             };
         }
-        
+
         const updatedSurvey = await this.surveyRepository.updateSurvey(id, updateSurveyDto);
 
         return {
@@ -67,7 +67,7 @@ export class SurveyService {
 
     async delete(id: string): Promise<any> {
         const survey = await this.surveyRepository.getOne(id);
-        
+
         if (!survey) {
             return {
                 statusCode: HttpStatus.NOT_FOUND,
@@ -75,9 +75,9 @@ export class SurveyService {
                 data: {},
             };
         }
-        
+
         await this.surveyRepository.deleteSurvey(id);
-        
+
         return {
             statusCode: HttpStatus.OK,
             message: `Survey with ID ${id} deleted successfully`,

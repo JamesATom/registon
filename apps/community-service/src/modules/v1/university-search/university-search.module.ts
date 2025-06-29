@@ -11,18 +11,7 @@ import { ProgramEvent } from './event/program.event';
 import { CertificateRequirementEvent } from './event/certificate-requirement.event';
 
 @Module({
-    controllers: [
-        UniversityEvent,
-        FacultyEvent,
-        ProgramEvent,
-        CertificateRequirementEvent
-    ],
-    providers: [
-        UniversityService,
-        FacultyService,
-        ProgramService,
-        CertificateRequirementService,
-        UniversityRepository
-    ],
+    controllers: [UniversityEvent, FacultyEvent, ProgramEvent, CertificateRequirementEvent],
+    providers: [UniversityService, FacultyService, ProgramService, CertificateRequirementService, UniversityRepository],
 })
 export class UniversitySearchModule {}

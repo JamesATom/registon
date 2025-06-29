@@ -1,51 +1,70 @@
 // faq-category.service.ts
 import { Injectable, HttpStatus } from '@nestjs/common';
-import { FaqCategoryRepository } from '../repository/faq-category.repository';
+import { FaqRepository } from '../repository/faq.repository';
 import { CreateFaqCategoryDto } from '../dto/create-faq-category.dto';
 import { UpdateFaqCategoryDto } from '../dto/update-faq-category.dto';
 
 @Injectable()
 export class FaqCategoryService {
-    constructor(private readonly faqCategoryRepository: FaqCategoryRepository) {}
+    constructor(private readonly faqRepository: FaqRepository) {}
+
+    private formatResponse(statusCode: HttpStatus, message: string, data: any) {
+        return {
+            statusCode,
+            message,
+            data,
+        };
+    }
 
     async create(createFaqCategoryDto: CreateFaqCategoryDto): Promise<any> {
-        return {
-            statusCode: HttpStatus.CREATED,
-            message: 'FAQ category created successfully',
-            data: await this.faqCategoryRepository.create(createFaqCategoryDto),
-        };
+        const createdCategory = await this.faqRepository.createFaqCategory(createFaqCategoryDto);
+        return this.formatResponse(HttpStatus.CREATED, 'FAQ Category created successfully', createdCategory);
     }
 
     async getAll(): Promise<any> {
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'FAQ categories retrieved successfully',
-            data: await this.faqCategoryRepository.getAll(),
-        };
+        const data = await this.faqRepository.getAllCategories();
+        return this.formatResponse(HttpStatus.OK, 'FAQ Categories retrieved successfully', data);
     }
 
     async getOne(id: string): Promise<any> {
-        return {
-            statusCode: HttpStatus.OK,
-            message: `FAQ category with ID ${id} retrieved successfully`,
-            data: await this.faqCategoryRepository.getOne(id),
-        };
+        try {
+            const data = await this.faqRepository.getCategoryById(id);
+            return this.formatResponse(HttpStatus.OK, `FAQ Category with ID ${id} retrieved successfully`, data);
+        } catch (error) {
+            return this.formatResponse(HttpStatus.NOT_FOUND, error.message, null);
+        }
+    }
+
+    async getCategoryWithFaqs(id: string): Promise<any> {
+        try {
+            const data = await this.faqRepository.getCategoryWithFaqs(id);
+            return this.formatResponse(HttpStatus.OK, `FAQ Category with FAQs retrieved successfully`, data);
+        } catch (error) {
+            return this.formatResponse(HttpStatus.NOT_FOUND, error.message, null);
+        }
     }
 
     async update(id: string, updateFaqCategoryDto: UpdateFaqCategoryDto): Promise<any> {
-        return {
-            statusCode: HttpStatus.OK,
-            message: `FAQ category with ID ${id} updated successfully`,
-            data: await this.faqCategoryRepository.update(id, updateFaqCategoryDto),
-        };
+        try {
+            await this.faqRepository.getCategoryById(id);
+            const updatedCategory = await this.faqRepository.updateCategory(id, updateFaqCategoryDto);
+            return this.formatResponse(
+                HttpStatus.OK,
+                `FAQ Category with ID ${id} updated successfully`,
+                updatedCategory,
+            );
+        } catch (error) {
+            return this.formatResponse(HttpStatus.NOT_FOUND, error.message, null);
+        }
     }
 
     async delete(id: string): Promise<any> {
-        await this.faqCategoryRepository.delete(id);
-
-        return {
-            statusCode: HttpStatus.OK,
-            message: `FAQ category with ID ${id} deleted successfully`,
-        };
+        try {
+            await this.faqRepository.getCategoryById(id);
+            await this.faqRepository.deleteCategory(id);
+            return this.formatResponse(HttpStatus.OK, `FAQ Category with ID ${id} deleted successfully`, null);
+        } catch (error) {
+            return this.formatResponse(HttpStatus.NOT_FOUND, error.message, null);
+        }
     }
 }

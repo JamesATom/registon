@@ -8,7 +8,7 @@ import { BranchResponseEntity } from './entity/branch-response.entity';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@Controller({ path: 'branch', version: '1' })
+@Controller({ path: 'branch', version: 'v1' })
 export class BranchController {
     constructor(private readonly branchService: BranchService) {}
 

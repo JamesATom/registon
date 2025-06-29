@@ -33,7 +33,7 @@ export class FaqCategoryService {
                             );
                         }
                         throw new HttpException(
-                            'Failed to create FAQ category',
+                            'Failed to create FAQ Category',
                             HttpStatus.INTERNAL_SERVER_ERROR
                         );
                     })
@@ -48,8 +48,11 @@ export class FaqCategoryService {
                 .pipe(
                     timeout(10000),
                     catchError((error) => {
-                        console.error('Error fetching FAQ categories:', error);
-                        throw new Error('Failed to fetch FAQ categories');
+                        console.error('Error fetching FAQ Categories:', error);
+                        throw new HttpException(
+                            'Failed to retrieve FAQ Categories',
+                            HttpStatus.INTERNAL_SERVER_ERROR
+                        );
                     })
                 ),
         );
@@ -62,8 +65,19 @@ export class FaqCategoryService {
                 .pipe(
                     timeout(10000),
                     catchError((error) => {
-                        console.error('Error fetching FAQ category:', error);
-                        throw new Error('Failed to fetch FAQ category');
+                        if (error && typeof error === 'object' && 'statusCode' in error) {
+                            throw new HttpException(
+                                {
+                                    message: error.message || 'An error occurred',
+                                    statusCode: error.statusCode
+                                },
+                                error.statusCode
+                            );
+                        }
+                        throw new HttpException(
+                            `Failed to retrieve FAQ Category with ID ${id}`,
+                            HttpStatus.INTERNAL_SERVER_ERROR
+                        );
                     })
                 ),
         );
@@ -92,7 +106,7 @@ export class FaqCategoryService {
                             );
                         }
                         throw new HttpException(
-                            'Failed to update FAQ category',
+                            `Failed to update FAQ Category with ID ${id}`,
                             HttpStatus.INTERNAL_SERVER_ERROR
                         );
                     })
@@ -117,7 +131,7 @@ export class FaqCategoryService {
                             );
                         }
                         throw new HttpException(
-                            'Failed to delete FAQ category',
+                            `Failed to delete FAQ Category with ID ${id}`,
                             HttpStatus.INTERNAL_SERVER_ERROR
                         );
                     })

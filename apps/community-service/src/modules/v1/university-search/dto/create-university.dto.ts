@@ -1,5 +1,16 @@
 // create-university.dto.ts
-import { IsBoolean, IsDate, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Length } from 'class-validator';
+import {
+    IsBoolean,
+    IsDate,
+    IsEmail,
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    IsUUID,
+    Length,
+} from 'class-validator';
 import { UniType } from '../enums/university-search.enum';
 
 export class CreateUniversityDto {

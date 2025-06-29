@@ -1,14 +1,6 @@
 // update-survey.dto.ts
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import {
-    IsArray,
-    IsEnum,
-    IsMongoId,
-    IsOptional,
-    IsString,
-    MaxLength,
-    ValidateNested,
-} from 'class-validator';
+import { IsArray, IsEnum, IsMongoId, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class UpdateSurveyQuestionDto {
@@ -49,7 +41,7 @@ export class UpdateSurveyQuestionDto {
     @MaxLength(250)
     @IsOptional()
     commentAdmin?: string;
-    
+
     @ApiPropertyOptional({
         description: 'First answer option',
         maxLength: 50,

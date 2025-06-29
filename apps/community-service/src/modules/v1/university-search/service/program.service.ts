@@ -20,9 +20,9 @@ export class ProgramService {
         const existingUniversity = await this.universityRepository.getUniversityById(universityId);
         if (!existingUniversity) {
             return this.formatResponse(
-                HttpStatus.BAD_REQUEST, 
-                `University with ID ${universityId} does not exist`, 
-                null
+                HttpStatus.BAD_REQUEST,
+                `University with ID ${universityId} does not exist`,
+                null,
             );
         }
         return null;
@@ -30,27 +30,23 @@ export class ProgramService {
 
     private async validateFaculty(facultyId: string) {
         if (!facultyId) return null;
-        
+
         const existingFaculty = await this.universityRepository.getFacultyById(facultyId);
         if (!existingFaculty) {
-            return this.formatResponse(
-                HttpStatus.BAD_REQUEST, 
-                `Faculty with ID ${facultyId} does not exist`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.BAD_REQUEST, `Faculty with ID ${facultyId} does not exist`, null);
         }
         return null;
     }
 
     private async validateCertificateRequirement(certId: string) {
         if (!certId) return null;
-        
+
         const existingCert = await this.universityRepository.getCertificateRequirementById(certId);
         if (!existingCert) {
             return this.formatResponse(
-                HttpStatus.BAD_REQUEST, 
-                `Certificate Requirement with ID ${certId} does not exist`, 
-                null
+                HttpStatus.BAD_REQUEST,
+                `Certificate Requirement with ID ${certId} does not exist`,
+                null,
             );
         }
         return null;
@@ -58,7 +54,7 @@ export class ProgramService {
 
     async create(createProgramDto: CreateProgramDto): Promise<any> {
         const { universityId, facultyId, certificateRequirementId } = createProgramDto;
-        
+
         // Validate university exists
         const universityValidationError = await this.validateUniversity(universityId);
         if (universityValidationError) return universityValidationError;
@@ -72,20 +68,12 @@ export class ProgramService {
         if (certValidationError) return certValidationError;
 
         const program = await this.universityRepository.createProgram(createProgramDto);
-        return this.formatResponse(
-            HttpStatus.CREATED, 
-            'Program created successfully', 
-            program
-        );
+        return this.formatResponse(HttpStatus.CREATED, 'Program created successfully', program);
     }
 
     async getAll(): Promise<any> {
         const programs = await this.universityRepository.getAllPrograms();
-        return this.formatResponse(
-            HttpStatus.OK, 
-            'Programs retrieved successfully', 
-            programs
-        );
+        return this.formatResponse(HttpStatus.OK, 'Programs retrieved successfully', programs);
     }
 
     async getAllByUniversity(universityId: string): Promise<any> {
@@ -95,9 +83,9 @@ export class ProgramService {
 
         const programs = await this.universityRepository.getProgramsByUniversityId(universityId);
         return this.formatResponse(
-            HttpStatus.OK, 
-            `Programs for university ${universityId} retrieved successfully`, 
-            programs
+            HttpStatus.OK,
+            `Programs for university ${universityId} retrieved successfully`,
+            programs,
         );
     }
 
@@ -107,37 +95,21 @@ export class ProgramService {
         if (facultyValidationError) return facultyValidationError;
 
         const programs = await this.universityRepository.getProgramsByFacultyId(facultyId);
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `Programs for faculty ${facultyId} retrieved successfully`, 
-            programs
-        );
+        return this.formatResponse(HttpStatus.OK, `Programs for faculty ${facultyId} retrieved successfully`, programs);
     }
 
     async getOne(id: string): Promise<any> {
         const program = await this.universityRepository.getProgramById(id);
         if (!program) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `Program with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `Program with ID ${id} not found`, null);
         }
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `Program with ID ${id} retrieved successfully`, 
-            program
-        );
+        return this.formatResponse(HttpStatus.OK, `Program with ID ${id} retrieved successfully`, program);
     }
 
     async update(id: string, updateProgramDto: UpdateProgramDto): Promise<any> {
         const existingProgram = await this.universityRepository.getProgramById(id);
         if (!existingProgram) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `Program with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `Program with ID ${id} not found`, null);
         }
 
         // Validate university if provided
@@ -154,33 +126,23 @@ export class ProgramService {
 
         // Validate certificate requirement if provided
         if (updateProgramDto.certificateRequirementId) {
-            const certValidationError = await this.validateCertificateRequirement(updateProgramDto.certificateRequirementId);
+            const certValidationError = await this.validateCertificateRequirement(
+                updateProgramDto.certificateRequirementId,
+            );
             if (certValidationError) return certValidationError;
         }
 
         const updatedProgram = await this.universityRepository.updateProgram(id, updateProgramDto);
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `Program with ID ${id} updated successfully`, 
-            updatedProgram
-        );
+        return this.formatResponse(HttpStatus.OK, `Program with ID ${id} updated successfully`, updatedProgram);
     }
 
     async delete(id: string): Promise<any> {
         const existingProgram = await this.universityRepository.getProgramById(id);
         if (!existingProgram) {
-            return this.formatResponse(
-                HttpStatus.NOT_FOUND, 
-                `Program with ID ${id} not found`, 
-                null
-            );
+            return this.formatResponse(HttpStatus.NOT_FOUND, `Program with ID ${id} not found`, null);
         }
 
         await this.universityRepository.deleteProgram(id);
-        return this.formatResponse(
-            HttpStatus.OK, 
-            `Program with ID ${id} deleted successfully`, 
-            null
-        );
+        return this.formatResponse(HttpStatus.OK, `Program with ID ${id} deleted successfully`, null);
     }
 }

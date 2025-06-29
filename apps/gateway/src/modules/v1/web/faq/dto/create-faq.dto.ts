@@ -1,33 +1,29 @@
 // create-faq.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateFaqDto {
-    @ApiProperty({
-        description: 'FAQ question',
-        example: 'How do I reset my password?',
-        maxLength: 500,
+    @ApiProperty({ 
+        description: 'Question text',
+        example: 'How do I register for an IELTS exam?'
     })
-    @IsNotEmpty()
     @IsString()
-    @MaxLength(500)
+    @IsNotEmpty()
     question: string;
-
-    @ApiProperty({
-        description: 'FAQ answer',
-        example: 'You can reset your password by clicking on the "Forgot Password" link on the login page.',
-        maxLength: 500,
+    
+    @ApiProperty({ 
+        description: 'Answer text',
+        example: 'To register for an IELTS exam, you need to create an account on our website and follow the registration process under the IELTS section.'
     })
-    @IsNotEmpty()
     @IsString()
-    @MaxLength(500)
-    answer: string;
-
-    @ApiProperty({
-        description: 'Category ID',
-        example: 'c86439bf-ef5d-4c57-99d2-3bfb015f6dff',
-    })
     @IsNotEmpty()
-    @IsUUID()
-    categoryId: string;
+    answer: string;
+    
+    @ApiPropertyOptional({ 
+        description: 'FAQ Category ID',
+        example: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab'
+    })
+    @IsString()
+    @IsOptional()
+    categoryId?: string;
 }

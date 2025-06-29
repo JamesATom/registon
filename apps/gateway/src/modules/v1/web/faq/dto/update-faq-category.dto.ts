@@ -1,25 +1,21 @@
 // update-faq-category.dto.ts
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateFaqCategoryDto {
-    @ApiPropertyOptional({
+    @ApiPropertyOptional({ 
         description: 'Category title',
-        example: 'Account Management',
-        maxLength: 50,
+        example: 'IELTS Registration'
     })
-    @IsOptional()
     @IsString()
-    @MaxLength(50)
+    @IsOptional()
     title?: string;
-
-    @ApiPropertyOptional({
+    
+    @ApiPropertyOptional({ 
         description: 'Category description',
-        example: 'Questions related to user account management',
-        maxLength: 250,
+        example: 'Frequently asked questions about IELTS registration process.'
     })
-    @IsOptional()
     @IsString()
-    @MaxLength(250)
+    @IsOptional()
     description?: string;
 }

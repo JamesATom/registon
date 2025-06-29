@@ -5,8 +5,8 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
 import { TableNames } from 'src/common/constants/table-names';
 import { CreateFaqDto } from '../dto/create-faq.dto';
-import { UpdateFaqDto } from '../dto/update-faq.dto';
-import { Faq } from '../interface/faq.interface';
+import { CreateFaqCategoryDto } from '../dto/create-faq-category.dto';
+import { Faq, FaqCategory } from '../interface/faq.interface';
 
 @Injectable()
 export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
@@ -14,111 +14,99 @@ export class FaqRepository extends BaseRepository<Faq, CreateFaqDto> {
         super(knex, TableNames.FAQ);
     }
 
-    async create(dto: CreateFaqDto): Promise<Faq> {
-        try {
-            // Check if the category exists
-            const categoryExists = await this.knex(TableNames.FAQ_CATEGORY).where('id', dto.categoryId).first();
-
-            if (!categoryExists) {
-                throw new RpcException({
-                    message: `Category with ID ${dto.categoryId} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            const created = await super.create(dto);
-            return created[0];
-        } catch (error) {
-            throw new RpcException(error.message || 'Error creating FAQ');
-        }
+    async createFaq(dto: CreateFaqDto): Promise<Faq> {
+        const created = await super.create(dto);
+        return created[0];
     }
 
-    async getAll(): Promise<Faq[]> {
-        try {
-            return await this.knex(this.tableName)
-                .select('*')
-                .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`)
-                .select(
-                    `${this.tableName}.*`,
-                    `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
-                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
-                );
-        } catch (error) {
-            throw new RpcException(error.message || 'Error retrieving FAQs');
-        }
+    async createFaqCategory(categoryData: CreateFaqCategoryDto): Promise<FaqCategory> {
+        const created = await this.knex(TableNames.FAQ_CATEGORY).insert(categoryData).returning('*');
+        return created[0];
     }
 
-    async getOne(id: string): Promise<Faq> {
-        try {
-            const faq = await this.knex(this.tableName)
-                .where(`${this.tableName}.id`, id)
-                .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`)
-                .select(
-                    `${this.tableName}.*`,
-                    `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
-                    `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
-                )
-                .first();
-
-            if (!faq) {
-                throw new RpcException({
-                    message: `FAQ with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            return faq;
-        } catch (error) {
-            throw new RpcException(error.message || 'Error retrieving FAQ');
-        }
+    async getAllFaqs(): Promise<Faq[]> {
+        return super.getAll();
     }
 
-    async update(id: string, dto: UpdateFaqDto): Promise<Faq> {
-        try {
-            // Check if the FAQ exists
-            const faqExists = await this.knex(this.tableName).where('id', id).first();
+    async getAllFaqsWithCategory(): Promise<any[]> {
+        const results = await this.knex(this.tableName)
+            .select(
+                `${this.tableName}.*`,
+                `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
+                `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
+            )
+            .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`);
 
-            if (!faqExists) {
-                throw new RpcException({
-                    message: `FAQ with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
-
-            // If category ID is provided, check if it exists
-            if (dto.categoryId) {
-                const categoryExists = await this.knex(TableNames.FAQ_CATEGORY).where('id', dto.categoryId).first();
-
-                if (!categoryExists) {
-                    throw new RpcException({
-                        message: `Category with ID ${dto.categoryId} not found`,
-                        statusCode: 404,
-                    });
-                }
-            }
-
-            const updated = await super.update(id, dto);
-            return updated[0];
-        } catch (error) {
-            throw new RpcException(error.message || 'Error updating FAQ');
-        }
+        return results;
     }
 
-    async delete(id: string): Promise<void> {
-        try {
-            // Check if the FAQ exists
-            const faqExists = await this.knex(this.tableName).where('id', id).first();
+    async getFaqById(id: string): Promise<Faq | null> {
+        return super.getOne(id);
+    }
 
-            if (!faqExists) {
-                throw new RpcException({
-                    message: `FAQ with ID ${id} not found`,
-                    statusCode: 404,
-                });
-            }
+    async getFaqWithCategory(id: string): Promise<any> {
+        const result = await this.knex(this.tableName)
+            .select(
+                `${this.tableName}.*`,
+                `${TableNames.FAQ_CATEGORY}.title as categoryTitle`,
+                `${TableNames.FAQ_CATEGORY}.description as categoryDescription`,
+            )
+            .leftJoin(TableNames.FAQ_CATEGORY, `${this.tableName}.categoryId`, `${TableNames.FAQ_CATEGORY}.id`)
+            .where(`${this.tableName}.id`, id)
+            .first();
 
-            await super.delete(id);
-        } catch (error) {
-            throw new RpcException(error.message || 'Error deleting FAQ');
+        return result;
+    }
+
+    async updateFaq(id: string, dto: Partial<Faq>): Promise<Faq> {
+        const updated = await super.update(id, dto);
+        return updated[0];
+    }
+
+    async deleteFaq(id: string): Promise<void> {
+        await super.delete(id);
+    }
+
+    async getAllCategories(): Promise<FaqCategory[]> {
+        const categories = await this.knex(TableNames.FAQ_CATEGORY).select('*');
+        return categories;
+    }
+
+    async getCategoryById(id: string): Promise<FaqCategory> {
+        const category = await this.knex(TableNames.FAQ_CATEGORY).where('id', id).first();
+
+        if (!category) {
+            throw new RpcException({
+                message: `FAQ Category with ID ${id} not found`,
+                statusCode: 404,
+            });
         }
+
+        return category;
+    }
+
+    async getCategoryWithFaqs(id: string): Promise<any> {
+        const category = await this.knex(TableNames.FAQ_CATEGORY).where(`${TableNames.FAQ_CATEGORY}.id`, id).first();
+
+        if (!category) {
+            throw new RpcException({
+                message: `FAQ Category with ID ${id} not found`,
+                statusCode: 404,
+            });
+        }
+
+        const faqs = await this.knex(this.tableName).where('categoryId', id).select('*');
+
+        return { ...category, faqs };
+    }
+
+    async updateCategory(id: string, dto: Partial<FaqCategory>): Promise<FaqCategory> {
+        const updated = await this.knex(TableNames.FAQ_CATEGORY).where('id', id).update(dto).returning('*');
+
+        return updated[0];
+    }
+
+    async deleteCategory(id: string): Promise<void> {
+        await this.knex(TableNames.FAQ_CATEGORY).where('id', id).delete();
     }
 }

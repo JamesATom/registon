@@ -49,7 +49,10 @@ export class FaqService {
                     timeout(10000),
                     catchError((error) => {
                         console.error('Error fetching FAQs:', error);
-                        throw new Error('Failed to fetch FAQs');
+                        throw new HttpException(
+                            'Failed to retrieve FAQs',
+                            HttpStatus.INTERNAL_SERVER_ERROR
+                        );
                     })
                 ),
         );
@@ -62,8 +65,19 @@ export class FaqService {
                 .pipe(
                     timeout(10000),
                     catchError((error) => {
-                        console.error('Error fetching FAQ:', error);
-                        throw new Error('Failed to fetch FAQ');
+                        if (error && typeof error === 'object' && 'statusCode' in error) {
+                            throw new HttpException(
+                                {
+                                    message: error.message || 'An error occurred',
+                                    statusCode: error.statusCode
+                                },
+                                error.statusCode
+                            );
+                        }
+                        throw new HttpException(
+                            `Failed to retrieve FAQ with ID ${id}`,
+                            HttpStatus.INTERNAL_SERVER_ERROR
+                        );
                     })
                 ),
         );
@@ -92,7 +106,7 @@ export class FaqService {
                             );
                         }
                         throw new HttpException(
-                            'Failed to update FAQ',
+                            `Failed to update FAQ with ID ${id}`,
                             HttpStatus.INTERNAL_SERVER_ERROR
                         );
                     })
@@ -117,7 +131,7 @@ export class FaqService {
                             );
                         }
                         throw new HttpException(
-                            'Failed to delete FAQ',
+                            `Failed to delete FAQ with ID ${id}`,
                             HttpStatus.INTERNAL_SERVER_ERROR
                         );
                     })

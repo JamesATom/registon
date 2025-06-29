@@ -16,35 +16,29 @@ export class StoryRepository extends BaseRepository<Story, CreateStoryDto> {
 
     async create(dto: CreateStoryDto): Promise<any> {
         const { items = [], ...storyData } = dto;
-        
-        return this.knex.transaction(async (trx) => {
-            const [createdStory] = await trx(TableNames.STORY)
-                .insert(storyData)
-                .returning('*');
-            
+
+        return this.knex.transaction(async trx => {
+            const [createdStory] = await trx(TableNames.STORY).insert(storyData).returning('*');
+
             if (items.length > 0) {
                 const storyItems = items.map(item => ({
                     ...item,
-                    storyId: createdStory.id
+                    storyId: createdStory.id,
                 }));
-                
-                await trx(TableNames.STORY_ITEM)
-                    .insert(storyItems);
+
+                await trx(TableNames.STORY_ITEM).insert(storyItems);
             }
-            
-            const story = await trx(TableNames.STORY)
-                .select('*')
-                .where('id', createdStory.id)
-                .first();
-                
+
+            const story = await trx(TableNames.STORY).select('*').where('id', createdStory.id).first();
+
             const storyItems = await trx(TableNames.STORY_ITEM)
                 .select('*')
                 .where('storyId', createdStory.id)
                 .orderBy('orderNumber', 'asc');
-            
+
             return {
                 ...story,
-                items: storyItems
+                items: storyItems,
             };
         });
     }
@@ -55,60 +49,54 @@ export class StoryRepository extends BaseRepository<Story, CreateStoryDto> {
 
     async getOne(id: string): Promise<Story | null> {
         const story = await super.getOne(id);
-        
+
         if (!story) {
             return null;
         }
-        
+
         const storyItems = await this.knex(TableNames.STORY_ITEM)
             .select('*')
             .where('storyId', id)
             .orderBy('orderNumber', 'asc');
-        
+
         return {
             ...story,
-            items: storyItems
+            items: storyItems,
         };
     }
 
     async update(id: string, dto: UpdateStoryDto): Promise<any> {
         const { items, ...storyData } = dto;
-        
-        return this.knex.transaction(async (trx) => {
+
+        return this.knex.transaction(async trx => {
             await trx(TableNames.STORY)
                 .where('id', id)
                 .update({
                     ...storyData,
-                    updatedAt: this.knex.fn.now()
+                    updatedAt: this.knex.fn.now(),
                 });
-                
+
             if (items && items.length > 0) {
-                await trx(TableNames.STORY_ITEM)
-                    .where('storyId', id)
-                    .delete();
-                
+                await trx(TableNames.STORY_ITEM).where('storyId', id).delete();
+
                 const storyItems = items.map(item => ({
                     ...item,
-                    storyId: id
+                    storyId: id,
                 }));
-                
-                await trx(TableNames.STORY_ITEM)
-                    .insert(storyItems);
+
+                await trx(TableNames.STORY_ITEM).insert(storyItems);
             }
-            
-            const result = await trx(TableNames.STORY)
-                .select('*')
-                .where('id', id)
-                .first();
-                
+
+            const result = await trx(TableNames.STORY).select('*').where('id', id).first();
+
             const storyItems = await trx(TableNames.STORY_ITEM)
                 .select('*')
                 .where('storyId', id)
                 .orderBy('orderNumber', 'asc');
-            
+
             return {
                 ...result,
-                items: storyItems
+                items: storyItems,
             };
         });
     }
