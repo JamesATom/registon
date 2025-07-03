@@ -41,10 +41,10 @@ export class NewsCategoryService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.NewsCategory.V1.GET_ALL, {})
+                .send(MessagePatterns.NewsCategory.V1.GET_ALL, paginationParams || {})
                 .pipe(
                     timeout(10000),
                     catchError((error) => {

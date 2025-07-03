@@ -20,8 +20,8 @@ export class IeltsRegisterRepository extends BaseRepository<IeltsExam, CreateIel
         await this.knex(TableNames.IELTS_REGISTRATION_STUDENT).insert(dto).returning('*');
     }
 
-    async getAll(): Promise<any> {
-        return super.getAll();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return super.getAll(paginationParams);
     }
 
     async getOne(id: string): Promise<any> {

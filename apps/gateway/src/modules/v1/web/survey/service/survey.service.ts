@@ -83,9 +83,15 @@ export class SurveyService {
         );
     }
 
-    async getAll(userId: string): Promise<CommonEntity> {
+    async getAll(userId: string, paginationParams?: { page?: number; limit?: number }): Promise<CommonEntity> {
+        // Create filter object with userId and pagination
+        const filter = { 
+            userId,
+            ...(paginationParams || {})
+        };
+        
         return firstValueFrom(
-            this.client.send(MessagePatterns.Survey.V1.GET_ALL, userId).pipe(
+            this.client.send(MessagePatterns.Survey.V1.GET_ALL, filter).pipe(
                 timeout(10000),
                 catchError((error) => {
                     console.error('Error fetching surveys:', error);

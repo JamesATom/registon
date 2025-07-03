@@ -16,8 +16,8 @@ export class UniversityEvent {
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.University.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.universityService.getAll();
+    async getAll(@Payload() payload?: { page?: number; limit?: number }): Promise<any> {
+        return this.universityService.getAll(payload);
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.University.GET_ONE)

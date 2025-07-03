@@ -81,10 +81,10 @@ export class UniversityService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.UniversitySearch.V1.University.GET_ALL, {})
+                .send(MessagePatterns.UniversitySearch.V1.University.GET_ALL, paginationParams || {})
                 .pipe(
                     timeout(10000),
                     catchError((error) => {

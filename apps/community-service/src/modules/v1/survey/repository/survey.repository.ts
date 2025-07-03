@@ -38,8 +38,39 @@ export class SurveyRepository extends BaseRepository<Survey, any> {
         });
     }
 
-    async getSurveys(filter?: SurveyFilterDto): Promise<any> {
-        return super.getAll();
+    async getSurveys(filter?: SurveyFilterDto & { page?: number; limit?: number }): Promise<{ data: Survey[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        const { page, limit, ...restFilter } = filter || {};
+        
+        if (Object.keys(restFilter || {}).length > 0) {
+            const query = this.knex(this.tableName);
+            
+            // Apply filters
+            Object.entries(restFilter).forEach(([key, value]) => {
+                if (value !== undefined) {
+                    query.where(key, value);
+                }
+            });
+
+            const [totalItems] = await query.clone().count('* as count');
+            const data = await query
+                .select('*')
+                .offset(((page || 1) - 1) * (limit || 10))
+                .limit(limit || 10);
+
+            const totalPages = Math.ceil(Number(totalItems.count) / (limit || 10));
+
+            return {
+                data,
+                pagination: {
+                    totalItems: Number(totalItems.count),
+                    itemsPerPage: limit || 10,
+                    currentPage: page || 1,
+                    totalPages,
+                }
+            };
+        }
+
+        return super.getAll({ page, limit });
     }
 
     async getSurveyWithQuestions(id: string): Promise<any> {

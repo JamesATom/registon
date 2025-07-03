@@ -1,6 +1,6 @@
 // city.controller.ts
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards, ParseUUIDPipe } from '@nestjs/common';
-import { ApiOkResponse, ApiCreatedResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards, ParseUUIDPipe } from '@nestjs/common';
+import { ApiOkResponse, ApiCreatedResponse, ApiTags, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CommonEntity } from 'src/common/libs/common.entity';
 import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete } from 'src/common/swagger/common-swagger';
@@ -18,14 +18,19 @@ export class CityController {
     @Get()
     @ApiGetAll('City', CommonEntity)
     @ApiOkResponse({ type: [CommonEntity] })
-    async findAll() {
-        return this.cityService.getAll();
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number for pagination' })
+    @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of items per page' })
+    async getAll(
+        @Query('page') page?: number,
+        @Query('limit') limit?: number,
+    ) {
+        return this.cityService.getAll({ page, limit });
     }
 
     @Get(':id')
     @ApiGetOne('City')
     @ApiOkResponse({ type: CommonEntity })
-    async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    async getOne(@Param('id', ParseUUIDPipe) id: string) {
         return this.cityService.getOne(id);
     }
 

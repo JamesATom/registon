@@ -37,8 +37,8 @@ export class NewsService {
         return this.formatResponse(HttpStatus.CREATED, 'News created successfully', createdNews);
     }
 
-    async getAll(): Promise<any> {
-        const data = await this.newsRepository.getAllNews();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const data = await this.newsRepository.getAllNews(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'News retrieved successfully', data);
     }
 

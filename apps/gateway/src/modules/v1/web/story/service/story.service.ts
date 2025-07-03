@@ -31,7 +31,7 @@ export class StoryService {
     }
 
     async generatePresignedUploadUrl({ filename, contentType }: CreatePresignedUrlDto): Promise<CommonEntity> {
-        const key = `stories/${uuidv4()}-${filename}`;
+        const key = `story/${uuidv4()}-${filename}`;
 
         const command = new PutObjectCommand({
             Bucket: this.BUCKET,
@@ -65,9 +65,11 @@ export class StoryService {
         );
     }
 
-    async getAll(filter: FilterStoryDto): Promise<CommonEntity> {
+    async getAll(filter: FilterStoryDto, pagination?: { page?: number; limit?: number }): Promise<CommonEntity> {
+        const payload = { ...filter, ...pagination };
+        
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.GET_ALL, filter).pipe(
+            this.client.send(MessagePatterns.Story.V1.GET_ALL, payload).pipe(
                 timeout(this.REQUEST_TIMEOUT),
                 catchError((error) => {
                     throw error;

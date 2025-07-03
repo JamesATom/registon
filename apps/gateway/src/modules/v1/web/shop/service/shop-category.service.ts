@@ -32,10 +32,10 @@ export class ShopCategoryService {
         }
     }
 
-    async getAll() {
+    async getAll(paginationParams?: { page?: number; limit?: number }) {
         try {
             return await firstValueFrom(
-                this.client.send(MessagePatterns.Shop.V1.Category.GET_ALL, {}).pipe(
+                this.client.send(MessagePatterns.Shop.V1.Category.GET_ALL, paginationParams || {}).pipe(
                     timeout(5000),
                     catchError((error) => {
                         throw error;

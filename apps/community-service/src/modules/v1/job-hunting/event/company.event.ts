@@ -16,8 +16,8 @@ export class CompanyEvent {
     }
 
     @MessagePattern(MessagePatterns.Company.V1.GET_ALL)
-    async getAllCompanies(): Promise<any> {
-        return this.companyService.getAllCompanies();
+    async getAllCompanies(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.companyService.getAllCompanies(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.Company.V1.GET_ONE)

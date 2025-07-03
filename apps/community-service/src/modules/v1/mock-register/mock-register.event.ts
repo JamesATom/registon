@@ -16,8 +16,8 @@ export class MockRegisterEvent {
     }
 
     @MessagePattern(MessagePatterns.MockRegister.V1.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.mockRegisterService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.mockRegisterService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.MockRegister.V1.GET_ONE)

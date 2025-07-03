@@ -16,8 +16,8 @@ export class FacultyEvent {
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.Faculty.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.facultyService.getAll();
+    async getAll(@Payload() payload?: { page?: number; limit?: number }): Promise<any> {
+        return this.facultyService.getAll(payload);
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.Faculty.GET_ALL_BY_UNIVERSITY)

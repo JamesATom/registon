@@ -17,8 +17,28 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return category;
     }
 
-    async getAllCategories(): Promise<ShopCategory[]> {
-        return this.knex(TableNames.SHOP_CATEGORY).select('*');
+    async getAllCategories(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopCategory[]; pagination: any }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(TableNames.SHOP_CATEGORY).count('* as count');
+        const data = await this.knex(TableNames.SHOP_CATEGORY)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getCategoryById(id: string): Promise<ShopCategory | null> {
@@ -50,8 +70,28 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return product;
     }
 
-    async getAllProducts(): Promise<ShopProduct[]> {
-        return this.knex(TableNames.SHOP_PRODUCT).select('*');
+    async getAllProducts(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopProduct[]; pagination: any }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(TableNames.SHOP_PRODUCT).count('* as count');
+        const data = await this.knex(TableNames.SHOP_PRODUCT)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getProductById(id: string): Promise<ShopProduct | null> {
@@ -89,8 +129,28 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return order;
     }
 
-    async getAllOrders(): Promise<ShopOrder[]> {
-        return this.knex(TableNames.SHOP_ORDER).select('*');
+    async getAllOrders(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopOrder[]; pagination: any }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(TableNames.SHOP_ORDER).count('* as count');
+        const data = await this.knex(TableNames.SHOP_ORDER)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getOrderById(id: string): Promise<ShopOrder | null> {

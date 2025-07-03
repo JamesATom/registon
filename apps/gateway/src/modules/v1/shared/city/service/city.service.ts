@@ -10,9 +10,9 @@ import { UpdateCityDto } from '../dto/update-city.dto';
 export class CityService {
     constructor(@Inject('COMMUNITY_SERVICE') private readonly client: ClientProxy) {}
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
-            this.client.send(MessagePatterns.City.V1.GET_ALL, {})
+            this.client.send(MessagePatterns.City.V1.GET_ALL, paginationParams || {})
             .pipe(
                 timeout(10000),
                 catchError((error) => {

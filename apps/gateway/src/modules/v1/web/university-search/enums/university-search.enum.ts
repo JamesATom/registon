@@ -1,29 +1,29 @@
 // university-search.enum.ts
 export enum UniType {
-    LOCAL = 'Local',
-    INTERNATIONAL = 'International',
-    FOREIGN = 'Foreign'
+    LOCAL = 'LOCAL',
+    INTERNATIONAL = 'INTERNATIONAL',
+    FOREIGN = 'FOREIGN'
 }
 
 export enum StudyLanguage {
-    UZBEK = 'Uzbek',
-    RUSSIAN = 'Russian',
-    ENGLISH = 'English'
+    UZBEK = 'UZBEK',
+    RUSSIAN = 'RUSSIAN',
+    ENGLISH = 'ENGLISH'
 }
 
 export enum Degree {
-    BACHELOR = 'Bachelor',
-    MASTER = 'Master',
-    DOCTORATE = 'Doctorate',
-    ASSOCIATE = 'Associate',
-    PHD = 'Phd'
+    BACHELOR = 'BACHELOR',
+    MASTER = 'MASTER',
+    DOCTORATE = 'DOCTORATE',
+    ASSOCIATE = 'ASSOCIATE', 
+    PHD = 'PHD'
 }
 
 export enum StudyType {
-    FULL_TIME = 'FullTime',
-    PART_TIME = 'PartTime',
-    REMOTE = 'Remote',
-    HYBRID = 'Hybrid'
+    FULL_TIME = 'FULL_TIME',
+    PART_TIME = 'PART_TIME',
+    REMOTE = 'REMOTE',
+    HYBRID = 'HYBRID'
 }
 
 // Additional enum types from the migration

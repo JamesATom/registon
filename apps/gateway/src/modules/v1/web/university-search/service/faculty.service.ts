@@ -41,10 +41,10 @@ export class FacultyService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(options?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.UniversitySearch.V1.Faculty.GET_ALL, {})
+                .send(MessagePatterns.UniversitySearch.V1.Faculty.GET_ALL, options || {})
                 .pipe(
                     timeout(10000),
                     catchError((error) => {

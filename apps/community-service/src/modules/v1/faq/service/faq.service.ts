@@ -37,8 +37,8 @@ export class FaqService {
         return this.formatResponse(HttpStatus.CREATED, 'FAQ created successfully', createdFaq);
     }
 
-    async getAll(): Promise<any> {
-        const data = await this.faqRepository.getAllFaqsWithCategory();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const data = await this.faqRepository.getAllFaqsWithCategory(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'FAQs retrieved successfully', data);
     }
 

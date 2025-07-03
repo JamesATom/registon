@@ -16,8 +16,8 @@ export class NewsCategoryEvent {
     }
 
     @MessagePattern(MessagePatterns.NewsCategory.V1.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.newsCategoryService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.newsCategoryService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.NewsCategory.V1.GET_ONE)

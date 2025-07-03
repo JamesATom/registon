@@ -21,8 +21,8 @@ export class UniversityService {
         return this.formatResponse(HttpStatus.CREATED, 'University created successfully', university);
     }
 
-    async getAll(): Promise<any> {
-        const universities = await this.universityRepository.getAllUniversities();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const universities = await this.universityRepository.getAllUniversities(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Universities retrieved successfully', universities);
     }
 

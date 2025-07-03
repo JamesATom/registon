@@ -1,6 +1,7 @@
 // story.service.ts
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { CommonEntity } from 'src/common/libs/common.entity';
+import { ServiceResponse } from 'src/common/interfaces/service-response.interface';
 import { StoryRepository } from '../repository/story.repository';
 import { CreateStoryDto } from '../dto/create-story.dto';
 import { FilterStoryDto } from '../dto/filter-story.dto';
@@ -20,13 +21,14 @@ export class StoryService {
         };
     }
 
-    async getAll(filter: FilterStoryDto): Promise<CommonEntity> {
-        const stories = await this.storyRepository.getAll();
+    async getAll(filter: FilterStoryDto & { page?: number; limit?: number }): Promise<ServiceResponse<any>> {
+        const result = await this.storyRepository.getAll(filter);
 
         return {
             statusCode: HttpStatus.OK,
             message: 'Stories retrieved successfully',
-            data: stories,
+            data: result.data,
+            pagination: result.pagination,
         };
     }
 

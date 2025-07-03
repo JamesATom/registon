@@ -16,8 +16,8 @@ export class JobHuntingEvent {
     }
 
     @MessagePattern(MessagePatterns.JobHunting.V1.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.jobHuntingService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.jobHuntingService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.JobHunting.V1.GET_ONE)

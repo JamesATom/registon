@@ -21,8 +21,8 @@ export class ShopCategoryService {
         return this.formatResponse(HttpStatus.CREATED, 'Shop category created successfully', category);
     }
 
-    async getAll(): Promise<any> {
-        const categories = await this.shopRepository.getAllCategories();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const categories = await this.shopRepository.getAllCategories(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Shop categories retrieved successfully', categories);
     }
 

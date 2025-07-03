@@ -21,8 +21,8 @@ export class NewsCategoryService {
         return this.formatResponse(HttpStatus.CREATED, 'News Category created successfully', createdCategory);
     }
 
-    async getAll(): Promise<any> {
-        const data = await this.newsRepository.getAllCategories();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const data = await this.newsRepository.getAllCategories(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'News Categories retrieved successfully', data);
     }
 

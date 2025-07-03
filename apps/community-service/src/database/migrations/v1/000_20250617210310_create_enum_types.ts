@@ -18,77 +18,77 @@ export async function up(knex: Knex): Promise<void> {
     // Work Experience enum
     await knex.raw(`
 		CREATE TYPE "WorkExperience" AS ENUM (
-			'Experience13',
-			'Experience36',
-			'Experience6Plus',
-			'NoExperience'
+			'1-3',
+			'3-6',
+			'6+',
+			'NO EXPERIENCE'
 		)
   `);
 
     // Work Schedule Hours enum
     await knex.raw(`
 		CREATE TYPE "WorkScheduleHours" AS ENUM (
-			'Schedule61',
-			'Schedule52',
-			'Weekends',
-			'Free',
-			'Other'
+      '6/1',
+      '5/2',
+      'WEEKENDS',
+      'FREE',
+      'OTHER'
 		)
   `);
 
     // Employment Type enum
     await knex.raw(`
 		CREATE TYPE "EmploymentType" AS ENUM (
-			'Full',
-			'Part'
+			'FULL',
+      'PART'
 		)
   `);
 
     // Work Mode enum
     await knex.raw(`
 		CREATE TYPE "WorkMode" AS ENUM (
-			'Offline',
-			'Online',
-			'Hybrid'
+			'OFFLINE',
+      'ONLINE',
+      'HYBRID'
 		)
   `);
 
     // Degree enum
     await knex.raw(`
 		CREATE TYPE "Degree" AS ENUM (
-			'Bachelor',
-			'Master',
-			'Doctorate',
-			'Associate',
-			'Phd'
+      'BACHELOR',
+      'MASTER', 
+      'DOCTORATE',
+      'ASSOCIATE',
+      'PHD'
 		)
   `);
 
     // University Type enum
     await knex.raw(`
 		CREATE TYPE "UniType" AS ENUM (
-			'Local',
-			'International',
-			'Foreign'
+      'LOCAL',
+      'INTERNATIONAL',
+      'FOREIGN'
 		)
   `);
 
     // Study Language enum
     await knex.raw(`
 		CREATE TYPE "StudyLanguage" AS ENUM (
-			'Uzbek',
-			'Russian',
-			'English'
+      'UZBEK',
+			'RUSSIAN',
+			'ENGLISH'
 		)
   `);
 
     // Study Type enum
     await knex.raw(`
 		CREATE TYPE "StudyType" AS ENUM (
-			'FullTime',
-			'PartTime',
-			'Remote',
-			'Hybrid'
+			'FULL_TIME',
+			'PART_TIME',
+			'REMOTE',
+			'HYBRID'
 		)
   `);
 }

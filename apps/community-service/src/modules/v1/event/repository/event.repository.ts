@@ -22,8 +22,37 @@ export class EventRepository extends BaseRepository<Event, CreateEventDto> {
         await this.knex(TableNames.EVENT_REGISTRATION_STUDENT).insert(dto).returning('*');
     }
 
-    async getAll(filter?: EventFilterDto): Promise<any> {
-        return super.getAll();
+    async getAll(filter?: EventFilterDto & { page?: number; limit?: number }): Promise<{ data: Event[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        const { page, limit, ...restFilter } = filter || {};
+        
+        // If there are any filter conditions, apply them
+        if (Object.keys(restFilter || {}).length > 0) {
+            const [totalItems] = await this.knex(this.tableName)
+                .where(restFilter)
+                .count('* as count');
+            
+            const offset = ((page || 1) - 1) * (limit || 10);
+            const data = await this.knex(this.tableName)
+                .where(restFilter)
+                .select('*')
+                .offset(offset)
+                .limit(limit || 10);
+
+            const totalPages = Math.ceil(Number(totalItems.count) / (limit || 10));
+
+            return {
+                data,
+                pagination: {
+                    totalItems: Number(totalItems.count),
+                    itemsPerPage: limit || 10,
+                    currentPage: page || 1,
+                    totalPages,
+                }
+            };
+        }
+
+        // If no filters, use base implementation
+        return super.getAll({ page, limit });
     }
 
     async getOne(id: string): Promise<any> {

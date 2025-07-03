@@ -22,8 +22,8 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
         return created[0];
     }
 
-    async getAll(): Promise<JobHunting[]> {
-        return super.getAll();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<{ data: JobHunting[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        return super.getAll(paginationParams);
     }
 
     async getOne(id: string): Promise<JobHunting | null> {
@@ -59,17 +59,55 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
         return result;
     }
 
-    async getAllWithCompanyDetails(): Promise<any[]> {
-        const results = await this.knex(this.tableName)
+    async getAllWithCompanyDetails(paginationParams?: { page?: number; limit?: number }): Promise<{ data: any[]; pagination: any }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const query = this.knex(this.tableName)
             .select(`${this.tableName}.*`, `${TableNames.COMPANY}.companyTitle`, `${TableNames.COMPANY}.companyLogo`)
             .leftJoin(TableNames.COMPANY, `${this.tableName}.companyId`, `${TableNames.COMPANY}.id`);
 
-        return results;
+        const [totalItems] = await query.clone().count('* as count');
+        const data = await query
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
-    async getAllCompanies(): Promise<Company[]> {
-        const companies = await this.knex(TableNames.COMPANY).select('*');
-        return companies;
+    async getAllCompanies(paginationParams?: { page?: number; limit?: number }): Promise<{ data: Company[]; meta: any }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(TableNames.COMPANY).count('* as count');
+        const data = await this.knex(TableNames.COMPANY)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            meta: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getCompany(id: string): Promise<Company> {

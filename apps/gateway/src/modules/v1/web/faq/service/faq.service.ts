@@ -41,10 +41,10 @@ export class FaqService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.Faq.V1.GET_ALL, {})
+                .send(MessagePatterns.Faq.V1.GET_ALL, paginationParams || {})
                 .pipe(
                     timeout(10000),
                     catchError((error) => {

@@ -1,25 +1,37 @@
 // university-search.enum.ts
 export enum UniType {
-    PUBLIC = 'PUBLIC',
-    PRIVATE = 'PRIVATE',
+    LOCAL = 'LOCAL',
     INTERNATIONAL = 'INTERNATIONAL',
+    FOREIGN = 'FOREIGN'
 }
 
 export enum StudyLanguage {
-    ENGLISH = 'ENGLISH',
     UZBEK = 'UZBEK',
     RUSSIAN = 'RUSSIAN',
-    MIXED = 'MIXED',
+    ENGLISH = 'ENGLISH'
 }
 
 export enum Degree {
     BACHELOR = 'BACHELOR',
     MASTER = 'MASTER',
-    PHD = 'PHD',
+    DOCTORATE = 'DOCTORATE',
+    ASSOCIATE = 'ASSOCIATE',
+    PHD = 'PHD'
 }
 
 export enum StudyType {
     FULL_TIME = 'FULL_TIME',
     PART_TIME = 'PART_TIME',
-    DISTANCE = 'DISTANCE',
+    REMOTE = 'REMOTE',
+    HYBRID = 'HYBRID'
+}
+
+export enum CourseLevel {
+    BEGINNER = 'BEGINNER',
+    ELEMENTARY = 'ELEMENTARY',
+    PRE_INTERMEDIATE = 'PRE_INTERMEDIATE',
+    INTERMEDIATE = 'INTERMEDIATE',
+    UPPER_INTERMEDIATE = 'UPPER_INTERMEDIATE',
+    ADVANCED = 'ADVANCED',
+    PROFICIENCY = 'PROFICIENCY'
 }

@@ -16,8 +16,8 @@ export class FaqCategoryEvent {
     }
 
     @MessagePattern(MessagePatterns.FaqCategory.V1.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.faqCategoryService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.faqCategoryService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.FaqCategory.V1.GET_ONE)

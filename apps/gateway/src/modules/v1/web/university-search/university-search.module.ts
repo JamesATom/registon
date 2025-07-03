@@ -4,7 +4,7 @@ import { CommunityService } from 'src/microservices';
 import { UniversityController } from './controller/university.controller';
 import { FacultyController } from './controller/faculty.controller';
 import { ProgramController } from './controller/program.controller';
-import { CertificateRequirementController } from './controller/certificate-requirement.controller';
+// import { CertificateRequirementController } from './controller/certificate-requirement.controller';
 import { UniversityService } from './service/university.service';
 import { FacultyService } from './service/faculty.service';
 import { ProgramService } from './service/program.service';
@@ -16,7 +16,7 @@ import { CertificateRequirementService } from './service/certificate-requirement
         UniversityController, 
         FacultyController, 
         ProgramController, 
-        CertificateRequirementController
+        // CertificateRequirementController
     ],
     providers: [
         UniversityService, 

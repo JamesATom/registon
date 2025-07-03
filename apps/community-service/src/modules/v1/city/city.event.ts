@@ -16,8 +16,8 @@ export class CityController {
     }
 
     @MessagePattern(MessagePatterns.City.V1.GET_ALL)
-    async getAll() {
-        return this.cityService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }) {
+        return this.cityService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.City.V1.GET_ONE)

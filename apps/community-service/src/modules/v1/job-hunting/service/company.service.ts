@@ -16,8 +16,8 @@ export class CompanyService {
         };
     }
 
-    async getAllCompanies(): Promise<any> {
-        const companies = await this.jobHuntingRepository.getAllCompanies();
+    async getAllCompanies(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const companies = await this.jobHuntingRepository.getAllCompanies(paginationParams);
         return {
             statusCode: HttpStatus.OK,
             message: 'Companies retrieved successfully',

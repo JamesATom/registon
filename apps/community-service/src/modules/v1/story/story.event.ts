@@ -17,7 +17,7 @@ export class StoryEvent {
     }
 
     @MessagePattern(MessagePatterns.Story.V1.GET_ALL)
-    async getAll(@Payload() filter: FilterStoryDto) {
+    async getAll(@Payload() filter: FilterStoryDto & { page?: number; limit?: number }) {
         return this.storyService.getAll(filter);
     }
 

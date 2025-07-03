@@ -28,8 +28,8 @@ export class ShopProductService {
         }
     }
 
-    async getAll(): Promise<any> {
-        const products = await this.shopRepository.getAllProducts();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const products = await this.shopRepository.getAllProducts(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Shop products retrieved successfully', products);
     }
 

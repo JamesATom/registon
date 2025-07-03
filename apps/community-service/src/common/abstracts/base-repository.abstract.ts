@@ -15,8 +15,28 @@ export abstract class BaseRepository<T, C> {
         return created;
     }
 
-    async getAll(): Promise<T[]> {
-        return this.knex(this.tableName).select('*');
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<{ data: T[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(this.tableName).count('* as count');
+        const data = await this.knex(this.tableName)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getOne(id: string): Promise<T | null> {

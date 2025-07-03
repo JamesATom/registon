@@ -71,8 +71,8 @@ export class ProgramService {
         return this.formatResponse(HttpStatus.CREATED, 'Program created successfully', program);
     }
 
-    async getAll(): Promise<any> {
-        const programs = await this.universityRepository.getAllPrograms();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const programs = await this.universityRepository.getAllPrograms(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Programs retrieved successfully', programs);
     }
 

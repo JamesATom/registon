@@ -34,10 +34,10 @@ export class MockRegisterService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.MockRegister.V1.GET_ALL, {})
+                .send(MessagePatterns.MockRegister.V1.GET_ALL, paginationParams || {})
                 .pipe(timeout(10000), catchError((error) => {
                     console.error('Error fetching mock registrations:', error);
                     throw new Error('Failed to fetch mock registrations');

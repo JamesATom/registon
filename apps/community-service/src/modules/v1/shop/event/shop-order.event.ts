@@ -16,8 +16,8 @@ export class ShopOrderEvent {
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Order.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.shopOrderService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.shopOrderService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Order.GET_ONE)

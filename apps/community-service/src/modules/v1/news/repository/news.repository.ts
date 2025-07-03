@@ -25,12 +25,21 @@ export class NewsRepository extends BaseRepository<News, CreateNewsDto> {
         return created[0];
     }
 
-    async getAllNews(): Promise<News[]> {
-        return super.getAll();
+    async getAllNews(paginationParams?: { page?: number; limit?: number }): Promise<{ data: News[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        return super.getAll(paginationParams);
     }
 
-    async getAllNewsWithCategory(): Promise<any[]> {
-        return super.getAll();
+    async getAllNewsWithCategory(paginationParams?: { page?: number; limit?: number }): Promise<{ data: any[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        const result = await super.getAll(paginationParams);
+        const dataWithCategories = await Promise.all(
+            result.data.map(async (news) => {
+                const category = await this.knex(TableNames.NEWS_CATEGORY)
+                    .where('id', news.categoryId)
+                    .first();
+                return { ...news, category };
+            })
+        );
+        return { data: dataWithCategories, pagination: result.pagination };
     }
 
     async getNewsById(id: string): Promise<News | null> {
@@ -61,9 +70,28 @@ export class NewsRepository extends BaseRepository<News, CreateNewsDto> {
         await super.delete(id);
     }
 
-    async getAllCategories(): Promise<NewsCategory[]> {
-        const categories = await this.knex(TableNames.NEWS_CATEGORY).select('*');
-        return categories;
+    async getAllCategories(paginationParams?: { page?: number; limit?: number }): Promise<{ data: NewsCategory[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        const page = paginationParams?.page || 1;
+        const limit = paginationParams?.limit || 10;
+        const offset = (page - 1) * limit;
+
+        const [totalItems] = await this.knex(TableNames.NEWS_CATEGORY).count('* as count');
+        const data = await this.knex(TableNames.NEWS_CATEGORY)
+            .select('*')
+            .offset(offset)
+            .limit(limit);
+
+        const totalPages = Math.ceil(Number(totalItems.count) / limit);
+
+        return {
+            data,
+            pagination: {
+                totalItems: Number(totalItems.count),
+                itemsPerPage: limit,
+                currentPage: page,
+                totalPages,
+            }
+        };
     }
 
     async getCategoryById(id: string): Promise<NewsCategory> {

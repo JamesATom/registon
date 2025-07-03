@@ -39,8 +39,8 @@ export class FacultyService {
         return this.formatResponse(HttpStatus.CREATED, 'Faculty created successfully', faculty);
     }
 
-    async getAll(): Promise<any> {
-        const faculties = await this.universityRepository.getAllFaculties();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const faculties = await this.universityRepository.getAllFaculties(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Faculties retrieved successfully', faculties);
     }
 

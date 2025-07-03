@@ -38,8 +38,8 @@ export class JobHuntingService {
         return this.formatResponse(HttpStatus.CREATED, 'Job listing created successfully', createdJob);
     }
 
-    async getAll(): Promise<any> {
-        const data = await this.jobHuntingRepository.getAllWithCompanyDetails();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const data = await this.jobHuntingRepository.getAllWithCompanyDetails(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Job listings retrieved successfully', data);
     }
 

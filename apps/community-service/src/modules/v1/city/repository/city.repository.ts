@@ -15,8 +15,8 @@ export class CityRepository extends BaseRepository<City, CreateCityDto> {
         return super.create(createCityDto);
     }
 
-    async getAll(): Promise<City[]> {
-        return super.getAll();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<{ data: City[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+        return super.getAll(paginationParams);
     }
 
     async getOne(id: string): Promise<City | null> {

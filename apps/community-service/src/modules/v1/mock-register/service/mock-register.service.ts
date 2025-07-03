@@ -24,11 +24,11 @@ export class MockRegisterService {
         };
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return {
             statusCode: HttpStatus.OK,
             message: 'Mock registrations retrieved successfully',
-            data: await this.mockRegisterRepository.getAll(),
+            data: await this.mockRegisterRepository.getAll(paginationParams),
         };
     }
 

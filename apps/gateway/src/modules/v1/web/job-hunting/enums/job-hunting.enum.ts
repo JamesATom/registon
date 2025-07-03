@@ -1,35 +1,35 @@
 export enum WorkExperience {
-    EXPERIENCE_1_3 = 'Experience13',
-    EXPERIENCE_3_6 = 'Experience36',
-    EXPERIENCE_6_PLUS = 'Experience6Plus',
-    NO_EXPERIENCE = 'NoExperience',
+    EXPERIENCE_1_3 = '1-3',
+    EXPERIENCE_3_6 = '3-6',
+    EXPERIENCE_6_PLUS = '6+',
+    NO_EXPERIENCE = 'NO EXPERIENCE'
 }
 
 export enum WorkScheduleHours {
-    SCHEDULE_6_1 = 'Schedule61',
-    SCHEDULE_5_2 = 'Schedule52',
-    WEEKENDS = 'Weekends',
-    FREE = 'Free',
-    OTHER = 'Other',
+    SCHEDULE_6_1 = '6/1',
+    SCHEDULE_5_2 = '5/2',
+    WEEKENDS = 'WEEKENDS',
+    FREE = 'FREE',
+    OTHER = 'OTHER'
 }
 
 export enum EmploymentType {
-    FULL = 'Full',
-    PART = 'Part',
+    FULL = 'FULL',
+    PART = 'PART'
 }
 
 export enum WorkMode {
-    OFFLINE = 'Offline',
-    ONLINE = 'Online',
-    HYBRID = 'Hybrid',
+    OFFLINE = 'OFFLINE',
+    ONLINE = 'ONLINE',
+    HYBRID = 'HYBRID'
 }
 
 export enum Degree {
-    BACHELOR = 'Bachelor',
-    MASTER = 'Master',
-    DOCTORATE = 'Doctorate',
-    ASSOCIATE = 'Associate',
-    PHD = 'Phd',
+    BACHELOR = 'BACHELOR',
+    MASTER = 'MASTER',
+    DOCTORATE = 'DOCTORATE',
+    ASSOCIATE = 'ASSOCIATE',
+    PHD = 'PHD'
 }
 
 export enum UniType {

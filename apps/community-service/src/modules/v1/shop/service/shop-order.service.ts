@@ -28,8 +28,8 @@ export class ShopOrderService {
         }
     }
 
-    async getAll(): Promise<any> {
-        const orders = await this.shopRepository.getAllOrders();
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const orders = await this.shopRepository.getAllOrders(paginationParams);
         return this.formatResponse(HttpStatus.OK, 'Shop orders retrieved successfully', orders);
     }
 
