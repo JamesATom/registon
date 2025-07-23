@@ -15,7 +15,14 @@ export class CityRepository extends BaseRepository<City, CreateCityDto> {
         return super.create(createCityDto);
     }
 
-    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<{ data: City[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+    async getAll(paginationParams?: {
+        page?: number;
+        limit?: number;
+        isActive?: boolean;
+    }): Promise<{
+        data: City[];
+        pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number };
+    }> {
         return super.getAll(paginationParams);
     }
 
@@ -29,14 +36,5 @@ export class CityRepository extends BaseRepository<City, CreateCityDto> {
 
     async delete(id: string): Promise<void> {
         return super.delete(id);
-    }
-
-    async findByName(name: string): Promise<City | null> {
-        const city = await this.knex(this.tableName).where('name', name).first();
-        return city || null;
-    }
-
-    async searchByName(searchTerm: string): Promise<City[]> {
-        return this.knex(this.tableName).where('name', 'ilike', `%${searchTerm}%`).select('*');
     }
 }

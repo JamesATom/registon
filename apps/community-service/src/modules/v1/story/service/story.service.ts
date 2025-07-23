@@ -21,8 +21,8 @@ export class StoryService {
         };
     }
 
-    async getAll(filter: FilterStoryDto & { page?: number; limit?: number }): Promise<ServiceResponse<any>> {
-        const result = await this.storyRepository.getAll(filter);
+    async getAll(pagination: { page?: number; limit?: number }): Promise<ServiceResponse<any>> {
+        const result = await this.storyRepository.getAll(pagination);
 
         return {
             statusCode: HttpStatus.OK,

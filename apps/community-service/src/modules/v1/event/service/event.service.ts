@@ -20,13 +20,13 @@ export class EventService {
         };
     }
 
-    async getAll(filter?: EventFilterDto & { page?: number; limit?: number }): Promise<any> {
-        const result = await this.eventRepository.getAll(filter);
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        const result = await this.eventRepository.getAll(paginationParams);
         return {
             statusCode: HttpStatus.OK,
             message: 'Events retrieved successfully',
             data: result.data,
-            meta: result.pagination
+            meta: result.pagination,
         };
     }
 

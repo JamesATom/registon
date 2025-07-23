@@ -23,7 +23,12 @@
         "seed:make": "ts-node --transpile-only ./node_modules/.bin/knex --knexfile src/database/knexfile.ts seed:make",
         "seed:run": "ts-node --transpile-only ./node_modules/.bin/knex --knexfile src/database/knexfile.ts seed:run",
         "db:init": "ts-node --transpile-only src/database/init-db.ts",
-        "db:reset": "yarn db:init && yarn migrate:rollback:all && yarn migrate:latest && yarn seed:run"
+        "db:reset": "yarn db:init && yarn migrate:rollback:all && yarn migrate:latest && yarn seed:run",
+        "test": "jest --config ./test/jest.config.js",
+        "test:watch": "jest --config ./test/jest.config.js --watch",
+        "test:cov": "jest --config ./test/jest.config.js --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --config ./test/jest.config.js",
+        "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.812.0",

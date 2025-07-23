@@ -6,6 +6,8 @@ export async function up(knex: Knex): Promise<void> {
         table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
         table.string('name', 100).notNullable().unique();
 
+        table.boolean('isActive').defaultTo(true);
+        
         table.index('name');
     });
 }

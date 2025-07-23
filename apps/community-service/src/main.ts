@@ -4,6 +4,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { RpcExceptionFilter } from './common/filters/rpc-exception.filter';
+import { RpcGlobalInterceptor } from './common/interceptors/rcp-global.interceptor';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
@@ -15,6 +16,7 @@ async function bootstrap() {
     });
 
     app.useGlobalFilters(new RpcExceptionFilter());
+    app.useGlobalInterceptors(new RpcGlobalInterceptor());
 
     app.connectMicroservice<MicroserviceOptions>({
         transport: Transport.RMQ,

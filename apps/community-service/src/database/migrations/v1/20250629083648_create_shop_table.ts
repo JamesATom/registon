@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
         table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
         table.string('title', 50).notNullable();
         table.string('description', 250);
-        
+
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('updatedAt');
         table.string('createdBy').notNullable();
@@ -22,14 +22,14 @@ export async function up(knex: Knex): Promise<void> {
         table.string('image');
         table.integer('points').notNullable().defaultTo(0);
         table.integer('quantity').notNullable().defaultTo(0);
-        
+
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('updatedAt');
         table.string('createdBy').notNullable();
         table.string('updatedBy').notNullable();
-        
+
         table.uuid('shopCategoryId').references('id').inTable('shopCategory').onDelete('CASCADE');
-        
+
         table.index(['title'], 'idxShopProductsTitle');
         table.index(['shopCategoryId'], 'idxShopProductsCategory');
     });
@@ -42,10 +42,10 @@ export async function up(knex: Knex): Promise<void> {
     //     table.integer('points').notNullable().defaultTo(0);
     //     table.string('createdBy').notNullable();
     //     table.string('updatedBy').notNullable();
-        
+
     //     table.uuid('product').references('id').inTable('shopProduct').notNullable().onDelete('CASCADE');
     //     table.uuid('student').references('id').inTable('users').notNullable().onDelete('CASCADE');
-        
+
     //     table.index(['product'], 'idxShopOrderProduct');
     //     table.index(['student'], 'idxShopOrderStudent');
     //     table.index(['status'], 'idxShopOrderStatus');

@@ -4,17 +4,17 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateShopCategoryDto } from './create-shop-category.dto';
 
 export class UpdateShopCategoryDto extends PartialType(CreateShopCategoryDto) {
-  @IsOptional()
-  @IsString()
-  @MaxLength(50)
-  title?: string;
+    @IsOptional()
+    @IsString()
+    @MaxLength(50)
+    title?: string;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(250)
-  description?: string;
+    @IsOptional()
+    @IsString()
+    @MaxLength(250)
+    description?: string;
 
-  @IsOptional()
-  @IsString()
-  updatedBy?: string;
+    @IsOptional()
+    @IsString()
+    updatedBy?: string;
 }

@@ -22,7 +22,13 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
         return created[0];
     }
 
-    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<{ data: JobHunting[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+    async getAll(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{
+        data: JobHunting[];
+        pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number };
+    }> {
         return super.getAll(paginationParams);
     }
 
@@ -59,7 +65,10 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
         return result;
     }
 
-    async getAllWithCompanyDetails(paginationParams?: { page?: number; limit?: number }): Promise<{ data: any[]; pagination: any }> {
+    async getAllWithCompanyDetails(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: any[]; pagination: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
@@ -69,9 +78,7 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
             .leftJoin(TableNames.COMPANY, `${this.tableName}.companyId`, `${TableNames.COMPANY}.id`);
 
         const [totalItems] = await query.clone().count('* as count');
-        const data = await query
-            .offset(offset)
-            .limit(limit);
+        const data = await query.offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -82,20 +89,20 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
-    async getAllCompanies(paginationParams?: { page?: number; limit?: number }): Promise<{ data: Company[]; meta: any }> {
+    async getAllCompanies(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: Company[]; meta: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.COMPANY).count('* as count');
-        const data = await this.knex(TableNames.COMPANY)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.COMPANY).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -106,7 +113,7 @@ export class JobHuntingRepository extends BaseRepository<JobHunting, CreateJobHu
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 

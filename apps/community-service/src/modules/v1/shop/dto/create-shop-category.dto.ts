@@ -2,21 +2,21 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateShopCategoryDto {
-  @IsNotEmpty()
-  @IsString()
-  @MaxLength(50)
-  title: string;
+    @IsNotEmpty()
+    @IsString()
+    @MaxLength(50)
+    title: string;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(250)
-  description?: string;
+    @IsOptional()
+    @IsString()
+    @MaxLength(250)
+    description?: string;
 
-  @IsNotEmpty()
-  @IsString()
-  createdBy: string;
+    @IsNotEmpty()
+    @IsString()
+    createdBy: string;
 
-  @IsOptional()
-  @IsString()
-  updatedBy?: string;
+    @IsOptional()
+    @IsString()
+    updatedBy?: string;
 }

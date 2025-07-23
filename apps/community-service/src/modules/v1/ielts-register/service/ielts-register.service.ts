@@ -24,11 +24,11 @@ export class IeltsRegisterService {
         };
     }
 
-    async getAll(): Promise<any> {
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<any> {
         return {
             statusCode: HttpStatus.OK,
             message: 'IELTS registrations retrieved successfully',
-            data: (await this.ieltsRegisterRepository.getAll()) || {},
+            data: (await this.ieltsRegisterRepository.getAll(paginationParams)) || {},
         };
     }
 

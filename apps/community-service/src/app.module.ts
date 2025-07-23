@@ -6,13 +6,14 @@ import { CityModule } from './modules/v1/city/city.module';
 import { MockRegisterModule } from './modules/v1/mock-register/mock-register.module';
 import { IeltsRegisterModule } from './modules/v1/ielts-register/ielts-register.module';
 import { JobHuntingModule } from './modules/v1/job-hunting/job-hunting.module';
-import { SurveyModule } from './modules/v1/survey/survey.module';
+import { PollModule } from './modules/v1/poll/poll.module';
 import { EventModule } from './modules/v1/event/event.module';
 import { StoryModule } from './modules/v1/story/story.module';
 import { UniversitySearchModule } from './modules/v1/university-search/university-search.module';
 import { FaqModule } from './modules/v1/faq/faq.module';
 import { NewsModule } from './modules/v1/news/news.module';
 import { ShopModule } from './modules/v1/shop/shop.module';
+import { TimetableModule } from './modules/v1/timetable/timetable.module';
 
 @Module({
     imports: [
@@ -25,12 +26,13 @@ import { ShopModule } from './modules/v1/shop/shop.module';
         IeltsRegisterModule,
         JobHuntingModule,
         EventModule,
-        SurveyModule,
+        PollModule,
         StoryModule,
         UniversitySearchModule,
         FaqModule,
         NewsModule,
         ShopModule,
+        TimetableModule,
     ],
     controllers: [],
     providers: [],

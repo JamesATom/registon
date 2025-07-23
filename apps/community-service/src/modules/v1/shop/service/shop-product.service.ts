@@ -20,7 +20,7 @@ export class ShopProductService {
         try {
             // Verify that the category exists
             await this.shopRepository.getCategoryById(createShopProductDto.shopCategoryId);
-            
+
             const product = await this.shopRepository.createProduct(createShopProductDto);
             return this.formatResponse(HttpStatus.CREATED, 'Shop product created successfully', product);
         } catch (error) {
@@ -46,7 +46,7 @@ export class ShopProductService {
         try {
             // Verify that the category exists
             await this.shopRepository.getCategoryById(categoryId);
-            
+
             const products = await this.shopRepository.getProductsByCategory(categoryId);
             return this.formatResponse(
                 HttpStatus.OK,
@@ -61,12 +61,12 @@ export class ShopProductService {
     async update(id: string, updateShopProductDto: UpdateShopProductDto): Promise<any> {
         try {
             await this.shopRepository.getProductById(id);
-            
+
             // If category ID is being updated, verify the new category exists
             if (updateShopProductDto.shopCategoryId) {
                 await this.shopRepository.getCategoryById(updateShopProductDto.shopCategoryId);
             }
-            
+
             const updatedProduct = await this.shopRepository.updateProduct(id, updateShopProductDto);
             return this.formatResponse(
                 HttpStatus.OK,

@@ -16,8 +16,8 @@ export class IeltsRegisterEvent {
     }
 
     @MessagePattern(MessagePatterns.IeltsRegister.V1.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.ieltsRegisterService.getAll();
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }): Promise<any> {
+        return this.ieltsRegisterService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.IeltsRegister.V1.GET_ONE)

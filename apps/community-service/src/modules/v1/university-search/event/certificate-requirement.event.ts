@@ -16,8 +16,8 @@ export class CertificateRequirementEvent {
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.CertificateRequirement.GET_ALL)
-    async getAll(): Promise<any> {
-        return this.certificateRequirementService.getAll();
+    async getAll(@Payload() payload?: { page?: number; limit?: number }): Promise<any> {
+        return this.certificateRequirementService.getAll(payload);
     }
 
     @MessagePattern(MessagePatterns.UniversitySearch.V1.CertificateRequirement.GET_ONE)

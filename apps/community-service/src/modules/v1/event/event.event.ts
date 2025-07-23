@@ -18,8 +18,8 @@ export class EventEvent {
     }
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ALL)
-    async getAll(@Payload() filter: EventFilterDto) {
-        return this.eventService.getAll(filter);
+    async getAll(@Payload() paginationParams?: { page?: number; limit?: number }) {
+        return this.eventService.getAll(paginationParams);
     }
 
     @MessagePattern(MessagePatterns.Event.V1.GET_ONE)

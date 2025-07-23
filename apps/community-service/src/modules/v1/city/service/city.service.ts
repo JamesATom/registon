@@ -16,7 +16,7 @@ export class CityService {
         };
     }
 
-    async getAll(paginationParams?: { page?: number; limit?: number }) {
+    async getAll(paginationParams?: { page?: number; limit?: number; isActive?: boolean }) {
         return {
             statusCode: HttpStatus.OK,
             message: 'Cities retrieved successfully',

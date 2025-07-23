@@ -26,9 +26,7 @@ export class ShopCategoryEvent {
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Category.UPDATE)
-    async update(
-        @Payload() payload: { id: string; updateShopCategoryDto: UpdateShopCategoryDto },
-    ): Promise<any> {
+    async update(@Payload() payload: { id: string; updateShopCategoryDto: UpdateShopCategoryDto }): Promise<any> {
         return this.shopCategoryService.update(payload.id, payload.updateShopCategoryDto);
     }
 

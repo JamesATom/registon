@@ -31,9 +31,7 @@ export class ShopProductEvent {
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Product.UPDATE)
-    async update(
-        @Payload() payload: { id: string; updateShopProductDto: UpdateShopProductDto },
-    ): Promise<any> {
+    async update(@Payload() payload: { id: string; updateShopProductDto: UpdateShopProductDto }): Promise<any> {
         return this.shopProductService.update(payload.id, payload.updateShopProductDto);
     }
 

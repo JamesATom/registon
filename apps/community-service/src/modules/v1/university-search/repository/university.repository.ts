@@ -16,7 +16,13 @@ export class UniversityRepository extends BaseRepository<University, any> {
         return university;
     }
 
-    async getAllUniversities(paginationParams?: { page?: number; limit?: number }): Promise<{ data: University[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+    async getAllUniversities(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{
+        data: University[];
+        pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number };
+    }> {
         return super.getAll(paginationParams);
     }
 
@@ -39,16 +45,19 @@ export class UniversityRepository extends BaseRepository<University, any> {
         return faculty;
     }
 
-    async getAllFaculties(paginationParams?: { page?: number; limit?: number }): Promise<{ data: Faculty[]; pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number } }> {
+    async getAllFaculties(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{
+        data: Faculty[];
+        pagination: { totalItems: number; itemsPerPage: number; currentPage: number; totalPages: number };
+    }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.FACULTY).count('* as count');
-        const data = await this.knex(TableNames.FACULTY)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.FACULTY).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -59,7 +68,7 @@ export class UniversityRepository extends BaseRepository<University, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
@@ -86,7 +95,10 @@ export class UniversityRepository extends BaseRepository<University, any> {
         return program;
     }
 
-    async getAllPrograms(paginationParams?: { page?: number; limit?: number }): Promise<{ data: Program[]; meta: any }> {
+    async getAllPrograms(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: Program[]; meta: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
@@ -95,19 +107,17 @@ export class UniversityRepository extends BaseRepository<University, any> {
             .select(
                 `${TableNames.PROGRAM}.*`,
                 `${TableNames.FACULTY}.facultyTitle as facultyName`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`
+                `${TableNames.CERTIFICATE_REQUIREMENT}.certificateRequirementsTitle as certificateRequirement`,
             )
             .leftJoin(TableNames.FACULTY, `${TableNames.PROGRAM}.facultyId`, `${TableNames.FACULTY}.id`)
             .leftJoin(
                 TableNames.CERTIFICATE_REQUIREMENT,
                 `${TableNames.PROGRAM}.certificateRequirementId`,
-                `${TableNames.CERTIFICATE_REQUIREMENT}.id`
+                `${TableNames.CERTIFICATE_REQUIREMENT}.id`,
             );
 
         const [totalItems] = await query.clone().count('* as count');
-        const data = await query
-            .offset(offset)
-            .limit(limit);
+        const data = await query.offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -118,7 +128,7 @@ export class UniversityRepository extends BaseRepository<University, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
@@ -186,16 +196,16 @@ export class UniversityRepository extends BaseRepository<University, any> {
         return cert;
     }
 
-    async getAllCertificateRequirements(paginationParams?: { page?: number; limit?: number }): Promise<{ data: CertificateRequirement[]; meta: any }> {
+    async getAllCertificateRequirements(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: CertificateRequirement[]; meta: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.CERTIFICATE_REQUIREMENT).count('* as count');
-        const data = await this.knex(TableNames.CERTIFICATE_REQUIREMENT)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.CERTIFICATE_REQUIREMENT).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -206,7 +216,7 @@ export class UniversityRepository extends BaseRepository<University, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 

@@ -98,14 +98,14 @@ export const MessagePatterns = {
             VERIFY: 'v1.auth.verify',
         },
     },
-    Survey: {
+    Poll: {
         V1: {
-            CREATE: 'v1.survey.create',
-            GET_ALL: 'v1.survey.get.all',
-            GET_ONE: 'v1.survey.get.one',
-            UPDATE: 'v1.survey.update',
-            DELETE: 'v1.survey.delete',
-            SUBMIT: 'v1.survey.submit',
+            CREATE: 'v1.poll.create',
+            GET_ALL: 'v1.poll.get.all',
+            GET_ONE: 'v1.poll.get.one',
+            UPDATE: 'v1.poll.update',
+            DELETE: 'v1.poll.delete',
+            SUBMIT: 'v1.poll.submit',
         },
     },
     Event: {

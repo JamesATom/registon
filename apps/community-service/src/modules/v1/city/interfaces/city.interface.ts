@@ -2,7 +2,8 @@
 export interface City {
     id: string;
     name: string;
+    isActive: boolean;
 }
 
-export type CreateCityDto = Omit<City, 'id'>;
+export type CreateCityDto = Partial<Omit<City, 'id'>> & { name: string };
 export type UpdateCityDto = Partial<CreateCityDto>;

@@ -9,12 +9,7 @@ import { ShopProductEvent } from './event/shop-product.event';
 import { ShopOrderEvent } from './event/shop-order.event';
 
 @Module({
-  controllers: [ShopCategoryEvent, ShopProductEvent, ShopOrderEvent],
-  providers: [
-    ShopCategoryService,
-    ShopProductService,
-    ShopOrderService,
-    ShopRepository,
-  ],
+    controllers: [ShopCategoryEvent, ShopProductEvent, ShopOrderEvent],
+    providers: [ShopCategoryService, ShopProductService, ShopOrderService, ShopRepository],
 })
 export class ShopModule {}

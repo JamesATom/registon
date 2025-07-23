@@ -2,13 +2,13 @@
 export enum UniType {
     LOCAL = 'LOCAL',
     INTERNATIONAL = 'INTERNATIONAL',
-    FOREIGN = 'FOREIGN'
+    FOREIGN = 'FOREIGN',
 }
 
 export enum StudyLanguage {
     UZBEK = 'UZBEK',
     RUSSIAN = 'RUSSIAN',
-    ENGLISH = 'ENGLISH'
+    ENGLISH = 'ENGLISH',
 }
 
 export enum Degree {
@@ -16,14 +16,14 @@ export enum Degree {
     MASTER = 'MASTER',
     DOCTORATE = 'DOCTORATE',
     ASSOCIATE = 'ASSOCIATE',
-    PHD = 'PHD'
+    PHD = 'PHD',
 }
 
 export enum StudyType {
     FULL_TIME = 'FULL_TIME',
     PART_TIME = 'PART_TIME',
     REMOTE = 'REMOTE',
-    HYBRID = 'HYBRID'
+    HYBRID = 'HYBRID',
 }
 
 export enum CourseLevel {
@@ -33,5 +33,5 @@ export enum CourseLevel {
     INTERMEDIATE = 'INTERMEDIATE',
     UPPER_INTERMEDIATE = 'UPPER_INTERMEDIATE',
     ADVANCED = 'ADVANCED',
-    PROFICIENCY = 'PROFICIENCY'
+    PROFICIENCY = 'PROFICIENCY',
 }

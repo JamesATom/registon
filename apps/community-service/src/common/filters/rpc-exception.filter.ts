@@ -22,9 +22,6 @@ export class RpcExceptionFilter implements ExceptionFilter {
             const error = exception.getError();
             errorMessage = typeof error === 'object' ? error['message'] : error;
             errorType = 'RpcException';
-        } else if (exception.name === 'MongoError' || exception.name === 'MongoServerError') {
-            errorMessage = `Database error: ${exception.message}`;
-            errorType = exception.name;
         }
 
         return {

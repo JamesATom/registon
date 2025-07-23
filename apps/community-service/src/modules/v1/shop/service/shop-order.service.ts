@@ -20,7 +20,7 @@ export class ShopOrderService {
         try {
             // Verify that the product exists
             await this.shopRepository.getProductById(createShopOrderDto.product);
-            
+
             const order = await this.shopRepository.createOrder(createShopOrderDto);
             return this.formatResponse(HttpStatus.CREATED, 'Shop order created successfully', order);
         } catch (error) {
@@ -58,18 +58,14 @@ export class ShopOrderService {
     async update(id: string, updateShopOrderDto: UpdateShopOrderDto): Promise<any> {
         try {
             await this.shopRepository.getOrderById(id);
-            
+
             // If product ID is being updated, verify the new product exists
             if (updateShopOrderDto.product) {
                 await this.shopRepository.getProductById(updateShopOrderDto.product);
             }
-            
+
             const updatedOrder = await this.shopRepository.updateOrder(id, updateShopOrderDto);
-            return this.formatResponse(
-                HttpStatus.OK,
-                `Shop order with ID ${id} updated successfully`,
-                updatedOrder,
-            );
+            return this.formatResponse(HttpStatus.OK, `Shop order with ID ${id} updated successfully`, updatedOrder);
         } catch (error) {
             return this.formatResponse(HttpStatus.NOT_FOUND, error.message, null);
         }
@@ -78,7 +74,7 @@ export class ShopOrderService {
     async updateStatus(id: string, status: string, updatedBy: string): Promise<any> {
         try {
             await this.shopRepository.getOrderById(id);
-            
+
             // Validate status
             if (!['READY', 'ACCEPTED', 'SENT', 'FINISHED'].includes(status)) {
                 return this.formatResponse(
@@ -87,13 +83,13 @@ export class ShopOrderService {
                     null,
                 );
             }
-            
+
             const updatedOrder = await this.shopRepository.updateOrderStatus(
-                id, 
+                id,
                 status as 'READY' | 'ACCEPTED' | 'SENT' | 'FINISHED',
-                updatedBy
+                updatedBy,
             );
-            
+
             return this.formatResponse(
                 HttpStatus.OK,
                 `Shop order status updated to ${status} successfully`,

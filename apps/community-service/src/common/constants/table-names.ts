@@ -12,7 +12,7 @@ export const TableNames = {
     FACULTY: 'faculty',
     PROGRAM: 'program',
     CERTIFICATE_REQUIREMENT: 'certificateRequirement',
-    SURVEY: 'survey',
+    POLL: 'poll',
     EVENT: 'event',
     EVENT_REGISTRATION_STUDENT: 'eventRegistrationStudent',
     COURSE: 'course',
@@ -25,4 +25,7 @@ export const TableNames = {
     SHOP_CATEGORY: 'shopCategory',
     SHOP_PRODUCT: 'shopProduct',
     SHOP_ORDER: 'shopOrder',
+    TIMETABLE: 'timetable',
+    CALENDAR: 'calendar',
+    RESERVATIONS: 'reservations',
 };

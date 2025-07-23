@@ -31,16 +31,12 @@ export class ShopOrderEvent {
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Order.UPDATE)
-    async update(
-        @Payload() payload: { id: string; updateShopOrderDto: UpdateShopOrderDto },
-    ): Promise<any> {
+    async update(@Payload() payload: { id: string; updateShopOrderDto: UpdateShopOrderDto }): Promise<any> {
         return this.shopOrderService.update(payload.id, payload.updateShopOrderDto);
     }
 
     @MessagePattern(MessagePatterns.Shop.V1.Order.UPDATE_STATUS)
-    async updateStatus(
-        @Payload() payload: { id: string; status: string; updatedBy: string },
-    ): Promise<any> {
+    async updateStatus(@Payload() payload: { id: string; status: string; updatedBy: string }): Promise<any> {
         return this.shopOrderService.updateStatus(payload.id, payload.status, payload.updatedBy);
     }
 

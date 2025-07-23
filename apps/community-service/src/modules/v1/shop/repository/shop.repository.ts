@@ -1,6 +1,7 @@
 // shop.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
+import { RpcException } from '@nestjs/microservices';
 import { BaseRepository } from 'src/common/abstracts/base-repository.abstract';
 import { TableNames } from 'src/common/constants/table-names';
 import { ShopCategory, ShopProduct, ShopOrder } from '../interface/shop.interface';
@@ -17,16 +18,16 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return category;
     }
 
-    async getAllCategories(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopCategory[]; pagination: any }> {
+    async getAllCategories(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: ShopCategory[]; pagination: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.SHOP_CATEGORY).count('* as count');
-        const data = await this.knex(TableNames.SHOP_CATEGORY)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.SHOP_CATEGORY).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -37,14 +38,14 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
     async getCategoryById(id: string): Promise<ShopCategory | null> {
         const category = await this.knex(TableNames.SHOP_CATEGORY).where('id', id).first();
         if (!category) {
-            throw new Error(`Category with ID ${id} not found`);
+            throw new RpcException(`Category with ID ${id} not found`);
         }
         return category;
     }
@@ -70,16 +71,16 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return product;
     }
 
-    async getAllProducts(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopProduct[]; pagination: any }> {
+    async getAllProducts(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: ShopProduct[]; pagination: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.SHOP_PRODUCT).count('* as count');
-        const data = await this.knex(TableNames.SHOP_PRODUCT)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.SHOP_PRODUCT).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -90,22 +91,20 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
     async getProductById(id: string): Promise<ShopProduct | null> {
         const product = await this.knex(TableNames.SHOP_PRODUCT).where('id', id).first();
         if (!product) {
-            throw new Error(`Product with ID ${id} not found`);
+            throw new RpcException(`Product with ID ${id} not found`);
         }
         return product;
     }
 
     async getProductsByCategory(categoryId: string): Promise<ShopProduct[]> {
-        return this.knex(TableNames.SHOP_PRODUCT)
-            .select('*')
-            .where('shopCategoryId', categoryId);
+        return this.knex(TableNames.SHOP_PRODUCT).select('*').where('shopCategoryId', categoryId);
     }
 
     async updateProduct(id: string, data: Partial<ShopProduct>): Promise<ShopProduct> {
@@ -129,16 +128,16 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
         return order;
     }
 
-    async getAllOrders(paginationParams?: { page?: number; limit?: number }): Promise<{ data: ShopOrder[]; pagination: any }> {
+    async getAllOrders(paginationParams?: {
+        page?: number;
+        limit?: number;
+    }): Promise<{ data: ShopOrder[]; pagination: any }> {
         const page = paginationParams?.page || 1;
         const limit = paginationParams?.limit || 10;
         const offset = (page - 1) * limit;
 
         const [totalItems] = await this.knex(TableNames.SHOP_ORDER).count('* as count');
-        const data = await this.knex(TableNames.SHOP_ORDER)
-            .select('*')
-            .offset(offset)
-            .limit(limit);
+        const data = await this.knex(TableNames.SHOP_ORDER).select('*').offset(offset).limit(limit);
 
         const totalPages = Math.ceil(Number(totalItems.count) / limit);
 
@@ -149,22 +148,20 @@ export class ShopRepository extends BaseRepository<ShopCategory, any> {
                 itemsPerPage: limit,
                 currentPage: page,
                 totalPages,
-            }
+            },
         };
     }
 
     async getOrderById(id: string): Promise<ShopOrder | null> {
         const order = await this.knex(TableNames.SHOP_ORDER).where('id', id).first();
         if (!order) {
-            throw new Error(`Order with ID ${id} not found`);
+            throw new RpcException(`Order with ID ${id} not found`);
         }
         return order;
     }
 
     async getOrdersByStudent(studentId: string): Promise<ShopOrder[]> {
-        return this.knex(TableNames.SHOP_ORDER)
-            .select('*')
-            .where('student', studentId);
+        return this.knex(TableNames.SHOP_ORDER).select('*').where('student', studentId);
     }
 
     async updateOrder(id: string, data: Partial<ShopOrder>): Promise<ShopOrder> {

@@ -27,8 +27,8 @@ export class CertificateRequirementService {
         );
     }
 
-    async getAll(): Promise<any> {
-        const certificateRequirements = await this.universityRepository.getAllCertificateRequirements();
+    async getAll(pagination: { page?: number; limit?: number }): Promise<any> {
+        const certificateRequirements = await this.universityRepository.getAllCertificateRequirements(pagination);
         return this.formatResponse(
             HttpStatus.OK,
             'Certificate Requirements retrieved successfully',
