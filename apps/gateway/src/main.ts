@@ -13,8 +13,10 @@ import { AuthModule } from './modules/v1/shared/auth/auth.module';
 import { BranchModule } from './modules/v1/shared/branch/branch.module';
 import { CityModule } from './modules/v1/shared/city/city.module';
 import { CourseModule } from './modules/v1/shared/course/course.module';
+import { GroupModule } from './modules/v1/shared/group/group.module';
+import { StudentModule } from './modules/v1/shared/student/student.module';
 
-import { SurveyModule as WebSurveyModule } from './modules/v1/web/survey/survey.module';
+import { PollModule as WebPollModule } from './modules/v1/web/poll/poll.module';
 import { EventModule as WebEventModule } from './modules/v1/web/event/event.module';
 import { StoryModule as WebStoryModule } from './modules/v1/web/story/story.module';
 import { MockRegisterModule as WebMockRegisterModule } from './modules/v1/web/mock-register/mock-register.module';
@@ -24,6 +26,7 @@ import { UniversitySearchModule as WebUniversitySearchModule } from './modules/v
 import { FaqModule as WebFaqModule } from './modules/v1/web/faq/faq.module';
 import { NewsModule as WebNewsModule } from './modules/v1/web/news/news.module';
 import { ShopModule as WebShopModule } from './modules/v1/web/shop/shop.module';
+import { TimetableModule as WebTimetableModule } from './modules/v1/web/timetable/timetable.module';
 
 // import { SurveyModule as MobileSurveyModule } from './modules/v1/mobile/survey/survey.module';
 // import { StoryModule as MobileStoryModule } from './modules/v1/mobile/story/story.module';
@@ -81,7 +84,7 @@ async function bootstrap() {
 
     const webDocument = SwaggerModule.createDocument(app, webConfig, {
         include: [
-            WebSurveyModule,
+            WebPollModule,
             WebEventModule,
             WebStoryModule,
             WebMockRegisterModule,
@@ -91,11 +94,14 @@ async function bootstrap() {
             WebFaqModule,
             WebNewsModule,
             WebShopModule,
+            WebTimetableModule,
 
             AuthModule,
             BranchModule,
             CityModule,
-            CourseModule
+            CourseModule,
+            GroupModule,
+            StudentModule
         ],
     });
 

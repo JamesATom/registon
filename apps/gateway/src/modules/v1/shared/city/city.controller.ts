@@ -20,11 +20,13 @@ export class CityController {
     @ApiOkResponse({ type: [CommonEntity] })
     @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number for pagination' })
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of items per page' })
+    @ApiQuery({ name: 'isActive', required: false, type: Boolean, description: 'Filter by active status' })
     async getAll(
         @Query('page') page?: number,
         @Query('limit') limit?: number,
+        @Query('isActive') isActive?: boolean,
     ) {
-        return this.cityService.getAll({ page, limit });
+        return this.cityService.getAll({ page, limit, isActive });
     }
 
     @Get(':id')

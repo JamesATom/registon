@@ -6,6 +6,8 @@ import { CityModule } from './city/city.module';
 import { ExternalModule } from './external/external.module';
 import { AuthModule } from './auth/auth.module';
 import { CourseModule } from './course/course.module';
+import { GroupModule } from './group/group.module';
+import { StudentModule } from './student/student.module';
 
 @Module({
     imports: [
@@ -15,6 +17,8 @@ import { CourseModule } from './course/course.module';
         CityModule,
         ExternalModule,
         CourseModule,
+        GroupModule,
+        StudentModule,
     ],
     exports: [
         AuthModule,
@@ -23,6 +27,8 @@ import { CourseModule } from './course/course.module';
         CityModule,
         ExternalModule,
         CourseModule,
+        GroupModule,
+        StudentModule,
     ],
 })
 export class SharedModule {}

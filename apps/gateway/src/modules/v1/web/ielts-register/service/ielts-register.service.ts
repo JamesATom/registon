@@ -34,10 +34,10 @@ export class IeltsRegisterService {
         );
     }
 
-    async getAll(): Promise<any> {
+    async getAll(pagination: { page?: number; limit?: number }): Promise<any> {
         return firstValueFrom(
             this.client
-                .send(MessagePatterns.IeltsRegister.V1.GET_ALL, {})
+                .send(MessagePatterns.IeltsRegister.V1.GET_ALL, pagination)
                 .pipe(timeout(10000), catchError((error) => {
                     console.error('Error fetching IELTS registrations:', error);
                     throw new Error('Failed to fetch IELTS registrations');

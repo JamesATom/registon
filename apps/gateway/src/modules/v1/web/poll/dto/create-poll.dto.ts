@@ -1,4 +1,4 @@
-// create-survey.dto.ts
+// create-poll.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
     IsArray,
@@ -11,13 +11,13 @@ import {
     ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { SurveyQuestionDto } from './survey-question.dto';
+import { PollQuestionDto } from './poll-question.dto';
 
-export class CreateSurveyDto {
+export class CreatePollDto {
     @ApiPropertyOptional({
-        description: 'Admin comments about this survey',
+        description: 'Admin comments about this poll',
         maxLength: 250,
-        example: 'End of term student satisfaction survey',
+        example: 'End of term student satisfaction poll',
     })
     @IsOptional()
     @IsString()
@@ -25,9 +25,9 @@ export class CreateSurveyDto {
     commentAdmin?: string;
 
     @ApiProperty({
-        description: 'Survey title',
+        description: 'Poll title',
         maxLength: 100,
-        example: 'Student Satisfaction Survey',
+        example: 'Student Satisfaction Poll',
     })
     @IsNotEmpty()
     @IsString()
@@ -35,7 +35,7 @@ export class CreateSurveyDto {
     title: string;
 
     @ApiPropertyOptional({
-        description: 'Survey description',
+        description: 'Poll description',
         maxLength: 250,
         example: 'Help us improve our services by answering these questions',
     })
@@ -45,7 +45,7 @@ export class CreateSurveyDto {
     description?: string;
 
     @ApiProperty({
-        description: 'Survey image URL or path',
+        description: 'Poll image URL or path',
         example: 'https://registon.bucket-name/2398ujfajfj92/image.jpg',
     })
     @IsNotEmpty()
@@ -53,8 +53,8 @@ export class CreateSurveyDto {
     image: string;
 
     @ApiProperty({
-        description: 'Survey questions',
-        type: [SurveyQuestionDto],
+        description: 'Poll questions',
+        type: [PollQuestionDto],
         example: [
             {
                 question: 'How would you rate our teaching?',
@@ -69,9 +69,9 @@ export class CreateSurveyDto {
     })
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => SurveyQuestionDto)
+    @Type(() => PollQuestionDto)
     @IsNotEmpty()
-    questions: SurveyQuestionDto[];
+    questions: PollQuestionDto[];
 
     @ApiProperty({
         description: 'Branch ID',
@@ -82,7 +82,7 @@ export class CreateSurveyDto {
     branch: string;
 
     @ApiProperty({
-        description: 'Target audience for this survey',
+        description: 'Target audience for this poll',
         enum: ['ALL', 'TEACHER', 'STUDENT'],
         example: 'STUDENT',
     })

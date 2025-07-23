@@ -1,4 +1,4 @@
-// survey.controller.ts
+// poll.controller.ts
 import { Controller, Get, Post, Put, Body, UseGuards, Req, Param, Delete, Query } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags, getSchemaPath, ApiExtraModels, ApiResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { CreatePresignedUrlDto } from 'src/common/libs/common.dto';
@@ -7,19 +7,19 @@ import { ApiAuth, ApiGetAll, ApiGetOne, ApiCreate, ApiUpdate, ApiDelete, ApiInte
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
 import { BranchValidationPipe } from 'src/common/pipes/validation/branch-validation.pipe';
-import { SurveyService } from '../service/survey.service';
-import { CreateSurveyDto } from '../dto/create-survey.dto';
-import { UpdateSurveyDto } from '../dto/update-survey.dto';
-import { SubmitSurveyDto } from '../dto/submit-survey.dto';
-import { SurveyEntity, SurveyWithQuestionsEntity, SurveyResponseEntity } from '../entity/survey.entity';
+import { PollService } from '../service/poll.service';
+import { CreatePollDto } from '../dto/create-poll.dto';
+import { UpdatePollDto } from '../dto/update-poll.dto';
+import { SubmitPollDto } from '../dto/submit-poll.dto';
+import { PollEntity, PollWithQuestionsEntity, PollResponseEntity } from '../entity/poll.entity';
 
 @UseGuards(JwtHttpAuthGuard)
 @ApiAuth()
-@ApiTags('Web - Survey')
-@ApiExtraModels(CommonEntity, SurveyEntity, SurveyWithQuestionsEntity, SurveyResponseEntity)
-@Controller('survey/web')
-export class SurveyController {
-    constructor(private readonly surveyService: SurveyService) {}
+@ApiTags('Web - Poll')
+@ApiExtraModels(CommonEntity, PollEntity, PollWithQuestionsEntity, PollResponseEntity)
+@Controller('poll/web')
+export class PollController {
+    constructor(private readonly pollService: PollService) {}
 
     @Post('presigned-upload')
     @ApiBody({
@@ -27,13 +27,13 @@ export class SurveyController {
         examples: {
             'application/json': {
                 value: {
-                    filename: 'survey-image.jpg',
+                    filename: 'poll-image.jpg',
                     contentType: 'image/jpeg',
                 },
             },
         },
     })
-    @ApiOperation({ summary: 'Get presigned upload URL for survey images' })
+    @ApiOperation({ summary: 'Get presigned upload URL for poll images' })
     @ApiResponse({ 
         status: 200,
         description: 'Presigned Upload URL generated',
@@ -64,34 +64,34 @@ export class SurveyController {
         }
     })
     async getPresignedUploadUrl(@Body() body: CreatePresignedUrlDto): Promise<CommonEntity> {
-        return this.surveyService.generatePresignedUploadUrl(body);
+        return this.pollService.generatePresignedUploadUrl(body);
     }
 
     @Post()
-    @ApiBody({ type: CreateSurveyDto })
-    @ApiOperation({ summary: 'Create a new Survey' })
+    @ApiBody({ type: CreatePollDto })
+    @ApiOperation({ summary: 'Create a new Poll' })
     @ApiResponse({ 
         status: 201,
-        description: 'Survey created successfully',
+        description: 'Poll created successfully',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 201 },
-                message: { type: 'string', example: 'Survey created successfully' },
-                data: { $ref: getSchemaPath(SurveyEntity) }
+                message: { type: 'string', example: 'Poll created successfully' },
+                data: { $ref: getSchemaPath(PollEntity) }
             }
         },
         examples: {
             'application/json': {
-                summary: 'Sample response with created survey',  
+                summary: 'Sample response with created poll',  
                 value: {
                     statusCode: 201,
-                    message: 'Survey created successfully',
+                    message: 'Poll created successfully',
                     data: {
                         id: '123e4567-e89b-12d3-a456-426614174000',
                         createdBy: '123e4567-e89b-12d3-a456-426614174001',
-                        image: 'https://example.com/survey-image.jpg',
-                        title: 'Customer Satisfaction Survey',
+                        image: 'https://example.com/poll-image.jpg',
+                        title: 'Customer Satisfaction Poll',
                         description: 'Help us improve our services',
                         branch: '123e4567-e89b-12d3-a456-426614174003',
                         targetAudience: 'ALL',
@@ -102,43 +102,43 @@ export class SurveyController {
             }
         }
     })
-    async create(@Body(BranchValidationPipe) createSurveyDto: CreateSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
-        return this.surveyService.create(createSurveyDto, req.user);
+    async create(@Body(BranchValidationPipe) createPollDto: CreatePollDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+        return this.pollService.create(createPollDto, req.user);
     }
 
     @Get()
-    @ApiGetAll('Survey', SurveyEntity)
+    @ApiGetAll('Poll', PollEntity)
     @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number for pagination' })
     @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of items per page' })
-    @ApiOperation({ summary: `Get all Surveys` })
+    @ApiOperation({ summary: `Get all Polls` })
     @ApiResponse({
         status: 200,
-        description: 'List of Surveys',
+        description: 'List of Polls',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 200 },
-                message: { type: 'string', example: 'List of Surveys' },
+                message: { type: 'string', example: 'List of Polls' },
                 data: { 
                     type: 'array',
-                    items: { $ref: getSchemaPath(SurveyEntity) }
+                    items: { $ref: getSchemaPath(PollEntity) }
                 }
             }
         },
         examples: {
             'application/json': {
-                summary: 'Sample response with surveys',  
+                summary: 'Sample response with polls',  
                 value: {
                     statusCode: 200,
-                    message: 'List of Surveys',
+                    message: 'List of Polls',
                     data: [
                         {
                             id: '123e4567-e89b-12d3-a456-426614174000',
                             createdBy: '123e4567-e89b-12d3-a456-426614174001',
                             updatedBy: '123e4567-e89b-12d3-a456-426614174002',
-                            image: 'https://example.com/survey-image.jpg',
-                            commentAdmin: 'Admin comment about the survey',
-                            title: 'Customer Satisfaction Survey',
+                            image: 'https://example.com/poll-image.jpg',
+                            commentAdmin: 'Admin comment about the poll',
+                            title: 'Customer Satisfaction Poll',
                             description: 'Help us improve our services',
                             branch: '123e4567-e89b-12d3-a456-426614174003',
                             targetAudience: 'ALL',
@@ -148,8 +148,8 @@ export class SurveyController {
                         {
                             id: '123e4567-e89b-12d3-a456-426614174005',
                             createdBy: '123e4567-e89b-12d3-a456-426614174001',
-                            image: 'https://example.com/survey-image2.jpg',
-                            title: 'Product Satisfaction Survey',
+                            image: 'https://example.com/poll-image2.jpg',
+                            title: 'Product Satisfaction Poll',
                             description: 'Rate our products',
                             branch: '123e4567-e89b-12d3-a456-426614174003',
                             targetAudience: 'STUDENT',
@@ -163,12 +163,12 @@ export class SurveyController {
     })
     @ApiResponse({
         status: 500,
-        description: 'Failed to fetch Surveys',
+        description: 'Failed to fetch Polls',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 500 },
-                message: { type: 'string', example: 'Failed to fetch Surveys' },
+                message: { type: 'string', example: 'Failed to fetch Polls' },
                 error: { type: 'string', example: 'Internal Server Error' }
             }
         }
@@ -178,32 +178,32 @@ export class SurveyController {
         @Query('page') page?: number,
         @Query('limit') limit?: number,
     ): Promise<CommonEntity> {
-        return this.surveyService.getAll(req?.user?.userId, { page, limit });
+        return this.pollService.getAll(req?.user?.userId, { page, limit });
     }
 
     @Get(':id')
-    @ApiOperation({ summary: `Get Survey by ID` })
-    @ApiExtraModels(SurveyWithQuestionsEntity)
+    @ApiOperation({ summary: `Get Poll by ID` })
+    @ApiExtraModels(PollWithQuestionsEntity)
     @ApiResponse({ 
         status: 200,
-        description: 'Survey details',
+        description: 'Poll details',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 200 },
-                message: { type: 'string', example: 'Survey details' },
-                data: { $ref: getSchemaPath(SurveyWithQuestionsEntity) }
+                message: { type: 'string', example: 'Poll details' },
+                data: { $ref: getSchemaPath(PollWithQuestionsEntity) }
             }
         },
         examples: {
             'application/json': {
-                summary: 'Sample response with survey details',  
+                summary: 'Sample response with poll details',  
                 value: {
                     statusCode: 200,
-                    message: 'Survey details',
+                    message: 'Poll details',
                     data: {
                         id: '1',
-                        title: 'Customer Feedback Survey',
+                        title: 'Customer Feedback Poll',
                         description: 'Tell us about your experience',
                         status: 'ACTIVE',
                         questions: [
@@ -226,7 +226,7 @@ export class SurveyController {
                         updatedAt: '2023-10-01T00:00:00Z',
                         createdBy: '123e4567-e89b-12d3-a456-426614174001',
                         updatedBy: '123e4567-e89b-12d3-a456-426614174001',
-                        image: 'https://example.com/survey-image.jpg',
+                        image: 'https://example.com/poll-image.jpg',
                         branch: '123e4567-e89b-12d3-a456-426614174003',
                         targetAudience: 'ALL'
                     }
@@ -236,47 +236,47 @@ export class SurveyController {
     })
     @ApiResponse({
         status: 500,
-        description: 'Failed to fetch Survey details',
+        description: 'Failed to fetch Poll details',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 500 },
-                message: { type: 'string', example: 'Failed to fetch Survey details' },
+                message: { type: 'string', example: 'Failed to fetch Poll details' },
                 error: { type: 'string', example: 'Internal Server Error' }
             }
         }
     })
     async getOne(@Param('id') id: string) {
-        return this.surveyService.getOne(id);
+        return this.pollService.getOne(id);
     }
 
     @Put(':id')
-    @ApiBody({ type: UpdateSurveyDto })
-    @ApiOperation({ summary: 'Update an existing Survey' })
+    @ApiBody({ type: UpdatePollDto })
+    @ApiOperation({ summary: 'Update an existing Poll' })
     @ApiResponse({ 
         status: 200,
-        description: 'Survey updated successfully',
+        description: 'Poll updated successfully',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 200 },
-                message: { type: 'string', example: 'Survey updated successfully' },
-                data: { $ref: getSchemaPath(SurveyEntity) }
+                message: { type: 'string', example: 'Poll updated successfully' },
+                data: { $ref: getSchemaPath(PollEntity) }
             }
         },
         examples: {
             'application/json': {
-                summary: 'Sample response with updated survey',  
+                summary: 'Sample response with updated poll',  
                 value: {
                     statusCode: 200,
-                    message: 'Survey updated successfully',
+                    message: 'Poll updated successfully',
                     data: {
                         id: '123e4567-e89b-12d3-a456-426614174000',
                         createdBy: '123e4567-e89b-12d3-a456-426614174001',
                         updatedBy: '123e4567-e89b-12d3-a456-426614174001',
-                        image: 'https://example.com/survey-image-updated.jpg',
-                        commentAdmin: 'This survey has been reviewed and approved',
-                        title: 'Updated Customer Satisfaction Survey',
+                        image: 'https://example.com/poll-image-updated.jpg',
+                        commentAdmin: 'This poll has been reviewed and approved',
+                        title: 'Updated Customer Satisfaction Poll',
                         description: 'Help us improve our services - updated version',
                         branch: '123e4567-e89b-12d3-a456-426614174003',
                         targetAudience: 'ALL',
@@ -289,79 +289,79 @@ export class SurveyController {
     })
     async update(
         @Param('id') id: string,
-        @Body(BranchValidationPipe) updateSurveyDto: UpdateSurveyDto,
+        @Body(BranchValidationPipe) updatePollDto: UpdatePollDto,
         @Req() req: CustomRequest,
     ): Promise<CommonEntity> {
-        return this.surveyService.update(id, updateSurveyDto, req.user);
+        return this.pollService.update(id, updatePollDto, req.user);
     }
 
     @Delete(':id')
-    @ApiOperation({ summary: 'Delete a Survey' })
+    @ApiOperation({ summary: 'Delete a Poll' })
     @ApiResponse({
         status: 200,
-        description: 'Survey deleted successfully',
+        description: 'Poll deleted successfully',
         schema: {
             type: 'object',
             properties: {
                 statusCode: { type: 'number', example: 200 },
-                message: { type: 'string', example: 'Survey deleted successfully' },
+                message: { type: 'string', example: 'Poll deleted successfully' },
                 data: { type: 'object', example: {} }
             }
         },
         examples: {
             'application/json': {
-                summary: 'Sample response after survey deletion',  
+                summary: 'Sample response after poll deletion',
                 value: {
                     statusCode: 200,
-                    message: 'Survey deleted successfully',
+                    message: 'Poll deleted successfully',
                     data: {}
                 }
             }
         }
     })
     async remove(@Param('id') id: string): Promise<CommonEntity> {
-        return this.surveyService.delete(id);
+        return this.pollService.delete(id);
     }
 
-    @Post('submit')
-    @ApiBody({ type: SubmitSurveyDto })
-    @ApiOperation({ summary: 'Submit a Survey response' })
-    @ApiResponse({ 
-        status: 201,
-        description: 'Survey response submitted successfully',
-        schema: {
-            type: 'object',
-            properties: {
-                statusCode: { type: 'number', example: 201 },
-                message: { type: 'string', example: 'Survey response submitted successfully' },
-                data: { $ref: getSchemaPath(SurveyResponseEntity) }
-            }
-        },
-        examples: {
-            'application/json': {
-                summary: 'Sample response after survey submission',  
-                value: {
-                    statusCode: 201,
-                    message: 'Survey response submitted successfully',
-                    data: {
-                        surveyId: '123e4567-e89b-12d3-a456-426614174000',
-                        userId: '123e4567-e89b-12d3-a456-426614174001',
-                        responses: [
-                            {
-                                questionId: '123e4567-e89b-12d3-a456-426614174002',
-                                answerIndex: 1
-                            },
-                            {
-                                questionId: '123e4567-e89b-12d3-a456-426614174003',
-                                answerIndex: 2
-                            }
-                        ]
-                    }
-                }
-            }
-        }
-    })
-    async submitSurvey(@Body() submitSurveyDto: SubmitSurveyDto, @Req() req: CustomRequest): Promise<CommonEntity> {
-        return this.surveyService.submitSurvey(submitSurveyDto, req.user);
-    }
+    // @Post('submit')
+    // @ApiBody({ type: SubmitPollDto })
+    // @ApiOperation({ summary: 'Submit a Poll response' })
+    // @ApiResponse({ 
+    //     status: 201,
+    //     description: 'Poll response submitted successfully',
+    //     schema: {
+    //         type: 'object',
+    //         properties: {
+    //             statusCode: { type: 'number', example: 201 },
+    //             message: { type: 'string', example: 'Poll response submitted successfully' },
+    //             data: { $ref: getSchemaPath(PollResponseEntity) }
+    //         }
+    //     },
+    //     examples: {
+    //         'application/json': {
+    //             summary: 'Sample response after poll submission',  
+    //             value: {
+    //                 statusCode: 201,
+    //                 message: 'Poll response submitted successfully',
+    //                 data: {
+    //                     pollId: '123e4567-e89b-12d3-a456-426614174000',
+    //                     userId: '123e4567-e89b-12d3-a456-426614174001',
+    //                     responses: [
+    //                         {
+    //                             questionId: '123e4567-e89b-12d3-a456-426614174002',
+    //                             answerIndex: 1
+    //                         },
+    //                         {
+    //                             questionId: '123e4567-e89b-12d3-a456-426614174003',
+    //                             answerIndex: 2
+    //                         }
+    //                     ]
+    //                 }
+    //             }
+    //         }
+    //     }
+    // })
+    // async submitPoll(@Body() submitPollDto: SubmitPollDto, @Req() req: CustomRequest): Promise<CommonEntity> {
+    //     return this.pollService.submitPoll(submitPollDto, req.user);
+    // }
 }

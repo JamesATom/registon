@@ -169,12 +169,10 @@ export class EventController {
         }
     })
     async getAll(
-        @Query() filter: EventFilterDto,
-        @Req() req: CustomRequest,
         @Query('page') page?: number,
         @Query('limit') limit?: number,
     ) {
-        return this.eventService.getAll(filter, req?.user, { page, limit });
+        return this.eventService.getAll({ page, limit });
     }
 
     @Get(':id')

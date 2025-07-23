@@ -67,13 +67,9 @@ export class EventService {
         );
     }
 
-    async getAll(filter: EventFilterDto, user: any, paginationParams?: { page?: number; limit?: number }): Promise<CommonEntity> {
-        const userId = user?.userId || user?.userData?._id;
-        (filter as any).userId = userId;
-        
-        // Merge pagination parameters into filter
-        const fullFilter = { ...filter, ...(paginationParams || {}) };
-        
+    async getAll(paginationParams?: { page?: number; limit?: number }): Promise<CommonEntity> {
+        const fullFilter = { ...(paginationParams || {}) };
+
         return firstValueFrom(
             this.client.send(MessagePatterns.Event.V1.GET_ALL, fullFilter).pipe(
                 timeout(this.REQUEST_TIMEOUT),

@@ -1,12 +1,12 @@
-// survey.entity.ts
+// poll.entity.ts
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SurveyQuestionEntity {
+export class PollQuestionEntity {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   id: string;
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174001' })
-  surveyId: string;
+  pollId: string;
 
   @ApiProperty({ example: 'What is your opinion about our service?' })
   question: string;
@@ -45,12 +45,12 @@ export class SurveyQuestionEntity {
   answer5Qty: number;
 }
 
-export class SurveyParticipantEntity {
+export class PollParticipantEntity {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   id: string;
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174001' })
-  surveyId: string;
+  pollId: string;
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174002' })
   userId: string;
@@ -59,7 +59,7 @@ export class SurveyParticipantEntity {
   takenAt: Date;
 }
 
-export class SurveyEntity {
+export class PollEntity {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   id: string;
 
@@ -69,13 +69,13 @@ export class SurveyEntity {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174002', required: false })
   updatedBy?: string;
 
-  @ApiProperty({ example: 'https://example.com/survey-image.jpg' })
+  @ApiProperty({ example: 'https://example.com/poll-image.jpg' })
   image: string;
 
-  @ApiProperty({ example: 'Admin comment about the survey', required: false })
+  @ApiProperty({ example: 'Admin comment about the poll', required: false })
   commentAdmin?: string;
 
-  @ApiProperty({ example: 'Customer Satisfaction Survey' })
+  @ApiProperty({ example: 'Customer Satisfaction Poll' })
   title: string;
 
   @ApiProperty({ example: 'Help us improve our services', required: false })
@@ -94,14 +94,14 @@ export class SurveyEntity {
   updatedAt: Date;
 }
 
-export class SurveyWithQuestionsEntity extends SurveyEntity {
-  @ApiProperty({ type: [SurveyQuestionEntity] })
-  questions: SurveyQuestionEntity[];
+export class PollWithQuestionsEntity extends PollEntity {
+  @ApiProperty({ type: [PollQuestionEntity] })
+  questions: PollQuestionEntity[];
 }
 
-export class SurveyResponseEntity {
+export class PollResponseEntity {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
-  surveyId: string;
+  pollId: string;
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174001' })
   userId: string;

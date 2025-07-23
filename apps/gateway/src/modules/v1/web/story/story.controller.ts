@@ -118,11 +118,10 @@ export class StoryController {
     })
     @ApiInternalServerErrorResponse(`Failed to fetch Stories`)
     async getAll(
-        @Query() filter: FilterStoryDto,
         @Query('page') page?: number,
         @Query('limit') limit?: number,
     ) {
-        return this.storyService.getAll(filter, { page, limit });
+        return this.storyService.getAll({ page, limit });
     }
 
     @Get(':id')
@@ -163,14 +162,6 @@ export class StoryController {
                                 image: 'https://example.com/item1.jpg',
                                 orderNumber: 1
                             },
-                            {
-                                id: '102',
-                                storyId: '1',
-                                title: 'Item Title 2',
-                                description: 'Detailed description of the second item',
-                                image: 'https://example.com/item2.jpg',
-                                orderNumber: 2
-                            }
                         ],
                         createdAt: '2023-10-01T00:00:00Z',
                         updatedAt: '2023-10-01T00:00:00Z'

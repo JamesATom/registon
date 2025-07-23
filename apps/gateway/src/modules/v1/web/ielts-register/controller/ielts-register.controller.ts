@@ -1,5 +1,5 @@
 // ielts-register.controller.ts
-import { Controller, Get, Post, Body, Req, Param, UseGuards, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Req, Param, UseGuards, Query, Put, Delete } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags, ApiResponse, ApiOperation, getSchemaPath, ApiExtraModels } from '@nestjs/swagger';
 import { JwtHttpAuthGuard } from 'src/common/guards/auth/http-auth.guard';
 import { CustomRequest } from 'src/common/types/types';
@@ -146,8 +146,11 @@ export class IeltsRegisterController {
             }
         }
     })
-    async getAll(): Promise<CommonEntity> {
-        return this.ieltsRegisterService.getAll();
+    async getAll(
+        @Query('page') page?: number,
+        @Query('limit') limit?: number,
+    ): Promise<CommonEntity> {
+        return this.ieltsRegisterService.getAll({ page, limit });
     }
 
     @Get(':id')

@@ -6,50 +6,51 @@ import { RedisService } from '../../redis/redis.service';
 
 @Injectable()
 export class AuthService {
-    private API_URL = process.env.REGISTON_BACKEND_URL_FRONT_WEB;
+    private API_URL = process.env.REGISTON_BACKEND_URL_INTERNAL;
     private readonly logger = new Logger(AuthService.name);
 
     constructor(private readonly redisService: RedisService) {}
 
-    async signIn(phoneNumber: string): Promise<CommonEntity> {
-        const url = `${this.API_URL}/sign-in`;
-        const data = {
-            phoneNumber: phoneNumber,
-        };
-        try {
-            return {
-                statusCode: HttpStatus.OK,
-                message: 'Sign-in successful',
-                data: await axios.post(url, data).then((res) => res.data)
-            }
-        } catch (error) {
-            this.logger.error('Error during sign-in', error);
-        }
-    }
+    // async signIn(phoneNumber: string): Promise<CommonEntity> {
+    //     const url = `${this.API_URL}/sign-in`;
+    //     const data = {
+    //         phoneNumber: phoneNumber,
+    //     };
+    //     try {
+    //         return {
+    //             statusCode: HttpStatus.OK,
+    //             message: 'Sign-in successful',
+    //             data: await axios.post(url, data).then((res) => res.data)
+    //         }
+    //     } catch (error) {
+    //         this.logger.error('Error during sign-in', error);
+    //     }
+    // }
 
-    async signVerify(phoneNumber: string, otp: string): Promise<CommonEntity> {
-        const url = `${this.API_URL}/sign-verify`;
-        const data = {
-            phoneNumber: phoneNumber,
-            otp: otp,
-        };
+    // async signVerify(phoneNumber: string, otp: string): Promise<CommonEntity> {
+    //     const url = `${this.API_URL}/sign-verify`;
+    //     const data = {
+    //         phoneNumber: phoneNumber,
+    //         otp: otp,
+    //     };
 
-        try {
-            const response = await axios.post(url, data);
+    //     try {
+    //         const response = await axios.post(url, data);
 
-            await this.redisService.setUserData(phoneNumber, response.data, 86400);
-            return {
-                statusCode: HttpStatus.OK,
-                message: 'Sign verification successful',
-                data: response.data
-            };
-        } catch (error) {
-            this.logger.error('Error during sign verification', error);
-        }
-    }
+    //         await this.redisService.setUserData(phoneNumber, response.data, 86400);
+    //         return {
+    //             statusCode: HttpStatus.OK,
+    //             message: 'Sign verification successful',
+    //             data: response.data
+    //         };
+    //     } catch (error) {
+    //         this.logger.error('Error during sign verification', error);
+    //     }
+    // }
 
     async signWithPassword(phoneNumber: string, password: string): Promise<CommonEntity> {
         const url = `${this.API_URL}/sign-with-password`;
+        console.log('url', url);
         const data = {
             phoneNumber: phoneNumber,
             password: password,
@@ -57,11 +58,11 @@ export class AuthService {
 
         try {
             const response = await axios.post(url, data, {
-                headers: {
-                    'organization': 'amuwebschool'
-                }
+                // headers: {
+                //     'organization': 'amuwebschool'
+                // }
             });
-
+            console.log('Response from signWithPassword:', response.data);
             await this.redisService.setUserData(phoneNumber, response.data, 86400);
             
             return {

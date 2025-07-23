@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class SignWithPasswordDto {
-    @ApiProperty({ example: '+998908131947' })
+    @ApiProperty({ example: '+998900951405' })
     @IsString()
     phoneNumber: string;
 

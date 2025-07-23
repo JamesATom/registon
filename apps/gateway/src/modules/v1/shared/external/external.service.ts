@@ -8,7 +8,7 @@ import { RedisService } from '../redis/redis.service';
 export class ExternalService {
     private readonly logger = new Logger(ExternalService.name);
     private readonly directToken: string | undefined;
-    private readonly API_URL = process.env.REGISTON_BACKEND_URL_FRONT_WEB;
+    private readonly API_URL = process.env.REGISTON_BACKEND_URL_INTERNAL;
     private readonly ORGANIZATION = process.env.REGISTON_ORGANIZATION;
 
     constructor(
@@ -27,7 +27,6 @@ export class ExternalService {
     private async getBranchIdFromToken(token: string): Promise<string | null> {
         try {
             const userData = await this.redisService.getUserByToken(token);
-            
             if (userData && userData.userData && userData.userData.branches && userData.userData.branches.length > 0) {
                 return userData.userData.branches[0]._id;
             }
@@ -105,10 +104,67 @@ export class ExternalService {
         }
     }
 
+    async getGroupList(token?: string, limit?: number, page?: number): Promise<any> {
+        const branchId = await this.getBranchIdFromToken(token || this.directToken);
+
+        const url = `${this.API_URL}/group-pagin`;
+        const headers = {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token || this.directToken || ''}`,
+            organization: this.ORGANIZATION || 'amuwebschool',
+            branch: branchId || '',
+        };
+        const params = { limit, page };
+
+        try {
+            const response = await axios.post(
+                url,
+                {},
+                { headers, params },
+            );
+            
+            return response.data;
+        } catch (error: any) {
+            this.logger.error('Error fetching group list', error?.response?.data || error.message);
+            return null;
+        }
+    }
+
     private getExistingToken(token: string): string | undefined {
         if (!token) {
             return this.directToken;
         }
         return token;
     }
+
+    async getStudentList(token?: string, limit?: number, page?: number): Promise<any> {
+        const branchId = await this.getBranchIdFromToken(this.getExistingToken(token)) ?? '65cd025ab4bc44b5aa86c672';
+        const url = `${this.API_URL}/student-list/students-pagin`;
+        const headers = {
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.getExistingToken(token) || token}`,
+            organization: this.ORGANIZATION || 'amuwebschool',
+            branch: branchId || '',
+        };
+        const body = { 
+            sortOrder: -1,
+            sortBy: '_id',
+            page: 1,
+            limit: 50, 
+        };
+
+        try {
+            const response = await axios.post(
+                url,
+                body,
+                { headers },
+            );
+
+            return response.data;
+        } catch (error: any) {
+            this.logger.error('Error fetching student list', error?.response?.data || error.message);
+            return null;
+        }
+    }
+
 }

@@ -1,39 +1,22 @@
-// survey-question.dto.ts
+// submit-poll.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsArray, MaxLength, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class SurveyQuestionDto {
-    @ApiPropertyOptional({ description: 'Question ID (optional for creation)' })
-    @IsOptional()
-    @IsString()
-    id?: string;
-
+export class SubmitPollQuestionDto {
     @ApiProperty({
-        description: 'Question text',
-        maxLength: 100,
-        example: 'How would you rate our service?',
+        description: 'Unique identifier for the question',
+        example: '60f7c0c2b4d1c72d88f8e8a3',
     })
     @IsNotEmpty()
     @IsString()
-    @MaxLength(100)
-    question: string;
-
-    @ApiPropertyOptional({
-        description: 'Additional description for the question',
-        maxLength: 250,
-        example: 'Please provide your honest feedback about our customer service',
-    })
-    @IsOptional()
-    @IsString()
-    @MaxLength(250)
-    description?: string;
+    id: string;
 
     @ApiProperty({
         description: 'First answer option',
         maxLength: 50,
         example: 'Excellent',
     })
-    @IsNotEmpty()
     @IsString()
     @MaxLength(50)
     answer1: string;
@@ -43,7 +26,6 @@ export class SurveyQuestionDto {
         maxLength: 50,
         example: 'Good',
     })
-    @IsNotEmpty()
     @IsString()
     @MaxLength(50)
     answer2: string;
@@ -77,4 +59,21 @@ export class SurveyQuestionDto {
     @IsString()
     @MaxLength(50)
     answer5?: string;
+}
+
+export class SubmitPollDto {
+    @ApiProperty({ description: 'Poll ID', example: '1234567890abcdef12345678' })
+    @IsString()
+    @IsNotEmpty()
+    pollId: string;
+
+    @ApiPropertyOptional({
+        description: 'Poll questions',
+        type: [SubmitPollQuestionDto],
+    })
+    @IsOptional()
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => SubmitPollQuestionDto)
+    questions?: SubmitPollQuestionDto[];
 }

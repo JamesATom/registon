@@ -1,14 +1,14 @@
-// update-survey.dto.ts
+// update-poll.dto.ts
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsArray, IsEnum, IsMongoId, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { SurveyQuestionDto } from './survey-question.dto';
+import { PollQuestionDto } from './poll-question.dto';
 
-export class UpdateSurveyDto {
+export class UpdatePollDto {
     @ApiPropertyOptional({
-        description: 'Survey title',
+        description: 'Poll title',
         maxLength: 100,
-        example: 'Student Satisfaction Survey',
+        example: 'Student Satisfaction Poll',
     })
     @IsOptional()
     @IsString()
@@ -16,7 +16,7 @@ export class UpdateSurveyDto {
     title?: string;
 
     @ApiPropertyOptional({
-        description: 'Survey image URL',
+        description: 'Poll image URL',
         example: 'https://registon.bucket-name/2398ujfajfj92/image.jpg',
     })
     @IsOptional()
@@ -24,14 +24,14 @@ export class UpdateSurveyDto {
     image?: string;
 
     @ApiPropertyOptional({
-        description: 'Survey questions',
-        type: [SurveyQuestionDto],
+        description: 'Poll questions',
+        type: [PollQuestionDto],
     })
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => SurveyQuestionDto)
-    questions?: SurveyQuestionDto[];
+    @Type(() => PollQuestionDto)
+    questions?: PollQuestionDto[];
 
     @ApiPropertyOptional({
         description: 'Branch ID',
@@ -51,9 +51,9 @@ export class UpdateSurveyDto {
     targetAudience?: 'ALL' | 'TEACHER' | 'STUDENT';
 
     @ApiPropertyOptional({
-        description: 'Admin comment about the survey',
+        description: 'Admin comment about the poll',
         maxLength: 250,
-        example: 'This survey is for the summer quarter evaluation.',
+        example: 'This poll is for the summer quarter evaluation.',
     })
     @IsString()
     @MaxLength(250)

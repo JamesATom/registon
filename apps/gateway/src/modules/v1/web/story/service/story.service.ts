@@ -65,11 +65,9 @@ export class StoryService {
         );
     }
 
-    async getAll(filter: FilterStoryDto, pagination?: { page?: number; limit?: number }): Promise<CommonEntity> {
-        const payload = { ...filter, ...pagination };
-        
+    async getAll(pagination?: { page?: number; limit?: number }): Promise<CommonEntity> {
         return firstValueFrom(
-            this.client.send(MessagePatterns.Story.V1.GET_ALL, payload).pipe(
+            this.client.send(MessagePatterns.Story.V1.GET_ALL, pagination).pipe(
                 timeout(this.REQUEST_TIMEOUT),
                 catchError((error) => {
                     throw error;
